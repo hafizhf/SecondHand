@@ -16,12 +16,5 @@ class JualFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_jual, container, false)
     }
 
-    companion object {
-        fun newInstane(): JualFragment {
-            val fragment = JualFragment()
-            val args = Bundle()
-            fragment.arguments = args
-            return fragment
-        }
-    }
+
 }

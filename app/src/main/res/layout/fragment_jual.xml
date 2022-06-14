@@ -93,7 +93,7 @@
             app:boxCornerRadiusTopEnd="18dp"
             app:boxCornerRadiusTopStart="18dp"
             app:boxStrokeColor="@color/second_hand_neutral2"
-            app:boxStrokeWidth="1dp"
+            app:boxStrokeWidth="0.9dp"
 
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
 

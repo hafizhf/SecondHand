@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigation : BottomNavigationView = findViewById(R.id.bottom_navigation)
         bottomNavigation.isSelected
 
-        bottom_navigation.setOnNavigationItemSelectedListener { item ->
+        bottomNavigation.setOnNavigationItemSelectedListener { item ->
 
             when (item.itemId) {
                 R.id.menu_home -> {
