@@ -21,8 +21,29 @@
         <entry key="..\:/Users/Muhajir/AndroidStudioProjects/SecondHand/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
         <entry key="..\:/Users/Muhajir/AndroidStudioProjects/SecondHand/app/src/main/res/layout/component_example.xml" value="0.358695652173913" />
         <entry key="..\:/Users/Muhajir/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_akun.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/Muhajir/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home.xml" value="0.358695652173913" />
         <entry key="..\:/Users/Muhajir/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_jual.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable/home_gradient.xml" value="0.22552083333333334" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable/ic_fi_arrow_left.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable/ic_fi_log_out.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable/ic_fi_plus.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable/ic_fi_settings.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable/ic_icon_bell.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable/ic_icon_home.xml" value="0.22552083333333334" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable/ic_icon_list.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable/ic_icon_plus_circle.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable/ic_icon_user.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable/ic_logo.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable/ic_logo_white.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/component_example.xml" value="0.18" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_akun.xml" value="0.2" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home.xml" value="0.18" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_jual.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_login.xml" value="0.15989583333333332" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_notifikasi.xml" value="0.15989583333333332" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_register.xml" value="0.1371640407784986" />
       </map>
     </option>
   </component>
