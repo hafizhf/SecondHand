@@ -1,14 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:orientation="vertical"
+            android:background="@drawable/home_gradient">
+
+            <SearchView
+                android:id="@+id/search_bar"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:background="@color/white"
+                android:queryHint="Cari di Second Chance"
+                android:iconifiedByDefault="false"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="40dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Bulan Ramadhan Banyak Diskon!"
+                        style="@style/Heading1"/>
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="10dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Diskon Hingga"
+                        style="@style/Body1"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="60%"
+                        android:textColor="@color/second_hand_danger"
+                        style="@style/Heading3"/>
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:src="@drawable/dummy1"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="40dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Telusuri Kategori"
+                style="@style/Heading3"
+                android:layout_marginStart="20dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
