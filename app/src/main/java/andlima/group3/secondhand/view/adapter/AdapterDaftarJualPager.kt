@@ -1,19 +1,19 @@
 package andlima.group3.secondhand.view.adapter
 
+import andlima.group3.secondhand.view.daftarjual.DiminatiFragment
+import andlima.group3.secondhand.view.daftarjual.ProdukFragment
+import andlima.group3.secondhand.view.daftarjual.TerjualFragment
 import andlima.group3.secondhand.view.homepager.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
-class AdapterHomePager(fragmentManager: FragmentManager): FragmentPagerAdapter(fragmentManager) {
+class AdapterDaftarJualPager(fragmentManager: FragmentManager): FragmentPagerAdapter(fragmentManager) {
 
     private val pages = listOf(
-        SemuaFragment(),
-        HobiFragment(),
-        KendaraanFragment(),
-        AksesorisFragment(),
-        ElektronikFragment(),
-        KesehatanFragment()
+        ProdukFragment(),
+        DiminatiFragment(),
+        TerjualFragment()
     )
 
 
@@ -27,12 +27,9 @@ class AdapterHomePager(fragmentManager: FragmentManager): FragmentPagerAdapter(f
 
     override fun getPageTitle(position: Int): CharSequence {
         return when(position) {
-            0 -> "Semua"
-            1 -> "Hobi"
-            2 -> "Kendaraan"
-            3 -> "Aksesoris"
-            4 -> "Elektronik"
-            5 -> "Kesehatan"
+            0 -> "Produk"
+            1 -> "Diminati"
+            2 -> "Terjual"
             else -> "N/A"
         }
     }
