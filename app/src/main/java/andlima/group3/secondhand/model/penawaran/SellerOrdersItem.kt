@@ -5,7 +5,7 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
-@Parcelize
+//@Parcelize
 data class SellerOrdersItem(
     @SerializedName("buyer_id")
     val buyerId: Int,
@@ -25,4 +25,5 @@ data class SellerOrdersItem(
     val updatedAt: String,
     @SerializedName("User")
     val user: User
-) : Parcelable
+)
+//    : Parcelable
