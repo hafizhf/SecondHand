@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.HomeFragment">
 
     <LinearLayout
@@ -88,7 +88,68 @@
                 style="@style/Heading3"
                 android:layout_marginStart="20dp"/>
 
+            <View
+                android:layout_width="0dp"
+                android:layout_height="15dp"/>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tabs_home"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabMode="scrollable"
+
+                android:background="@color/second_hand_transparent"
+                app:tabRippleColor="@color/second_hand_transparent"
+
+                app:tabIndicator="@drawable/tab_indicator"
+                app:tabIndicatorHeight="47dp"
+                app:tabIndicatorGravity="center"
+                app:tabSelectedTextColor="@color/white"
+
+                app:tabPaddingStart="20dp"
+                app:tabPaddingEnd="20dp"
+
+                app:tabContentStart="42dp">
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Semua"/>
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hobi"/>
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kendaraan"/>
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Aksesoris"/>
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Elektronik"/>
+
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Kesehatan"/>
+
+            </com.google.android.material.tabs.TabLayout>
+
         </LinearLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager_home"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>
 
