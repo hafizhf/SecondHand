@@ -16,4 +16,12 @@
     <string name="deskripsi">Deskripsi</string>
     <string name="terbitkan">Terbitkan</string>
     <string name="preview">Preview</string>
+    <string name="daftar_jual_saya">Daftar Jual Saya</string>
+    <string name="nama_penjual">Nama Penjual</string>
+    <string name="kota">Kota</string>
+    <string name="produk">Produk</string>
+    <string name="aksesoris">Aksesoris</string>
+    <string name="jam_tangan_casio">Jam Tangan Casio</string>
+    <string name="penawaran_produk">Penawaran produk</string>
+    <string name="ditawar_rp_150_000">Ditawar Rp 150.000</string>
 </resources>
