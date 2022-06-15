@@ -51,12 +51,14 @@
                     android:layout_marginTop="16dp"
                     android:id="@+id/tv_namaPenjual"
                     style="@style/Heading3"/>
+
                 <TextView
+                    style="@style/Body2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/kota"
+                    android:id="@+id/tv_kotaPenjual"
                     android:layout_below="@id/tv_namaPenjual"
-                    style="@style/Body2"/>
+                    android:text="@string/kota" />
 
                 <Button
                     android:layout_width="70dp"
@@ -77,147 +79,197 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <HorizontalScrollView
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs_daftar_jual"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/cardPenjual"
-        android:layout_marginTop="10dp"
-        android:fillViewport="true"
-        android:id="@+id/horizontalScroll"
-        android:scrollbars="none">
-
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:columnCount="3">
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="140dp"
-                android:layout_height="50dp"
-                app:cardCornerRadius="12dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginStart="10dp"
-                app:cardBackgroundColor="@color/second_hand_primary">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/produk"
-                        android:textColor="@color/white"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="30dp"
-                        android:id="@+id/txtProduk"
-                        style="@style/Heading3"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:id="@+id/imageBox"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/ic_fi_box"
-                        android:layout_toStartOf="@id/txtProduk"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginEnd="5dp"/>
-                </RelativeLayout>
-
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="140dp"
-                android:layout_height="50dp"
-                app:cardCornerRadius="12dp"
-                android:layout_marginEnd="15dp"
-                app:cardBackgroundColor="@color/second_hand_secondary">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/txtDiminati"
-                        style="@style/Heading3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="20dp"
-                        android:text="Diminati"
-                        android:textColor="@color/second_hand_neutral4" />
-
-                    <ImageView
-                        android:id="@+id/imageHeart"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_toStartOf="@id/txtDiminati"
-                        android:background="@drawable/ic_fi_heart"
-                        android:backgroundTint="@color/second_hand_neutral4" />
-                </RelativeLayout>
-
-
-            </com.google.android.material.card.MaterialCardView>
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="140dp"
-                android:layout_height="50dp"
-                app:cardCornerRadius="12dp"
-                app:cardBackgroundColor="@color/second_hand_secondary">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/txtTerjual"
-                        style="@style/Heading3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="30dp"
-                        android:text="Terjual"
-                        android:textColor="@color/second_hand_neutral4" />
-
-                    <ImageView
-                        android:id="@+id/imageDollar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:layout_marginEnd="5dp"
-                        android:backgroundTint="@color/second_hand_neutral4"
-                        android:layout_toStartOf="@id/txtTerjual"
-                        android:background="@drawable/ic_fi_box" />
-                </RelativeLayout>
-
-
-            </com.google.android.material.card.MaterialCardView>
-        </GridLayout>
-
-    </HorizontalScrollView>
-
-    <LinearLayout
-        android:layout_width="170dp"
-        android:layout_height="220dp"
-        android:layout_below="@id/horizontalScroll"
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
-        android:background="@drawable/component_border_dotted"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_marginEnd="15dp"
 
-        <ImageView
+        android:background="@color/second_hand_transparent"
+        app:tabContentStart="42dp"
+
+        app:tabIndicator="@drawable/tab_indicator"
+        app:tabIndicatorGravity="center"
+        app:tabIndicatorHeight="47dp"
+        app:tabPaddingEnd="20dp"
+
+        app:tabPaddingStart="20dp"
+        app:tabRippleColor="@color/second_hand_transparent"
+
+        app:tabSelectedTextColor="@color/white">
+
+        <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_fi_plus"
-            android:backgroundTint="@color/second_hand_neutral3" />
+            android:text="@string/produk" />
 
-        <TextView
-            style="@style/Body2"
+        <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tambah Produk" />
+            android:text="@string/diminati" />
 
-    </LinearLayout>
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/terjual" />
+
+
+    </com.google.android.material.tabs.TabLayout>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpager_daftar_jual"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tabs_daftar_jual"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+
+<!--    <HorizontalScrollView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/cardPenjual"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:fillViewport="true"-->
+<!--        android:id="@+id/horizontalScroll"-->
+<!--        android:scrollbars="none">-->
+
+<!--        <GridLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:columnCount="3">-->
+<!--            <com.google.android.material.card.MaterialCardView-->
+<!--                android:layout_width="140dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                app:cardCornerRadius="12dp"-->
+<!--                android:layout_marginEnd="15dp"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                app:cardBackgroundColor="@color/second_hand_primary">-->
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent">-->
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/produk"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        android:layout_alignParentEnd="true"-->
+<!--                        android:layout_marginEnd="30dp"-->
+<!--                        android:id="@+id/txtProduk"-->
+<!--                        style="@style/Heading3"/>-->
+
+<!--                    <ImageView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:id="@+id/imageBox"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:background="@drawable/ic_fi_box"-->
+<!--                        android:layout_toStartOf="@id/txtProduk"-->
+<!--                        android:layout_marginTop="12dp"-->
+<!--                        android:layout_marginEnd="5dp"/>-->
+<!--                </RelativeLayout>-->
+
+
+<!--            </com.google.android.material.card.MaterialCardView>-->
+
+<!--            <com.google.android.material.card.MaterialCardView-->
+<!--                android:layout_width="140dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                app:cardCornerRadius="12dp"-->
+<!--                android:layout_marginEnd="15dp"-->
+<!--                app:cardBackgroundColor="@color/second_hand_secondary">-->
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/txtDiminati"-->
+<!--                        style="@style/Heading3"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_alignParentEnd="true"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        android:layout_marginEnd="20dp"-->
+<!--                        android:text="Diminati"-->
+<!--                        android:textColor="@color/second_hand_neutral4" />-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imageHeart"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="10dp"-->
+<!--                        android:layout_marginEnd="5dp"-->
+<!--                        android:layout_toStartOf="@id/txtDiminati"-->
+<!--                        android:background="@drawable/ic_fi_heart"-->
+<!--                        android:backgroundTint="@color/second_hand_neutral4" />-->
+<!--                </RelativeLayout>-->
+
+
+<!--            </com.google.android.material.card.MaterialCardView>-->
+<!--            <com.google.android.material.card.MaterialCardView-->
+<!--                android:layout_width="140dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                app:cardCornerRadius="12dp"-->
+<!--                app:cardBackgroundColor="@color/second_hand_secondary">-->
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/txtTerjual"-->
+<!--                        style="@style/Heading3"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_alignParentEnd="true"-->
+<!--                        android:layout_centerVertical="true"-->
+<!--                        android:layout_marginEnd="30dp"-->
+<!--                        android:text="Terjual"-->
+<!--                        android:textColor="@color/second_hand_neutral4" />-->
+
+<!--                    <ImageView-->
+<!--                        android:id="@+id/imageDollar"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="12dp"-->
+<!--                        android:layout_marginEnd="5dp"-->
+<!--                        android:backgroundTint="@color/second_hand_neutral4"-->
+<!--                        android:layout_toStartOf="@id/txtTerjual"-->
+<!--                        android:background="@drawable/ic_fi_box" />-->
+<!--                </RelativeLayout>-->
+
+
+<!--            </com.google.android.material.card.MaterialCardView>-->
+<!--        </GridLayout>-->
+
+<!--    </HorizontalScrollView>-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="170dp"-->
+<!--        android:layout_height="220dp"-->
+<!--        android:layout_below="@id/horizontalScroll"-->
+<!--        android:layout_marginStart="15dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:background="@drawable/component_border_dotted"-->
+<!--        android:gravity="center"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <ImageView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@drawable/ic_fi_plus"-->
+<!--            android:backgroundTint="@color/second_hand_neutral3" />-->
+
+<!--        <TextView-->
+<!--            style="@style/Body2"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Tambah Produk" />-->
+
+<!--    </LinearLayout>-->
 
 
 
