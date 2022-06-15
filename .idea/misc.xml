@@ -40,10 +40,26 @@
         <entry key="..\:/Users/Muhajir/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_register.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/Muhajir/AndroidStudioProjects/SecondHand/app/src/main/res/layout/item_daftar_jual.xml" value="0.67" />
         <entry key="..\:/Users/Muhajir/AndroidStudioProjects/SecondHand/app/src/main/res/layout/item_penawaran.xml" value="0.33" />
+<<<<<<< Updated upstream
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_daftar_jual.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/item_home.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/item_penawaran.xml" value="0.33" />
+=======
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_daftar_jual.xml" value="0.22" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_jual.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_kendaraan.xml" value="0.15989583333333332" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_kesehatan.xml" value="0.15989583333333332" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_login.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_notifikasi.xml" value="0.15" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_register.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/item_daftar_jual.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/item_notifikasi_berhasilditerbitkan.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/item_notifikasi_penawaranproduk.xml" value="0.1" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/item_penawaran.xml" value="0.22" />
+>>>>>>> Stashed changes
       </map>
     </option>
   </component>

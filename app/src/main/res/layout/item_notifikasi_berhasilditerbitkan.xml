@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_margin="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/itemnotifikasi_cardberhasilditerbitkan"
+        app:cardElevation="10dp"
+        app:cardCornerRadius="20dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:id="@+id/itemnotifikasi_image_berhasilditerbitkan"
+            android:src="@drawable/ic_launcher_background"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/itemnotifikasi_tv_berhasilditerbitkan"
+        style="@style/Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/itemnotifikasi_cardberhasilditerbitkan"
+        android:text="Berhasil diterbitkan" />
+
+    <TextView
+        android:id="@+id/itemnotifikasi_tv_tanggalbehasilditerbitkan"
+        style="@style/Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_alignParentEnd="true"
+        android:text="19 Apr, 12:00" />
+
+    <TextView
+        android:id="@+id/itemnotifikasi_tv_namaprodukberhasilditerbitkan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:maxLines="1"
+        android:layout_toEndOf="@id/itemnotifikasi_cardberhasilditerbitkan"
+        android:layout_marginStart="20dp"
+        android:layout_below="@id/itemnotifikasi_tv_berhasilditerbitkan"
+        android:text="Jam Tangan Casio"
+        style="@style/Heading4"/>
+
+    <TextView
+        android:id="@+id/itemnotifikasi_tv_hargaprodukberhasilditerbitkan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:maxLines="1"
+        android:layout_toEndOf="@id/itemnotifikasi_cardberhasilditerbitkan"
+        android:layout_marginStart="20dp"
+        android:layout_below="@id/itemnotifikasi_tv_namaprodukberhasilditerbitkan"
+        android:text="Rp.250.000"
+        style="@style/Heading4"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/second_hand_neutral5"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/itemnotifikasi_tv_hargaprodukberhasilditerbitkan"/>
+
+
+</RelativeLayout>

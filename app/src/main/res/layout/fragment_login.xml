@@ -9,6 +9,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
+        android:id="@+id/login_arrowback"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/ic_fi_arrow_left"/>
@@ -29,6 +30,7 @@
         android:layout_marginBottom="10dp"
         android:textSize="20dp"/>
     <EditText
+        android:id="@+id/login_et_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="contoh: group3@gmail.com"
@@ -48,6 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
+            android:id="@+id/login_et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Masukkan Password"
@@ -57,6 +60,7 @@
 
 
     <Button
+        android:id="@+id/login_btn_login"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="Masuk"
@@ -75,6 +79,7 @@
             android:text="Belum punya akun?"
             android:layout_marginRight="10dp"/>
         <TextView
+            android:id="@+id/login_tv_daftar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Daftar disini"

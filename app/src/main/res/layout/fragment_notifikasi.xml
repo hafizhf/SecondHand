@@ -1,14 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout android:orientation="vertical"
+    android:layout_margin="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.NotifikasiFragment">
+    tools:context=".view.NotifikasiFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Notifikasi"
+        android:textSize="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        style="@style/Heading1"/>
 
-</FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.cardview.widget.CardView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/notifikasi_card"
+            app:cardElevation="10dp"
+            app:cardCornerRadius="20dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:id="@+id/notifikasi_image"
+                android:src="@drawable/ic_launcher_background"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/notifikasi_tv_penawaranproduk"
+            style="@style/Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@id/notifikasi_card"
+            android:text="@string/penawaran_produk" />
+
+        <TextView
+            android:id="@+id/notifikasi_tv_tanggalpenawaran"
+            style="@style/Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_alignParentEnd="true"
+            android:text="20 Apr, 14:04" />
+
+        <TextView
+            android:id="@+id/notifikasi_tv_namaprodukpenawaran"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:maxLines="1"
+            android:layout_toEndOf="@id/notifikasi_card"
+            android:layout_marginStart="20dp"
+            android:layout_below="@id/notifikasi_tv_penawaranproduk"
+            android:text="@string/jam_tangan_casio"
+            style="@style/Heading4"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:maxLines="1"
+            android:layout_toEndOf="@id/notifikasi_card"
+            android:layout_marginStart="20dp"
+            android:layout_below="@id/notifikasi_tv_namaprodukpenawaran"
+            android:text="Rp.250.000"
+            android:id="@+id/notifikasi_tv_hargaproduk"
+            style="@style/Heading4"/>
+
+        <TextView
+            android:id="@+id/notifikasi_tv_hargaditawar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:maxLines="1"
+            android:layout_toEndOf="@id/notifikasi_card"
+            android:layout_marginStart="20dp"
+            android:layout_below="@id/notifikasi_tv_hargaproduk"
+            android:text="ditawar_rp_200_000"
+            style="@style/Heading4"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/second_hand_neutral5"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/notifikasi_tv_hargaditawar"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp">
+        <androidx.cardview.widget.CardView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/notifikasi_cardberhasilditerbitkan"
+            app:cardElevation="10dp"
+            app:cardCornerRadius="20dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:id="@+id/notifikasi_image_berhasilditerbitkan"
+                android:src="@drawable/ic_launcher_background"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/notifikasi_tv_berhasilditerbitkan"
+            style="@style/Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@id/notifikasi_cardberhasilditerbitkan"
+            android:text="Berhasil diterbitkan" />
+
+        <TextView
+            android:id="@+id/notifikasi_tv_tanggalbehasilditerbitkan"
+            style="@style/Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_alignParentEnd="true"
+            android:text="19 Apr, 12:00" />
+
+        <TextView
+            android:id="@+id/notifikasi_tv_namaprodukberhasilditerbitkan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:maxLines="1"
+            android:layout_toEndOf="@id/notifikasi_cardberhasilditerbitkan"
+            android:layout_marginStart="20dp"
+            android:layout_below="@id/notifikasi_tv_berhasilditerbitkan"
+            android:text="Jam Tangan Casio"
+            style="@style/Heading4"/>
+
+        <TextView
+            android:id="@+id/notifikasi_tv_hargaprodukberhasilditerbitkan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:maxLines="1"
+            android:layout_toEndOf="@id/notifikasi_cardberhasilditerbitkan"
+            android:layout_marginStart="20dp"
+            android:layout_below="@id/notifikasi_tv_namaprodukberhasilditerbitkan"
+            android:text="Rp.250.000"
+            style="@style/Heading4"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/second_hand_neutral5"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/notifikasi_tv_hargaprodukberhasilditerbitkan"/>
+    </RelativeLayout>
+
+
+
+</LinearLayout>
