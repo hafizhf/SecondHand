@@ -15,7 +15,6 @@ interface ApiService {
         @Field("email") email : String,
         @Field("password") password : String,
         @Field("phone_number") phoneNumber : String,
-        @Field("address") address :String,
-        @Field("image") image : Image
+        @Field("address") address :String
     ) : Call<RegisterResponse>
 }

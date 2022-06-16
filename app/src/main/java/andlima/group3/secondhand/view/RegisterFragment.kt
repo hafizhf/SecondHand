@@ -36,6 +36,6 @@ class RegisterFragment : Fragment() {
         viewModel.registerLiveData.observe(requireActivity()){
             Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
         }
-        viewModel.registerLiveData(namaLengkap, email, password, "", "", "")
+        viewModel.registerLiveData(namaLengkap, email, password, "", "")
     }
 }

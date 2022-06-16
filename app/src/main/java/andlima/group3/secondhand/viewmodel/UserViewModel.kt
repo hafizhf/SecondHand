@@ -24,9 +24,9 @@ class UserViewModel @Inject constructor(private val repository : UserRepository)
     }
 
 
-    fun registerLiveData(fullName : String, email : String, password : String, phoneNumber : String,address : String, image : String){
+    fun registerLiveData(fullName : String, email : String, password : String, phoneNumber : String,address : String,){
         viewModelScope.launch {
-            repository.registerRepo(fullName, email, password, phoneNumber, address, image, registerLiveData)
+            repository.registerRepo(fullName, email, password, phoneNumber, address, registerLiveData)
         }
     }
 

@@ -10,8 +10,8 @@ import javax.inject.Inject
 
 class UserRepository @Inject constructor(private val apiService: ApiService) {
     fun registerRepo(fullName : String, email : String, password : String, phoneNumber : String,
-                     address : String, image : String, liveData: MutableLiveData<String>){
-        val call : Call<RegisterResponse> = apiService.registerUser(fullName, email, password, phoneNumber, address, image)
+                     address : String, liveData: MutableLiveData<String>){
+        val call : Call<RegisterResponse> = apiService.registerUser(fullName, email, password, phoneNumber, address)
         call?.enqueue(object : Callback<RegisterResponse>{
             override fun onResponse(
                 call: Call<RegisterResponse>,
