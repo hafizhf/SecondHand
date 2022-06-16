@@ -9,7 +9,7 @@ import retrofit2.Response
 import javax.inject.Inject
 
 class UserRepository @Inject constructor(private val apiService: ApiService) {
-    fun registerRepo(fullName : String, email : String, password : String, phoneNumber : String,
+    fun registerRepo(fullName : String, email : String, password : String, phoneNumber : Int,
                      address : String, liveData: MutableLiveData<String>){
         val call : Call<RegisterResponse> = apiService.registerUser(fullName, email, password, phoneNumber, address)
         call?.enqueue(object : Callback<RegisterResponse>{

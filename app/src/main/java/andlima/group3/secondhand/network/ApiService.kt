@@ -14,7 +14,7 @@ interface ApiService {
         @Field("full_name") fullName : String,
         @Field("email") email : String,
         @Field("password") password : String,
-        @Field("phone_number") phoneNumber : String,
+        @Field("phone_number") phoneNumber : Int,
         @Field("address") address :String
     ) : Call<RegisterResponse>
 }
