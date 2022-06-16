@@ -41,7 +41,7 @@
 
     <style name="Heading3" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="fontFamily">@font/poppins_medium</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">17sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
@@ -96,7 +96,7 @@
 
     <style name="Button.MakeItRounded" parent="ShapeAppearance.MaterialComponents.MediumComponent">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">15sp</item>
+        <item name="cornerSize">18sp</item>
     </style>
 
     <!--  TextField  -->
