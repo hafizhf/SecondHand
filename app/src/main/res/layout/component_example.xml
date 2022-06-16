@@ -103,12 +103,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <EditText
+            style="@style/InputField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="EditText"
-            android:inputType="textPassword"
-            style="@style/InputField"/>
+            android:inputType="textPassword" />
 
         <ImageView
             android:layout_width="wrap_content"
