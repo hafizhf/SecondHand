@@ -20,11 +20,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-//@AndroidEntryPoint
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
-
-//    @Inject
-//    lateinit var loginApi: AuthRepository
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,36 +48,17 @@ class LoginFragment : Fragment() {
 
     private fun login(email: String, password: String) {
         val viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
-        GlobalScope.launch {
-            viewModel.requestLogin(email, password) { response, code, message ->
-                when (code) {
-                    201 -> {
-                        alertDialog(requireContext(), "Login succeed", response.toString()) {
-                            startActivity(Intent(requireContext(), MainActivity::class.java))
-                            requireActivity().finish()
-                        }
-                    }
-                    401 -> toast(requireContext(), message)
-                    500 -> alertDialog(requireContext(), "Internal Service Error", message) {}
-                    else -> alertDialog(requireContext(), "Login failed", "Unknown") {}
+        viewModel.requestLogin(email, password) { response, code, message ->
+            when (code) {
+                201 -> {
+                    toast(requireContext(), "Login success")
+                    startActivity(Intent(requireContext(), MainActivity::class.java))
+                    requireActivity().finish()
                 }
+                401 -> toast(requireContext(), message)
+                500 -> alertDialog(requireContext(), "Internal Service Error", message) {}
+                else -> alertDialog(requireContext(), "Login failed", "Unknown") {}
             }
         }
     }
-
-//    private fun login(email: String, password: String) {
-//        loginApi.requestLogin(email, password) { response, code, message ->
-//            when (code) {
-//                201 -> {
-//                    alertDialog(requireContext(), "Login succeed", response.toString()) {
-//                        startActivity(Intent(requireContext(), MainActivity::class.java))
-//                        requireActivity().finish()
-//                    }
-//                }
-//                401 -> toast(requireContext(), message)
-//                500 -> alertDialog(requireContext(), "Internal Service Error", message) {}
-//                else -> alertDialog(requireContext(), "Login failed", "Unknown") {}
-//            }
-//        }
-//    }
 }

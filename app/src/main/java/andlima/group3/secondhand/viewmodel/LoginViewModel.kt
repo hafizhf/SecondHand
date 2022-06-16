@@ -14,14 +14,9 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(api: AuthRepository): ViewModel() {
 
-//    @Inject
-//    lateinit var api: AuthRepository
-
     val apiHelper = api
 
-    var liveDataLogin: MutableLiveData<GetLoginResponse> = MutableLiveData()
-
-    suspend fun requestLogin(
+    fun requestLogin(
         email: String,
         password: String,
         action: (response: GetLoginResponse, code: Int, message: String) -> Unit
