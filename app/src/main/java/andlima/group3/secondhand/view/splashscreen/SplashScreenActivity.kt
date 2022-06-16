@@ -1,7 +1,8 @@
 package andlima.group3.secondhand.view.splashscreen
 
-import andlima.group3.secondhand.MainActivity
+import andlima.group3.secondhand.AuthActivity
 import andlima.group3.secondhand.R
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
@@ -11,6 +12,7 @@ import android.os.Handler
 import android.view.View
 import android.view.WindowManager
 
+@SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +24,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
     private fun handler() {
         Handler().postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, AuthActivity::class.java))
             finish()
         }, 3000)
     }
