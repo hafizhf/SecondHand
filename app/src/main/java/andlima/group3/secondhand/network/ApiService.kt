@@ -5,6 +5,7 @@ import android.media.Image
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
+import retrofit2.http.GET
 import retrofit2.http.POST
 
 interface ApiService {
@@ -15,6 +16,11 @@ interface ApiService {
         @Field("email") email : String,
         @Field("password") password : String,
         @Field("phone_number") phoneNumber : Int,
-        @Field("address") address :String
+        @Field("address") address :String,
+        @Field("image") image : String
     ) : Call<RegisterResponse>
+
+    @GET("seller/category")
+    @FormUrlEncoded
+    fun getCategory()
 }
