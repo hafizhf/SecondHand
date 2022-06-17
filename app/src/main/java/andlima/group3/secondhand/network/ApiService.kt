@@ -1,5 +1,6 @@
 package andlima.group3.secondhand.network
 
+import andlima.group3.secondhand.model.kategori.KategoriResponseItem
 import andlima.group3.secondhand.model.register.RegisterResponse
 import android.media.Image
 import retrofit2.Call
@@ -21,6 +22,5 @@ interface ApiService {
     ) : Call<RegisterResponse>
 
     @GET("seller/category")
-    @FormUrlEncoded
-    fun getCategory()
+    fun getCategory() : Call<List<KategoriResponseItem>>
 }

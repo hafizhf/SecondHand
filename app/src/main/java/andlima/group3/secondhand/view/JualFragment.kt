@@ -1,6 +1,8 @@
 package andlima.group3.secondhand.view
 
 import andlima.group3.secondhand.R
+import andlima.group3.secondhand.func.toast
+import andlima.group3.secondhand.model.kategori.KategoriPilihan
 import andlima.group3.secondhand.view.adapter.KategoriAdapter
 import andlima.group3.secondhand.viewmodel.ProdukViewModel
 import android.os.Bundle
@@ -13,7 +15,6 @@ import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_jual.*
 
@@ -29,21 +30,40 @@ class JualFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val items = listOf("Material", "Design", "Components", "Android")
+        val items = mutableListOf<String>()
+        val itemsID = mutableListOf<Int>()
+        val gabungan : MutableSet<KategoriPilihan>? = mutableSetOf()
+
+
         val pilihan : MutableSet<String?> = mutableSetOf()
+        val pilihanID : MutableSet<Int?> = mutableSetOf()
+
         val listData : MutableList<String> = mutableListOf()
+        val listDataID : MutableList<Int> = mutableListOf()
         val adapter = ArrayAdapter(requireContext(), R.layout.list_kategori, items)
         val viewModel = ViewModelProvider(requireActivity()).get(ProdukViewModel::class.java)
+        viewModel.kategoriLiveData.observe(viewLifecycleOwner){
+            it.forEach {
+                items.add(it.name)
+                itemsID.add(it.id)
+            }
+
+        }
+        viewModel.getKategoriLive()
 
 
 
         rv_kategori.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         var adapterKategori = KategoriAdapter{
-            listData.remove(it)
-            viewModel.kategoriData.postValue(listData)
+            listData.remove(it.nama)
+            listDataID.remove(it.id)
+            pilihan.remove(it.nama)
+            pilihanID.remove(it.id)
+            gabungan?.remove(it)
+            viewModel.kategoriPilihanLiveData.value = gabungan
         }
-        viewModel.getKategoiObserver().observe(viewLifecycleOwner){
-            adapterKategori.setDataProduk(listData)
+        viewModel.getKategoiPilihanObserver().observe(viewLifecycleOwner){
+            adapterKategori.setDataProduk(gabungan)
             adapterKategori.notifyDataSetChanged()
         }
 
@@ -52,21 +72,31 @@ class JualFragment : Fragment() {
             OnItemClickListener { adapterView, view, position, id ->
                 val selectedValue: String? = adapter.getItem(position)
                 listData.clear()
+                listDataID.clear()
                 pilihan.add(selectedValue)
-                pilihan.forEach {
-                    listData.add(it!!)
+                pilihanID.add(itemsID[position])
+                pilihan.forEach { nama ->
+                    listData.add(nama!!)
+                    }
+                pilihanID.forEach { id ->
+                    listDataID.add(id!!)
                 }
-                viewModel.kategoriData.postValue(listData)
-                viewModel.getKategoiObserver().observe(viewLifecycleOwner){
-                    adapterKategori.setDataProduk(listData)
+                for ((index, element) in pilihan.withIndex()){
+                    gabungan?.add(KategoriPilihan(pilihanID.elementAt(index)!!, pilihan.elementAt(index)!!))
+                }
+
+                viewModel.kategoriPilihanLiveData.postValue(gabungan)
+                viewModel.getKategoiPilihanObserver().observe(viewLifecycleOwner){
+                    adapterKategori.setDataProduk(gabungan)
                     adapterKategori.notifyDataSetChanged()
                 }
+                toast(requireContext(), pilihanID.toString())
 
                 rv_kategori.visibility = View.VISIBLE
 
 
             }
-        adapterKategori.setDataProduk(listData)
+        adapterKategori.setDataProduk(gabungan)
         adapterKategori.notifyDataSetChanged()
         rv_kategori.adapter = adapterKategori
 
