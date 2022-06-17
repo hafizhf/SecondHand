@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".view.homepager.SemuaFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tab Semua"
-        android:layout_centerInParent="true"
-        style="@style/Heading2"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_home_semua"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

@@ -25,5 +25,6 @@ class HomeFragment : Fragment() {
         tabs_home.setupWithViewPager(viewpager_home)
 
 //        tabs_home.getTabAt(0)!!.setIcon(R.drawable.ic_fi_search)
+
     }
 }

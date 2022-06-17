@@ -1,6 +1,7 @@
 package andlima.group3.secondhand.di
 
 import andlima.group3.secondhand.api.auth.login.LoginApi
+import andlima.group3.secondhand.api.buyer.BuyerApi
 import andlima.group3.secondhand.network.ApiService
 import dagger.Module
 import dagger.Provides
@@ -36,17 +37,21 @@ object AppModule {
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
+
     @Provides
     @Singleton
-//    @Named("Login")
     fun provideApiService(retrofit: Retrofit): ApiService =
         retrofit.create(ApiService::class.java)
 
     @Provides
     @Singleton
-//    @Named("Login")
     fun provideLoginApi(retrofit: Retrofit): LoginApi =
         retrofit.create(LoginApi::class.java)
+
+    @Provides
+    @Singleton
+    fun provideBuyerApi(retrofit: Retrofit): BuyerApi =
+        retrofit.create(BuyerApi::class.java)
 }
 
 

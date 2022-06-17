@@ -1,7 +1,7 @@
 package andlima.group3.secondhand.view.adapter
 
 import andlima.group3.secondhand.R
-import andlima.group3.secondhand.model.home.SellerProductItem
+import andlima.group3.secondhand.model.home.BuyerProductItem
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,12 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_home.view.*
 
-class HomeAdapter(private var onClick: (SellerProductItem) -> Unit)
+class HomeAdapter(private var onClick: (BuyerProductItem) -> Unit)
     : RecyclerView.Adapter<HomeAdapter.ViewHolder>() {
 
-    private var productList: List<SellerProductItem>? = null
+    private var productList: List<BuyerProductItem>? = null
 
-    fun setProductData(product: List<SellerProductItem>) {
+    fun setProductData(product: List<BuyerProductItem>) {
         this.productList = product
     }
 
