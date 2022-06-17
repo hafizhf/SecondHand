@@ -1,5 +1,8 @@
 package andlima.group3.secondhand.viewmodel
 
+import andlima.group3.secondhand.model.kategori.KategoriPilihan
+import andlima.group3.secondhand.model.kategori.KategoriResponseItem
+import andlima.group3.secondhand.repository.SellerRepository
 import andlima.group3.secondhand.repository.UserRepository
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,23 +10,22 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
-class ProdukViewModel : ViewModel(){
-
-
-    var kategoriData : MutableLiveData<MutableList<String>> = MutableLiveData()
+@HiltViewModel
+class ProdukViewModel  @Inject constructor(private val repository : SellerRepository)  : ViewModel(){
 
 
-    fun getKategoiObserver() : MutableLiveData<MutableList<String>> {
-        return kategoriData
+    var kategoriPilihanLiveData : MutableLiveData<MutableSet<KategoriPilihan>> = MutableLiveData()
+    var kategoriLiveData : MutableLiveData<List<KategoriResponseItem>> = MutableLiveData()
+
+
+    fun getKategoiPilihanObserver() : MutableLiveData<MutableSet<KategoriPilihan>> {
+        return kategoriPilihanLiveData
+
     }
 
 
-    fun addKategori(nama : String){
-        viewModelScope.launch {
-            kategoriData.value!!.plus(nama)
-
-        }
+    fun getKategoriLive(){
+        repository.getKategoriRepo(kategoriLiveData)
     }
 
 

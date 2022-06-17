@@ -2,6 +2,7 @@ package andlima.group3.secondhand.view.adapter
 
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.model.daftarjual.SellerProductsItem
+import andlima.group3.secondhand.model.kategori.KategoriPilihan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +12,11 @@ import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.item_daftar_jual.view.*
 import kotlinx.android.synthetic.main.item_kategori.view.*
 
-class KategoriAdapter(private var onClick : (String)->Unit) : RecyclerView.Adapter<KategoriAdapter.ViewHolder>() {
+class KategoriAdapter(private var onClick : (KategoriPilihan)->Unit) : RecyclerView.Adapter<KategoriAdapter.ViewHolder>() {
 
-    private var dataProduk : MutableList<String>? = null
+    private var dataProduk : MutableSet<KategoriPilihan>? = null
 
-    fun setDataProduk(produk : MutableList<String>?){
+    fun setDataProduk(produk : MutableSet<KategoriPilihan>?){
         this.dataProduk = produk
     }
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
@@ -28,13 +29,13 @@ class KategoriAdapter(private var onClick : (String)->Unit) : RecyclerView.Adapt
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemView.tv_kategoriCard.text = dataProduk!![position]
+        holder.itemView.tv_kategoriCard.text = dataProduk!!.elementAt(position).nama
 
 
 
 
         holder.itemView.cardKategori.setOnClickListener{
-            onClick(dataProduk!![position])
+            onClick(dataProduk!!.elementAt(position))
         }
 
     }
