@@ -1,5 +1,6 @@
 package andlima.group3.secondhand.func
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
@@ -7,9 +8,13 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.util.Base64
+import android.util.DisplayMetrics
 import android.view.View
+import android.view.ViewTreeObserver
 import android.widget.ImageView
+import android.widget.ScrollView
 import android.widget.Toast
+import androidx.core.widget.NestedScrollView
 import com.google.android.material.snackbar.Snackbar
 import java.io.ByteArrayOutputStream
 
@@ -85,3 +90,22 @@ fun decodeBase64Image(base64String: String): Bitmap {
 }
 
 // END OF IMAGE CONVERT METHOD #####################################################################
+
+fun getDeviceScreenHeight(activity: Activity): Int {
+    val displayMetrics = DisplayMetrics()
+    activity.windowManager.defaultDisplay.getMetrics(displayMetrics)
+
+    return displayMetrics.heightPixels
+}
+
+fun isScrollReachedBottom(scrollView: NestedScrollView, reachBottom: (Boolean) -> Unit) {
+    scrollView.viewTreeObserver.addOnScrollChangedListener(ViewTreeObserver.OnScrollChangedListener {
+        if (scrollView.getChildAt(0).bottom == (scrollView.height + scrollView.scrollY)) {
+            // Scroll reached bottom
+            reachBottom(true)
+        } else {
+            // Scroll not at bottom
+            reachBottom(false)
+        }
+    })
+}

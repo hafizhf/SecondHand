@@ -1,17 +1,23 @@
 package andlima.group3.secondhand.view.homepager
 
+import andlima.group3.secondhand.MarketApplication
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
+import andlima.group3.secondhand.func.isScrollReachedBottom
+import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.view.adapter.HomeAdapter
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
 import android.annotation.SuppressLint
+import android.util.Log
+import android.widget.ScrollView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_semua.*
 
 @AndroidEntryPoint
@@ -39,6 +45,9 @@ class SemuaFragment : Fragment() {
 
         rv_home_semua.layoutManager = GridLayoutManager(requireContext(), 2)
         rv_home_semua.adapter = homeAdapter
+        MarketApplication.homeFragmentReachedBottom.observe(this, {
+            rv_home_semua.isNestedScrollingEnabled = it
+        })
 
         val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
         viewModel.allProductData.observe(this, {
