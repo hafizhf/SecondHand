@@ -69,7 +69,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
 
     // Library Data Store
-    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha01"
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 
     // Kotlin coroutines components
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.6.10"

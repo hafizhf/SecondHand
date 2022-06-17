@@ -47,6 +47,7 @@
 
         android:layout_gravity="center_horizontal"
         app:passwordToggleEnabled="true"
+        app:boxBackgroundMode="outline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -69,26 +70,30 @@
         style="@style/Button"
         android:layout_marginTop="30dp"/>
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
     <LinearLayout
-        android:layout_marginTop="150dp"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Belum punya akun?"
             android:layout_marginRight="10dp"/>
+
         <TextView
-            android:id="@+id/login_tv_daftar"
+            android:id="@+id/login_btn_daftar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Daftar disini"
             android:textColor="@color/purple_200"
             android:layout_marginRight="10dp"/>
-
-
 
     </LinearLayout>
 

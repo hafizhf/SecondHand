@@ -96,7 +96,9 @@
         android:id="@+id/linearKeluar"
         android:layout_below="@id/linearPengaturanAkun"
         android:orientation="vertical">
+
         <LinearLayout
+            android:id="@+id/btn_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
