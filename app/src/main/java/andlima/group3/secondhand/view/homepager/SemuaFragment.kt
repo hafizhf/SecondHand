@@ -14,7 +14,9 @@ import andlima.group3.secondhand.viewmodel.BuyerViewModel
 import android.annotation.SuppressLint
 import android.util.Log
 import android.widget.ScrollView
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -33,6 +35,11 @@ class SemuaFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         getProductData()
     }
 
@@ -40,7 +47,9 @@ class SemuaFragment : Fragment() {
     private fun getProductData() {
         val homeAdapter = HomeAdapter() {
             // On item click
-
+            val selectedData = bundleOf("SELECTED_DATA" to it)
+            Navigation.findNavController(view!!)
+                .navigate(R.id.action_mainContainerFragment_to_detailFragment, selectedData)
         }
 
         rv_home_semua.layoutManager = GridLayoutManager(requireContext(), 2)

@@ -22,58 +22,58 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         transparentStatusBar()
-        bottomNavigationInteraction()
+//        bottomNavigationInteraction()
     }
 
-    private fun bottomNavigationInteraction() {
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment())
-            .commit()
-
-        val bottomNavigation : BottomNavigationView = findViewById(R.id.bottom_navigation)
-        bottomNavigation.isSelected
-
-        bottomNavigation.setOnNavigationItemSelectedListener { item ->
-
-            when (item.itemId) {
-                R.id.menu_home -> {
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, HomeFragment())
-                        .commit()
-                    return@setOnNavigationItemSelectedListener true
-                }
-                R.id.menu_notifikasi -> {
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, NotifikasiFragment())
-                        .commit()
-                    return@setOnNavigationItemSelectedListener true
-                }
-                R.id.menu_jual -> {
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, JualFragment())
-                        .commit()
-                    return@setOnNavigationItemSelectedListener true
-                }
-                R.id.menu_daftar_jual -> {
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, DaftarJualFragment())
-                        .commit()
-                    return@setOnNavigationItemSelectedListener true
-                }
-                R.id.menu_akun -> {
-                    supportFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, AkunFragment())
-                        .commit()
-                    return@setOnNavigationItemSelectedListener true
-                }
-            }
-            false
-        }
-    }
+//    private fun bottomNavigationInteraction() {
+//        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment())
+//            .commit()
+//
+//        val bottomNavigation : BottomNavigationView = findViewById(R.id.bottom_navigation)
+//        bottomNavigation.isSelected
+//
+//        bottomNavigation.setOnNavigationItemSelectedListener { item ->
+//
+//            when (item.itemId) {
+//                R.id.menu_home -> {
+//                    supportFragmentManager
+//                        .beginTransaction()
+//                        .replace(R.id.fragment_container, HomeFragment())
+//                        .commit()
+//                    return@setOnNavigationItemSelectedListener true
+//                }
+//                R.id.menu_notifikasi -> {
+//                    supportFragmentManager
+//                        .beginTransaction()
+//                        .replace(R.id.fragment_container, NotifikasiFragment())
+//                        .commit()
+//                    return@setOnNavigationItemSelectedListener true
+//                }
+//                R.id.menu_jual -> {
+//                    supportFragmentManager
+//                        .beginTransaction()
+//                        .replace(R.id.fragment_container, JualFragment())
+//                        .commit()
+//                    return@setOnNavigationItemSelectedListener true
+//                }
+//                R.id.menu_daftar_jual -> {
+//                    supportFragmentManager
+//                        .beginTransaction()
+//                        .replace(R.id.fragment_container, DaftarJualFragment())
+//                        .commit()
+//                    return@setOnNavigationItemSelectedListener true
+//                }
+//                R.id.menu_akun -> {
+//                    supportFragmentManager
+//                        .beginTransaction()
+//                        .replace(R.id.fragment_container, AkunFragment())
+//                        .commit()
+//                    return@setOnNavigationItemSelectedListener true
+//                }
+//            }
+//            false
+//        }
+//    }
 
     private fun transparentStatusBar() {
         if (Build.VERSION.SDK_INT in 19..20) {

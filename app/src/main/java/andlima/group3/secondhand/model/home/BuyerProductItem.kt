@@ -1,13 +1,18 @@
 package andlima.group3.secondhand.model.home
 
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
 
+@Parcelize
 data class BuyerProductItem(
     @SerializedName("base_price")
     val basePrice: Int,
     @SerializedName("Categories")
-    val categories: List<Category>,
+    val categories: @RawValue Any? = null,
+//    val categories: List<Category>,
     @SerializedName("createdAt")
     val createdAt: String,
     @SerializedName("description")
@@ -28,4 +33,4 @@ data class BuyerProductItem(
     val updatedAt: String,
     @SerializedName("user_id")
     val userId: Int
-)
+) : Parcelable

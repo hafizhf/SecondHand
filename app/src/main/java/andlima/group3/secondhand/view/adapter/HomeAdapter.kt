@@ -32,7 +32,7 @@ class HomeAdapter(private var onClick: (BuyerProductItem) -> Unit)
                 .load(productList!![position].imageUrl)
                 .into(iv_home_product_image)
             tv_home_product_name.text = productList!![position].name
-            tv_home_category.text = productList!![position].categories[0].name
+//            tv_home_category.text = productList!![position].categories[0].name
             tv_home_price.text = productList!![position].basePrice.toString()
 
             item_home_product.setOnClickListener {
