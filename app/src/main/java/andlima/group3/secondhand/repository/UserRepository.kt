@@ -10,19 +10,14 @@ import javax.inject.Inject
 
 class UserRepository @Inject constructor(private val apiService: ApiService) {
     fun registerRepo(fullName : String, email : String, password : String, phoneNumber : Int,
-                     address : String, image : String,liveData: MutableLiveData<String>){
-        val call : Call<RegisterResponse> = apiService.registerUser(fullName, email, password, phoneNumber, address, image)
+                     address : String,city : String,liveData: MutableLiveData<String>){
+        val call : Call<RegisterResponse> = apiService.registerUser(fullName, email, password, phoneNumber, address, city)
         call?.enqueue(object : Callback<RegisterResponse>{
             override fun onResponse(
                 call: Call<RegisterResponse>,
                 response: Response<RegisterResponse>
             ) {
-                if (response.code() == 201){
-                    liveData.postValue("Berhasil Daftar Akun")
-                }else{
-                    liveData.postValue("Gagal Daftar Akun ${response.code()}")
-
-                }
+                liveData.postValue(response.code().toString())
             }
 
             override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {

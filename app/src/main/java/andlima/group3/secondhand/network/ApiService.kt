@@ -18,7 +18,7 @@ interface ApiService {
         @Field("password") password : String,
         @Field("phone_number") phoneNumber : Int,
         @Field("address") address :String,
-        @Field("image") image : String
+        @Field("city") city :String
     ) : Call<RegisterResponse>
 
     @GET("seller/category")

@@ -13,20 +13,17 @@ import javax.inject.Inject
 class UserViewModel @Inject constructor(private val repository : UserRepository) : ViewModel(){
 
 
-    lateinit var registerLiveData : MutableLiveData<String>
+    var registerLiveData : MutableLiveData<String> = MutableLiveData()
 
 
-    init {
-        registerLiveData = MutableLiveData()
-    }
     fun getRegisterLiveDataObserver() : MutableLiveData<String>{
         return registerLiveData
     }
 
 
-    fun registerLiveData(fullName : String, email : String, password : String, phoneNumber : Int,address : String,image : String){
+    fun registerLiveData(fullName : String, email : String, password : String, phoneNumber : Int,address : String, city : String){
         viewModelScope.launch {
-            repository.registerRepo(fullName, email, password, phoneNumber, address,  image ,registerLiveData)
+            repository.registerRepo(fullName, email, password, phoneNumber, address, city ,registerLiveData)
         }
     }
 
