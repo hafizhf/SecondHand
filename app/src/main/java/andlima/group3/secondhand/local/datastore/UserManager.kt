@@ -11,10 +11,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class UserManager(context: Context) {
-    private val Context.dataStore : DataStore<Preferences> by preferencesDataStore(name = "userpref")
     private val itContext = context
 
     companion object {
+        private val Context.dataStore : DataStore<Preferences> by preferencesDataStore(name = "userpref")
+
         val ACCESS_TOKEN = stringPreferencesKey("access_token")
         val USERNAME = stringPreferencesKey("username")
         val EMAIL = stringPreferencesKey("email")
@@ -48,6 +49,12 @@ class UserManager(context: Context) {
             it[USERNAME] = username
             it[EMAIL] = email
             it[PASSWORD] = password
+        }
+    }
+
+    suspend fun clearOldAccessTokenPreferences() {
+        itContext.dataStore.edit {
+            it[ACCESS_TOKEN] = ""
         }
     }
 

@@ -15,6 +15,9 @@ import android.widget.ImageView
 import android.widget.ScrollView
 import android.widget.Toast
 import androidx.core.widget.NestedScrollView
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import java.io.ByteArrayOutputStream
 
@@ -106,6 +109,15 @@ fun isScrollReachedBottom(scrollView: NestedScrollView, reachBottom: (Boolean) -
         } else {
             // Scroll not at bottom
             reachBottom(false)
+        }
+    })
+}
+
+fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
+    observe(lifecycleOwner, object : Observer<T> {
+        override fun onChanged(t: T?) {
+            observer.onChanged(t)
+            removeObserver(this)
         }
     })
 }

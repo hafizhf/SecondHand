@@ -1,14 +1,19 @@
 package andlima.group3.secondhand
 
+import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.view.*
 import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import androidx.lifecycle.asLiveData
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

@@ -4,6 +4,7 @@ import andlima.group3.secondhand.AuthActivity
 import andlima.group3.secondhand.MainActivity
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.alertDialog
+import andlima.group3.secondhand.func.observeOnce
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.model.login.GetLoginResponse
@@ -16,8 +17,11 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
@@ -41,21 +45,18 @@ class SplashScreenActivity : AppCompatActivity() {
         // Get something from data store
         userManager = UserManager(this)
 
-//        runOnUiThread {
-//            userDataAuth { response, code, message ->
-//                if (code != -500)
-//                    actionBaseOnResponse(response, code, message)
-//                else
-//                    splashHandler(AuthActivity::class.java)
-//            }
-//        }
-        splashHandler(AuthActivity::class.java)
+        userDataAuth { response, code, message ->
+            if (code != -500)
+                actionBaseOnResponse(response, code, message)
+            else
+                splashHandler(AuthActivity::class.java)
+        }
         transparentStatusBar()
     }
 
     private fun userDataAuth(action: (response: GetLoginResponse, code: Int, message: String) -> Unit) {
-        userManager.emailFlow.asLiveData().observe(this, { email ->
-            userManager.passwordFlow.asLiveData().observe(this, { password->
+        userManager.emailFlow.asLiveData().observeOnce(this, { email ->
+            userManager.passwordFlow.asLiveData().observeOnce(this, { password->
                 if (email != "" && password != "") {
                     // When user is logged in, get access token
                     auth.requestLogin(LoginRequest(email, password)) { response, code, message ->
@@ -90,6 +91,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
     private fun getAccessToken(accessToken: String) {
         GlobalScope.launch {
+            userManager.clearOldAccessTokenPreferences()
             userManager.saveAccessToken(accessToken)
         }
     }
