@@ -1,14 +1,19 @@
 package andlima.group3.secondhand.view
 
+import andlima.group3.secondhand.MainActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
+import andlima.group3.secondhand.func.alertDialog
+import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.viewmodel.UserViewModel
+import android.content.Intent
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.fragment_register.*
 
 class RegisterFragment : Fragment() {
@@ -34,8 +39,16 @@ class RegisterFragment : Fragment() {
     fun register(namaLengkap : String, email : String, password : String){
         val viewModel = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
         viewModel.registerLiveData.observe(requireActivity()){
-            Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+            when (it) {
+                "201" -> {
+                    toast(requireContext(), "Register success")
+                    //view?.findNavController()?.navigate(R.id.action_registerFragment_to_loginFragment)
+                }
+                "400" -> toast(requireContext(), "Email already exist")
+                "500" -> toast(requireContext(), "Internal Service Error")
+                else -> alertDialog(requireContext(), "Login failed", "No connection") {}
+            }
         }
-        viewModel.registerLiveData(namaLengkap, email, password, 0, "A", "/9j/4AAQSkZJRgABAQAAAQABAAD/4gIoSUNDX1BST0ZJTEUAAQEAAAIYAAAAAAQwAABtbnRyUkdCIFhZWiAAAAAAAAAAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAAHRyWFlaAAABZAAAABRnWFlaAAABeAAAABRiWFlaAAABjAAAABRyVFJDAAABoAAAAChnVFJDAAABoAAAAChiVFJDAAABoAAAACh3dHB0AAAByAAAABRjcHJ0AAAB3AAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAFgAAAAcAHMAUgBHAEIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFhZWiAAAAAAAABvogAAOPUAAAOQWFlaIAAAAAAAAGKZAAC3hQAAGNpYWVogAAAAAAAAJKAAAA+EAAC2z3BhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABYWVogAAAAAAAA9tYAAQAAAADTLW1sdWMAAAAAAAAAAQAAAAxlblVTAAAAIAAAABwARwBvAG8AZwBsAGUAIABJAG4AYwAuACAAMgAwADEANv/bAEMAAwICAgICAwICAgMDAwMEBgQEBAQECAYGBQYJCAoKCQgJCQoMDwwKCw4LCQkNEQ0ODxAQERAKDBITEhATDxAQEP/bAEMBAwMDBAMECAQECBALCQsQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEP/AABEIACAAIQMBIgACEQEDEQH/xAAWAAEBAQAAAAAAAAAAAAAAAAAAAQj/xAAVEAEBAAAAAAAAAAAAAAAAAAAAcf/EABUBAQEAAAAAAAAAAAAAAAAAAAAC/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8AxOAtAAAAAkUARQAAH//Z")
+        viewModel.registerLiveData(namaLengkap, email, password, 0, "A", "Surabaya")
     }
 }
