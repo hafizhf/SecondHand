@@ -6,6 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
+import andlima.group3.secondhand.local.datastore.UserManager
+import andlima.group3.secondhand.view.adapter.DaftarJualAdapter
+import andlima.group3.secondhand.view.adapter.HomeAdapter
+import andlima.group3.secondhand.viewmodel.SellerViewModel
+import andlima.group3.secondhand.viewmodel.UserViewModel
+import android.util.Log
+import androidx.core.os.bundleOf
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import kotlinx.android.synthetic.main.fragment_produk.*
+import kotlinx.android.synthetic.main.fragment_semua.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,6 +50,37 @@ class ProdukFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_produk, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        var userManager = UserManager(requireContext())
+        userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
+            getAllProducts(it)
+            Log.d("AKSES TOKEN", it)
+        }
+    }
+
+    private fun getAllProducts(token: String) {
+        val viewModel = ViewModelProvider(requireActivity()).get(SellerViewModel::class.java)
+        viewModel.sellerProductsLiveData.observe(viewLifecycleOwner){
+            if (it != null){
+                val produkAdapter = DaftarJualAdapter {
+                    val selectedID = bundleOf("SELECTED_ID" to it.id)
+                    view?.findNavController()
+                        ?.navigate(R.id.action_mainContainerFragment_to_detailFragment, selectedID)
+                
+
+                }
+                produkAdapter.setDataProduk(it)
+                produkAdapter.notifyDataSetChanged()
+                rv_produk_daftarjual.layoutManager = GridLayoutManager(requireContext(), 2)
+                rv_produk_daftarjual.adapter = produkAdapter
+            }
+        }
+        viewModel.getSellerAllProductsLive(token)
+
+
     }
 
     companion object {

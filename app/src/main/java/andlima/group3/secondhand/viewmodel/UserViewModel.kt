@@ -1,5 +1,6 @@
 package andlima.group3.secondhand.viewmodel
 
+import andlima.group3.secondhand.model.user.UserDetailResponse
 import andlima.group3.secondhand.repository.UserRepository
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,6 +15,7 @@ class UserViewModel @Inject constructor(private val repository : UserRepository)
 
 
     var registerLiveData : MutableLiveData<String> = MutableLiveData()
+    var userDetailLiveData : MutableLiveData<UserDetailResponse> = MutableLiveData()
 
 
     fun getRegisterLiveDataObserver() : MutableLiveData<String>{
@@ -24,6 +26,11 @@ class UserViewModel @Inject constructor(private val repository : UserRepository)
     fun registerLiveData(fullName : String, email : String, password : String, phoneNumber : Int,address : String, city : String){
         viewModelScope.launch {
             repository.registerRepo(fullName, email, password, phoneNumber, address, city ,registerLiveData)
+        }
+    }
+    fun userDetailLive(token : String){
+        viewModelScope.launch {
+            repository.getDetailUser(token, userDetailLiveData)
         }
     }
 

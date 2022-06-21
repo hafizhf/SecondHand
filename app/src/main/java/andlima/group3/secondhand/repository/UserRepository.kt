@@ -1,6 +1,7 @@
 package andlima.group3.secondhand.repository
 
 import andlima.group3.secondhand.model.register.RegisterResponse
+import andlima.group3.secondhand.model.user.UserDetailResponse
 import andlima.group3.secondhand.network.ApiService
 import androidx.lifecycle.MutableLiveData
 import retrofit2.Call
@@ -27,5 +28,26 @@ class UserRepository @Inject constructor(private val apiService: ApiService) {
 
         })
 
+    }
+    fun getDetailUser(token : String, liveData : MutableLiveData<UserDetailResponse>){
+        val call : Call<UserDetailResponse> = apiService.getDetailUser(token)
+        call.enqueue(object  : Callback<UserDetailResponse>{
+            override fun onResponse(
+                call: Call<UserDetailResponse>,
+                response: Response<UserDetailResponse>
+            ) {if (response.isSuccessful){
+                liveData.postValue(response.body()!!)
+
+            }else{
+                liveData.postValue(null)
+
+            }
+            }
+
+            override fun onFailure(call: Call<UserDetailResponse>, t: Throwable) {
+                liveData.postValue(null)
+            }
+
+        })
     }
 }
