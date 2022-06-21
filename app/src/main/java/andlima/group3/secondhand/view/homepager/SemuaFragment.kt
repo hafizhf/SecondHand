@@ -7,20 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
-import andlima.group3.secondhand.func.isScrollReachedBottom
-import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.view.adapter.HomeAdapter
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
 import android.annotation.SuppressLint
-import android.util.Log
-import android.widget.ScrollView
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_semua.*
 
 @AndroidEntryPoint
 class SemuaFragment : Fragment() {
@@ -45,17 +40,19 @@ class SemuaFragment : Fragment() {
 
     @SuppressLint("NotifyDataSetChanged")
     private fun getProductData() {
+        val recyclerView : RecyclerView = requireView().findViewById(R.id.rv_home_semua)
+
         val homeAdapter = HomeAdapter() {
             // On item click
-            val selectedData = bundleOf("SELECTED_DATA" to it)
+            val selectedID = bundleOf("SELECTED_ID" to it.id)
             Navigation.findNavController(view!!)
-                .navigate(R.id.action_mainContainerFragment_to_detailFragment, selectedData)
+                .navigate(R.id.action_mainContainerFragment_to_detailFragment, selectedID)
         }
 
-        rv_home_semua.layoutManager = GridLayoutManager(requireContext(), 2)
-        rv_home_semua.adapter = homeAdapter
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+        recyclerView.adapter = homeAdapter
         MarketApplication.homeFragmentReachedBottom.observe(this, {
-            rv_home_semua.isNestedScrollingEnabled = it
+            recyclerView.isNestedScrollingEnabled = it
         })
 
         val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]

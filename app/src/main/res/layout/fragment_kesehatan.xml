@@ -5,11 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".view.homepager.KesehatanFragment">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tab Kesahatan"
-        android:layout_centerInParent="true"
-        style="@style/Heading2"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_home_kesehatan"
+        android:paddingTop="20dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

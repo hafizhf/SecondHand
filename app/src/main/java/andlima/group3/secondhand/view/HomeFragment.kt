@@ -9,13 +9,9 @@ import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.getDeviceScreenHeight
 import andlima.group3.secondhand.func.isScrollReachedBottom
-import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.view.adapter.AdapterHomePager
-import android.util.Log
-import android.view.ViewTreeObserver
-import android.widget.ScrollView
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.fragment_home.*
+
 class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,9 +24,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewpager_home.adapter = AdapterHomePager(parentFragmentManager)
+        val adapter = AdapterHomePager(childFragmentManager)
+        viewpager_home.adapter = adapter
         viewpager_home.layoutParams.height = getDeviceScreenHeight(requireActivity()) + 100
         tabs_home.setupWithViewPager(viewpager_home)
+        adapter.notifyDataSetChanged()
+        retainInstance = true
 
 //        tabs_home.getTabAt(0)!!.setIcon(R.drawable.ic_fi_search)
 

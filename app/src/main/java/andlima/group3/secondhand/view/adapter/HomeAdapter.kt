@@ -2,11 +2,14 @@ package andlima.group3.secondhand.view.adapter
 
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.model.home.BuyerProductItem
+import andlima.group3.secondhand.model.home.Category
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.item_home.view.*
 
 class HomeAdapter(private var onClick: (BuyerProductItem) -> Unit)
@@ -26,14 +29,19 @@ class HomeAdapter(private var onClick: (BuyerProductItem) -> Unit)
         return ViewHolder(itemView)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.apply {
             Glide.with(context)
                 .load(productList!![position].imageUrl)
                 .into(iv_home_product_image)
             tv_home_product_name.text = productList!![position].name
-//            tv_home_category.text = productList!![position].categories[0].name
-            tv_home_price.text = productList!![position].basePrice.toString()
+            if (productList!![position].categories.isNotEmpty()) {
+                tv_home_category.text = productList!![position].categories[0].name
+            } else {
+                tv_home_category.text = "Uncategorized"
+            }
+            tv_home_price.text = "Rp " + productList!![position].basePrice.toString()
 
             item_home_product.setOnClickListener {
                 onClick(productList!![position])

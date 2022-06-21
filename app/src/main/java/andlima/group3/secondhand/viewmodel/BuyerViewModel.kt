@@ -1,5 +1,6 @@
 package andlima.group3.secondhand.viewmodel
 
+import andlima.group3.secondhand.model.home.BuyerProductDetail
 import andlima.group3.secondhand.model.home.BuyerProductItem
 import andlima.group3.secondhand.repository.BuyerRepository
 import androidx.lifecycle.LiveData
@@ -14,8 +15,11 @@ import javax.inject.Inject
 @HiltViewModel
 class BuyerViewModel @Inject constructor(api: BuyerRepository): ViewModel() {
 
+    private val apiHelper = api
+
     private val getAllProductData = MutableLiveData<List<BuyerProductItem>>()
     val allProductData: LiveData<List<BuyerProductItem>> = getAllProductData
+    val detailProduct: MutableLiveData<BuyerProductDetail> = MutableLiveData()
 
     init {
         viewModelScope.launch {
@@ -23,5 +27,9 @@ class BuyerViewModel @Inject constructor(api: BuyerRepository): ViewModel() {
             delay(2000)
             getAllProductData.value = dataProduct
         }
+    }
+
+    fun getDetailProduct(id: Int) {
+        apiHelper.getDetailProduct(id, detailProduct)
     }
 }

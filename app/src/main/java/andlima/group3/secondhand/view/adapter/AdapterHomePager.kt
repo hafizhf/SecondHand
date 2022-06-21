@@ -16,6 +16,8 @@ class AdapterHomePager(fragmentManager: FragmentManager): FragmentPagerAdapter(f
         KesehatanFragment()
     )
 
+    fun gerPages() = pages
+
 
     override fun getCount(): Int {
         return pages.size
