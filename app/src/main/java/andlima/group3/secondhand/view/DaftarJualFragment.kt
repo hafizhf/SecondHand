@@ -6,8 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
+import andlima.group3.secondhand.func.toast
+import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.view.adapter.AdapterDaftarJualPager
 import andlima.group3.secondhand.view.adapter.AdapterHomePager
+import andlima.group3.secondhand.viewmodel.UserViewModel
+import android.util.Log
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
+import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_daftar_jual.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -25,6 +34,33 @@ class DaftarJualFragment : Fragment() {
 
         viewpager_daftar_jual.adapter = AdapterDaftarJualPager(parentFragmentManager)
         tabs_daftar_jual.setupWithViewPager(viewpager_daftar_jual)
+
+        var userManager = UserManager(requireContext())
+        userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
+            getDataSeller(it)
+            Log.d("AKSES TOKEN", it)
+        }
+        buttonEdit.setOnClickListener {
+            view.findNavController().navigate(R.id.action_mainContainerFragment_to_infoAkunFragment)
+        }
+    }
+
+
+    private fun getDataSeller(token: String) {
+        val viewModel = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
+        viewModel.userDetailLiveData.observe(viewLifecycleOwner){
+            if (it != null){
+                tv_namaPenjual.text = it.email
+                tv_kotaPenjual.text = it.city
+                Glide.with(this).load(it.imageUrl).into(imagePenjualDaftarJual)
+
+            }else{
+                toast(requireContext(), "$token")
+            }
+        }
+        viewModel.userDetailLive(token)
+
+
     }
 
 

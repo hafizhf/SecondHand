@@ -13,10 +13,18 @@
         <action
             android:id="@+id/action_mainContainerFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_mainContainerFragment_to_infoAkunFragment"
+            app:destination="@id/infoAkunFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="andlima.group3.secondhand.view.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" />
+    <fragment
+        android:id="@+id/infoAkunFragment"
+        android:name="andlima.group3.secondhand.view.InfoAkunFragment"
+        android:label="fragment_info_akun"
+        tools:layout="@layout/fragment_info_akun" />
 </navigation>
