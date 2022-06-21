@@ -7,17 +7,23 @@ import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.alertDialog
+import andlima.group3.secondhand.model.detail.ProductDataForBid
 import andlima.group3.secondhand.model.home.BuyerProductDetail
 import andlima.group3.secondhand.model.home.BuyerProductItem
+import andlima.group3.secondhand.view.bottomsheet.DetailBottomDialogFragment
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -56,12 +62,26 @@ class DetailFragment : Fragment() {
     private fun getData(id: Int) {
         val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
         viewModel.getDetailProduct(id)
-        viewModel.detailProduct.observe(this, {
-            if (it != null) {
-                showProductData(it)
+        viewModel.detailProduct.observe(this, { data ->
+            if (data != null) {
+                showProductData(data)
+
+                val btnImInterested : Button = requireView().findViewById(R.id.btn_saya_tertarik_ingin_nego)
+                btnImInterested.setOnClickListener {
+                    showBottomSheetDialogFragment(
+                        ProductDataForBid(data.name, data.basePrice, data.imageUrl)
+                    )
+                }
             } else {
                 alertDialog(requireContext(), "Get product data failed", "null") {}
             }
         })
+    }
+
+    private fun showBottomSheetDialogFragment(data: ProductDataForBid) {
+        val bottomSheet = DetailBottomDialogFragment()
+        val dataForBid = bundleOf("BID_PRODUCT" to data)
+        bottomSheet.arguments = dataForBid
+        bottomSheet.show(parentFragmentManager, DetailBottomDialogFragment.TAG)
     }
 }

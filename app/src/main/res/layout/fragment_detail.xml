@@ -103,6 +103,7 @@
                                 android:id="@+id/iv_detail_product_seller_image"
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
+                                android:scaleType="centerCrop"
                                 android:src="@drawable/ic_launcher_background"/>
 
                         </com.google.android.material.card.MaterialCardView>
