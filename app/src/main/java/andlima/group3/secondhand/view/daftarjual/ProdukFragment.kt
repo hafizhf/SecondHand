@@ -68,7 +68,7 @@ class ProdukFragment : Fragment() {
                 val produkAdapter = DaftarJualAdapter {
                     val selectedID = bundleOf("SELECTED_ID" to it.id)
                     view?.findNavController()
-                        ?.navigate(R.id.action_mainContainerFragment_to_detailFragment, selectedID)
+                        ?.navigate(R.id.action_daftarJualFragment_to_detailFragment, selectedID)
 
 
                 }

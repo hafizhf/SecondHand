@@ -40,7 +40,7 @@ class KesehatanFragment : Fragment() {
             // On item click
             val selectedID = bundleOf("SELECTED_ID" to it.id)
             Navigation.findNavController(view!!)
-                .navigate(R.id.action_mainContainerFragment_to_detailFragment, selectedID)
+                .navigate(R.id.action_homeFragment_to_detailFragment, selectedID)
         }
 
         recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)

@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainContainerFragment : Fragment() {
@@ -19,56 +22,61 @@ class MainContainerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        parentFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment())
-            .commit()
-        bottomNavigationInteraction()
+
+        val navController : NavController = Navigation.findNavController(requireActivity(), R.id.fragment_container)
+        val bottomNavigationView : BottomNavigationView = requireView().findViewById(R.id.bottom_navigation)
+        NavigationUI.setupWithNavController(bottomNavigationView, navController)
+
+//        parentFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment())
+//            .commit()
+//        bottomNavigationInteraction()
     }
 
-    private fun bottomNavigationInteraction() {
-
-        val bottomNavigation : BottomNavigationView = view!!.findViewById(R.id.bottom_navigation)
-        bottomNavigation.isSelected
-
-        bottomNavigation.setOnNavigationItemSelectedListener { item ->
-
-            when (item.itemId) {
-                R.id.menu_home -> {
-                    parentFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, HomeFragment())
-                        .commit()
-                    return@setOnNavigationItemSelectedListener true
-                }
-                R.id.menu_notifikasi -> {
-                    parentFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, NotifikasiFragment())
-                        .commit()
-                    return@setOnNavigationItemSelectedListener true
-                }
-                R.id.menu_jual -> {
-                    parentFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, JualFragment())
-                        .commit()
-                    return@setOnNavigationItemSelectedListener true
-                }
-                R.id.menu_daftar_jual -> {
-                    parentFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, DaftarJualFragment())
-                        .commit()
-                    return@setOnNavigationItemSelectedListener true
-                }
-                R.id.menu_akun -> {
-                    parentFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, AkunFragment())
-                        .commit()
-                    return@setOnNavigationItemSelectedListener true
-                }
-            }
-            false
-        }
-    }
+//    private fun bottomNavigationInteraction() {
+//
+//        val bottomNavigation : BottomNavigationView = view!!.findViewById(R.id.bottom_navigation)
+//        bottomNavigation.isSelected
+//
+//        bottomNavigation.setOnNavigationItemSelectedListener { item ->
+//
+//            when (item.itemId) {
+//                R.id.menu_home -> {
+//                    parentFragmentManager
+//                        .beginTransaction()
+//                        .replace(R.id.fragment_container, HomeFragment())
+//                        .commit()
+//                    return@setOnNavigationItemSelectedListener true
+//                }
+//                R.id.menu_notifikasi -> {
+//                    parentFragmentManager
+//                        .beginTransaction()
+//                        .replace(R.id.fragment_container, NotifikasiFragment())
+//                        .commit()
+//                    return@setOnNavigationItemSelectedListener true
+//                }
+//                R.id.menu_jual -> {
+//                    parentFragmentManager
+//                        .beginTransaction()
+//                        .replace(R.id.fragment_container, JualFragment())
+//                        .commit()
+//                    return@setOnNavigationItemSelectedListener true
+//                }
+//                R.id.menu_daftar_jual -> {
+//                    parentFragmentManager
+//                        .beginTransaction()
+//                        .replace(R.id.fragment_container, DaftarJualFragment())
+//                        .commit()
+//                    return@setOnNavigationItemSelectedListener true
+//                }
+//                R.id.menu_akun -> {
+//                    parentFragmentManager
+//                        .beginTransaction()
+//                        .replace(R.id.fragment_container, AkunFragment())
+//                        .commit()
+//                    return@setOnNavigationItemSelectedListener true
+//                }
+//            }
+//            false
+//        }
+//    }
 }
