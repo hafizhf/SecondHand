@@ -5,6 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ProductDataForBid(
+    val productId: Int,
     val name: String,
     val price: Int,
     val imageUrl: String

@@ -12,6 +12,7 @@ import andlima.group3.secondhand.model.home.BuyerProductDetail
 import andlima.group3.secondhand.model.home.BuyerProductItem
 import andlima.group3.secondhand.view.bottomsheet.DetailBottomDialogFragment
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
+import android.annotation.SuppressLint
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -39,6 +40,7 @@ class DetailFragment : Fragment() {
         getData(productID)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun showProductData(data: BuyerProductDetail) {
         // Get view id -----------------------------------------------------------------------------
         val productImage : ImageView = view!!.findViewById(R.id.iv_detail_product_image)
@@ -54,7 +56,8 @@ class DetailFragment : Fragment() {
         // Set data to view ------------------------------------------------------------------------
         Glide.with(this).load(data.imageUrl).into(productImage)
         productName.text = data.name
-        productCategory.text = "Tipe data categories masih Any"
+//        productCategory.text = "Tipe data categories masih Any"
+        productCategory.text = data.categories[0].name
         productPrice.text = "Rp " + data.basePrice.toString()
         productDesc.text = data.description
     }
@@ -69,7 +72,7 @@ class DetailFragment : Fragment() {
                 val btnImInterested : Button = requireView().findViewById(R.id.btn_saya_tertarik_ingin_nego)
                 btnImInterested.setOnClickListener {
                     showBottomSheetDialogFragment(
-                        ProductDataForBid(data.name, data.basePrice, data.imageUrl)
+                        ProductDataForBid(data.id, data.name, data.basePrice, data.imageUrl)
                     )
                 }
             } else {

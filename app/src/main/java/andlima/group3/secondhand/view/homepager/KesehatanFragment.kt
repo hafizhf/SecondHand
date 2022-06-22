@@ -50,14 +50,19 @@ class KesehatanFragment : Fragment() {
         })
 
         val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
-        viewModel.allProductData.observe(this, {
+        viewModel.products.observe(this, {
             if (it != null) {
-                homeAdapter.setProductData(it)
-                homeAdapter.notifyDataSetChanged()
+                if (it.isNotEmpty()) {
+                    homeAdapter.setProductData(it)
+                    homeAdapter.notifyDataSetChanged()
+                } else {
+                    // Something to show when there is no product
+                }
             } else {
-                // Something to show when there is no product
+                // Something to show when error occurred
             }
         })
+        viewModel.getKesehatanProducts()
     }
 
 }
