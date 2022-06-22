@@ -1,5 +1,6 @@
 package andlima.group3.secondhand
 
+import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.view.*
 import android.graphics.Color
@@ -7,9 +8,17 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
+import androidx.core.view.MotionEventCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
@@ -21,59 +30,38 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Integrate navigation component and bottom navigation
+        val navController : NavController = Navigation.findNavController(this, R.id.main_fragment_container)
+        val bottomNavigationView : BottomNavigationView = findViewById(R.id.bottom_navigation)
+        NavigationUI.setupWithNavController(bottomNavigationView, navController)
+
+        // Bottom navigation visibility handler
+        val navHostFragment : NavHostFragment = supportFragmentManager.findFragmentById(R.id.main_fragment_container) as NavHostFragment
+        navHostFragment.childFragmentManager.addOnBackStackChangedListener {
+            hideBottomNavigationForSubPage(bottomNavigationView)
+        }
+
+        // Make status bar transparent
         transparentStatusBar()
-//        bottomNavigationInteraction()
     }
 
-//    private fun bottomNavigationInteraction() {
-//        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment())
-//            .commit()
-//
-//        val bottomNavigation : BottomNavigationView = findViewById(R.id.bottom_navigation)
-//        bottomNavigation.isSelected
-//
-//        bottomNavigation.setOnNavigationItemSelectedListener { item ->
-//
-//            when (item.itemId) {
-//                R.id.menu_home -> {
-//                    supportFragmentManager
-//                        .beginTransaction()
-//                        .replace(R.id.fragment_container, HomeFragment())
-//                        .commit()
-//                    return@setOnNavigationItemSelectedListener true
-//                }
-//                R.id.menu_notifikasi -> {
-//                    supportFragmentManager
-//                        .beginTransaction()
-//                        .replace(R.id.fragment_container, NotifikasiFragment())
-//                        .commit()
-//                    return@setOnNavigationItemSelectedListener true
-//                }
-//                R.id.menu_jual -> {
-//                    supportFragmentManager
-//                        .beginTransaction()
-//                        .replace(R.id.fragment_container, JualFragment())
-//                        .commit()
-//                    return@setOnNavigationItemSelectedListener true
-//                }
-//                R.id.menu_daftar_jual -> {
-//                    supportFragmentManager
-//                        .beginTransaction()
-//                        .replace(R.id.fragment_container, DaftarJualFragment())
-//                        .commit()
-//                    return@setOnNavigationItemSelectedListener true
-//                }
-//                R.id.menu_akun -> {
-//                    supportFragmentManager
-//                        .beginTransaction()
-//                        .replace(R.id.fragment_container, AkunFragment())
-//                        .commit()
-//                    return@setOnNavigationItemSelectedListener true
-//                }
-//            }
-//            false
-//        }
-//    }
+    private fun hideBottomNavigationForSubPage(bottomNavigationView : BottomNavigationView) {
+        val navHostFragment : NavHostFragment = supportFragmentManager
+            .findFragmentById(R.id.main_fragment_container) as NavHostFragment
+        val showedFragment = navHostFragment.childFragmentManager.fragments[0].toString()
+
+        if (
+            "HomeFragment" !in showedFragment
+            && "NotifikasiFragment" !in showedFragment
+            && "JualFragment" !in showedFragment
+            && "DaftarJualFragment" !in showedFragment
+            && "AkunFragment" !in showedFragment
+        ) {
+            bottomNavigationView.visibility = View.GONE
+        } else {
+            bottomNavigationView.visibility = View.VISIBLE
+        }
+    }
 
     private fun transparentStatusBar() {
         if (Build.VERSION.SDK_INT in 19..20) {
