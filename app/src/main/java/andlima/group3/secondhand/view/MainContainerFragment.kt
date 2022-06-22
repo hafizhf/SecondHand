@@ -19,19 +19,15 @@ class MainContainerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        parentFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment())
+            .commit()
         bottomNavigationInteraction()
     }
 
-    override fun onStart() {
-        super.onStart()
-//        parentFragmentManager.beginTransaction().replace(R.id.fragment_container, JualFragment())
-//            .commit()
-    }
-
     private fun bottomNavigationInteraction() {
+
         val bottomNavigation : BottomNavigationView = view!!.findViewById(R.id.bottom_navigation)
-//        bottomNavigation.isSelected
+        bottomNavigation.isSelected
 
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
 
