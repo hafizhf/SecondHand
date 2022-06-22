@@ -1,6 +1,7 @@
 package andlima.group3.secondhand.network
 
 import andlima.group3.secondhand.model.daftarjual.SellerProductsItem
+import andlima.group3.secondhand.model.daftarjual.diminati.SellerOrdersItem
 import andlima.group3.secondhand.model.jual.PostProductResponse
 import andlima.group3.secondhand.model.kategori.KategoriResponseItem
 import andlima.group3.secondhand.model.register.RegisterResponse
@@ -34,6 +35,11 @@ interface ApiService {
     fun getSellerAllProduct(
         @Header("access_token") accessToken: String
     ) : Call<List<SellerProductsItem>>
+
+    @GET("seller/order")
+    fun getSellerAllOrder(
+        @Header("access_token") accessToken: String
+    ) : Call<List<SellerOrdersItem>>
 
     @Multipart
     @POST("seller/product")

@@ -1,11 +1,8 @@
-package andlima.group3.secondhand.model.penawaran
+package andlima.group3.secondhand.model.daftarjual.diminati
 
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
 
-//@Parcelize
 data class SellerOrdersItem(
     @SerializedName("buyer_id")
     val buyerId: Int,
@@ -26,4 +23,3 @@ data class SellerOrdersItem(
     @SerializedName("User")
     val user: User
 )
-//    : Parcelable

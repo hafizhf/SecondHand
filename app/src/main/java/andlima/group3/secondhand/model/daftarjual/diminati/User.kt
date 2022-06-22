@@ -1,4 +1,4 @@
-package andlima.group3.secondhand.model.penawaran
+package andlima.group3.secondhand.model.daftarjual.diminati
 
 
 import com.google.gson.annotations.SerializedName
@@ -6,6 +6,8 @@ import com.google.gson.annotations.SerializedName
 data class User(
     @SerializedName("address")
     val address: String,
+    @SerializedName("city")
+    val city: String,
     @SerializedName("email")
     val email: String,
     @SerializedName("full_name")

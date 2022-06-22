@@ -15,4 +15,11 @@ class InfoPenawarFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_info_penawar, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val productID = arguments?.getInt("SELECTED_ID") as Int
+
+    }
+//    fun getBuyerInfo()
 }

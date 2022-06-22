@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_mainContainerFragment_to_infoAkunFragment"
             app:destination="@id/infoAkunFragment" />
+        <action
+            android:id="@+id/action_mainContainerFragment_to_infoPenawarFragment"
+            app:destination="@id/infoPenawarFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
@@ -27,4 +30,9 @@
         android:name="andlima.group3.secondhand.view.InfoAkunFragment"
         android:label="fragment_info_akun"
         tools:layout="@layout/fragment_info_akun" />
+    <fragment
+        android:id="@+id/infoPenawarFragment"
+        android:name="andlima.group3.secondhand.view.InfoPenawarFragment"
+        android:label="fragment_info_penawar"
+        tools:layout="@layout/fragment_info_penawar" />
 </navigation>

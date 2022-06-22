@@ -69,7 +69,7 @@ class ProdukFragment : Fragment() {
                     val selectedID = bundleOf("SELECTED_ID" to it.id)
                     view?.findNavController()
                         ?.navigate(R.id.action_mainContainerFragment_to_detailFragment, selectedID)
-                
+
 
                 }
                 produkAdapter.setDataProduk(it)
