@@ -2,6 +2,7 @@ package andlima.group3.secondhand.repository
 
 import andlima.group3.secondhand.model.daftarjual.SellerProducts
 import andlima.group3.secondhand.model.daftarjual.SellerProductsItem
+import andlima.group3.secondhand.model.daftarjual.diminati.SellerOrdersItem
 import andlima.group3.secondhand.model.jual.PostProductResponse
 import andlima.group3.secondhand.model.kategori.KategoriResponseItem
 import andlima.group3.secondhand.model.register.RegisterResponse
@@ -74,6 +75,29 @@ class SellerRepository @Inject constructor(private val apiService: ApiService) {
             }
 
             override fun onFailure(call: Call<List<SellerProductsItem>>, t: Throwable) {
+                liveData.postValue(null)
+            }
+
+        })
+
+    }
+
+    fun getSellerAllOrders(token: String, liveData: MutableLiveData<List<SellerOrdersItem>>){
+        val call : Call<List<SellerOrdersItem>> = apiService.getSellerAllOrder(token)
+        call.enqueue(object  : Callback<List<SellerOrdersItem>>{
+            override fun onResponse(
+                call: Call<List<SellerOrdersItem>>,
+                response: Response<List<SellerOrdersItem>>
+            ) {
+                if (response.code() == 200){
+                    liveData.postValue(response.body())
+                }else{
+                    liveData.postValue(null)
+
+                }
+            }
+
+            override fun onFailure(call: Call<List<SellerOrdersItem>>, t: Throwable) {
                 liveData.postValue(null)
             }
 

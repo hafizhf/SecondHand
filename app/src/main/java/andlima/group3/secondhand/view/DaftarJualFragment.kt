@@ -32,8 +32,11 @@ class DaftarJualFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewpager_daftar_jual.adapter = AdapterDaftarJualPager(parentFragmentManager)
+        val adapter = AdapterDaftarJualPager(childFragmentManager)
+        viewpager_daftar_jual.adapter = adapter
         tabs_daftar_jual.setupWithViewPager(viewpager_daftar_jual)
+        adapter.notifyDataSetChanged()
+
 
         var userManager = UserManager(requireContext())
         userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){

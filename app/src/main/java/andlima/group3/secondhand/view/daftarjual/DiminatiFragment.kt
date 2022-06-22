@@ -6,6 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
+import andlima.group3.secondhand.local.datastore.UserManager
+import andlima.group3.secondhand.view.adapter.DaftarJualAdapter
+import andlima.group3.secondhand.view.adapter.PenawaranAdapter
+import andlima.group3.secondhand.viewmodel.SellerViewModel
+import android.util.Log
+import androidx.core.os.bundleOf
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.fragment_diminati.*
+import kotlinx.android.synthetic.main.fragment_produk.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,6 +49,35 @@ class DiminatiFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_diminati, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        var userManager = UserManager(requireContext())
+        userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
+            getAllOrders(it)
+            Log.d("AKSES TOKEN", it)
+        }
+    }
+
+    private fun getAllOrders(token: String) {
+        val viewModel = ViewModelProvider(requireActivity()).get(SellerViewModel::class.java)
+        viewModel.sellerOrdersLiveData.observe(viewLifecycleOwner){
+            if (it != null){
+                val orderAdapter = PenawaranAdapter {
+                    val selectedID = bundleOf("SELECTED_ID" to it.id)
+                    view?.findNavController()
+                        ?.navigate(R.id.action_mainContainerFragment_to_infoPenawarFragment, selectedID)
+
+                }
+                orderAdapter.setDataProduk(it)
+                orderAdapter.notifyDataSetChanged()
+                rv_order_daftarjual.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                rv_order_daftarjual.adapter = orderAdapter
+            }
+        }
+        viewModel.getSellerAllOrdersLive(token)
+
     }
 
     companion object {
