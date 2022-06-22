@@ -20,6 +20,7 @@ import androidx.lifecycle.asLiveData
 import androidx.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_register.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -40,6 +41,9 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+//        login_arrowback.setOnClickListener {
+//            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment)
+//        }
 
         // Get something from data store
         userManager = UserManager(requireContext())

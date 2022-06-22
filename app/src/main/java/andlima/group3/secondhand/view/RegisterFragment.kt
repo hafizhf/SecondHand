@@ -13,7 +13,9 @@ import andlima.group3.secondhand.viewmodel.UserViewModel
 import android.content.Intent
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_register.*
 
 class RegisterFragment : Fragment() {
@@ -27,6 +29,15 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        register_tv_kembalikelogin.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment)
+        }
+//        register_arrowback.setOnClickListener {
+//            Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment)
+//        }
+
+
+
         register_btn_daftar.setOnClickListener {
             val namaLengkap = register_et_namalengkap.text.toString()
             val email = register_et_email.text.toString()

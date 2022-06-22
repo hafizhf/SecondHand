@@ -59,15 +59,24 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <com.google.android.material.textfield.TextInputLayout
 
-        <EditText
-            android:id="@+id/register_et_password"
-            style="@style/InputField"
+            android:layout_gravity="center_horizontal"
+            app:passwordToggleEnabled="true"
+            app:boxBackgroundMode="outline"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            android:layout_height="wrap_content"
-            android:hint="Buat Password"
-            android:inputType="textPassword" />
+            <EditText
+                android:id="@+id/register_et_password"
+                style="@style/InputField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:hint="Password Minimal 8 karakter"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <ImageView
             android:layout_width="wrap_content"
