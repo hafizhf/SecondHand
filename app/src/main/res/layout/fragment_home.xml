@@ -8,161 +8,239 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.HomeFragment">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:orientation="vertical"
-            android:background="@drawable/home_gradient">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:orientation="vertical"
+                android:background="@drawable/home_gradient">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/container_search_event"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/white"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp"
+                    app:cardCornerRadius="12dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_fi_search"
+                            android:layout_marginEnd="10dp"/>
+
+                        <TextView
+                            android:id="@+id/tv_search_placeholder"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Cari di Second Chance"
+                            android:layout_marginTop="2dp"
+                            android:textColor="@color/second_hand_neutral3"
+                            style="@style/Heading4"/>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="0dp"/>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Bulan Ramadhan Banyak Diskon!"
+                            style="@style/Heading1"/>
+
+                        <View
+                            android:layout_width="wrap_content"
+                            android:layout_height="10dp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Diskon Hingga"
+                            style="@style/Body1"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="60%"
+                            android:textColor="@color/second_hand_danger"
+                            style="@style/Heading3"/>
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="140dp"
+                        android:layout_height="140dp"
+                        android:src="@drawable/dummy1"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Telusuri Kategori"
+                    style="@style/Heading3"
+                    android:layout_marginStart="20dp"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="15dp"/>
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabs_home"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:tabMode="scrollable"
+
+                    android:background="@color/second_hand_transparent"
+                    app:tabRippleColor="@color/second_hand_transparent"
+
+                    app:tabIndicator="@drawable/tab_indicator"
+                    app:tabIndicatorHeight="47dp"
+                    app:tabIndicatorGravity="center"
+                    app:tabSelectedTextColor="@color/white"
+
+                    app:tabPaddingStart="20dp"
+                    app:tabPaddingEnd="20dp"
+
+                    app:tabContentStart="42dp">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Semua"/>
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hobi"/>
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kendaraan"/>
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Aksesoris"/>
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Elektronik"/>
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Kesehatan"/>
+
+                </com.google.android.material.tabs.TabLayout>
+
+            </LinearLayout>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpager_home"
+                android:layout_width="match_parent"
+                android:layout_height="1000dp"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/container_search_result"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:background="@color/second_hand_dim"
+            android:visibility="gone"
+            android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/container_search_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginEnd="20dp"
+                app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
-                app:strokeWidth="0dp"
-                app:cardCornerRadius="12dp">
+                app:strokeWidth="0dp">
 
-                <SearchView
-                    android:id="@+id/search_bar"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:background="@color/white"
-                    android:queryBackground="@color/second_hand_transparent"
-                    android:queryHint="Cari di Second Chance"
-                    android:iconifiedByDefault="false"/>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <SearchView
+                        android:id="@+id/home_search_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:background="@color/white"
+                        android:searchIcon="@drawable/ic_fi_search"
+                        android:queryBackground="@color/second_hand_transparent"
+                        android:queryHint="Cari di Second Chance"
+                        android:iconifiedByDefault="false"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_search_result"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
             <View
                 android:layout_width="0dp"
-                android:layout_height="40dp"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Bulan Ramadhan Banyak Diskon!"
-                        style="@style/Heading1"/>
-
-                    <View
-                        android:layout_width="wrap_content"
-                        android:layout_height="10dp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Diskon Hingga"
-                        style="@style/Body1"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="60%"
-                        android:textColor="@color/second_hand_danger"
-                        style="@style/Heading3"/>
-
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="140dp"
-                    android:layout_height="140dp"
-                    android:src="@drawable/dummy1"/>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="40dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Telusuri Kategori"
-                style="@style/Heading3"
-                android:layout_marginStart="20dp"/>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="15dp"/>
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabs_home"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:tabMode="scrollable"
-
-                android:background="@color/second_hand_transparent"
-                app:tabRippleColor="@color/second_hand_transparent"
-
-                app:tabIndicator="@drawable/tab_indicator"
-                app:tabIndicatorHeight="47dp"
-                app:tabIndicatorGravity="center"
-                app:tabSelectedTextColor="@color/white"
-
-                app:tabPaddingStart="20dp"
-                app:tabPaddingEnd="20dp"
-
-                app:tabContentStart="42dp">
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Semua"/>
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Hobi"/>
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Kendaraan"/>
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Aksesoris"/>
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Elektronik"/>
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Kesehatan"/>
-
-            </com.google.android.material.tabs.TabLayout>
+                android:layout_height="100dp"/>
 
         </LinearLayout>
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewpager_home"
-            android:layout_width="match_parent"
-            android:layout_height="1000dp"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-    </LinearLayout>
+    </RelativeLayout>
 
 </androidx.core.widget.NestedScrollView>

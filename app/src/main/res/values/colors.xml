@@ -17,5 +17,6 @@
     <color name="second_hand_neutral4">#3C3C3C</color>
     <color name="second_hand_neutral5">#E5E5E5</color>
     <color name="second_hand_transparent">#00000000</color>
+    <color name="second_hand_dim">#88000000</color>
 
 </resources>
