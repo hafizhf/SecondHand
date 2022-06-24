@@ -138,7 +138,7 @@
             android:gravity="top"
             android:paddingTop="10dp"
             android:textAlignment="gravity"
-            android:hint="Contoh : Jalan Ikan Hiu 33"
+            android:hint="Contoh : Produk ini adalah salah satu best seller kami"
             android:inputType="textMultiLine"
             android:id="@+id/editDeskripsiProduk"
             style="@style/InputField"/>
