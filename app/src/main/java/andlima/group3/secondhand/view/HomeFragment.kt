@@ -44,8 +44,6 @@ class HomeFragment : Fragment() {
         adapter.notifyDataSetChanged()
         retainInstance = true
 
-//        tabs_home.getTabAt(0)!!.setIcon(R.drawable.ic_fi_search)
-
         isScrollReachedBottom(scroll_view_home) {
             MarketApplication.homeFragmentReachedBottom.value = it
         }
