@@ -10,6 +10,7 @@ import andlima.group3.secondhand.viewmodel.SellerViewModel
 import andlima.group3.secondhand.viewmodel.UserViewModel
 import android.Manifest
 import android.app.Activity
+import android.content.ContentResolver
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -24,6 +25,7 @@ import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -35,14 +37,16 @@ import kotlinx.android.synthetic.main.fragment_jual.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
 
 class JualFragment : Fragment() {
-    private lateinit var imgFile: File
+    lateinit var body: MultipartBody.Part
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -114,14 +118,12 @@ class JualFragment : Fragment() {
                     adapterKategori.setDataProduk(gabungan)
                     adapterKategori.notifyDataSetChanged()
                 }
-                toast(requireContext(), pilihanID.toString())
 
                 rv_kategori.visibility = View.VISIBLE
 
 
             }
         adapterKategori.setDataProduk(gabungan)
-        adapterKategori.notifyDataSetChanged()
         rv_kategori.adapter = adapterKategori
 
 
@@ -130,12 +132,12 @@ class JualFragment : Fragment() {
             val description = editDeskripsiProduk.text.toString()
             val basePrice = editHargaProduk.text.toString().toInt()
             val lokasi = "sementara"
-            val requestFile = RequestBody.create("multipart/from-data".toMediaTypeOrNull(), imgFile)
-            val foto = MultipartBody.Part.createFormData("foto", imgFile.name, requestFile)
+
+
 
             var userManager = UserManager(requireContext())
             userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
-                postProduct(it,nama, description, basePrice, listDataID,lokasi, foto)
+                postProduct(it,nama, description, basePrice, listDataID,lokasi)
                 Log.d("AKSES TOKEN", it)
             }
         }
@@ -144,8 +146,9 @@ class JualFragment : Fragment() {
         }
 
     }
-    fun postProduct(token: String, name : String, description : String, basePrice : Int, categoryIDs : List<Int>, location : String, image : MultipartBody.Part){
+    fun postProduct(token: String, name : String, description : String, basePrice : Int, categoryIDs : List<Int>, location : String){
         val viewModel = ViewModelProvider(requireActivity()).get(SellerViewModel::class.java)
+
         viewModel.sellerPostProductLive.observe(viewLifecycleOwner){
             if (it != null){
                 toast(requireContext(), "Berhasil menambah produk")
@@ -153,7 +156,8 @@ class JualFragment : Fragment() {
                 toast(requireContext(), "Gagal menambah produk")
             }
         }
-        viewModel.postProductLive(token, name, description, basePrice, categoryIDs, location, image)
+        viewModel.postProductLive(token, name, description, basePrice, categoryIDs, location, body)
+
 
     }
     private fun setImage() {
@@ -163,16 +167,48 @@ class JualFragment : Fragment() {
             startActivityForResult(cameraIntent, 2000)
         }
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == 2000 && data != null){
             val uri = data?.data
-            imgFile = File(uri?.path)
             imageFotoProduk.setImageURI(uri)
-        }else {
+            val contentResolver = requireActivity().contentResolver
 
+            // image/png or jpeg or gif
+
+            val type = contentResolver.getType(uri!!)
+
+            // temp-712793019827391820739.tmp < nano time, directory
+
+            // akan terbuat secara otomatis kalau value nya null,> akan di simpan dalam dir cache
+
+            val tempFile = File.createTempFile("temp-", null, null)
+
+            val inputstream = contentResolver.openInputStream(uri)
+
+
+
+
+            tempFile.outputStream().use {
+
+                inputstream?.copyTo(it)
+
+            }
+
+
+
+
+            val requestBody: RequestBody = tempFile.asRequestBody(type?.toMediaType())
+
+             body =
+
+                MultipartBody.Part.createFormData("image", tempFile.name, requestBody)
+
+        }else {
         }
     }
+
 
     fun isPermissionsAllowed(): Boolean {
         return if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -222,6 +258,7 @@ class JualFragment : Fragment() {
             .setNegativeButton("Cancel",null)
             .show()
     }
+
 
 
 

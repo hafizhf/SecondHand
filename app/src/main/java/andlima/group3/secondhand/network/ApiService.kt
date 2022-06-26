@@ -4,10 +4,12 @@ import andlima.group3.secondhand.model.daftarjual.SellerProductsItem
 import andlima.group3.secondhand.model.daftarjual.diminati.SellerOrdersItem
 import andlima.group3.secondhand.model.jual.PostProductResponse
 import andlima.group3.secondhand.model.kategori.KategoriResponseItem
+import andlima.group3.secondhand.model.notification.NotificationResponseItem
 import andlima.group3.secondhand.model.register.RegisterResponse
 import andlima.group3.secondhand.model.user.UserDetailResponse
 import android.media.Image
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -44,12 +46,17 @@ interface ApiService {
     @Multipart
     @POST("seller/product")
     fun postProduct(
-        @Header("access__token") accessToken: String,
-        @Part("name") name : String,
-        @Part("description") description : String,
-        @Part("base_price") basePrice : Int,
-        @Part("category_ids") categoryIDs : List<Int>,
-        @Part("location") location : String,
+        @Header("access_token") accessToken: String,
+        @Part("name") name : RequestBody,
+        @Part("description") description : RequestBody,
+        @Part("base_price") basePrice : RequestBody,
+        @Part("category_ids") categoryIDs : RequestBody,
+        @Part("location") location : RequestBody,
         @Part image : MultipartBody.Part
     ) : Call<PostProductResponse>
+
+    @GET("notification")
+    fun getNotif(
+        @Header("access__token") accessToken: String
+        ) : Call<List<NotificationResponseItem>>
 }

@@ -9,14 +9,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/rv_produk_daftarjual"/>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_fi_plus"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="60dp"
-        android:layout_marginEnd="10dp"
-        android:backgroundTint="@color/second_hand_primary"/>
 
 </RelativeLayout>

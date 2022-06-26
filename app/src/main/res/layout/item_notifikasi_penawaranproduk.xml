@@ -79,9 +79,9 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/second_hand_neutral5"
+            android:layout_below="@id/itemnotifikasi_tv_hargaditawar"
             android:layout_marginTop="10dp"
-            android:layout_below="@id/itemnotifikasi_tv_hargaditawar"/>
+            android:background="@color/second_hand_neutral5" />
 
 
 
