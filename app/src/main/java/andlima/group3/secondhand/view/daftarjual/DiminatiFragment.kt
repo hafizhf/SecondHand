@@ -67,7 +67,7 @@ class DiminatiFragment : Fragment() {
                 val orderAdapter = PenawaranAdapter {
                     val selectedID = bundleOf("SELECTED_ID" to it.id)
                     view?.findNavController()
-                        ?.navigate(R.id.action_mainContainerFragment_to_infoPenawarFragment, selectedID)
+                        ?.navigate(R.id.action_daftarJualFragment_to_infoPenawarFragment2, selectedID)
 
                 }
                 orderAdapter.setDataProduk(it)

@@ -32,6 +32,9 @@
         <action
             android:id="@+id/action_daftarJualFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_daftarJualFragment_to_infoPenawarFragment2"
+            app:destination="@id/infoPenawarFragment2" />
     </fragment>
     <fragment
         android:id="@+id/akunFragment"
@@ -43,4 +46,9 @@
         android:name="andlima.group3.secondhand.view.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" />
+    <fragment
+        android:id="@+id/infoPenawarFragment2"
+        android:name="andlima.group3.secondhand.view.InfoPenawarFragment"
+        android:label="fragment_info_penawar"
+        tools:layout="@layout/fragment_info_penawar" />
 </navigation>

@@ -1,5 +1,6 @@
 package andlima.group3.secondhand.repository
 
+import andlima.group3.secondhand.model.notification.NotificationResponseItem
 import andlima.group3.secondhand.model.register.RegisterResponse
 import andlima.group3.secondhand.model.user.UserDetailResponse
 import andlima.group3.secondhand.network.ApiService
@@ -46,6 +47,37 @@ class UserRepository @Inject constructor(private val apiService: ApiService) {
 
             override fun onFailure(call: Call<UserDetailResponse>, t: Throwable) {
                 liveData.postValue(null)
+            }
+
+        })
+    }
+    fun getNotifRepo(token: String, listTrue: MutableList<NotificationResponseItem>, listFalse :MutableList<NotificationResponseItem>){
+        val call : Call<List<NotificationResponseItem>> = apiService.getNotif(token)
+        call.enqueue(object : Callback<List<NotificationResponseItem>>{
+            override fun onResponse(
+                call: Call<List<NotificationResponseItem>>,
+                response: Response<List<NotificationResponseItem>>
+            ) {
+                if (response.isSuccessful){
+                    if (response.body()!!.isNotEmpty()){
+                        response.body()!!.forEach {
+                            if (it.read){
+                                listTrue.add(it)
+                            }else{
+                                listFalse.add(it)
+                            }
+                        }
+                    }
+
+
+                }else{
+
+
+                }
+            }
+
+            override fun onFailure(call: Call<List<NotificationResponseItem>>, t: Throwable) {
+
             }
 
         })

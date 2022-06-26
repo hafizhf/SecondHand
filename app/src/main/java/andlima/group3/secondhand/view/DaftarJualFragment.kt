@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
+import andlima.group3.secondhand.func.getDeviceScreenHeight
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.view.adapter.AdapterDaftarJualPager
@@ -34,6 +35,7 @@ class DaftarJualFragment : Fragment() {
 
         val adapter = AdapterDaftarJualPager(childFragmentManager)
         viewpager_daftar_jual.adapter = adapter
+        viewpager_daftar_jual.layoutParams.height = getDeviceScreenHeight(requireActivity()) + 100
         tabs_daftar_jual.setupWithViewPager(viewpager_daftar_jual)
         adapter.notifyDataSetChanged()
 

@@ -10,7 +10,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 @HiltViewModel
@@ -26,7 +29,18 @@ class SellerViewModel@Inject constructor(private val repository : SellerReposito
     }
     fun postProductLive(token: String, name : String, description : String, basePrice : Int, categoryIDs : List<Int>, location : String, image : MultipartBody.Part){
         viewModelScope.launch {
-            repository.postProduct(token,sellerPostProductLive,name, description, basePrice, categoryIDs, location, image)
+            val nama = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), name)
+            val deskripsi = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), description)
+            val harga = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), basePrice.toString())
+            var kategoriFiX : String = ""
+            categoryIDs.forEach {
+                kategoriFiX += "$it,"
+            }
+            val kategori = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), kategoriFiX)
+            val lokasi = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), location)
+
+
+            repository.postProduct(token,sellerPostProductLive,nama, deskripsi, harga, kategori, lokasi, image)
         }
     }
     fun getSellerAllOrdersLive(token : String){
