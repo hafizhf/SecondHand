@@ -40,7 +40,11 @@
         android:id="@+id/akunFragment"
         android:name="andlima.group3.secondhand.view.AkunFragment"
         android:label="fragment_akun"
-        tools:layout="@layout/fragment_akun" />
+        tools:layout="@layout/fragment_akun" >
+        <action
+            android:id="@+id/action_akunFragment_to_infoAkunFragment2"
+            app:destination="@id/infoAkunFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="andlima.group3.secondhand.view.DetailFragment"
@@ -51,4 +55,9 @@
         android:name="andlima.group3.secondhand.view.InfoPenawarFragment"
         android:label="fragment_info_penawar"
         tools:layout="@layout/fragment_info_penawar" />
+    <fragment
+        android:id="@+id/infoAkunFragment2"
+        android:name="andlima.group3.secondhand.view.InfoAkunFragment"
+        android:label="fragment_info_akun"
+        tools:layout="@layout/fragment_info_akun" />
 </navigation>

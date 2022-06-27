@@ -6,8 +6,8 @@ import andlima.group3.secondhand.model.jual.PostProductResponse
 import andlima.group3.secondhand.model.kategori.KategoriResponseItem
 import andlima.group3.secondhand.model.notification.NotificationResponseItem
 import andlima.group3.secondhand.model.register.RegisterResponse
+import andlima.group3.secondhand.model.user.UpdateProfileResponse
 import andlima.group3.secondhand.model.user.UserDetailResponse
-import android.media.Image
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -24,6 +24,22 @@ interface ApiService {
         @Field("address") address :String,
         @Field("city") city :String
     ) : Call<RegisterResponse>
+//--------------------------------------------------------------------------------------------------------
+    @PUT("auth/user")
+    @FormUrlEncoded
+    fun profileUser(
+    @Header("access_token") accessToken: String,
+        @Field("full_name") fullName : String,
+        @Field("phone_number") phoneNumber : Int,
+        @Field("address") address :String,
+        @Field("city") city :String
+    ) : Call<UpdateProfileResponse>
+  //------------------------------------------------------------------------------------------------------
+
+
+
+
+
 
     @GET("seller/category")
     fun getCategory() : Call<List<KategoriResponseItem>>

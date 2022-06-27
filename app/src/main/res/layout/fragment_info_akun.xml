@@ -94,6 +94,7 @@
             android:text="No Handphone*"
             android:layout_marginBottom="4dp"/>
         <EditText
+            android:inputType="number"
             android:id="@+id/infoAkun_et_nohp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

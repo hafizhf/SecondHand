@@ -9,15 +9,19 @@ import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.alertDialog
-import andlima.group3.secondhand.func.isUserLoggedIn
+
 import andlima.group3.secondhand.func.requireLogin
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
-import android.content.Context
+
 import android.content.Intent
+
 import android.widget.Button
 import android.widget.LinearLayout
+import androidx.navigation.Navigation
+
 import kotlinx.android.synthetic.main.fragment_akun.*
+
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -43,6 +47,9 @@ class AkunFragment : Fragment() {
         val requireLoginView: LinearLayout = requireView().findViewById(R.id.dialog_require_login)
         val requireLoginButton: Button = requireView().findViewById(R.id.btn_require_goto_login)
         requireLogin(requireContext(), userManager, requireLoginView, requireLoginButton)
+        akun_tv_ubahakun.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_akunFragment_to_infoAkunFragment2)
+        }
 
         btn_logout.setOnClickListener {
             alertDialog(requireContext(), "Logout", "Are you sure want to log out?") {
