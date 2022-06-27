@@ -284,6 +284,6 @@
 
 
 
-
+    <include layout="@layout/dialog_require_login"/>
 
 </RelativeLayout>

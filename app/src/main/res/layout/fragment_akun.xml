@@ -23,7 +23,8 @@
         android:layout_marginTop="25dp"
         android:background="@drawable/component_border"
         android:backgroundTint="#E2D4F0"
-        android:src="@drawable/ic_fi_camera" />
+        android:src="@drawable/ic_fi_camera"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -132,7 +133,6 @@
         android:layout_marginTop="15dp"
         style="@style/Body2"/>
 
-
-
+    <include layout="@layout/dialog_require_login"/>
 
 </RelativeLayout>

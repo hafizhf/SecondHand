@@ -1,9 +1,12 @@
 package andlima.group3.secondhand.func
 
+import andlima.group3.secondhand.AuthActivity
+import andlima.group3.secondhand.local.datastore.UserManager
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
@@ -11,13 +14,13 @@ import android.util.Base64
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.ViewTreeObserver
-import android.widget.ImageView
-import android.widget.ScrollView
-import android.widget.Toast
+import android.widget.*
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.asLiveData
 import com.google.android.material.snackbar.Snackbar
 import java.io.ByteArrayOutputStream
 
@@ -120,4 +123,27 @@ fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observ
             removeObserver(this)
         }
     })
+}
+
+fun isUserLoggedIn(userManager: UserManager): Boolean {
+    var userLoggedIn = false
+
+    userManager.emailFlow.asLiveData().observeForever {
+        userLoggedIn = it != ""
+    }
+//    userLoggedIn = false
+
+    return userLoggedIn
+}
+
+fun requireLogin(context: Context, userManager: UserManager, linearLayout: LinearLayout, button: Button) {
+    if (isUserLoggedIn(userManager)) {
+        linearLayout.visibility = View.GONE
+    } else {
+        linearLayout.visibility = View.VISIBLE
+
+        button.setOnClickListener {
+            context.startActivity(Intent(context, AuthActivity::class.java))
+        }
+    }
 }

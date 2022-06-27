@@ -49,7 +49,7 @@ class SplashScreenActivity : AppCompatActivity() {
             if (code != -500)
                 actionBaseOnResponse(response, code, message)
             else
-                splashHandler(AuthActivity::class.java)
+                splashHandler(MainActivity::class.java)
         }
         transparentStatusBar()
     }

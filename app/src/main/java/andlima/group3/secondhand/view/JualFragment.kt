@@ -1,6 +1,7 @@
 package andlima.group3.secondhand.view
 
 import andlima.group3.secondhand.R
+import andlima.group3.secondhand.func.requireLogin
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.model.kategori.KategoriPilihan
@@ -21,10 +22,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.*
 import android.widget.AdapterView.OnItemClickListener
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -47,6 +46,7 @@ import java.io.File
 
 class JualFragment : Fragment() {
     lateinit var body: MultipartBody.Part
+    lateinit var userManager: UserManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,6 +58,13 @@ class JualFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        userManager = UserManager(requireContext())
+
+        val requireLoginView: LinearLayout = requireView().findViewById(R.id.dialog_require_login)
+        val requireLoginButton: Button = requireView().findViewById(R.id.btn_require_goto_login)
+        requireLogin(requireContext(), userManager, requireLoginView, requireLoginButton)
+
         val items = mutableListOf<String>()
         val itemsID = mutableListOf<Int>()
         val gabungan : MutableSet<KategoriPilihan>? = mutableSetOf()

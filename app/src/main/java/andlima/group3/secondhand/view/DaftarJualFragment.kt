@@ -7,12 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.getDeviceScreenHeight
+import andlima.group3.secondhand.func.requireLogin
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.view.adapter.AdapterDaftarJualPager
 import andlima.group3.secondhand.view.adapter.AdapterHomePager
 import andlima.group3.secondhand.viewmodel.UserViewModel
 import android.util.Log
+import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
@@ -40,7 +43,12 @@ class DaftarJualFragment : Fragment() {
         adapter.notifyDataSetChanged()
 
 
-        var userManager = UserManager(requireContext())
+        val userManager = UserManager(requireContext())
+
+        val requireLoginView: LinearLayout = requireView().findViewById(R.id.dialog_require_login)
+        val requireLoginButton: Button = requireView().findViewById(R.id.btn_require_goto_login)
+        requireLogin(requireContext(), userManager, requireLoginView, requireLoginButton)
+
         userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
             getDataSeller(it)
             Log.d("AKSES TOKEN", it)

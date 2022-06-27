@@ -15,8 +15,11 @@ import andlima.group3.secondhand.view.adapter.SearchResultAdapter
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,6 +29,10 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
+
+    // Used for double back to exit app
+    private var doubleBackToExit = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,6 +43,9 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Check if user click back button twice
+        doubleBackExit()
 
         val adapter = AdapterHomePager(childFragmentManager)
         viewpager_home.adapter = adapter
@@ -140,5 +150,26 @@ class HomeFragment : Fragment() {
         val methodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         assert(view != null)
         methodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+    }
+
+    // Function to exit app with double click on back button----------------------------------------
+    private fun doubleBackExit() {
+        activity?.onBackPressedDispatcher
+            ?.addCallback(this, object : OnBackPressedCallback(true){
+                override fun handleOnBackPressed() {
+                    if (doubleBackToExit) {
+                        activity!!.finish()
+                    } else {
+                        doubleBackToExit = true
+                        toast(requireContext(), "Press again to exit")
+
+                        Handler(Looper.getMainLooper()).postDelayed(Runnable {
+                            kotlin.run {
+                                doubleBackToExit = false
+                            }
+                        }, 2000)
+                    }
+                }
+            })
     }
 }

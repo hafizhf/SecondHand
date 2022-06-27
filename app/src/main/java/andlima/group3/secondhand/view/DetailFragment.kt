@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.alertDialog
+import andlima.group3.secondhand.func.isUserLoggedIn
+import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.model.detail.ProductDataForBid
 import andlima.group3.secondhand.model.home.BuyerProductDetail
 import andlima.group3.secondhand.model.home.BuyerProductItem
@@ -25,6 +27,8 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
 
+    lateinit var userManager: UserManager
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,6 +39,8 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        userManager = UserManager(requireContext())
 
         val productID = arguments?.getInt("SELECTED_ID") as Int
         getData(productID)
@@ -62,6 +68,7 @@ class DetailFragment : Fragment() {
         productDesc.text = data.description
     }
 
+    @SuppressLint("SetTextI18n")
     private fun getData(id: Int) {
         val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
         viewModel.getDetailProduct(id)
@@ -70,10 +77,16 @@ class DetailFragment : Fragment() {
                 showProductData(data)
 
                 val btnImInterested : Button = requireView().findViewById(R.id.btn_saya_tertarik_ingin_nego)
-                btnImInterested.setOnClickListener {
-                    showBottomSheetDialogFragment(
-                        ProductDataForBid(data.id, data.name, data.basePrice, data.imageUrl)
-                    )
+                if (isUserLoggedIn(userManager)) {
+                    btnImInterested.setOnClickListener {
+                        showBottomSheetDialogFragment(
+                            ProductDataForBid(data.id, data.name, data.basePrice, data.imageUrl)
+                        )
+                    }
+                } else {
+                    btnImInterested.text = "Login untuk bisa melakukan penawaran"
+                    btnImInterested.isEnabled = false
+                    btnImInterested.isClickable = false
                 }
             } else {
                 alertDialog(requireContext(), "Get product data failed", "null") {}
