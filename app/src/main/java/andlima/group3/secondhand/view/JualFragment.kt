@@ -180,40 +180,46 @@ class JualFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK && requestCode == 2000 && data != null){
             val uri = data?.data
             imageFotoProduk.setImageURI(uri)
-            val contentResolver = requireActivity().contentResolver
-
-            // image/png or jpeg or gif
-
-            val type = contentResolver.getType(uri!!)
-
-            // temp-712793019827391820739.tmp < nano time, directory
-
-            // akan terbuat secara otomatis kalau value nya null,> akan di simpan dalam dir cache
-
-            val tempFile = File.createTempFile("temp-", null, null)
-
-            val inputstream = contentResolver.openInputStream(uri)
-
-
-
-
-            tempFile.outputStream().use {
-
-                inputstream?.copyTo(it)
-
+            uri.let {
+                setDataImagee(it!!)
             }
 
 
-
-
-            val requestBody: RequestBody = tempFile.asRequestBody(type?.toMediaType())
-
-             body =
-
-                MultipartBody.Part.createFormData("image", tempFile.name, requestBody)
-
         }else {
         }
+    }
+    fun setDataImagee(it : Uri){
+        val contentResolver = requireActivity().contentResolver
+
+        // image/png or jpeg or gif
+
+        val type = contentResolver.getType(it)
+
+        // temp-712793019827391820739.tmp < nano time, directory
+
+        // akan terbuat secara otomatis kalau value nya null,> akan di simpan dalam dir cache
+
+        val tempFile = File.createTempFile("temp-", null, null)
+
+        val inputstream = contentResolver.openInputStream(it)
+
+
+
+
+        tempFile.outputStream().use {
+
+            inputstream?.copyTo(it)
+
+        }
+
+
+
+
+        val requestBody: RequestBody = tempFile.asRequestBody(type?.toMediaType())
+
+        body =
+
+            MultipartBody.Part.createFormData("image", tempFile.name, requestBody)
     }
 
 
