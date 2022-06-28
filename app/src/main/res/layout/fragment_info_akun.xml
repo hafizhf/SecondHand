@@ -1,114 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.InfoAkunFragment">
 
-    <RelativeLayout
-        android:id="@+id/top_bar"
-        android:paddingHorizontal="14dp"
-        android:paddingVertical="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/infoakun_arrowback"
-            android:layout_marginStart="5dp"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:src="@drawable/ic_fi_arrow_left" />
-
-        <TextView
-            style="@style/Heading3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Lengkapi Info Akun" />
-
-    </RelativeLayout>
-
-    <ImageButton
-        android:id="@+id/ImageProfileInfoAkun"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/component_border"
-        android:backgroundTint="#E2D4F0"
-        android:src="@drawable/ic_fi_camera" />
-
     <LinearLayout
-        android:orientation="vertical"
-        android:layout_margin="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <TextView
-            style="@style/Heading4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nama*"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="4dp"/>
-        <EditText
-            android:id="@+id/infoAkun_et_nama"
+        <RelativeLayout
+            android:id="@+id/top_bar"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="16dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nama"
-            style="@style/InputField"
-            android:layout_marginBottom="16dp"/>
-        <TextView
-            style="@style/Heading4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Kota*"
-            android:layout_marginBottom="4dp"/>
-        <EditText
-            android:id="@+id/infoAkun_et_kota"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Pilih Kota"
-            style="@style/InputField"
-            android:layout_marginBottom="16dp"/>
+            android:layout_height="wrap_content">
 
-        <TextView
-            style="@style/Heading4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Alamat*"
-            android:layout_marginBottom="4dp"/>
-        <EditText
-            android:id="@+id/infoAkun_et_alamat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Contoh: Jalan Ikan Hiu 33"
-            style="@style/InputField"
-            android:layout_marginBottom="16dp"/>
-        <TextView
-            style="@style/Heading4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No Handphone*"
-            android:layout_marginBottom="4dp"/>
-        <EditText
-            android:inputType="number"
-            android:id="@+id/infoAkun_et_nohp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Contoh: +6281234567890"
-            style="@style/InputField"/>
+            <ImageView
+                android:id="@+id/infoakun_arrowback"
+                android:layout_marginStart="5dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_fi_arrow_left" />
 
-        <Button
-            android:id="@+id/infoAkun_btn_Simpan"
+            <TextView
+                style="@style/Heading3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Lengkapi Info Akun" />
+
+        </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/ImageProfileInfoAkun"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/component_border"
+            android:backgroundTint="#E2D4F0"
+            android:src="@drawable/ic_fi_camera"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_margin="16dp"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:text="Simpan"
-            style="@style/Button"
-            android:layout_marginTop="24dp"/>
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/Heading4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama*"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"/>
+            <EditText
+                android:id="@+id/infoAkun_et_nama"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nama"
+                style="@style/InputField"
+                android:layout_marginBottom="16dp"/>
+            <TextView
+                style="@style/Heading4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kota*"
+                android:layout_marginBottom="4dp"/>
+            <EditText
+                android:id="@+id/infoAkun_et_kota"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Pilih Kota"
+                style="@style/InputField"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                style="@style/Heading4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alamat*"
+                android:layout_marginBottom="4dp"/>
+            <EditText
+                android:id="@+id/infoAkun_et_alamat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Contoh: Jalan Ikan Hiu 33"
+                style="@style/InputField"
+                android:layout_marginBottom="16dp"/>
+            <TextView
+                style="@style/Heading4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Handphone*"
+                android:layout_marginBottom="4dp"/>
+            <EditText
+                android:inputType="number"
+                android:id="@+id/infoAkun_et_nohp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Contoh: +6281234567890"
+                style="@style/InputField"/>
+
+            <Button
+                android:id="@+id/infoAkun_btn_Simpan"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Simpan"
+                style="@style/Button"
+                android:layout_marginTop="24dp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="60dp"/>
 
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>

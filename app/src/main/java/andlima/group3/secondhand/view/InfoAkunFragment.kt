@@ -1,5 +1,6 @@
 package andlima.group3.secondhand.view
 
+import andlima.group3.secondhand.MarketApplication
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -46,11 +47,13 @@ class InfoAkunFragment : Fragment() {
         val viewModel = ViewModelProvider(requireActivity()).get(ProfileViewModel::class.java)
         viewModel.profileLiveData.observe(requireActivity()){
             when (it) {
-                " " -> {
+                "200" -> {
                     toast(requireContext(), "Update Profille success")
-
+//                    requireActivity().onBackPressedDispatcher.addCallback(this, MarketApplication.onBackPressedCallback)
+                    parentFragmentManager.popBackStack()
                 }
-
+                "400" -> toast(requireContext(), "Email already used")
+                "500" -> alertDialog(requireContext(), "Internal server error", "Try again later") {}
                 else -> alertDialog(requireContext(), "Update failed", "No connection") {}
             }
         }
