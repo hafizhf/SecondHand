@@ -63,12 +63,12 @@ interface ApiService {
     @POST("seller/product")
     fun postProduct(
         @Header("access_token") accessToken: String,
+        @Part image : MultipartBody.Part,
         @Part("name") name : RequestBody,
         @Part("description") description : RequestBody,
         @Part("base_price") basePrice : RequestBody,
         @Part("category_ids") categoryIDs : RequestBody,
-        @Part("location") location : RequestBody,
-        @Part image : MultipartBody.Part
+        @Part("location") location : RequestBody
     ) : Call<PostProductResponse>
 
     @GET("notification")
