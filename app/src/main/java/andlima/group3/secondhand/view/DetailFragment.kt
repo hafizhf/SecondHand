@@ -8,10 +8,10 @@ import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.alertDialog
 import andlima.group3.secondhand.func.isUserLoggedIn
+import andlima.group3.secondhand.func.quickNotifyDialog
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.model.detail.ProductDataForBid
 import andlima.group3.secondhand.model.home.BuyerProductDetail
-import andlima.group3.secondhand.model.home.BuyerProductItem
 import andlima.group3.secondhand.view.bottomsheet.DetailBottomDialogFragment
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
 import android.annotation.SuppressLint
@@ -21,7 +21,6 @@ import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -62,7 +61,6 @@ class DetailFragment : Fragment() {
         // Set data to view ------------------------------------------------------------------------
         Glide.with(this).load(data.imageUrl).into(productImage)
         productName.text = data.name
-//        productCategory.text = "Tipe data categories masih Any"
         productCategory.text = data.categories[0].name
         productPrice.text = "Rp " + data.basePrice.toString()
         productDesc.text = data.description
@@ -99,5 +97,11 @@ class DetailFragment : Fragment() {
         val dataForBid = bundleOf("BID_PRODUCT" to data)
         bottomSheet.arguments = dataForBid
         bottomSheet.show(parentFragmentManager, DetailBottomDialogFragment.TAG)
+
+        DetailBottomDialogFragment.bidSuccess.observe(this, {
+            if (it) {
+                quickNotifyDialog(requireView(), "Harga tawaranmu berhasil dikirim ke penjual")
+            }
+        })
     }
 }

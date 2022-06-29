@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.observeOnce
+import andlima.group3.secondhand.func.quickNotifyDialog
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.model.buyer.order.BuyerOrderRequest
@@ -15,9 +16,12 @@ import andlima.group3.secondhand.viewmodel.BuyerViewModel
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.graphics.Color
+import android.os.Handler
 import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import com.bumptech.glide.Glide
@@ -30,6 +34,7 @@ class DetailBottomDialogFragment : BottomSheetDialogFragment() {
 
     companion object {
         const val TAG = "CustomBottomSheetDialogFragment"
+        val bidSuccess = MutableLiveData(false)
     }
 
     // Get data store
@@ -48,6 +53,8 @@ class DetailBottomDialogFragment : BottomSheetDialogFragment() {
 
         // Get something from data store
         userManager = UserManager(requireContext())
+
+        bidSuccess.postValue(false)
 
         val dataForBid = arguments?.getParcelable<ProductDataForBid>("BID_PRODUCT") as ProductDataForBid
         showDataOnPopUp(dataForBid)
@@ -85,7 +92,6 @@ class DetailBottomDialogFragment : BottomSheetDialogFragment() {
             val bottomSheetBehavior = behavior as (BottomSheetBehavior)
             bottomSheetBehavior.peekHeight = view?.measuredHeight ?: 0
             (bottomSheet?.parent as? View)?.setBackgroundColor(Color.TRANSPARENT)
-
         }
     }
 
@@ -110,15 +116,20 @@ class DetailBottomDialogFragment : BottomSheetDialogFragment() {
             }
         })
         userManager.accessTokenFlow.asLiveData().observeOnce(this, { token ->
-            viewModel.postRequestOrder(token, BuyerOrderRequest(bidPrice, productId)) { message ->
-                if (message == "success") {
+            viewModel.postRequestOrder(token, BuyerOrderRequest(bidPrice, productId)) { code, message ->
+                if (code == 201) {
                     this.dialog!!.dismiss()
-                    toast(requireContext(), message)
+//                    quickNotifyDialog(requireContext(), "Harga tawaranmu berhasil dikirim ke penjual")
+//                    toast(requireContext(), message)
+                    bidSuccess.postValue(true)
+                    this.dialog!!.dismiss()
                 } else {
+//                    quickNotifyDialog(requireContext(), "Harga tawaranmu berhasil dikirim ke penjual")
                     toast(requireContext(), message)
-                    this.dialog!!.dismiss()
                 }
             }
         })
     }
+
+
 }

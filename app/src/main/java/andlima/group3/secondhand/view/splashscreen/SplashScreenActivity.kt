@@ -83,6 +83,7 @@ class SplashScreenActivity : AppCompatActivity() {
             else -> {
                 // When user is logged in but device has no connection
                 alertDialog(this, "There is no connection", message) {
+                    startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
                     finish()
                 }
             }

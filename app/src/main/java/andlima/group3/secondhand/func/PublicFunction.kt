@@ -1,7 +1,9 @@
 package andlima.group3.secondhand.func
 
 import andlima.group3.secondhand.AuthActivity
+import andlima.group3.secondhand.R
 import andlima.group3.secondhand.local.datastore.UserManager
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
@@ -9,13 +11,15 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
+import android.os.Handler
+import android.os.Looper
 import android.util.Base64
 import android.util.DisplayMetrics
-import android.view.View
-import android.view.ViewTreeObserver
+import android.view.*
 import android.widget.*
-import androidx.core.content.ContextCompat.startActivity
+import androidx.cardview.widget.CardView
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
@@ -25,6 +29,11 @@ import com.google.android.material.snackbar.Snackbar
 import java.io.ByteArrayOutputStream
 
 // Function to easy making Toast -------------------------------------------------------------------
+/**
+ * Function to create **Toast** in **LENGTH_SHORT** easily
+ *
+ * Put `view's context` in [context] parameter and write `message` in [message] parameter
+ */
 fun toast(context: Context, message : String) {
     Toast.makeText(
         context,
@@ -34,6 +43,13 @@ fun toast(context: Context, message : String) {
 }
 
 // Function to easy making SnackBar ----------------------------------------------------------------
+/**
+ * Function to create **Snackbar** in **LENGTH_LONG** easily _without_ any action from button
+ *
+ * Put `view` in [view] parameter and write `message` in [message] parameter
+ *
+ * If you wish to add custom action for button, use [snackbarCustom] instead
+ */
 fun snackbarLong(view: View, message: String) {
     val snack = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
     snack.setAction("Ok") {
@@ -43,6 +59,13 @@ fun snackbarLong(view: View, message: String) {
 }
 
 // Funtion to easy making Snackbar with custom action ----------------------------------------------
+/**
+ * Function to create **Snackbar** in **LENGTH_LONG** easily _with_ custom action for button
+ *
+ * Add your custom action in _body expression_ in [action] paramter, or after [buttonText]
+ *
+ * If you wish to create simple snackbar, use [snackbarLong] or [snackbarIndefinite] instead
+ */
 fun snackbarCustom(view: View, message: String, buttonText: String, action: Any.() -> Unit) {
     val snack = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
     snack.setAction(buttonText) {
@@ -52,6 +75,13 @@ fun snackbarCustom(view: View, message: String, buttonText: String, action: Any.
 }
 
 // Function to easy making SnackBar ----------------------------------------------------------------
+/**
+ * Function to create **Snackbar** in **LENGTH_INDEFINITE** easily _without_ any action from button
+ *
+ * Put `view` in [view] parameter and write `message` in [message] parameter
+ *
+ * If you wish to add custom action for button, use [snackbarCustom] instead
+ */
 fun snackbarIndefinite(view: View, message: String) {
     val snack = Snackbar.make(view, message, Snackbar.LENGTH_INDEFINITE)
     snack.setAction("Ok") {
@@ -61,6 +91,14 @@ fun snackbarIndefinite(view: View, message: String) {
 }
 
 // Function to easy making AlertDialog -------------------------------------------------------------
+/**
+ * Function to create **Alert Dialog** easily with **custom action** from positive button
+ *
+ * Add value for every parameter, such as [context], [title], and [message].
+ * Add custom action in _body expression_ after [message] or outside parameter
+ *
+ * If you wish to add custom action for button, use [snackbarCustom] instead
+ */
 fun alertDialog(context: Context, title: String, message: String, action: Any.()->Unit) {
     AlertDialog.Builder(context)
         .setTitle(title)
@@ -96,7 +134,9 @@ fun decodeBase64Image(base64String: String): Bitmap {
 }
 
 // END OF IMAGE CONVERT METHOD #####################################################################
-
+/**
+ * Get device screen height size in pixel
+ */
 fun getDeviceScreenHeight(activity: Activity): Int {
     val displayMetrics = DisplayMetrics()
     activity.windowManager.defaultDisplay.getMetrics(displayMetrics)
@@ -116,6 +156,10 @@ fun isScrollReachedBottom(scrollView: NestedScrollView, reachBottom: (Boolean) -
     })
 }
 
+/**
+ * Observe value of _LiveData_ variable only **once** to avoid uncontrollable observation in
+ * some condition
+ */
 fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>) {
     observe(lifecycleOwner, object : Observer<T> {
         override fun onChanged(t: T?) {
@@ -136,6 +180,9 @@ fun isUserLoggedIn(userManager: UserManager): Boolean {
     return userLoggedIn
 }
 
+/**
+ *
+ */
 fun requireLogin(context: Context, userManager: UserManager, linearLayout: LinearLayout, button: Button) {
     if (isUserLoggedIn(userManager)) {
         linearLayout.visibility = View.GONE
@@ -146,4 +193,59 @@ fun requireLogin(context: Context, userManager: UserManager, linearLayout: Linea
             context.startActivity(Intent(context, AuthActivity::class.java))
         }
     }
+}
+
+/**
+ * Show success/danger dialog for 3 second
+ *
+ * **Important:**
+ *
+ * Need <include layout="@layout/dialog_quick_notification/> in layout with
+ * RelativeLayout as parent
+ */
+@SuppressLint("InflateParams")
+fun quickNotifyDialog(view: View, message: String) {
+//    val dialog = LayoutInflater.from(context)
+//        .inflate(R.layout.dialog_quick_notification, null, false)
+//
+//    val alert = AlertDialog.Builder(context)
+//        .setView(dialog)
+//        .create()
+//
+//    dialog.apply {
+//        val dialogContainer : LinearLayout = findViewById(R.id.dialog_container)
+//        val dialogMessage : TextView = findViewById(R.id.tv_dialog_message)
+//        val closeButton : ImageView = findViewById(R.id.btn_close_dialog)
+//
+//        dialogMessage.text = message
+//        closeButton.setOnClickListener {
+//            alert.dismiss()
+//        }
+//    }
+//
+//    alert.show()
+
+    val dialog : CardView = view.findViewById(R.id.dialog_quick_notification)
+    val dialogContainer : LinearLayout = view.findViewById(R.id.dialog_container)
+    val dialogMessage : TextView = view.findViewById(R.id.tv_dialog_message)
+    val dialogCloseButton : ImageView = view.findViewById(R.id.btn_close_dialog)
+
+    dialogMessage.text = message
+    dialogContainer.setBackgroundColor(Color.BLACK)
+
+    dialog.animate()
+        .translationY(150f)
+        .alpha(1.0f)
+        .setDuration(300)
+
+    dialog.visibility = View.VISIBLE
+//    dialog.clearAnimation()
+
+    dialogCloseButton.setOnClickListener {
+        dialog.visibility = View.GONE
+    }
+
+    Handler(Looper.getMainLooper()).postDelayed({
+        dialog.visibility = View.GONE
+    }, 3000)
 }

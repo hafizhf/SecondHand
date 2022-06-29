@@ -61,7 +61,7 @@ class BuyerViewModel @Inject constructor(api: BuyerRepository): ViewModel() {
 
     // Request Order
     val gotOrderResponse: MutableLiveData<Boolean> = MutableLiveData()
-    fun postRequestOrder(accessToken: String, request: BuyerOrderRequest, message: (message: String) -> Unit) {
+    fun postRequestOrder(accessToken: String, request: BuyerOrderRequest, message: (code: Int, message: String) -> Unit) {
         gotOrderResponse.postValue(false)
         apiHelper.postRequestOrder(accessToken, request)
             .enqueue(object : retrofit2.Callback<BuyerOrderResponse>{
@@ -72,20 +72,20 @@ class BuyerViewModel @Inject constructor(api: BuyerRepository): ViewModel() {
                     gotOrderResponse.postValue(true)
                     if (response.isSuccessful) {
                         when (response.code()) {
-                            201 -> message("Tawaranmu berhasil dikirim!")
-                            400 -> message("Kamu sudah mengirim tawaran untuk produk ini")
-                            403 -> message(response.message())
-                            500 -> message(response.message())
-                            else -> message("Unknown error occurred")
+                            201 -> message(201, "Tawaranmu berhasil dikirim!")
+                            400 -> message(400, "Kamu sudah mengirim tawaran untuk produk ini")
+                            403 -> message(403, response.message())
+                            500 -> message(500, response.message())
+                            else -> message(-1, "Unknown error occurred")
                         }
                     } else {
-                        message("Error occurred, try again")
+                        message(-100, "Error occurred, try again")
                     }
                 }
 
                 override fun onFailure(call: Call<BuyerOrderResponse>, t: Throwable) {
                     gotOrderResponse.postValue(true)
-                    message("Failed to connect")
+                    message(-2, "Failed to connect")
                 }
             })
     }
