@@ -1,9 +1,12 @@
 package andlima.group3.secondhand.repository
 
+import andlima.group3.secondhand.model.notification.NotifData
 import andlima.group3.secondhand.model.notification.NotificationResponseItem
+import andlima.group3.secondhand.model.produk.ProductResponse
 import andlima.group3.secondhand.model.register.RegisterResponse
 import andlima.group3.secondhand.model.user.UserDetailResponse
 import andlima.group3.secondhand.network.ApiService
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import retrofit2.Call
 import retrofit2.Callback
@@ -11,6 +14,7 @@ import retrofit2.Response
 import javax.inject.Inject
 
 class UserRepository @Inject constructor(private val apiService: ApiService) {
+
     fun registerRepo(fullName : String, email : String, password : String, phoneNumber : Int,
                      address : String,city : String,liveData: MutableLiveData<String>){
         val call : Call<RegisterResponse> = apiService.registerUser(fullName, email, password, phoneNumber, address, city)
@@ -51,7 +55,7 @@ class UserRepository @Inject constructor(private val apiService: ApiService) {
 
         })
     }
-    fun getNotifRepo(token: String, listTrue: MutableList<NotificationResponseItem>, listFalse :MutableList<NotificationResponseItem>){
+    fun getNotifRepo(token: String, liveTrue : MutableList<NotificationResponseItem>?, liveFalse : MutableList<NotificationResponseItem>?){
         val call : Call<List<NotificationResponseItem>> = apiService.getNotif(token)
         call.enqueue(object : Callback<List<NotificationResponseItem>>{
             override fun onResponse(
@@ -59,15 +63,18 @@ class UserRepository @Inject constructor(private val apiService: ApiService) {
                 response: Response<List<NotificationResponseItem>>
             ) {
                 if (response.isSuccessful){
-                    if (response.body()!!.isNotEmpty()){
-                        response.body()!!.forEach {
-                            if (it.read){
-                                listTrue.add(it)
-                            }else{
-                                listFalse.add(it)
-                            }
+
+
+                    response.body()!!.forEach {
+                        if (it.read){
+                            liveTrue!!.add(it)
+                        }else{
+                            liveFalse!!.add(it)
                         }
                     }
+
+
+
 
 
                 }else{
@@ -81,5 +88,27 @@ class UserRepository @Inject constructor(private val apiService: ApiService) {
             }
 
         })
+    }
+    fun getDetailProduk(token : String,listId : MutableList<Int>, liveData: MutableLiveData<List<ProductResponse>> )  {
+        val listProduk : MutableList<ProductResponse> = mutableListOf()
+        listId.forEach {
+            val call: Call<ProductResponse> = apiService.getDetailProduct(token, it)
+            call.enqueue(object : Callback<ProductResponse>{
+                override fun onResponse(
+                    call: Call<ProductResponse>,
+                    response: Response<ProductResponse>
+                ) {
+                    listProduk.add(response.body()!!)
+                    Log.d("LISTLIST", listProduk.toString())
+
+                }
+
+                override fun onFailure(call: Call<ProductResponse>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+
+            })
+        }
+        liveData.postValue(listProduk)
     }
 }

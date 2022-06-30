@@ -5,6 +5,7 @@ import andlima.group3.secondhand.model.daftarjual.diminati.SellerOrdersItem
 import andlima.group3.secondhand.model.jual.PostProductResponse
 import andlima.group3.secondhand.model.kategori.KategoriResponseItem
 import andlima.group3.secondhand.model.notification.NotificationResponseItem
+import andlima.group3.secondhand.model.produk.ProductResponse
 import andlima.group3.secondhand.model.register.RegisterResponse
 import andlima.group3.secondhand.model.user.UpdateProfileResponse
 import andlima.group3.secondhand.model.user.UserDetailResponse
@@ -53,6 +54,11 @@ interface ApiService {
     fun getSellerAllProduct(
         @Header("access_token") accessToken: String
     ) : Call<List<SellerProductsItem>>
+    @GET("seller/product/{id}")
+    fun getDetailProduct(
+        @Header("access_token") accessToken: String,
+        @Path("id") id : Int
+    ) : Call<ProductResponse>
 
     @GET("seller/order")
     fun getSellerAllOrder(
@@ -73,6 +79,6 @@ interface ApiService {
 
     @GET("notification")
     fun getNotif(
-        @Header("access__token") accessToken: String
+        @Header("access_token") accessToken: String
         ) : Call<List<NotificationResponseItem>>
 }

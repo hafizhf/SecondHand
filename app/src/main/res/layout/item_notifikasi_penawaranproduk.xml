@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="20dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -36,45 +35,45 @@
             style="@style/Body2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:layout_alignParentEnd="true"
+            android:layout_marginStart="20dp"
             android:text="20 Apr, 14:04" />
 
         <TextView
             android:id="@+id/itemnotifikasi_tv_namaprodukpenawaran"
+            style="@style/Heading4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:maxLines="1"
-            android:layout_toEndOf="@id/itemnotifikasi_card"
-            android:layout_marginStart="20dp"
             android:layout_below="@id/itemnotifikasi_tv_penawaranproduk"
-            android:text="@string/jam_tangan_casio"
-            style="@style/Heading4"/>
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@id/itemnotifikasi_card"
+            android:maxLines="1"
+            android:text="@string/jam_tangan_casio" />
 
         <TextView
             android:id="@+id/itemnotifikasi_tv_hargaproduk"
+            style="@style/Heading4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:maxLines="1"
-            android:layout_toEndOf="@id/itemnotifikasi_card"
-            android:layout_marginStart="20dp"
             android:layout_below="@id/itemnotifikasi_tv_namaprodukpenawaran"
-            android:text="Rp.250.000"
-            style="@style/Heading4"/>
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@id/itemnotifikasi_card"
+            android:maxLines="1"
+            android:text="Rp.250.000" />
 
         <TextView
             android:id="@+id/itemnotifikasi_tv_hargaditawar"
+            style="@style/Heading4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:maxLines="1"
-            android:layout_toEndOf="@id/itemnotifikasi_card"
-            android:layout_marginStart="20dp"
             android:layout_below="@id/itemnotifikasi_tv_hargaproduk"
-            android:text="ditawar_rp_200_000"
-            style="@style/Heading4"/>
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_toEndOf="@id/itemnotifikasi_card"
+            android:maxLines="1"
+            android:text="ditawar_rp_200_000" />
 
         <View
             android:layout_width="match_parent"
