@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
-import andlima.group3.secondhand.func.alertDialog
-import andlima.group3.secondhand.func.isUserLoggedIn
-import andlima.group3.secondhand.func.quickNotifyDialog
+import andlima.group3.secondhand.func.*
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.model.detail.ProductDataForBid
 import andlima.group3.secondhand.model.home.BuyerProductDetail
@@ -20,6 +18,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -61,20 +60,26 @@ class DetailFragment : Fragment() {
         // Set data to view ------------------------------------------------------------------------
         Glide.with(this).load(data.imageUrl).into(productImage)
         productName.text = data.name
-        productCategory.text = data.categories[0].name
+        if (data.categories.isNotEmpty()) {
+            productCategory.text = data.categories[0].name
+        } else {
+            productCategory.text = "Uncategorized"
+        }
         productPrice.text = "Rp " + data.basePrice.toString()
         productDesc.text = data.description
     }
 
     @SuppressLint("SetTextI18n")
     private fun getData(id: Int) {
+        val btnImInterested : Button = requireView().findViewById(R.id.btn_saya_tertarik_ingin_nego)
+        val btnEditProduct : Button = requireView().findViewById(R.id.btn_goto_edit_product)
+
         val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
         viewModel.getDetailProduct(id)
         viewModel.detailProduct.observe(this, { data ->
             if (data != null) {
                 showProductData(data)
 
-                val btnImInterested : Button = requireView().findViewById(R.id.btn_saya_tertarik_ingin_nego)
                 if (isUserLoggedIn(userManager)) {
                     btnImInterested.setOnClickListener {
                         showBottomSheetDialogFragment(
@@ -89,6 +94,25 @@ class DetailFragment : Fragment() {
             } else {
                 alertDialog(requireContext(), "Get product data failed", "null") {}
             }
+        })
+
+        userManager.accessTokenFlow.asLiveData().observeOnce(this, { accessToken ->
+            viewModel.checkProductOwnedBySeller(accessToken, id)
+            viewModel.isSellerProduct.observe(this, {
+                if (it) {
+                    btnImInterested.visibility = View.GONE
+                    btnEditProduct.visibility = View.VISIBLE
+
+                    btnEditProduct.setOnClickListener {
+                        // Disini arahin ke edit produk
+                        toast(requireContext(), "WIP: Edit product")
+                    }
+
+                } else {
+                    btnImInterested.visibility = View.VISIBLE
+                    btnEditProduct.visibility = View.GONE
+                }
+            })
         })
     }
 

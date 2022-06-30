@@ -57,6 +57,12 @@ class BuyerViewModel @Inject constructor(api: BuyerRepository): ViewModel() {
         apiHelper.getDetailProduct(id, detailProduct)
     }
 
+    // Check if product owned by seller
+    val isSellerProduct: MutableLiveData<Boolean> = MutableLiveData()
+    fun checkProductOwnedBySeller(accessToken: String, id: Int) {
+        apiHelper.checkProductOwnedBySeller(accessToken, id, isSellerProduct)
+    }
+
     // POST ORDER ----------------------------------------------------------------------------------
 
     // Request Order

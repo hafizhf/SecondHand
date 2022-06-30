@@ -28,4 +28,11 @@ interface BuyerApi {
         @Header("access_token") accessToken: String,
         @Body request: BuyerOrderRequest
     ) : Call<BuyerOrderResponse>
+
+    // Request detail product data
+    @GET("seller/product/{id}")
+    fun getSellerDetailProduct(
+        @Header("access_token") accessToken: String,
+        @Path("id") id: Int
+    ): Call<BuyerProductDetail>
 }

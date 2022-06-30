@@ -69,6 +69,32 @@ class BuyerRepository @Inject constructor(private val api: BuyerApi) {
         })
     }
 
+    //
+    fun checkProductOwnedBySeller(accessToken: String, id: Int, isSellerProduct: MutableLiveData<Boolean>) {
+        api.getSellerDetailProduct(accessToken, id)
+            .enqueue(object : retrofit2.Callback<BuyerProductDetail>{
+                override fun onResponse(
+                    call: Call<BuyerProductDetail>,
+                    response: Response<BuyerProductDetail>
+                ) {
+                    if (response.isSuccessful) {
+                        if (response.code() == 200) {
+                            isSellerProduct.postValue(true)
+                        } else {
+                            isSellerProduct.postValue(false)
+                        }
+                    } else {
+                        isSellerProduct.postValue(false)
+                    }
+                }
+
+                override fun onFailure(call: Call<BuyerProductDetail>, t: Throwable) {
+                    isSellerProduct.postValue(false)
+                }
+
+            })
+    }
+
     // POST ORDER ----------------------------------------------------------------------------------
 
     // Request Order
