@@ -9,7 +9,11 @@ import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.requireLogin
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
+import andlima.group3.secondhand.model.kategori.KategoriPilihan
 import andlima.group3.secondhand.model.notification.NotifData
+import andlima.group3.secondhand.model.notification.NotificationResponseItem
+import andlima.group3.secondhand.model.produk.ProductResponse
+import andlima.group3.secondhand.view.adapter.DaftarJualAdapter
 import andlima.group3.secondhand.view.adapter.NotifikasiAdapter
 import andlima.group3.secondhand.view.adapter.PenawaranAdapter
 import andlima.group3.secondhand.viewmodel.SellerViewModel
@@ -29,7 +33,8 @@ import kotlinx.android.synthetic.main.fragment_produk.*
 
 class NotifikasiFragment : Fragment() {
     lateinit var userManager: UserManager
-
+    val listProduk  : MutableList<ProductResponse> = mutableListOf()
+    val listRespon : MutableList<NotificationResponseItem> = mutableListOf()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,26 +57,73 @@ class NotifikasiFragment : Fragment() {
 
 
     }
+    fun cleaning(){
+        listProduk.clear()
+        listRespon.clear()
+    }
+    fun setProduk(response: ProductResponse){
+        listProduk.add(response)
+    }
+    fun setRespon(response: NotificationResponseItem){
+        listRespon.add(response)
+    }
     fun getNotifs(token : String){
         val viewModel = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
         val gabungan : MutableList<NotifData> = mutableListOf()
-        viewModel.notifLiveDataProduct.observe(requireActivity()){ produk ->
+        viewModel.notifLiveDataFix.observe(viewLifecycleOwner){
+
+            if (it.isNotEmpty()){
+
+                val notifAdapter = NotifikasiAdapter{}
+                notifAdapter.setDataNotif(it)
+                notifAdapter.notifyDataSetChanged()
+                rv_notif.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                rv_notif.adapter = notifAdapter
+            }else{
+
+
+            }
+        }
+
+        viewModel.notifLiveDataProduct.observe(viewLifecycleOwner){ produk ->
 
             if (produk.isNotEmpty()){
-                toast(requireContext(), produk.toString())
-
-                viewModel.notifLiveDataResponse.observe(viewLifecycleOwner){ respon ->
-                    for ((index, element) in respon.withIndex()){
-                        gabungan?.add(NotifData(produk.elementAt(index)!!, respon.elementAt(index)!!))
+                produk.forEach {
+                    setProduk(it)
+                }
+                if (listProduk.isNotEmpty() && listRespon.isNotEmpty() && listRespon.size > 0){
+                    for ((index, element) in produk.withIndex()){
+                        gabungan?.add(NotifData(listProduk.elementAt(index)!!, listRespon.elementAt(index)!!))
                     }
+                    viewModel.setGabunganNotif(gabungan)
+
                 }
 
 
+
+
             }else{
+                toast(requireContext(), "kksong")
+
             }
 
         }
+        viewModel.notifLiveDataResponse.observe(viewLifecycleOwner){
+            if (it != null){
+                it.forEach {
+                    setRespon(it)
+                }
+            }
+        }
         viewModel.notifUserLive(token)
+
+        if (listProduk.isNotEmpty() && listRespon.isNotEmpty()){
+            for ((index, element) in listProduk.withIndex()){
+                gabungan?.add(NotifData(listProduk.elementAt(index)!!, listRespon.elementAt(index)!!))
+            }
+            viewModel.setGabunganNotif(gabungan)
+
+        }
 
 
     }
@@ -84,4 +136,5 @@ class NotifikasiFragment : Fragment() {
             return fragment
         }
     }
+
 }

@@ -1,5 +1,6 @@
 package andlima.group3.secondhand.viewmodel
 
+import andlima.group3.secondhand.SingleLiveEvent.SingleLiveMutableData
 import andlima.group3.secondhand.model.notification.NotifData
 import andlima.group3.secondhand.model.notification.NotificationResponseItem
 import andlima.group3.secondhand.model.produk.ProductResponse
@@ -21,9 +22,9 @@ class UserViewModel @Inject constructor(private val repository : UserRepository)
 
     var registerLiveData : MutableLiveData<String> = MutableLiveData()
     var userDetailLiveData : MutableLiveData<UserDetailResponse> = MutableLiveData()
-    var notifLiveDataFix : MutableLiveData<List<NotifData>> = MutableLiveData()
-    var notifLiveDataProduct : MutableLiveData<List<ProductResponse>> = MutableLiveData()
-    var notifLiveDataResponse : MutableLiveData<List<NotificationResponseItem>> = MutableLiveData()
+    var notifLiveDataProduct : SingleLiveMutableData<List<ProductResponse>> = SingleLiveMutableData()
+    var notifLiveDataResponse : SingleLiveMutableData<List<NotificationResponseItem>> = SingleLiveMutableData()
+    var notifLiveDataFix : SingleLiveMutableData<List<NotifData>> = SingleLiveMutableData()
 
 
 
@@ -32,6 +33,9 @@ class UserViewModel @Inject constructor(private val repository : UserRepository)
 
     fun getRegisterLiveDataObserver() : MutableLiveData<String>{
         return registerLiveData
+    }
+    fun setGabunganNotif(listGabungan: MutableList<NotifData>){
+        notifLiveDataFix.value = listGabungan
     }
 
 

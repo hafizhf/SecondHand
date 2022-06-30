@@ -4,6 +4,7 @@ import andlima.group3.secondhand.R
 import andlima.group3.secondhand.model.daftarjual.diminati.SellerOrdersItem
 import andlima.group3.secondhand.model.notification.NotifData
 import andlima.group3.secondhand.model.notification.NotificationResponseItem
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,6 +39,10 @@ class NotifikasiAdapter(private var onClick : (NotifData)->Unit) : RecyclerView.
             holder.itemView.itemnotifikasi_tv_penawaranproduk.text = "Sukses Terbit"
 
         }
+        if (dataNotif!![position].respon.read){
+            holder.itemView.layout_item_notif.setBackgroundColor(Color.GRAY)
+        }
+
         holder.itemView.itemnotifikasi_tv_namaprodukpenawaran.text = dataNotif!![position].produk.name
         holder.itemView.itemnotifikasi_tv_hargaproduk.text = "Rp " + dataNotif!![position].produk.basePrice.toString()
         holder.itemView.itemnotifikasi_tv_hargaditawar.text = "Ditawar Rp " + dataNotif!![position].respon.bidPrice.toString()
@@ -50,7 +55,7 @@ class NotifikasiAdapter(private var onClick : (NotifData)->Unit) : RecyclerView.
         holder.itemView.itemnotifikasi_tv_tanggalpenawaran.text = formattedDate
 
 
-        holder.itemView.itemnotifikasi_card.setOnClickListener{
+        holder.itemView.layout_item_notif.setOnClickListener{
             onClick(dataNotif!![position])
         }
 
