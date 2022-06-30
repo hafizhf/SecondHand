@@ -24,6 +24,8 @@ import androidx.cardview.widget.CardView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.synnapps.carouselview.CarouselView
+import com.synnapps.carouselview.ImageListener
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -46,6 +48,8 @@ class HomeFragment : Fragment() {
 
         // Check if user click back button twice
         doubleBackExit()
+
+        bannerCarousel()
 
         val adapter = AdapterHomePager(childFragmentManager)
         viewpager_home.adapter = adapter
@@ -150,6 +154,16 @@ class HomeFragment : Fragment() {
         val methodManager = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         assert(view != null)
         methodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+    }
+
+    private fun bannerCarousel() {
+        val carousel : CarouselView = requireView().findViewById(R.id.banner_carousel_home)
+        val sampleBanner = listOf(R.drawable.dummy_banner_1, R.drawable.dummy_banner_2)
+
+        carousel.pageCount = sampleBanner.size
+        carousel.setImageListener { position, imageView ->
+            imageView.setImageResource(sampleBanner[position])
+        }
     }
 
     // Function to exit app with double click on back button----------------------------------------
