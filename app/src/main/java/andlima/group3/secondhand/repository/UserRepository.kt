@@ -1,5 +1,6 @@
 package andlima.group3.secondhand.repository
 
+import andlima.group3.secondhand.SingleLiveEvent.SingleLiveMutableData
 import andlima.group3.secondhand.model.notification.NotifData
 import andlima.group3.secondhand.model.notification.NotificationResponseItem
 import andlima.group3.secondhand.model.produk.ProductResponse
@@ -11,9 +12,11 @@ import androidx.lifecycle.MutableLiveData
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.logging.Handler
 import javax.inject.Inject
 
 class UserRepository @Inject constructor(private val apiService: ApiService) {
+    val listProduk : MutableList<ProductResponse> = mutableListOf()
 
     fun registerRepo(fullName : String, email : String, password : String, phoneNumber : Int,
                      address : String,city : String,liveData: MutableLiveData<String>){
@@ -89,26 +92,42 @@ class UserRepository @Inject constructor(private val apiService: ApiService) {
 
         })
     }
-    fun getDetailProduk(token : String,listId : MutableList<Int>, liveData: MutableLiveData<List<ProductResponse>> )  {
-        val listProduk : MutableList<ProductResponse> = mutableListOf()
+    fun tambah(response: ProductResponse){
+        listProduk.add(response)
+    }
+    fun getDetailProduk(token : String,listId : MutableList<Int>, liveData: SingleLiveMutableData<List<ProductResponse>> )  {
         listId.forEach {
-            val call: Call<ProductResponse> = apiService.getDetailProduct(token, it)
-            call.enqueue(object : Callback<ProductResponse>{
-                override fun onResponse(
-                    call: Call<ProductResponse>,
-                    response: Response<ProductResponse>
-                ) {
-                    listProduk.add(response.body()!!)
-                    Log.d("LISTLIST", listProduk.toString())
+            android.os.Handler().postDelayed({
+                val call: Call<ProductResponse> = apiService.getDetailProduct(token, it)
+                call.enqueue(object : Callback<ProductResponse>{
+                    override fun onResponse(
+                        call: Call<ProductResponse>,
+                        response: Response<ProductResponse>
+                    ) {
+                        if(response.isSuccessful){
+                            tambah(response.body()!!)
 
-                }
+                        }
 
-                override fun onFailure(call: Call<ProductResponse>, t: Throwable) {
-                    TODO("Not yet implemented")
-                }
+                    }
 
-            })
+                    override fun onFailure(call: Call<ProductResponse>, t: Throwable) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
+            }, 200)
+
+            android.os.Handler().postDelayed({
+                liveData.postValue(listProduk)
+                Log.d("LISTLIST", listProduk.toString())
+
+                Log.d("losss", liveData.value.toString())
+            },3000)
+
+
+
+
         }
-        liveData.postValue(listProduk)
     }
 }

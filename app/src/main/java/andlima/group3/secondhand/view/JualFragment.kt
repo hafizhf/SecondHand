@@ -199,7 +199,7 @@ class JualFragment : Fragment() {
 
         // akan terbuat secara otomatis kalau value nya null,> akan di simpan dalam dir cache
 
-        val tempFile = File.createTempFile("temp-", null, null)
+        val tempFile = File.createTempFile("temp-", ".jpg", null)
 
         val inputstream = contentResolver.openInputStream(it)
 
