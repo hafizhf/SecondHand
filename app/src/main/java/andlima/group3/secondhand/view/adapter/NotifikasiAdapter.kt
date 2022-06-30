@@ -2,6 +2,7 @@ package andlima.group3.secondhand.view.adapter
 
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.model.daftarjual.diminati.SellerOrdersItem
+import andlima.group3.secondhand.model.notification.NotifData
 import andlima.group3.secondhand.model.notification.NotificationResponseItem
 import android.view.LayoutInflater
 import android.view.View
@@ -14,11 +15,11 @@ import kotlinx.android.synthetic.main.item_notifikasi_penawaranproduk.view.*
 import kotlinx.android.synthetic.main.item_penawaran.view.*
 import java.text.SimpleDateFormat
 
-class NotifikasiAdapter(private var onClick : (NotificationResponseItem)->Unit) : RecyclerView.Adapter<NotifikasiAdapter.ViewHolder>() {
+class NotifikasiAdapter(private var onClick : (NotifData)->Unit) : RecyclerView.Adapter<NotifikasiAdapter.ViewHolder>() {
 
-    private var dataNotif : List<NotificationResponseItem>? = null
+    private var dataNotif : List<NotifData>? = null
 
-    fun setDataNotif(notif : List<NotificationResponseItem>){
+    fun setDataNotif(notif : List<NotifData>){
         this.dataNotif = notif
     }
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
@@ -31,35 +32,37 @@ class NotifikasiAdapter(private var onClick : (NotificationResponseItem)->Unit) 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        if (dataNotif!![position].status)
-//        holder.itemView.tv_namaPenawaran.text = dataProduk!![position].product.name
-//        holder.itemView.tv_hargaPenawaran.text = "Rp " + dataProduk!![position].product.basePrice.toString()
-//        holder.itemView.tv_ditawarPenawaran.text = "Ditawar Rp " + dataProduk!![position].price
-//        Glide.with(holder.itemView.context).load(dataProduk!![position].product.imageUrl).apply(
-//            RequestOptions()
-//        ).into(holder.itemView.imagePenawaran)
-//        val parser =  SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-//        val formatter = SimpleDateFormat("dd MMM, HH:mm")
-//        val formattedDate = formatter.format(parser.parse(dataProduk!![position].updatedAt))
-//        holder.itemView.tv_tanggalPenawaran.text = formattedDate
-//
-//
-//
-//
-//
-//        holder.itemView.itemnotifikasi_card.setOnClickListener{
-//            onClick(dataNotif!![position])
-//        }
+        if (dataNotif!![position].respon.status == "bid"){
+            holder.itemView.itemnotifikasi_tv_penawaranproduk.text = "Penawaran Produk"
+        }else{
+            holder.itemView.itemnotifikasi_tv_penawaranproduk.text = "Sukses Terbit"
+
+        }
+        holder.itemView.itemnotifikasi_tv_namaprodukpenawaran.text = dataNotif!![position].produk.name
+        holder.itemView.itemnotifikasi_tv_hargaproduk.text = "Rp " + dataNotif!![position].produk.basePrice.toString()
+        holder.itemView.itemnotifikasi_tv_hargaditawar.text = "Ditawar Rp " + dataNotif!![position].respon.bidPrice.toString()
+        Glide.with(holder.itemView.context).load(dataNotif!![position].respon.imageUrl).apply(
+            RequestOptions()
+        ).into(holder.itemView.itemnotifikasi_image)
+        val parser =  SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        val formatter = SimpleDateFormat("dd MMM, HH:mm")
+        val formattedDate = formatter.format(parser.parse(dataNotif!![position].respon.transactionDate))
+        holder.itemView.itemnotifikasi_tv_tanggalpenawaran.text = formattedDate
+
+
+        holder.itemView.itemnotifikasi_card.setOnClickListener{
+            onClick(dataNotif!![position])
+        }
 
     }
 
     override fun getItemCount(): Int {
-        return 0
-//        if (dataProduk == null){
-//            return 0
-//        }else{
-//            return dataProduk!!.size
-//
-//        }
+
+        if (dataNotif == null){
+            return 0
+        }else{
+            return dataNotif!!.size
+
+        }
     }
 }

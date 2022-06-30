@@ -32,7 +32,7 @@ class SellerViewModel@Inject constructor(private val repository : SellerReposito
             val nama = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), name)
             val deskripsi = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), description)
             val harga = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), basePrice.toString())
-            var kategoriFiX : String = categoryIDs.toString().replace("[", "").replace("']","")
+            var kategoriFiX : String = categoryIDs.toString().replace("[", "").replace("]","")
 
             val kategori = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), kategoriFiX)
             val lokasi = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), location)
