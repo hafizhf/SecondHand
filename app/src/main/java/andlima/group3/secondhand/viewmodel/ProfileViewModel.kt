@@ -7,6 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 
@@ -26,11 +29,19 @@ class ProfileViewModel  @Inject constructor(private val repository : ProfileRepo
 
 
     fun profileLiveData(
-        accesstoken : String, nama: String, kota: String, alamat: String, nohp: Int
+        accesstoken : String, nama: String, kota: String, alamat: String, nohp: Int, image :MultipartBody.Part
     ) {
         viewModelScope.launch {
+            val namaa = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), nama)
+            val kotaa = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), kota)
+            val alamatt = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), alamat)
+            val nohpp = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), nohp.toString())
+
+
+
             repository.updateprofile(
-                accesstoken, nama, kota, alamat, nohp, profileLiveData)
+
+                accesstoken, namaa, kotaa, alamatt, nohpp,image, profileLiveData)
         }
     }
 }

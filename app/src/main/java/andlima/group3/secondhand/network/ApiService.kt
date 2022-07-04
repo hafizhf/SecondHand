@@ -27,13 +27,13 @@ interface ApiService {
     ) : Call<RegisterResponse>
 //--------------------------------------------------------------------------------------------------------
     @PUT("auth/user")
-    @FormUrlEncoded
     fun profileUser(
     @Header("access_token") accessToken: String,
-        @Field("full_name") fullName : String,
-        @Field("phone_number") phoneNumber : Int,
-        @Field("address") address :String,
-        @Field("city") city :String
+    @Part("full_name") fullName :RequestBody ,
+    @Part("phone_number") phoneNumber : RequestBody,
+    @Part("address") address :RequestBody,
+    @Part("city") city :RequestBody,
+    @Part image : MultipartBody.Part
     ) : Call<UpdateProfileResponse>
   //------------------------------------------------------------------------------------------------------
 
