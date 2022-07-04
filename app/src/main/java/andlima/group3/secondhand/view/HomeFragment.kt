@@ -49,8 +49,6 @@ class HomeFragment : Fragment() {
         // Check if user click back button twice
         doubleBackExit()
 
-        bannerCarousel()
-
         val adapter = AdapterHomePager(childFragmentManager)
         viewpager_home.adapter = adapter
         viewpager_home.layoutParams.height = getDeviceScreenHeight(requireActivity()) + 100
@@ -63,6 +61,11 @@ class HomeFragment : Fragment() {
         }
 
         homeSearchView()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        bannerCarousel()
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -160,10 +163,10 @@ class HomeFragment : Fragment() {
         val carousel : CarouselView = requireView().findViewById(R.id.banner_carousel_home)
         val sampleBanner = listOf(R.drawable.dummy_banner_1, R.drawable.dummy_banner_2)
 
-        carousel.pageCount = sampleBanner.size
         carousel.setImageListener { position, imageView ->
             imageView.setImageResource(sampleBanner[position])
         }
+        carousel.pageCount = sampleBanner.size
     }
 
     // Function to exit app with double click on back button----------------------------------------
