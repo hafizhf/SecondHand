@@ -80,7 +80,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/cardPenawar"
         android:layout_marginTop="20dp"
+        android:id="@+id/txtDaftarProdukTawar"
         android:text="Daftar Produkmu yang Ditawar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/txtDaftarProdukTawar"
+        android:id="@+id/rv_order_buyer"
+        android:layout_marginTop="10dp"/>
 
 
 

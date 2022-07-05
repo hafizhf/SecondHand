@@ -3,6 +3,8 @@ package andlima.group3.secondhand.repository
 import andlima.group3.secondhand.model.daftarjual.SellerProducts
 import andlima.group3.secondhand.model.daftarjual.SellerProductsItem
 import andlima.group3.secondhand.model.daftarjual.diminati.SellerOrdersItem
+import andlima.group3.secondhand.model.daftarjual.terimatolak.PatchOrderResponse
+import andlima.group3.secondhand.model.daftarjual.terimatolak.StatusTawaran
 import andlima.group3.secondhand.model.jual.PostProductResponse
 import andlima.group3.secondhand.model.kategori.KategoriResponseItem
 import andlima.group3.secondhand.model.register.RegisterResponse
@@ -107,6 +109,81 @@ class SellerRepository @Inject constructor(private val apiService: ApiService) {
 
             override fun onFailure(call: Call<List<SellerOrdersItem>>, t: Throwable) {
                 liveData.postValue(null)
+            }
+
+        })
+
+    }
+    fun getSellerAllBuyerOrders(token: String, id: Int,liveData: MutableLiveData<List<SellerOrdersItem>>){
+        val call : Call<List<SellerOrdersItem>> = apiService.getSellerAllOrder(token)
+        call.enqueue(object  : Callback<List<SellerOrdersItem>>{
+            override fun onResponse(
+                call: Call<List<SellerOrdersItem>>,
+                response: Response<List<SellerOrdersItem>>
+            ) {
+                if (response.code() == 200){
+                    val listOrder : MutableList<SellerOrdersItem> = mutableListOf()
+                    response.body()!!.forEach {
+                        if (it.buyerId == id){
+                            listOrder.add(it)
+                        }
+                    }
+                    liveData.postValue(listOrder)
+                }else{
+                    liveData.postValue(null)
+
+                }
+            }
+
+            override fun onFailure(call: Call<List<SellerOrdersItem>>, t: Throwable) {
+                liveData.postValue(null)
+            }
+
+        })
+
+    }
+
+    fun getDetailOrder(token: String, id : Int, liveData : MutableLiveData<SellerOrdersItem>){
+        val call : Call<SellerOrdersItem> = apiService.getDetailOrder(token, id)
+        call.enqueue(object  : Callback<SellerOrdersItem>{
+            override fun onResponse(
+                call: Call<SellerOrdersItem>,
+                response: Response<SellerOrdersItem>
+            ) {
+                if (response.isSuccessful){
+                    liveData.postValue(response.body()!!)
+                }else{
+                    liveData.postValue(null)
+                }
+            }
+
+            override fun onFailure(call: Call<SellerOrdersItem>, t: Throwable) {
+                liveData.postValue(null)
+
+            }
+
+        })
+
+    }
+
+    fun patchOrderRepo(token: String, id: Int, status : String, liveData : MutableLiveData<PatchOrderResponse>){
+        val call : Call<PatchOrderResponse> = apiService.prosesOrder(token, id, StatusTawaran(status))
+        call.enqueue(object  : Callback<PatchOrderResponse>{
+            override fun onResponse(
+                call: Call<PatchOrderResponse>,
+                response: Response<PatchOrderResponse>
+            ) {
+                if (response.isSuccessful){
+                    liveData.postValue(response.body()!!)
+                }else{
+                    liveData.postValue(null)
+
+                }
+            }
+
+            override fun onFailure(call: Call<PatchOrderResponse>, t: Throwable) {
+                liveData.postValue(null)
+
             }
 
         })

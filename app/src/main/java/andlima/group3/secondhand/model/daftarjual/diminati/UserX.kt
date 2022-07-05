@@ -3,7 +3,7 @@ package andlima.group3.secondhand.model.daftarjual.diminati
 
 import com.google.gson.annotations.SerializedName
 
-data class User(
+data class UserX(
     @SerializedName("address")
     val address: String,
     @SerializedName("city")

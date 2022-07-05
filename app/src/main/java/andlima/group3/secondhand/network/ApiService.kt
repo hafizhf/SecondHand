@@ -2,6 +2,8 @@ package andlima.group3.secondhand.network
 
 import andlima.group3.secondhand.model.daftarjual.SellerProductsItem
 import andlima.group3.secondhand.model.daftarjual.diminati.SellerOrdersItem
+import andlima.group3.secondhand.model.daftarjual.terimatolak.PatchOrderResponse
+import andlima.group3.secondhand.model.daftarjual.terimatolak.StatusTawaran
 import andlima.group3.secondhand.model.jual.PostProductResponse
 import andlima.group3.secondhand.model.kategori.KategoriResponseItem
 import andlima.group3.secondhand.model.notification.NotificationResponseItem
@@ -81,4 +83,17 @@ interface ApiService {
     fun getNotif(
         @Header("access_token") accessToken: String
         ) : Call<List<NotificationResponseItem>>
+
+    @GET("seller/order/{id}")
+    fun getDetailOrder(
+        @Header("access_token") accessToken: String,
+        @Path("id") id : Int
+    ) : Call<SellerOrdersItem>
+
+    @PATCH("seller/order/{id}")
+    fun prosesOrder(
+        @Header("access_token") accessToken: String,
+        @Path("id") id : Int,
+        @Body status : StatusTawaran
+    ) : Call<PatchOrderResponse>
 }
