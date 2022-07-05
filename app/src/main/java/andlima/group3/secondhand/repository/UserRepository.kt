@@ -58,7 +58,7 @@ class UserRepository @Inject constructor(private val apiService: ApiService) {
 
         })
     }
-    fun getNotifRepo(token: String, liveTrue : MutableList<NotificationResponseItem>?, liveFalse : MutableList<NotificationResponseItem>?){
+    fun getNotifRepo(token: String, listT : MutableList<NotificationResponseItem>, listF : MutableList<NotificationResponseItem>){
         val call : Call<List<NotificationResponseItem>> = apiService.getNotif(token)
         call.enqueue(object : Callback<List<NotificationResponseItem>>{
             override fun onResponse(
@@ -66,19 +66,13 @@ class UserRepository @Inject constructor(private val apiService: ApiService) {
                 response: Response<List<NotificationResponseItem>>
             ) {
                 if (response.isSuccessful){
-
-
                     response.body()!!.forEach {
                         if (it.read){
-                            liveTrue!!.add(it)
+                            listT.add(it)
                         }else{
-                            liveFalse!!.add(it)
+                            listF.add(it)
                         }
                     }
-
-
-
-
 
                 }else{
 
@@ -88,46 +82,10 @@ class UserRepository @Inject constructor(private val apiService: ApiService) {
 
             override fun onFailure(call: Call<List<NotificationResponseItem>>, t: Throwable) {
 
+
             }
 
         })
     }
-    fun tambah(response: ProductResponse){
-        listProduk.add(response)
-    }
-    fun getDetailProduk(token : String,listId : MutableList<Int>, liveData: SingleLiveMutableData<List<ProductResponse>> )  {
-        listId.forEach {
-            android.os.Handler().postDelayed({
-                val call: Call<ProductResponse> = apiService.getDetailProduct(token, it)
-                call.enqueue(object : Callback<ProductResponse>{
-                    override fun onResponse(
-                        call: Call<ProductResponse>,
-                        response: Response<ProductResponse>
-                    ) {
-                        if(response.isSuccessful){
-                            tambah(response.body()!!)
 
-                        }
-
-                    }
-
-                    override fun onFailure(call: Call<ProductResponse>, t: Throwable) {
-                        TODO("Not yet implemented")
-                    }
-
-                })
-            }, 200)
-
-            android.os.Handler().postDelayed({
-                liveData.postValue(listProduk)
-                Log.d("LISTLIST", listProduk.toString())
-
-                Log.d("losss", liveData.value.toString())
-            },3000)
-
-
-
-
-        }
-    }
 }

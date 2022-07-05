@@ -22,9 +22,8 @@ class UserViewModel @Inject constructor(private val repository : UserRepository)
 
     var registerLiveData : MutableLiveData<String> = MutableLiveData()
     var userDetailLiveData : MutableLiveData<UserDetailResponse> = MutableLiveData()
-    var notifLiveDataProduct : SingleLiveMutableData<List<ProductResponse>> = SingleLiveMutableData()
-    var notifLiveDataResponse : SingleLiveMutableData<List<NotificationResponseItem>> = SingleLiveMutableData()
-    var notifLiveDataFix : SingleLiveMutableData<List<NotifData>> = SingleLiveMutableData()
+    var notifLiveDataResponse : MutableLiveData<List<NotificationResponseItem>> = SingleLiveMutableData()
+
 
 
 
@@ -33,9 +32,6 @@ class UserViewModel @Inject constructor(private val repository : UserRepository)
 
     fun getRegisterLiveDataObserver() : MutableLiveData<String>{
         return registerLiveData
-    }
-    fun setGabunganNotif(listGabungan: MutableList<NotifData>){
-        notifLiveDataFix.value = listGabungan
     }
 
 
@@ -50,65 +46,74 @@ class UserViewModel @Inject constructor(private val repository : UserRepository)
             repository.getDetailUser(token, userDetailLiveData)
         }
     }
-    fun getDetailProdukLive(token: String , listId : MutableList<Int>){
 
-        viewModelScope.launch {
-            repository.getDetailProduk(token, listId, notifLiveDataProduct)
-
-        }
-
-
-    }
     fun notifUserLive(token: String){
-//        viewModelScope.launch {
-//            val listNotif = repository.getNotifRepo(token,notifLiveDataFix)
-//            if (listNotif != null){
-//                listNotif.forEach{
-//                    getDetailProdukLive(token, it.productId)
-//                }
-//            }
+        var listT : MutableList<NotificationResponseItem> = mutableListOf()
+        var listF : MutableList<NotificationResponseItem> = mutableListOf()
+        var listFiltered : MutableList<NotificationResponseItem> = mutableListOf()
         viewModelScope.launch {
-            var listT : MutableList<NotificationResponseItem>? = mutableListOf()
-            var listF : MutableList<NotificationResponseItem>? = mutableListOf()
-            var listFiltered : MutableList<NotificationResponseItem> = mutableListOf()
-            var dataProduct : MutableList<Int> = mutableListOf()
+            repository.getNotifRepo(token, listT, listF )
 
-            repository.getNotifRepo(token, listT, listF)
             Handler().postDelayed({
-                Log.d("FALSEEE", listT.toString())
-                Log.d("TRUEEE", listF.toString())
-                if (listT != null && listF != null) {
-                    listF.forEach {
-                        listFiltered.add(it)
-                    }
-                    listT.forEach {
-                        listFiltered.add(it)
-                    }
-
+                listF.forEach {
+                    listFiltered.add(it)
                 }
-
-                listFiltered.forEach {
-
-                    dataProduct.add(it.productId)
-
+                listT.forEach {
+                    listFiltered.add(it)
                 }
-                getDetailProdukLive(token, dataProduct )
-
                 notifLiveDataResponse.value = listFiltered
-
-
-
-
-
-            }, 3000)
-
-
-
-
-
+            }, 1200)
         }
+    }
 
-        }
+//    fun notifUserLive(token: String){
+////        viewModelScope.launch {
+////            val listNotif = repository.getNotifRepo(token,notifLiveDataFix)
+////            if (listNotif != null){
+////                listNotif.forEach{
+////                    getDetailProdukLive(token, it.productId)
+////                }
+////            }
+//        viewModelScope.launch {
+
+//            var dataProduct : MutableList<Int> = mutableListOf()
+//
+//            repository.getNotifRepo(token, listT, listF)
+//            Handler().postDelayed({
+//                Log.d("FALSEEE", listT.toString())
+//                Log.d("TRUEEE", listF.toString())
+//                if (listT != null && listF != null) {
+//                    listF.forEach {
+//                        listFiltered.add(it)
+//                    }
+//                    listT.forEach {
+//                        listFiltered.add(it)
+//                    }
+//
+//                }
+//
+//                listFiltered.forEach {
+//
+//                    dataProduct.add(it.productId)
+//
+//                }
+//                getDetailProdukLive(token, dataProduct )
+//
+//                notifLiveDataResponse.value = listFiltered
+//
+//
+//
+//
+//
+//            }, 3000)
+//
+//
+//
+//
+//
+//        }
+//
+//        }
 
 
 

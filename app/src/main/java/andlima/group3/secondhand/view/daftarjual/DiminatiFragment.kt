@@ -65,7 +65,7 @@ class DiminatiFragment : Fragment() {
         viewModel.sellerOrdersLiveData.observe(viewLifecycleOwner){
             if (it != null){
                 val orderAdapter = PenawaranAdapter {
-                    val selectedID = bundleOf("SELECTED_ID" to it.id)
+                    val selectedID = bundleOf("SELECTED_ID" to it.buyerId, "ORDER" to it.id)
                     view?.findNavController()
                         ?.navigate(R.id.action_daftarJualFragment_to_infoPenawarFragment2, selectedID)
 
