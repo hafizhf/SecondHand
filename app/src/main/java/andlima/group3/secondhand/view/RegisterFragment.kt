@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import kotlinx.android.synthetic.main.fragment_info_akun.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_register.*
 
@@ -29,6 +30,10 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        register_arrowback.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
         register_tv_kembalikelogin.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_loginFragment)
         }

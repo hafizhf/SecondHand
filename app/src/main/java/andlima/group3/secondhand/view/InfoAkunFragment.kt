@@ -50,6 +50,10 @@ class InfoAkunFragment : Fragment() {
 //        infoAkun_btn_Simpan.setOnClickListener {
 //            Navigation.findNavController(view).navigate(R.id.action_infoAkunFragment_to_AkunFragment)
 //        }
+        infoakun_arrowback.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+
 
         infoAkun_btn_Simpan.setOnClickListener {
             val nama = infoAkun_et_nama.text.toString()

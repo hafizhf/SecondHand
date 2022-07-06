@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.fragment_diminati.*
+import kotlinx.android.synthetic.main.fragment_info_akun.*
 import kotlinx.android.synthetic.main.fragment_info_penawar.*
 import kotlinx.android.synthetic.main.item_notifikasi_penawaranproduk.view.*
 
@@ -35,6 +36,10 @@ class InfoPenawarFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        btnBackInfoTawar.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
         userManager = UserManager(requireContext())
 
         val buyerID = arguments?.getInt("SELECTED_ID") as Int
