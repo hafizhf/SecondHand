@@ -10,6 +10,7 @@ import andlima.group3.secondhand.func.*
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.model.detail.ProductDataForBid
 import andlima.group3.secondhand.model.home.BuyerProductDetail
+import andlima.group3.secondhand.model.home.newhome.ProductDetailItemResponse
 import andlima.group3.secondhand.view.bottomsheet.DetailBottomDialogFragment
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
 import android.annotation.SuppressLint
@@ -45,7 +46,7 @@ class DetailFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun showProductData(data: BuyerProductDetail) {
+    private fun showProductData(data: ProductDetailItemResponse) {
         // Get view id -----------------------------------------------------------------------------
         val productImage : ImageView = view!!.findViewById(R.id.iv_detail_product_image)
         val productName : TextView = view!!.findViewById(R.id.tv_detail_product_name)
@@ -67,6 +68,10 @@ class DetailFragment : Fragment() {
         }
         productPrice.text = "Rp " + data.basePrice.toString()
         productDesc.text = data.description
+
+        Glide.with(this).load(data.user.imageUrl).into(productSellerImage)
+        productSellerName.text = data.user.fullName
+        productSellerAddress.text = data.user.address
     }
 
     @SuppressLint("SetTextI18n")

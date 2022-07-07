@@ -20,11 +20,13 @@ import android.util.DisplayMetrics
 import android.view.*
 import android.widget.*
 import androidx.cardview.widget.CardView
+import androidx.core.os.bundleOf
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.asLiveData
+import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
 import java.io.ByteArrayOutputStream
 
@@ -248,4 +250,13 @@ fun quickNotifyDialog(view: View, message: String) {
     Handler(Looper.getMainLooper()).postDelayed({
         dialog.visibility = View.GONE
     }, 3000)
+}
+
+/**
+ * Directly navigate to detail page of product
+ */
+fun navigateToDetailProduct(productId: Int, view: View, navigationId: Int) {
+    val selectedID = bundleOf("SELECTED_ID" to productId)
+    Navigation.findNavController(view)
+        .navigate(navigationId, selectedID)
 }

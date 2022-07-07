@@ -1,6 +1,7 @@
 package andlima.group3.secondhand.model.notification
 
 
+import andlima.group3.secondhand.model.daftarjual.diminati.Product
 import com.google.gson.annotations.SerializedName
 
 data class NotificationResponseItem(

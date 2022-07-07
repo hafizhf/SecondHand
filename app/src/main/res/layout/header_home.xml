@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/top_bar"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_marginTop="40dp"
+    android:layout_marginStart="25dp"
+    android:layout_marginEnd="25dp"
+    android:paddingBottom="10dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_fi_arrow_left"
+        app:tint="@color/second_hand_neutral4"
+        android:layout_marginEnd="20dp"
+        android:visibility="gone"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/container_search_event"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:cardElevation="0dp"
+        app:strokeWidth="0.8dp"
+        app:strokeColor="@color/second_hand_neutral3"
+        app:cardCornerRadius="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_fi_search"
+                android:layout_marginEnd="10dp"/>
+
+            <TextView
+                android:id="@+id/tv_search_placeholder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cari di Second Chance"
+                android:layout_marginTop="2dp"
+                android:textColor="@color/second_hand_neutral3"
+                style="@style/Heading4"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="0dp"/>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/ic_cart"
+        app:tint="@color/second_hand_neutral4"
+        android:layout_marginStart="20dp"/>
+
+</LinearLayout>

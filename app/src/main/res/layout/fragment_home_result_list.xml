@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.home.HomeResultListFragment">
+
+    <include layout="@layout/header_home"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_below="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_search_result"
+                style="@style/Body2"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                app:lineHeight="30dp"
+                android:text="Hasil pencarian:" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_result_title"
+                style="@style/Heading1"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="25dp"
+                app:lineHeight="30dp"
+                android:text="Nama Barang" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_result_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:paddingStart="12.5dp"
+                android:paddingEnd="12.5dp"
+                android:layout_marginBottom="10dp"
+                android:nestedScrollingEnabled="false" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

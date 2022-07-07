@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scroll_view_home"
     android:scrollbars="none"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,6 +12,31 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+<!--        <com.google.android.material.appbar.AppBarLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="200dp">-->
+
+<!--            <com.google.android.material.appbar.CollapsingToolbarLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:fitsSystemWindows="true"-->
+<!--                app:contentScrim="?attr/colorPrimary"-->
+<!--                app:expandedTitleMarginEnd="64dp"-->
+<!--                app:expandedTitleMarginStart="48dp"-->
+<!--                android:padding="8dp"-->
+<!--                app:layout_scrollFlags="scroll|exitUntilCollapsed">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="ASDAS"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    style="@style/Heading1"/>-->
+
+<!--            </com.google.android.material.appbar.CollapsingToolbarLayout>-->
+
+<!--        </com.google.android.material.appbar.AppBarLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -60,10 +60,15 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_diminati.xml" value="0.2" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_elektronik.xml" value="0.13903985507246377" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_hobi.xml" value="0.13903985507246377" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home.xml" value="0.22" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home_electronic.xml" value="0.209375" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home_fashion.xml" value="0.209375" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home_more_category.xml" value="0.209375" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home_result_list.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home_sub_fashion.xml" value="0.18" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_info_akun.xml" value="0.22" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_info_penawar.xml" value="0.2" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_jual.xml" value="0.22" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_jual.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_kendaraan.xml" value="0.13903985507246377" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_kesehatan.xml" value="0.13903985507246377" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_login.xml" value="0.22" />
@@ -73,14 +78,20 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_register.xml" value="0.18" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_semua.xml" value="0.13722826086956522" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_terjual.xml" value="0.2" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/header_home.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/home_layout.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/horizontalline.xml" value="0.2" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/item_daftar_jual.xml" value="0.1328125" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/item_home.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/item_product.xml" value="0.5" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/item_product_result.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/list_kategori.xml" value="0.2" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/search_layout.xml" value="0.209375" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/menu/menu_navigation.xml" value="0.209375" />
       </map>
     </option>
   </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>

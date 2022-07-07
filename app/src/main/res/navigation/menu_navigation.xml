@@ -13,6 +13,18 @@
         <action
             android:id="@+id/action_homeFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_homeElectronicFragment"
+            app:destination="@id/homeElectronicFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_homeMoreCategoryFragment"
+            app:destination="@id/homeMoreCategoryFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_homeFashionFragment"
+            app:destination="@id/homeFashionFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_homeResultListFragment"
+            app:destination="@id/homeResultListFragment" />
     </fragment>
     <fragment
         android:id="@+id/notifikasiFragment"
@@ -60,4 +72,64 @@
         android:name="andlima.group3.secondhand.view.InfoAkunFragment"
         android:label="fragment_info_akun"
         tools:layout="@layout/fragment_info_akun" />
+    <fragment
+        android:id="@+id/homeElectronicFragment"
+        android:name="andlima.group3.secondhand.view.home.HomeElectronicFragment"
+        android:label="fragment_home_electronic"
+        tools:layout="@layout/fragment_home_electronic" >
+        <action
+            android:id="@+id/action_homeElectronicFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_homeElectronicFragment_to_homeResultListFragment"
+            app:destination="@id/homeResultListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeMoreCategoryFragment"
+        android:name="andlima.group3.secondhand.view.home.HomeMoreCategoryFragment"
+        android:label="fragment_home_more_category"
+        tools:layout="@layout/fragment_home_more_category" >
+        <action
+            android:id="@+id/action_homeMoreCategoryFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_homeMoreCategoryFragment_to_homeResultListFragment"
+            app:destination="@id/homeResultListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFashionFragment"
+        android:name="andlima.group3.secondhand.view.home.HomeFashionFragment"
+        android:label="fragment_home_fashion"
+        tools:layout="@layout/fragment_home_fashion" >
+        <action
+            android:id="@+id/action_homeFashionFragment_to_homeSubFashionFragment"
+            app:destination="@id/homeSubFashionFragment" />
+        <action
+            android:id="@+id/action_homeFashionFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_homeFashionFragment_to_homeResultListFragment"
+            app:destination="@id/homeResultListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeSubFashionFragment"
+        android:name="andlima.group3.secondhand.view.home.HomeSubFashionFragment"
+        android:label="fragment_home_sub_fashion"
+        tools:layout="@layout/fragment_home_sub_fashion" >
+        <action
+            android:id="@+id/action_homeSubFashionFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_homeSubFashionFragment_to_homeResultListFragment"
+            app:destination="@id/homeResultListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeResultListFragment"
+        android:name="andlima.group3.secondhand.view.home.HomeResultListFragment"
+        android:label="fragment_home_result_list"
+        tools:layout="@layout/fragment_home_result_list" >
+        <action
+            android:id="@+id/action_homeResultListFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
 </navigation>
