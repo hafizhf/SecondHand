@@ -28,6 +28,7 @@ interface ApiService {
         @Field("city") city :String
     ) : Call<RegisterResponse>
 //--------------------------------------------------------------------------------------------------------
+    @Multipart
     @PUT("auth/user")
     fun profileUser(
     @Header("access_token") accessToken: String,
@@ -37,6 +38,8 @@ interface ApiService {
     @Part("city") city :RequestBody,
     @Part image : MultipartBody.Part
     ) : Call<UpdateProfileResponse>
+
+
   //------------------------------------------------------------------------------------------------------
 
 

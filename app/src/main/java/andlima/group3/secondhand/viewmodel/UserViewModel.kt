@@ -22,6 +22,7 @@ class UserViewModel @Inject constructor(private val repository : UserRepository)
 
     var registerLiveData : MutableLiveData<String> = MutableLiveData()
     var userDetailLiveData : MutableLiveData<UserDetailResponse> = MutableLiveData()
+
     var notifLiveDataResponse : MutableLiveData<List<NotificationResponseItem>> = SingleLiveMutableData()
     var notifReadLiveData : MutableLiveData<NotificationResponseItem> = MutableLiveData()
 
@@ -47,6 +48,7 @@ class UserViewModel @Inject constructor(private val repository : UserRepository)
             repository.getDetailUser(token, userDetailLiveData)
         }
     }
+
     fun notifUserReadLive(token: String, id : Int){
         viewModelScope.launch {
             repository.readNotifRepo(token,id,notifReadLiveData)
