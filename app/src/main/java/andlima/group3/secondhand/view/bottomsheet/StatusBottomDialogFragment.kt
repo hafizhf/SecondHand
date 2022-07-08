@@ -10,6 +10,7 @@ import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.model.daftarjual.diminati.SellerOrdersItem
 import andlima.group3.secondhand.viewmodel.SellerViewModel
 import android.util.Log
+import android.widget.RadioButton
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_status_bottom_dialog.*
@@ -30,6 +31,7 @@ class StatusBottomDialogFragment : BottomSheetDialogFragment() {
         val token = arguments?.getString("TOKEN") as String
         val id = arguments?.getInt("ID") as Int
         val buyerID = arguments?.getInt("BUYER_ID") as Int
+        val buttonStatus = ""
 
 
 
@@ -37,19 +39,20 @@ class StatusBottomDialogFragment : BottomSheetDialogFragment() {
         radioGroup.setOnCheckedChangeListener { group, checkedId ->
             checkedRadioButtonId = checkedId
             btnKirimBottomSheet.isEnabled = true
+
         }
 
         btnKirimBottomSheet.setOnClickListener {
             Log.d("radiobutton", checkedRadioButtonId.toString())
             val viewModel = ViewModelProvider(requireActivity()).get(SellerViewModel::class.java)
+            val checked : RadioButton = view.findViewById(checkedRadioButtonId)
 
 
-            if (checkedRadioButtonId == 2131296975){
+            if (checked.hint == "sukses"){
                 viewModel.patchOrderLive(token, id, "accepted")
                 toast(requireContext(), "Berhasil Transaksi")
             }else{
                 viewModel.patchOrderLive(token, id, "declined")
-
                 toast(requireContext(), "Transaksi Dibatalkan")
 
             }
