@@ -6,9 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
+import andlima.group3.secondhand.func.homeSearchView
 import andlima.group3.secondhand.func.navigateToDetailProduct
+import andlima.group3.secondhand.func.showCartQuantity
+import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.view.adapter.ProductPreviewAdapter
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
+import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
@@ -19,6 +24,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFashionFragment : Fragment() {
+
+    lateinit var userManager: UserManager
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,6 +37,23 @@ class HomeFashionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        userManager = UserManager(requireContext())
+
+        homeSearchView(requireView(), requireContext(), requireActivity(), this, this)
+        showCartQuantity(requireView(), this, this, userManager)
+
+        // Back button on top bar
+        requireView().findViewById<ImageView>(R.id.btn_back).visibility = View.VISIBLE
+        requireView().findViewById<ImageView>(R.id.btn_back).setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
+
+        // Go to buyer order list / cart
+        requireView().findViewById<RelativeLayout>(R.id.btn_goto_cart).setOnClickListener {
+            Navigation.findNavController(view)
+                .navigate(R.id.action_homeFashionFragment_to_cartFragment)
+        }
 
         getClothesProduct()
         getShoesProduct()

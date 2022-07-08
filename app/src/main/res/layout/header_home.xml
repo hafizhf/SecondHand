@@ -9,7 +9,8 @@
     android:layout_marginStart="25dp"
     android:layout_marginEnd="25dp"
     android:paddingBottom="10dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
         android:id="@+id/btn_back"
@@ -17,7 +18,7 @@
         android:layout_height="30dp"
         android:src="@drawable/ic_fi_arrow_left"
         app:tint="@color/second_hand_neutral4"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="11dp"
         android:visibility="gone"/>
 
     <com.google.android.material.card.MaterialCardView
@@ -63,11 +64,48 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <ImageView
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:src="@drawable/ic_cart"
-        app:tint="@color/second_hand_neutral4"
-        android:layout_marginStart="20dp"/>
+    <RelativeLayout
+        android:id="@+id/btn_goto_cart"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginStart="15dp">
+
+        <ImageView
+            android:id="@+id/cart_icon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="2dp"
+            android:src="@drawable/ic_cart"
+            app:tint="@color/second_hand_neutral4" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cart_info"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:backgroundTint="#F14949"
+            android:layout_alignStart="@+id/cart_icon"
+            android:layout_marginTop="3dp"
+            android:layout_marginStart="13dp"
+            app:cardElevation="0dp"
+            android:visibility="gone"
+            app:cardCornerRadius="50dp">
+
+            <TextView
+                android:id="@+id/tv_item_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0.5dp"
+                android:text="3"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                style="@style/Heading3"
+                tools:ignore="HardcodedText,SmallSp"
+                android:layout_gravity="center"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </RelativeLayout>
 
 </LinearLayout>

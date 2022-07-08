@@ -54,6 +54,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/dialog_success.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_aksesoris.xml" value="0.13903985507246377" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_akun.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_cart.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_daftar_jual.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_detail.xml" value="0.15" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_detail_bottom_dialog.xml" value="0.25" />
@@ -65,7 +66,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home_fashion.xml" value="0.209375" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home_more_category.xml" value="0.209375" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home_result_list.xml" value="0.25" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home_sub_fashion.xml" value="0.18" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home_sub_fashion.xml" value="0.22" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_info_akun.xml" value="0.22" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_info_penawar.xml" value="0.2" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_jual.xml" value="0.33" />
@@ -81,6 +82,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/header_home.xml" value="0.33" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/home_layout.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/horizontalline.xml" value="0.2" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/item_cart.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/item_daftar_jual.xml" value="0.1328125" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/item_home.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/item_product.xml" value="0.5" />

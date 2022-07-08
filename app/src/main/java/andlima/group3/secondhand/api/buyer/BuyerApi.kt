@@ -2,6 +2,7 @@ package andlima.group3.secondhand.api.buyer
 
 import andlima.group3.secondhand.model.buyer.order.BuyerOrderRequest
 import andlima.group3.secondhand.model.buyer.order.BuyerOrderResponse
+import andlima.group3.secondhand.model.buyer.order.GetBuyerOrderResponseItem
 import andlima.group3.secondhand.model.home.BuyerProductDetail
 import andlima.group3.secondhand.model.home.BuyerProductItem
 import andlima.group3.secondhand.model.home.newhome.ProductDetailItemResponse
@@ -40,6 +41,12 @@ interface BuyerApi {
         @Header("access_token") accessToken: String,
         @Body request: BuyerOrderRequest
     ) : Call<BuyerOrderResponse>
+
+    // Get buyer order
+    @GET("buyer/order")
+    fun getOrderList(
+        @Header("access_token") accessToken: String
+    ) : Call<List<GetBuyerOrderResponseItem>>
 
     // Request detail product data
     @GET("seller/product/{id}")

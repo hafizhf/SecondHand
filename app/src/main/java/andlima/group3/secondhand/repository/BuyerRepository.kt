@@ -2,6 +2,7 @@ package andlima.group3.secondhand.repository
 
 import andlima.group3.secondhand.api.buyer.BuyerApi
 import andlima.group3.secondhand.model.buyer.order.BuyerOrderRequest
+import andlima.group3.secondhand.model.buyer.order.GetBuyerOrderResponseItem
 import andlima.group3.secondhand.model.home.BuyerProductDetail
 import andlima.group3.secondhand.model.home.BuyerProductItem
 import andlima.group3.secondhand.model.home.newhome.ProductDetailItemResponse
@@ -146,6 +147,46 @@ class BuyerRepository @Inject constructor(private val api: BuyerApi) {
                     isSellerProduct.postValue(false)
                 }
 
+            })
+    }
+
+    fun getBuyerOrderData(accessToken: String, quantity: MutableLiveData<List<GetBuyerOrderResponseItem>>) {
+        api.getOrderList(accessToken)
+            .enqueue(object : retrofit2.Callback<List<GetBuyerOrderResponseItem>>{
+                override fun onResponse(
+                    call: Call<List<GetBuyerOrderResponseItem>>,
+                    response: Response<List<GetBuyerOrderResponseItem>>
+                ) {
+                    if (response.isSuccessful) {
+                        quantity.postValue(response.body()!!)
+                    } else {
+                        quantity.postValue(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<List<GetBuyerOrderResponseItem>>, t: Throwable) {
+                    quantity.postValue(null)
+                }
+            })
+    }
+
+    fun checkBuyerOrderQuantity(accessToken: String, quantity: MutableLiveData<Int>) {
+        api.getOrderList(accessToken)
+            .enqueue(object : retrofit2.Callback<List<GetBuyerOrderResponseItem>>{
+                override fun onResponse(
+                    call: Call<List<GetBuyerOrderResponseItem>>,
+                    response: Response<List<GetBuyerOrderResponseItem>>
+                ) {
+                    if (response.isSuccessful) {
+                        quantity.postValue(response.body()!!.size)
+                    } else {
+                        quantity.postValue(0)
+                    }
+                }
+
+                override fun onFailure(call: Call<List<GetBuyerOrderResponseItem>>, t: Throwable) {
+                    quantity.postValue(0)
+                }
             })
     }
 

@@ -3,6 +3,8 @@ package andlima.group3.secondhand.func
 import andlima.group3.secondhand.AuthActivity
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.local.datastore.UserManager
+import andlima.group3.secondhand.view.adapter.SearchResultAdapter
+import andlima.group3.secondhand.viewmodel.BuyerViewModel
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
@@ -18,15 +20,15 @@ import android.os.Looper
 import android.util.Base64
 import android.util.DisplayMetrics
 import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
 import androidx.core.widget.NestedScrollView
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.asLiveData
+import androidx.lifecycle.*
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import java.io.ByteArrayOutputStream
 
@@ -252,6 +254,110 @@ fun quickNotifyDialog(view: View, message: String) {
     }, 3000)
 }
 
+// INI DARI YG SEBELUMNYA
+/**
+ * Make event for search view on home pages
+ */
+@SuppressLint("ClickableViewAccessibility")
+fun homeSearchView(view: View, context: Context, activity: Activity, owner: ViewModelStoreOwner, lifecycleOwner: LifecycleOwner) {
+    val makeSearchEvent : CardView = view.findViewById(R.id.container_search_event)
+    val searchResultContainer : LinearLayout = view.findViewById(R.id.container_search_result)
+    val a : SearchView = view.findViewById(R.id.home_search_bar_new)
+
+    val searchPlaceholder : TextView = view.findViewById(R.id.tv_search_placeholder)
+
+    val paramsResultContainer: ViewGroup.LayoutParams = searchResultContainer.layoutParams
+    paramsResultContainer.height = getDeviceScreenHeight(activity)
+    searchResultContainer.layoutParams = paramsResultContainer
+
+    // Observe focus change on search view
+    a.setOnQueryTextFocusChangeListener { _, focused ->
+
+        // Disable scroll for home when focus on search
+//            scroll_view_home.setOnTouchListener { _, _ -> focused }
+
+        if (focused) {
+            a.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(p0: String?): Boolean {
+                    toast(context, "Belum bisa submit ges")
+
+                    val keyword = bundleOf("SEARCH_KEYWORD" to p0)
+                    Navigation.findNavController(view)
+                        .navigate(R.id.action_homeFragment_to_homeResultListFragment, keyword)
+
+                    return false
+                }
+
+                @SuppressLint("SetTextI18n")
+                override fun onQueryTextChange(p0: String?): Boolean {
+                    getSearchResult(p0!!, view, context, owner, lifecycleOwner)
+                    if (p0 != "") {
+                        searchPlaceholder.text = p0
+                    } else {
+                        searchPlaceholder.text = "Cari di Second Chance"
+                    }
+                    return false
+                }
+            })
+        }
+    }
+
+    // Dim screen when search bar clicked
+    makeSearchEvent.setOnClickListener {
+        searchResultContainer.visibility = View.VISIBLE
+        a.requestFocus()
+
+        showSoftKeyboard(activity)
+    }
+
+    // Hide search container when user click on dim side
+    searchResultContainer.setOnClickListener {
+        searchResultContainer.visibility = View.GONE
+    }
+}
+
+@SuppressLint("NotifyDataSetChanged")
+private fun getSearchResult(userInput: String, view: View, context: Context, owner: ViewModelStoreOwner, lifecycleOwner: LifecycleOwner) {
+    val recyclerView: RecyclerView = view.findViewById(R.id.rv_search_result)
+    val searchAdapter = SearchResultAdapter() {
+        toast(context, "You thought this was $it? But it was me, Dio!")
+    }
+
+    recyclerView.layoutManager = LinearLayoutManager(context)
+    recyclerView.adapter = searchAdapter
+
+    val viewModel = ViewModelProvider(owner)[BuyerViewModel::class.java]
+    viewModel.allProductData.observe(lifecycleOwner, {
+        if (it != null) {
+            val listProduct = it
+            val listProductName : MutableList<String> = mutableListOf()
+            listProduct.forEach { item ->
+                if (item.name != null) {
+                    listProductName.add(item.name)
+                }
+            }
+            val listProductNameFiltered = listProductName.filter { item ->
+                item.contains(userInput, ignoreCase = true)
+            }
+            if (userInput != "") {
+                searchAdapter.setResultList(listProductNameFiltered)
+            } else {
+                searchAdapter.setResultList(emptyList())
+            }
+            searchAdapter.notifyDataSetChanged()
+        } else {
+            // Something to show when there is no product
+        }
+    })
+}
+
+private fun showSoftKeyboard(activity: Activity) {
+    val view = activity.currentFocus
+    val methodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    assert(view != null)
+    methodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+}
+
 /**
  * Directly navigate to detail page of product
  */
@@ -259,4 +365,22 @@ fun navigateToDetailProduct(productId: Int, view: View, navigationId: Int) {
     val selectedID = bundleOf("SELECTED_ID" to productId)
     Navigation.findNavController(view)
         .navigate(navigationId, selectedID)
+}
+
+/**
+ * Show cart quantity/amount badge on home pages
+ */
+fun showCartQuantity(view: View, owner: ViewModelStoreOwner, lifecycleOwner: LifecycleOwner, userManager: UserManager) {
+    val viewModel = ViewModelProvider(owner)[BuyerViewModel::class.java]
+    userManager.accessTokenFlow.asLiveData().observeOnce(lifecycleOwner, {
+        viewModel.orderQuantity.observeForever { quantity ->
+            if (quantity != 0) {
+                view.findViewById<CardView>(R.id.cart_info).visibility = View.VISIBLE
+                view.findViewById<TextView>(R.id.tv_item_amount).text = quantity.toString()
+            } else {
+                view.findViewById<CardView>(R.id.cart_info).visibility = View.GONE
+            }
+        }
+        viewModel.getBuyerOrderQuantity(it)
+    })
 }

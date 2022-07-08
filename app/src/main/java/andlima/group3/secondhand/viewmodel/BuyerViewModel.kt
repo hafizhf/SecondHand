@@ -2,6 +2,7 @@ package andlima.group3.secondhand.viewmodel
 
 import andlima.group3.secondhand.model.buyer.order.BuyerOrderRequest
 import andlima.group3.secondhand.model.buyer.order.BuyerOrderResponse
+import andlima.group3.secondhand.model.buyer.order.GetBuyerOrderResponseItem
 import andlima.group3.secondhand.model.home.BuyerProductDetail
 import andlima.group3.secondhand.model.home.BuyerProductItem
 import andlima.group3.secondhand.model.home.newhome.ProductDetailItemResponse
@@ -113,6 +114,17 @@ class BuyerViewModel @Inject constructor(api: BuyerRepository): ViewModel() {
     fun getAutomotiveProducts() {apiHelper.getProductsByCategory(114, automotiveProducts)}
     fun getSportsProducts() {apiHelper.getProductsByCategory(115, sportsProducts)}
     fun getVoucherProducts() {apiHelper.getProductsByCategory(117, sportsProducts)}
+
+    // Buyer Order
+    val orderQuantity: MutableLiveData<Int> = MutableLiveData()
+    fun getBuyerOrderQuantity(accessToken: String) {
+        apiHelper.checkBuyerOrderQuantity(accessToken, orderQuantity)
+    }
+
+    val orderList: MutableLiveData<List<GetBuyerOrderResponseItem>> = MutableLiveData()
+    fun getBuyerOrderList(accessToken: String) {
+        apiHelper.getBuyerOrderData(accessToken, orderList)
+    }
 
     // =============================================================================================
 

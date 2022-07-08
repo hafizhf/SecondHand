@@ -245,7 +245,8 @@
 
         </LinearLayout>
 
-
     </androidx.core.widget.NestedScrollView>
+
+    <include layout="@layout/search_layout"/>
 
 </RelativeLayout>
