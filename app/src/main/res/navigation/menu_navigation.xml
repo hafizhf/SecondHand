@@ -33,7 +33,11 @@
         android:id="@+id/notifikasiFragment"
         android:name="andlima.group3.secondhand.view.NotifikasiFragment"
         android:label="fragment_notifikasi"
-        tools:layout="@layout/fragment_notifikasi" />
+        tools:layout="@layout/fragment_notifikasi" >
+        <action
+            android:id="@+id/action_notifikasiFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/jualFragment"
         android:name="andlima.group3.secondhand.view.JualFragment"

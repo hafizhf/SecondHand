@@ -46,16 +46,16 @@ class StatusBottomDialogFragment : BottomSheetDialogFragment() {
 
             if (checkedRadioButtonId == 2131296975){
                 viewModel.patchOrderLive(token, id, "accepted")
-                viewModel.getBuyerOrdersLive(token, buyerID)
                 toast(requireContext(), "Berhasil Transaksi")
             }else{
                 viewModel.patchOrderLive(token, id, "declined")
-                viewModel.getBuyerOrdersLive(token, buyerID)
+
                 toast(requireContext(), "Transaksi Dibatalkan")
 
             }
 
             dismiss()
+            viewModel.getBuyerOrdersLive(token, buyerID)
 
 
         }

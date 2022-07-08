@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.model.daftarjual.diminati.SellerOrdersItem
 import andlima.group3.secondhand.model.detail.ProductDataForBid
+import andlima.group3.secondhand.viewmodel.SellerViewModel
 import android.content.Intent
 import android.net.Uri
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -32,6 +34,8 @@ class OrderBottomDialogFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val dataOrder = arguments?.getParcelable<SellerOrdersItem>("ORDER") as SellerOrdersItem
+        val token = arguments?.getString("TOKEN") as String
+        val buyerID = arguments?.getInt("BUYER_ID") as Int
         tvNamaPembeliBottomSheet.text = dataOrder.user.fullName
         tvKotaPembeliBottomSheet.text = dataOrder.user.city
         tvNamaProdukBottomSheet.text = dataOrder.productName
@@ -44,6 +48,10 @@ class OrderBottomDialogFragment : BottomSheetDialogFragment() {
         Glide.with(requireActivity()).load(dataOrder.imageProduct).apply(
             RequestOptions()
         ).into(imageProdukBottomSheet)
+        val viewModel = ViewModelProvider(requireActivity()).get(SellerViewModel::class.java)
+        viewModel.getBuyerOrdersLive(token, buyerID)
+
+
 
         btnHubungiBottomSheet.setOnClickListener {
             val url = "https://api.whatsapp.com/send?phone=${dataOrder.user.phoneNumber}"+"&text=" +
@@ -53,6 +61,7 @@ class OrderBottomDialogFragment : BottomSheetDialogFragment() {
             startActivity(intent)
         }
     }
+
 
 
 }
