@@ -96,4 +96,9 @@ interface ApiService {
         @Path("id") id : Int,
         @Body status : StatusTawaran
     ) : Call<PatchOrderResponse>
+    @PATCH("notification/{id}")
+    fun readNotiff(
+        @Header("access_token") accessToken: String,
+        @Path("id") id : Int,
+    )
 }

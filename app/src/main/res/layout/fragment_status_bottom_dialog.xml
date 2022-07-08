@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:id="@+id/bs_detail_popup"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="422dp"
+    android:background="@color/second_hand_transparent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.bottomsheet.DetailBottomDialogFragment">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp"
+        app:cardCornerRadius="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingStart="30dp"
+            android:paddingEnd="30dp">
+
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/horizontalline"
+                android:layout_marginBottom="30dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Perbarui status penjualan produkmu"
+                style="@style/Heading3"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="15dp"/>
+
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="20dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:id="@+id/radioGroup"
+                    android:layout_height="wrap_content">
+                    <RadioButton
+                        android:id="@+id/radioBtnBerhasil"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Berhasil Terjual"
+                        android:paddingStart="10dp"
+                        style="@style/Heading3"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="40dp"
+
+                        android:text="Kamu telah sepakat menjual produk ini kepada pembeli"
+                        style="@style/Heading4"/>
+                    <RadioButton
+                        android:id="@+id/radioBtnBatal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Batalkan Transaksi"
+                        android:paddingStart="10dp"
+                        style="@style/Heading3"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="40dp"
+
+                        android:text="Kamu membatalkan transaksi produk ini dengan pembeli"
+                        style="@style/Heading4"/>
+                </RadioGroup>
+
+
+                </LinearLayout>
+            <Button
+                android:id="@+id/btnKirimBottomSheet"
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginTop="15dp"
+                android:text="Kirim"
+                android:enabled="false"
+                style="@style/Button"/>
+            </LinearLayout>
+
+
+
+
+
+
+
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

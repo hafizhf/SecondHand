@@ -20,6 +20,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SellerViewModel@Inject constructor(private val repository : SellerRepository) : ViewModel() {
     var sellerProductsLiveData : MutableLiveData<List<SellerProductsItem>> = MutableLiveData()
+    var sellerSoldLiveData : MutableLiveData<List<SellerProductsItem>> = MutableLiveData()
+
     var sellerPostProductLive : MutableLiveData<PostProductResponse> = MutableLiveData()
     var sellerOrdersLiveData : MutableLiveData<List<SellerOrdersItem>> = MutableLiveData()
     var sellerBuyerOrdersLiveData : MutableLiveData<List<SellerOrdersItem>> = MutableLiveData()
@@ -30,6 +32,11 @@ class SellerViewModel@Inject constructor(private val repository : SellerReposito
     fun getSellerAllProductsLive(token : String){
         viewModelScope.launch {
             repository.getSellerAllProduct(token, sellerProductsLiveData)
+        }
+    }
+    fun getSellerSoldProductsLive(token : String){
+        viewModelScope.launch {
+            repository.getSellerSoldProduct(token, sellerSoldLiveData)
         }
     }
     fun patchOrderLive(token: String, id: Int, status : String){
