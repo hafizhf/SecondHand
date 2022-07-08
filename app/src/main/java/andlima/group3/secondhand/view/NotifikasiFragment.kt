@@ -64,6 +64,21 @@ class NotifikasiFragment : Fragment() {
 
             if (it.isNotEmpty()){
                 val notifAdapter = NotifikasiAdapter{
+                    if (it.read.equals(false)){
+                        viewModel.notifUserReadLive(token, it.id)
+                        getNotifs(token)
+
+                    }
+                    if (it.status == "create"){
+                        val selectedID = bundleOf("SELECTED_ID" to it.productId)
+                        view?.findNavController()
+                            ?.navigate(R.id.action_notifikasiFragment_to_detailFragment, selectedID)
+
+                    }else {
+//                            val selectedID = bundleOf("SELECTED_ID" to it., "ORDER" to it.id)
+//                            view?.findNavController()
+//                                ?.navigate(R.id.action_daftarJualFragment_to_infoPenawarFragment2, selectedID)
+                    }
 
                 }
                 notifAdapter.setDataNotif(it)

@@ -87,5 +87,31 @@ class UserRepository @Inject constructor(private val apiService: ApiService) {
 
         })
     }
+    fun readNotifRepo(token: String, id : Int, liveData: MutableLiveData<NotificationResponseItem>){
+        val call : Call<NotificationResponseItem> = apiService.readNotif(token,id)
+        call.enqueue(object : Callback<NotificationResponseItem>{
+            override fun onResponse(
+                call: Call<NotificationResponseItem>,
+                response: Response<NotificationResponseItem>
+            ) {
+                if (response.isSuccessful){
+                    liveData.postValue(response.body()!!)
+
+                }else{
+                    liveData.postValue(null)
+
+                }
+
+            }
+
+            override fun onFailure(call: Call<NotificationResponseItem>, t: Throwable) {
+                liveData.postValue(null)
+
+
+            }
+
+        })
+
+    }
 
 }

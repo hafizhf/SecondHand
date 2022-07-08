@@ -80,7 +80,7 @@ class TawaranBuyerAdapter(private var viewModel : SellerViewModel, var token : S
             if (holder.itemView.btnTerima.text == "Terima"){
                 viewModel.patchOrderLive(token, dataProduk!![position].id, "terima")
                 viewModel.getBuyerOrdersLive(token, buyerId)
-                showBottomSheetDialogFragment(dataProduk!![position])
+                showBottomSheetDialogFragment(dataProduk!![position], token, buyerId)
 
 
             }else{
@@ -113,9 +113,9 @@ class TawaranBuyerAdapter(private var viewModel : SellerViewModel, var token : S
         bottomSheet.show(manager, "STATUSSHEET")
 
     }
-    private fun showBottomSheetDialogFragment(data: SellerOrdersItem) {
+    private fun showBottomSheetDialogFragment(data: SellerOrdersItem,token: String, id : Int ) {
         val bottomSheet = OrderBottomDialogFragment()
-        val dataForBid = bundleOf("ORDER" to data)
+        val dataForBid = bundleOf("ORDER" to data, "TOKEN" to token,  "BUYER_ID" to buyerId)
         bottomSheet.arguments = dataForBid
         bottomSheet.show(manager, "ORDERSHEET")
 
