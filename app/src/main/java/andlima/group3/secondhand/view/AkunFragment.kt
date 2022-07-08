@@ -13,14 +13,23 @@ import andlima.group3.secondhand.func.alertDialog
 import andlima.group3.secondhand.func.requireLogin
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
+import andlima.group3.secondhand.viewmodel.SellerViewModel
+import andlima.group3.secondhand.viewmodel.UserViewModel
 
 import android.content.Intent
+import android.util.Log
 
 import android.widget.Button
 import android.widget.LinearLayout
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 import kotlinx.android.synthetic.main.fragment_akun.*
+import kotlinx.android.synthetic.main.item_terjual.view.*
 
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -48,8 +57,22 @@ class AkunFragment : Fragment() {
         val requireLoginButton: Button = requireView().findViewById(R.id.btn_require_goto_login)
         requireLogin(requireContext(), userManager, requireLoginView, requireLoginButton)
         akun_tv_ubahakun.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_akunFragment_to_infoAkunFragment2)
+            view.findNavController().navigate(R.id.action_akunFragment_to_infoAkunFragment2)
         }
+        val viewModel = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
+        viewModel.userDetailLiveData.observe(viewLifecycleOwner){
+            if (it != null){
+                if (it.imageUrl != null){
+                    Glide.with(requireContext()).load(it.imageUrl).apply(
+                        RequestOptions()
+                    ).into(imageAkunSaya)
+                }
+            }
+        }
+        userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
+            viewModel.userDetailLive(it)
+        }
+
 
         btn_logout.setOnClickListener {
             alertDialog(requireContext(), "Logout", "Are you sure want to log out?") {

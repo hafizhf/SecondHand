@@ -9,9 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.alertDialog
+import andlima.group3.secondhand.func.observeOnce
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.viewmodel.ProfileViewModel
+import andlima.group3.secondhand.viewmodel.UserViewModel
 import android.Manifest
 import android.app.Activity
 import android.content.DialogInterface
@@ -25,6 +27,9 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.navigation.Navigation
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import kotlinx.android.synthetic.main.fragment_akun.*
 import kotlinx.android.synthetic.main.fragment_info_akun.*
 import kotlinx.android.synthetic.main.fragment_jual.*
 import okhttp3.MediaType.Companion.toMediaType
@@ -53,6 +58,9 @@ class InfoAkunFragment : Fragment() {
         infoakun_arrowback.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
+        userManager.accessTokenFlow.asLiveData().observeOnce(viewLifecycleOwner){
+            getDataUser(it)
+        }
 
 
         infoAkun_btn_Simpan.setOnClickListener {
@@ -61,14 +69,17 @@ class InfoAkunFragment : Fragment() {
             val alamat = infoAkun_et_alamat.text.toString()
             val nohp = infoAkun_et_nohp.text.toString().toInt()
             if (nama.isNotBlank() && kota.isNotBlank() && alamat.isNotBlank()){
-                profile(nama,kota,alamat,nohp)
+                userManager.accessTokenFlow.asLiveData().observeOnce(viewLifecycleOwner){
+                    profile(it,nama,kota,alamat,nohp)
+
+                }
             }
         }
         ImageProfileInfoAkun.setOnClickListener {
             setImageprofile()
         }
     }
-    fun profile(nama : String, kota : String, alamat : String, nohp : Int){
+    fun profile(token: String,nama : String, kota : String, alamat : String, nohp : Int){
         val viewModel = ViewModelProvider(requireActivity()).get(ProfileViewModel::class.java)
         viewModel.profileLiveData.observe(requireActivity()){
             when (it) {
@@ -82,9 +93,9 @@ class InfoAkunFragment : Fragment() {
                 else -> alertDialog(requireContext(), "Update failed", "No connection") {}
             }
         }
-        userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
-            viewModel.profileLiveData(it, nama, kota, alamat,nohp,body)
-        }
+
+        viewModel.profileLiveData(token, nama, kota, alamat,nohp,body)
+
 
     }
 
@@ -100,7 +111,7 @@ class InfoAkunFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == 2000 && data != null){
             val uri = data?.data
-            imageFotoProduk.setImageURI(uri)
+            ImageProfileInfoAkun.setImageURI(uri)
             uri.let {
                 setDataImagee(it!!)
             }
@@ -108,6 +119,32 @@ class InfoAkunFragment : Fragment() {
 
         }else {
         }
+    }
+    fun getDataUser(token : String){
+        val viewModel = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
+        viewModel.userDetailLiveData.observeOnce(viewLifecycleOwner){
+            if (it != null){
+                if (it.imageUrl != null){
+                    Glide.with(requireContext()).load(it.imageUrl).apply(
+                        RequestOptions()
+                    ).into(ImageProfileInfoAkun)
+                }
+                if (it.address != "A"){
+                    infoAkun_et_alamat.setText(it.address)
+                }
+                if (it.city != "sementara"){
+                    infoAkun_et_kota.setText(it.city)
+                }
+                if (it.phoneNumber.equals(0)){
+
+                }else{
+                    infoAkun_et_nohp.setText(it.phoneNumber.toString())
+                }
+                infoAkun_et_nama.setText(it.fullName)
+
+            }
+        }
+        viewModel.userDetailLive(token)
     }
     fun setDataImagee(it : Uri){
         val contentResolver = requireActivity().contentResolver
