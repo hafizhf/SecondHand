@@ -25,6 +25,7 @@ import kotlinx.android.synthetic.main.item_notifikasi_penawaranproduk.view.*
 
 class InfoPenawarFragment : Fragment() {
     lateinit var userManager: UserManager
+    var buyerID : Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +43,7 @@ class InfoPenawarFragment : Fragment() {
         }
         userManager = UserManager(requireContext())
 
-        val buyerID = arguments?.getInt("SELECTED_ID") as Int
+         buyerID = arguments?.getInt("SELECTED_ID") as Int
         val orderID = arguments?.getInt("ORDER") as Int
         userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
             getDataPenawar(it, orderID)
@@ -55,7 +56,7 @@ class InfoPenawarFragment : Fragment() {
         val viewModel = ViewModelProvider(requireActivity()).get(SellerViewModel::class.java)
         viewModel.sellerBuyerOrdersLiveData.observe(viewLifecycleOwner){
             if (it != null){
-                val orderAdapter = TawaranBuyerAdapter(viewModel, token, requireContext())
+                val orderAdapter = TawaranBuyerAdapter(viewModel, token, requireContext(), parentFragmentManager, buyerID)
                 orderAdapter.setDataProduk(it)
                 orderAdapter.notifyDataSetChanged()
                 rv_order_buyer.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

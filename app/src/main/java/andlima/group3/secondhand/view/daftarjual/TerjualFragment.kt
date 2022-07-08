@@ -6,6 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
+import andlima.group3.secondhand.local.datastore.UserManager
+import andlima.group3.secondhand.view.adapter.PenawaranAdapter
+import andlima.group3.secondhand.view.adapter.TerjualAdapter
+import andlima.group3.secondhand.viewmodel.SellerViewModel
+import android.util.Log
+import androidx.core.os.bundleOf
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.fragment_diminati.*
+import kotlinx.android.synthetic.main.fragment_terjual.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,6 +49,29 @@ class TerjualFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_terjual, container, false)
     }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        var userManager = UserManager(requireContext())
+        userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
+            getAllSold(it)
+            Log.d("AKSES TOKEN", it)
+        }
+    }
+    fun getAllSold(token : String){
+        val viewModel = ViewModelProvider(requireActivity()).get(SellerViewModel::class.java)
+        viewModel.sellerSoldLiveData.observe(viewLifecycleOwner){
+            if (it != null){
+                val soldAdapter = TerjualAdapter(viewModel,token,viewLifecycleOwner)
+                soldAdapter.setDataProduk(it)
+                soldAdapter.notifyDataSetChanged()
+                rv_terjual_daftarjual.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                rv_terjual_daftarjual.adapter = soldAdapter
+        }
+        }
+        viewModel.getSellerSoldProductsLive(token)
+
+    }
+
 
     companion object {
         /**

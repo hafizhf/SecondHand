@@ -35,26 +35,38 @@ class NotifikasiAdapter(private var onClick : (NotificationResponseItem)->Unit) 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (dataNotif!![position].status == "bid"){
             holder.itemView.itemnotifikasi_tv_penawaranproduk.text = "Penawaran Produk"
+            if (dataNotif!![position].productName != null && dataNotif!![position].product != null && dataNotif!![position].transactionDate != null){
+                holder.itemView.itemnotifikasi_tv_namaprodukpenawaran.text = dataNotif!![position].product.name
+                holder.itemView.itemnotifikasi_tv_hargaproduk.text = "Rp " + dataNotif!![position].product.basePrice.toString()
+                holder.itemView.itemnotifikasi_tv_hargaditawar.text = "Ditawar Rp " + dataNotif!![position].bidPrice.toString()
+                Glide.with(holder.itemView.context).load(dataNotif!![position].imageUrl).apply(
+                    RequestOptions()
+                ).into(holder.itemView.itemnotifikasi_image)
+                val parser =  SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                val formatter = SimpleDateFormat("dd MMM, HH:mm")
+                val formattedDate = formatter.format(parser.parse(dataNotif!![position].transactionDate))
+                holder.itemView.itemnotifikasi_tv_tanggalpenawaran.text = formattedDate
+            }
+
         }else{
             holder.itemView.itemnotifikasi_tv_penawaranproduk.text = "Sukses Terbit"
-
-        }
-        if (dataNotif!![position].read){
-            holder.itemView.layout_item_notif.setBackgroundColor(Color.GRAY)
-        }
-        if (dataNotif!![position].productName != null){
             holder.itemView.itemnotifikasi_tv_namaprodukpenawaran.text = dataNotif!![position].product.name
             holder.itemView.itemnotifikasi_tv_hargaproduk.text = "Rp " + dataNotif!![position].product.basePrice.toString()
-            holder.itemView.itemnotifikasi_tv_hargaditawar.text = "Ditawar Rp " + dataNotif!![position].bidPrice.toString()
+            holder.itemView.itemnotifikasi_tv_hargaditawar.visibility = View.INVISIBLE
             Glide.with(holder.itemView.context).load(dataNotif!![position].imageUrl).apply(
                 RequestOptions()
             ).into(holder.itemView.itemnotifikasi_image)
             val parser =  SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
             val formatter = SimpleDateFormat("dd MMM, HH:mm")
-            val formattedDate = formatter.format(parser.parse(dataNotif!![position].transactionDate))
+            val formattedDate = formatter.format(parser.parse(dataNotif!![position].createdAt))
             holder.itemView.itemnotifikasi_tv_tanggalpenawaran.text = formattedDate
-        }
 
+
+
+        }
+        if (dataNotif!![position].read){
+            holder.itemView.layout_item_notif.setBackgroundColor(Color.GRAY)
+        }
 
 
 

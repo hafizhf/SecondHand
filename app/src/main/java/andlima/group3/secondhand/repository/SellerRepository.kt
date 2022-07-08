@@ -91,6 +91,36 @@ class SellerRepository @Inject constructor(private val apiService: ApiService) {
         })
 
     }
+    fun getSellerSoldProduct(token : String, liveData: MutableLiveData<List<SellerProductsItem>>){
+        val call : Call<List<SellerProductsItem>> = apiService.getSellerAllProduct(token)
+        call.enqueue(object : Callback<List<SellerProductsItem>>{
+            override fun onResponse(
+                call: Call<List<SellerProductsItem>>,
+                response: Response<List<SellerProductsItem>>
+            ) {
+                if (response.code() == 200){
+                    val listSold : MutableList<SellerProductsItem> = mutableListOf()
+                    response.body()!!.forEach {
+                        if (it.status == "sold"){
+                            listSold.add(it)
+
+                        }
+                    }
+                    liveData.postValue(listSold)
+                }else{
+                    liveData.postValue(null)
+
+                }
+            }
+
+            override fun onFailure(call: Call<List<SellerProductsItem>>, t: Throwable) {
+                liveData.postValue(null)
+            }
+
+        })
+
+    }
+
 
     fun getSellerAllOrders(token: String, liveData: MutableLiveData<List<SellerOrdersItem>>){
         val call : Call<List<SellerOrdersItem>> = apiService.getSellerAllOrder(token)

@@ -63,7 +63,9 @@ class NotifikasiFragment : Fragment() {
         viewModel.notifLiveDataResponse.observe(viewLifecycleOwner){
 
             if (it.isNotEmpty()){
-                val notifAdapter = NotifikasiAdapter{}
+                val notifAdapter = NotifikasiAdapter{
+
+                }
                 notifAdapter.setDataNotif(it)
                 notifAdapter.notifyDataSetChanged()
                 rv_notif.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
