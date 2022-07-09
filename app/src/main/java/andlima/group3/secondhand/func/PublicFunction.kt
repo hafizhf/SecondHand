@@ -259,7 +259,14 @@ fun quickNotifyDialog(view: View, message: String) {
  * Make event for search view on home pages
  */
 @SuppressLint("ClickableViewAccessibility")
-fun homeSearchView(view: View, context: Context, activity: Activity, owner: ViewModelStoreOwner, lifecycleOwner: LifecycleOwner) {
+fun homeSearchView(
+    view: View,
+    context: Context,
+    activity: Activity,
+    owner: ViewModelStoreOwner,
+    lifecycleOwner: LifecycleOwner,
+    newSearch: Boolean? = null
+) {
     val makeSearchEvent : CardView = view.findViewById(R.id.container_search_event)
     val searchResultContainer : LinearLayout = view.findViewById(R.id.container_search_result)
     val a : SearchView = view.findViewById(R.id.home_search_bar_new)
@@ -282,15 +289,22 @@ fun homeSearchView(view: View, context: Context, activity: Activity, owner: View
                     toast(context, "Belum bisa submit ges")
 
                     val keyword = bundleOf("SEARCH_KEYWORD" to p0)
-                    Navigation.findNavController(view)
-                        .navigate(R.id.action_homeFragment_to_homeResultListFragment, keyword)
+                    if (newSearch != null) {
+                        if (newSearch) {
+                            Navigation.findNavController(view)
+                                .navigate(R.id.action_homeResultListFragment_self, keyword)
+                        }
+                    } else {
+                        Navigation.findNavController(view)
+                            .navigate(R.id.action_homeFragment_to_homeResultListFragment, keyword)
+                    }
 
                     return false
                 }
 
                 @SuppressLint("SetTextI18n")
                 override fun onQueryTextChange(p0: String?): Boolean {
-                    getSearchResult(p0!!, view, context, owner, lifecycleOwner)
+                    getSearchResult(p0!!, view, context, owner, lifecycleOwner, newSearch)
                     if (p0 != "") {
                         searchPlaceholder.text = p0
                     } else {
@@ -317,10 +331,27 @@ fun homeSearchView(view: View, context: Context, activity: Activity, owner: View
 }
 
 @SuppressLint("NotifyDataSetChanged")
-private fun getSearchResult(userInput: String, view: View, context: Context, owner: ViewModelStoreOwner, lifecycleOwner: LifecycleOwner) {
+private fun getSearchResult(
+    userInput: String,
+    view: View,
+    context: Context,
+    owner: ViewModelStoreOwner,
+    lifecycleOwner: LifecycleOwner,
+    newSearch: Boolean? = null
+) {
     val recyclerView: RecyclerView = view.findViewById(R.id.rv_search_result)
     val searchAdapter = SearchResultAdapter() {
-        toast(context, "You thought this was $it? But it was me, Dio!")
+//        toast(context, "You thought this was $it? But it was me, Dio!")
+        val keyword = bundleOf("SEARCH_KEYWORD" to it)
+        if (newSearch != null) {
+            if (newSearch) {
+                Navigation.findNavController(view)
+                    .navigate(R.id.action_homeResultListFragment_self, keyword)
+            }
+        } else {
+            Navigation.findNavController(view)
+                .navigate(R.id.action_homeFragment_to_homeResultListFragment, keyword)
+        }
     }
 
     recyclerView.layoutManager = LinearLayoutManager(context)

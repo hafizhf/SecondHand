@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.navigateToDetailProduct
 import andlima.group3.secondhand.func.observeOnce
+import andlima.group3.secondhand.func.snackbarLong
+import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.model.home.newhome.ProductItemResponse
 import andlima.group3.secondhand.view.adapter.CartAdapter
@@ -24,6 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class CartFragment : Fragment() {
 
     lateinit var userManager: UserManager
+    lateinit var adapter : CartAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,13 +44,39 @@ class CartFragment : Fragment() {
         getBuyerOrderListData()
     }
 
+    override fun onResume() {
+        super.onResume()
+        getBuyerOrderListData()
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     private fun getBuyerOrderListData() {
         val recyclerView: RecyclerView = requireView().findViewById(R.id.rv_buyer_order_list)
+        val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
 
-        val adapter = CartAdapter {
+        adapter = CartAdapter { code, orderId ->
             // On item click
+            when (code) {
+                // Edit
+                1 -> {
 
+                }
+                // Delete
+                2 -> {
+                    viewModel.deleteResponse.observe(this, {
+                        if (it != null) {
+                            snackbarLong(requireView(), "Tawaran berhasil dibatalkan")
+                        } else {
+                            toast(requireContext(), "Tawaran gagal dibatalkan")
+                        }
+                    })
+                    userManager.accessTokenFlow.asLiveData().observeOnce(this, {
+                        viewModel.deleteOrder(it, orderId)
+                        viewModel.getBuyerOrderList(it)
+                        adapter.notifyDataSetChanged()
+                    })
+                }
+            }
         }
 
         recyclerView.layoutManager = LinearLayoutManager(
@@ -57,7 +86,6 @@ class CartFragment : Fragment() {
         )
         recyclerView.adapter = adapter
 
-        val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
         viewModel.orderList.observe(this, {
             if (it != null) {
                 if (it.isNotEmpty()) {

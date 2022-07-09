@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         if (
             "HomeFragment" !in showedFragment
             && "NotifikasiFragment" !in showedFragment
-            && "JualFragment" !in showedFragment
+//            && "JualFragment" !in showedFragment
             && "DaftarJualFragment" !in showedFragment
             && "AkunFragment" !in showedFragment
         ) {

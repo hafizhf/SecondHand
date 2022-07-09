@@ -153,6 +153,9 @@
         <action
             android:id="@+id/action_homeResultListFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_homeResultListFragment_self"
+            app:destination="@id/homeResultListFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"

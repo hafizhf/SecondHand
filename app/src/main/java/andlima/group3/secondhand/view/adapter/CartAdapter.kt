@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_cart.view.*
 
-class CartAdapter(private var onClick: (GetBuyerOrderResponseItem) -> Unit)
+class CartAdapter(private var action: (code: Int, orderId: Int) -> Unit)
     : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 
     private var productList: List<GetBuyerOrderResponseItem>? = null
@@ -41,11 +41,20 @@ class CartAdapter(private var onClick: (GetBuyerOrderResponseItem) -> Unit)
             tv_item_cart_status.text = "Status: " + productList!![position].status
 
             btn_edit_bid.setOnClickListener {
+                // Int action to edit -> 1
+                action(1, productList!![position].id)
                 toast(context, "Edit order is under maintenance")
             }
 
             btn_cancel_bid.setOnClickListener {
-                toast(context, "Cancel order is under maintenance")
+                // Int action to delete -> 2
+                alertDialog(
+                    context,
+                    "Batalkan tawaran",
+                    "Apakah kamu yakin ingin membatalkan penawaran?"
+                ) {
+                    action(2, productList!![position].id)
+                }
             }
         }
     }

@@ -44,7 +44,7 @@ class HomeResultListFragment : Fragment() {
 
         userManager = UserManager(requireContext())
 
-        homeSearchView(requireView(), requireContext(), requireActivity(), this, this)
+        homeSearchView(requireView(), requireContext(), requireActivity(), this, this, true)
         showCartQuantity(requireView(), this, this, userManager)
 
         // Back button on top bar
@@ -66,19 +66,20 @@ class HomeResultListFragment : Fragment() {
         val resultTitle: TextView = requireView().findViewById(R.id.tv_result_title)
 
         if (searchKeyword != null) {
-            resultTitle.text = searchKeyword
-            getResult(1)
-        }
-
-        if (requestCode != null) {
-            resultTitle.text = getResultTitle(requestCode)
-            getResult(requestCode)
+            resultTitle.text = getResultTitle(10, searchKeyword)
+            getResult(10, searchKeyword)
+        } else {
+            if (requestCode != null) {
+                resultTitle.text = getResultTitle(requestCode)
+                getResult(requestCode)
+            }
         }
     }
 
-    private fun getResultTitle(requestCode: Int?): String {
+    private fun getResultTitle(requestCode: Int?, searchKeyword: String? = null): String {
         return when (requestCode) {
             0 -> "Semua Produk"
+            10 -> searchKeyword!!
             96 -> "Elektonik"
             97 -> "Komputer dan Aksesoris"
             98 -> "Handphone dan Aksesoris"
@@ -134,6 +135,24 @@ class HomeResultListFragment : Fragment() {
 
                     }
                 })
+            }
+            // Search result
+            10 -> {
+//                toast(requireContext(), searchKeyword!!)
+                viewModel.getSearchResult(searchKeyword!!)
+                viewModel.searchResult.observe(this, {
+                    if (it != null) {
+                        if (it.isNotEmpty()) {
+                            adapter.setProductData(it)
+                            adapter.notifyDataSetChanged()
+                        } else {
+                            toast(requireContext(), "No result found")
+                        }
+                    } else {
+                        toast(requireContext(), "No result found")
+                    }
+                })
+
             }
             // Elektronik
             96 -> {
@@ -521,46 +540,6 @@ class HomeResultListFragment : Fragment() {
             }
             // Search result
             else -> {
-                viewModel.getAllProducts()
-                viewModel.allProducts.observe(this, {
-                    if (it != null) {
-                        if (searchKeyword != null) {
-
-                            val listProduct = it
-//                            val listProductName : MutableList<String> = mutableListOf()
-
-
-//                            listProduct.forEach { item ->
-//                                if (item.name != null) {
-//                                    listProductName.add(item.name)
-//                                }
-//                            }
-
-                            val a = listProduct
-                            val b = a.filter { item ->
-                                item.name.contains(searchKeyword, ignoreCase = true)
-                            }
-                            Log.d("HASIL", b.toString())
-
-//                            val listProductNameFiltered = listProductName.filter { item ->
-//                                item.contains(searchKeyword, ignoreCase = true)
-//                            }
-
-                            if (searchKeyword != "") {
-                                adapter.setProductData(b)
-                            } else {
-                                adapter.setProductData(emptyList())
-                            }
-                            adapter.notifyDataSetChanged()
-
-                        } else {
-
-                        }
-                    } else {
-
-                    }
-                })
-
                 toast(requireContext(), "N/A")
             }
         }

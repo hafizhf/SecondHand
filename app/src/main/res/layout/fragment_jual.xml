@@ -1,208 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="15dp"
+
     tools:context=".view.JualFragment">
 
-    <ImageButton
-        android:id="@+id/btnBackJual"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/ic_fi_arrow_left" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/lengkapi_detail_produk"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        style="@style/Heading3"/>
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:id="@+id/linearNamaProdukJual"
-        android:layout_below="@id/btnBackJual"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/nama_produk"
-            style="@style/Body1"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/nama_produk"
-            android:id="@+id/editNamaProduk"
-            style="@style/InputField"/>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearHargaProdukJual"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/linearNamaProdukJual"
-        android:layout_marginTop="15dp"
-        android:orientation="vertical">
-
-        <TextView
-            style="@style/Body1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/harga_produk" />
-
-        <EditText
-            android:id="@+id/editHargaProduk"
-            style="@style/InputField"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/rp_0_00"
-            android:inputType="number" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:id="@+id/linearKategoriProdukJual"
-        android:layout_below="@id/linearHargaProdukJual"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/kategori"
-            style="@style/Body1"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/textFieldMenu"
-            app:boxBackgroundColor="@color/white"
-            app:boxBackgroundMode="outline"
-            app:boxCornerRadiusBottomEnd="18dp"
-            app:boxCornerRadiusBottomStart="18dp"
-            app:boxCornerRadiusTopEnd="18dp"
-            app:boxCornerRadiusTopStart="18dp"
-            app:boxStrokeColor="@color/second_hand_neutral2"
-            app:boxStrokeWidth="0.9dp"
-
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
-
-            <AutoCompleteTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none"
-                android:text="@string/pilih_kategori"
-                android:textColor="@color/second_hand_neutral3"
-                android:fontFamily="@font/poppins_regular"
-                android:textSize="18sp"
-                android:paddingTop="20dp"
-
-                />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:id="@+id/rv_kategori"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:id="@+id/linearDeskripsiProdukJual"
-        android:layout_below="@id/linearKategoriProdukJual"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/deskripsi"
-            style="@style/Body1"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:gravity="top"
-            android:paddingTop="10dp"
-            android:textAlignment="gravity"
-            android:hint="Contoh : Produk ini adalah salah satu best seller kami"
-            android:inputType="textMultiLine"
-            android:id="@+id/editDeskripsiProduk"
-            style="@style/InputField"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:id="@+id/linearFotoProdukJual"
-        android:layout_below="@id/linearDeskripsiProdukJual"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Foto Produk"
-            style="@style/Body1"/>
+        android:layout_margin="15dp">
 
         <ImageButton
-            android:id="@+id/imageFotoProduk"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:background="@drawable/component_border_dotted"
-            android:src="@drawable/ic_fi_plus" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/linearFotoProdukJual"
-        android:layout_marginTop="16dp"
-        android:orientation="horizontal">
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:id="@+id/btnBackJual"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ic_fi_arrow_left" />
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/preview"
-            style="@style/ButtonOutlined"/>
+            android:text="@string/lengkapi_detail_produk"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            style="@style/Heading3"/>
 
-        <View
-            android:layout_width="10dp"
-            android:layout_height="0dp"/>
-
-        <Button
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:id="@+id/btnTerbitkan"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/terbitkan"
-            style="@style/Button"/>
+            android:layout_marginTop="40dp"
+            android:id="@+id/linearNamaProdukJual"
+            android:layout_below="@id/btnBackJual"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nama_produk"
+                style="@style/Body1"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/nama_produk"
+                android:id="@+id/editNamaProduk"
+                style="@style/InputField"/>
 
 
+        </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/linearHargaProdukJual"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linearNamaProdukJual"
+            android:layout_marginTop="15dp"
+            android:orientation="vertical">
 
+            <TextView
+                style="@style/Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/harga_produk" />
 
-    <include layout="@layout/dialog_require_login"/>
+            <EditText
+                android:id="@+id/editHargaProduk"
+                style="@style/InputField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/rp_0_00"
+                android:inputType="number" />
 
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:id="@+id/linearKategoriProdukJual"
+            android:layout_below="@id/linearHargaProdukJual"
+            android:orientation="vertical">
 
-</RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/kategori"
+                style="@style/Body1"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textFieldMenu"
+                app:boxBackgroundColor="@color/white"
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="18dp"
+                app:boxCornerRadiusBottomStart="18dp"
+                app:boxCornerRadiusTopEnd="18dp"
+                app:boxCornerRadiusTopStart="18dp"
+                app:boxStrokeColor="@color/second_hand_neutral2"
+                app:boxStrokeWidth="0.9dp"
+
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:text="@string/pilih_kategori"
+                    android:textColor="@color/second_hand_neutral3"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textSize="18sp"
+                    android:paddingTop="20dp"
+
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/rv_kategori"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:id="@+id/linearDeskripsiProdukJual"
+            android:layout_below="@id/linearKategoriProdukJual"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/deskripsi"
+                style="@style/Body1"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:gravity="top"
+                android:paddingTop="10dp"
+                android:textAlignment="gravity"
+                android:hint="Contoh : Produk ini adalah salah satu best seller kami"
+                android:inputType="textMultiLine"
+                android:id="@+id/editDeskripsiProduk"
+                style="@style/InputField"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:id="@+id/linearFotoProdukJual"
+            android:layout_below="@id/linearDeskripsiProdukJual"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Foto Produk"
+                style="@style/Body1"/>
+
+            <ImageButton
+                android:id="@+id/imageFotoProduk"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/component_border_dotted"
+                android:src="@drawable/ic_fi_plus" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/linearFotoProdukJual"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="200dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/preview"
+                style="@style/ButtonOutlined"/>
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="0dp"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:id="@+id/btnTerbitkan"
+                android:layout_height="wrap_content"
+                android:text="@string/terbitkan"
+                style="@style/Button"/>
+
+        </LinearLayout>
+
+        <include layout="@layout/dialog_require_login"/>
+
+    </RelativeLayout>
+
+</ScrollView>

@@ -2,6 +2,7 @@ package andlima.group3.secondhand.repository
 
 import andlima.group3.secondhand.api.buyer.BuyerApi
 import andlima.group3.secondhand.model.buyer.order.BuyerOrderRequest
+import andlima.group3.secondhand.model.buyer.order.DeleteOrderResponse
 import andlima.group3.secondhand.model.buyer.order.GetBuyerOrderResponseItem
 import andlima.group3.secondhand.model.home.BuyerProductDetail
 import andlima.group3.secondhand.model.home.BuyerProductItem
@@ -124,6 +125,31 @@ class BuyerRepository @Inject constructor(private val api: BuyerApi) {
         })
     }
 
+    // Get search result
+    fun getSearchResult(keyword: String, data: MutableLiveData<List<ProductItemResponse>>) {
+        api.getSearchResult(keyword).enqueue(object : retrofit2.Callback<List<ProductItemResponse>>{
+            override fun onResponse(
+                call: Call<List<ProductItemResponse>>,
+                response: Response<List<ProductItemResponse>>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.code() == 200) {
+                        data.postValue(response.body())
+                    } else {
+                        Log.d("ERROR CODE", response.code().toString())
+                        data.postValue(null)
+                    }
+                } else {
+                    data.postValue(null)
+                }
+            }
+
+            override fun onFailure(call: Call<List<ProductItemResponse>>, t: Throwable) {
+                data.postValue(null)
+            }
+        })
+    }
+
     //
     fun checkProductOwnedBySeller(accessToken: String, id: Int, isSellerProduct: MutableLiveData<Boolean>) {
         api.getSellerDetailProduct(accessToken, id)
@@ -190,10 +216,35 @@ class BuyerRepository @Inject constructor(private val api: BuyerApi) {
             })
     }
 
-    // POST ORDER ----------------------------------------------------------------------------------
+    // BUYER ORDER ----------------------------------------------------------------------------------
 
     // Request Order
     fun postRequestOrder(accessToken: String, request: BuyerOrderRequest)
         = api.postRequestOrder(accessToken, request)
+
+    // Delete Order
+    fun deleteOrder(accessToken: String, id: Int, deleteResponse: MutableLiveData<DeleteOrderResponse>) {
+        api.deleteOrder(accessToken, id).enqueue(object : retrofit2.Callback<DeleteOrderResponse>{
+            override fun onResponse(
+                call: Call<DeleteOrderResponse>,
+                response: Response<DeleteOrderResponse>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.code() == 200) {
+                        deleteResponse.postValue(response.body())
+                    } else {
+                        deleteResponse.postValue(null)
+                    }
+                } else {
+                    deleteResponse.postValue(null)
+                }
+            }
+
+            override fun onFailure(call: Call<DeleteOrderResponse>, t: Throwable) {
+                deleteResponse.postValue(null)
+            }
+
+        })
+    }
 
 }
