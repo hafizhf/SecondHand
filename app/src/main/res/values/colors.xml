@@ -12,6 +12,7 @@
     <color name="second_hand_secondary">#E2D4F0</color>
     <color name="second_hand_success">#73CA5C</color>
     <color name="second_hand_danger">#FA2C5A</color>
+    <color name="second_hand_pending">#F1DA47</color>
     <color name="second_hand_neutral2">#D0D0D0</color>
     <color name="second_hand_neutral3">#8A8A8A</color>
     <color name="second_hand_neutral4">#3C3C3C</color>

@@ -2,6 +2,8 @@ package andlima.group3.secondhand.view.adapter
 
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.alertDialog
+import andlima.group3.secondhand.func.capitalize
+import andlima.group3.secondhand.func.colorList
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.model.buyer.order.GetBuyerOrderResponseItem
 import android.annotation.SuppressLint
@@ -11,8 +13,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_cart.view.*
+import java.util.*
 
-class CartAdapter(private var action: (code: Int, orderId: Int) -> Unit)
+class CartAdapter(private var action: (code: Int, orderData: GetBuyerOrderResponseItem) -> Unit)
     : RecyclerView.Adapter<CartAdapter.ViewHolder>() {
 
     private var productList: List<GetBuyerOrderResponseItem>? = null
@@ -38,11 +41,41 @@ class CartAdapter(private var action: (code: Int, orderId: Int) -> Unit)
                 .into(iv_item_cart_image)
             tv_item_cart_name.text = productList!![position].productName
             tv_item_cart_price.text = "Rp " + productList!![position].basePrice
-            tv_item_cart_status.text = "Status: " + productList!![position].status
+            tv_item_cart_status.text = capitalize(productList!![position].status)
+            tv_item_cart_my_bid.text = "Tawaranmu: Rp " + productList!![position].price
+
+            when (productList!![position].status) {
+                "pending" -> {
+                    cv_item_cart_status_container
+                        .setCardBackgroundColor(
+                            context.colorList(context, R.color.second_hand_pending)
+                        )
+                }
+                "accepted" -> {
+                    cv_item_cart_status_container
+                        .setCardBackgroundColor(
+                            context.colorList(context, R.color.second_hand_success)
+                        )
+                    btn_edit_bid.visibility = View.GONE
+                }
+                "declined" -> {
+                    cv_item_cart_status_container
+                        .setCardBackgroundColor(
+                            context.colorList(context, R.color.second_hand_danger)
+                        )
+                    btn_edit_bid.visibility = View.GONE
+                }
+                else -> {
+                    cv_item_cart_status_container
+                        .setCardBackgroundColor(
+                            context.colorList(context, R.color.black)
+                        )
+                }
+            }
 
             btn_edit_bid.setOnClickListener {
                 // Int action to edit -> 1
-                action(1, productList!![position].id)
+//                action(1, productList!![position])
                 toast(context, "Edit order is under maintenance")
             }
 
@@ -53,7 +86,7 @@ class CartAdapter(private var action: (code: Int, orderId: Int) -> Unit)
                     "Batalkan tawaran",
                     "Apakah kamu yakin ingin membatalkan penawaran?"
                 ) {
-                    action(2, productList!![position].id)
+                    action(2, productList!![position])
                 }
             }
         }

@@ -4,6 +4,7 @@ import andlima.group3.secondhand.api.buyer.BuyerApi
 import andlima.group3.secondhand.model.buyer.order.BuyerOrderRequest
 import andlima.group3.secondhand.model.buyer.order.DeleteOrderResponse
 import andlima.group3.secondhand.model.buyer.order.GetBuyerOrderResponseItem
+import andlima.group3.secondhand.model.buyer.order.PutOrderResponse
 import andlima.group3.secondhand.model.home.BuyerProductDetail
 import andlima.group3.secondhand.model.home.BuyerProductItem
 import andlima.group3.secondhand.model.home.newhome.ProductDetailItemResponse
@@ -245,6 +246,31 @@ class BuyerRepository @Inject constructor(private val api: BuyerApi) {
             }
 
         })
+    }
+
+    // Edit order
+    fun editOrder(accessToken: String, orderId: Int, newBidPrice: Int, editResponse: MutableLiveData<PutOrderResponse>) {
+        api.editOrderBid(accessToken, orderId, newBidPrice)
+            .enqueue(object : retrofit2.Callback<PutOrderResponse>{
+                override fun onResponse(
+                    call: Call<PutOrderResponse>,
+                    response: Response<PutOrderResponse>
+                ) {
+                    if (response.isSuccessful) {
+                        if (response.code() == 200) {
+                            editResponse.postValue(response.body())
+                        } else {
+                            editResponse.postValue(null)
+                        }
+                    } else {
+                        editResponse.postValue(null)
+                    }
+                }
+
+                override fun onFailure(call: Call<PutOrderResponse>, t: Throwable) {
+                    editResponse.postValue(null)
+                }
+            })
     }
 
 }

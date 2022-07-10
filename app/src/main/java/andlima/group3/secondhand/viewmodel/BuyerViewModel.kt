@@ -1,9 +1,6 @@
 package andlima.group3.secondhand.viewmodel
 
-import andlima.group3.secondhand.model.buyer.order.BuyerOrderRequest
-import andlima.group3.secondhand.model.buyer.order.BuyerOrderResponse
-import andlima.group3.secondhand.model.buyer.order.DeleteOrderResponse
-import andlima.group3.secondhand.model.buyer.order.GetBuyerOrderResponseItem
+import andlima.group3.secondhand.model.buyer.order.*
 import andlima.group3.secondhand.model.home.BuyerProductDetail
 import andlima.group3.secondhand.model.home.BuyerProductItem
 import andlima.group3.secondhand.model.home.newhome.ProductDetailItemResponse
@@ -137,6 +134,12 @@ class BuyerViewModel @Inject constructor(api: BuyerRepository): ViewModel() {
     val deleteResponse: MutableLiveData<DeleteOrderResponse> = MutableLiveData()
     fun deleteOrder(accessToken: String, id: Int) {
         apiHelper.deleteOrder(accessToken, id, deleteResponse)
+    }
+
+    // Edit order
+    val editResponse: MutableLiveData<PutOrderResponse> = MutableLiveData()
+    fun editOrder(accessToken: String, orderId: Int, newBidPrice: Int) {
+        apiHelper.editOrder(accessToken, orderId, newBidPrice, editResponse)
     }
 
     // =============================================================================================

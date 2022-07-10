@@ -1,9 +1,6 @@
 package andlima.group3.secondhand.api.buyer
 
-import andlima.group3.secondhand.model.buyer.order.BuyerOrderRequest
-import andlima.group3.secondhand.model.buyer.order.BuyerOrderResponse
-import andlima.group3.secondhand.model.buyer.order.DeleteOrderResponse
-import andlima.group3.secondhand.model.buyer.order.GetBuyerOrderResponseItem
+import andlima.group3.secondhand.model.buyer.order.*
 import andlima.group3.secondhand.model.home.BuyerProductDetail
 import andlima.group3.secondhand.model.home.BuyerProductItem
 import andlima.group3.secondhand.model.home.newhome.ProductDetailItemResponse
@@ -67,6 +64,14 @@ interface BuyerApi {
     fun getOrderList(
         @Header("access_token") accessToken: String
     ) : Call<List<GetBuyerOrderResponseItem>>
+
+    // Edit order by id
+    @PUT("buyer/order/{id}")
+    fun editOrderBid(
+        @Header("access_token") accessToken: String,
+        @Path("id") id: Int,
+        @Field("bid_price") bidPrice: Int
+    ) : Call<PutOrderResponse>
 
     // Delete order by id
     @DELETE("buyer/order/{id}")

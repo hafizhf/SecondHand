@@ -11,6 +11,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
@@ -23,14 +24,17 @@ import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.*
+import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import java.io.ByteArrayOutputStream
+import java.util.*
 
 // Function to easy making Toast -------------------------------------------------------------------
 /**
@@ -235,7 +239,8 @@ fun quickNotifyDialog(view: View, message: String) {
     val dialogCloseButton : ImageView = view.findViewById(R.id.btn_close_dialog)
 
     dialogMessage.text = message
-    dialogContainer.setBackgroundColor(Color.BLACK)
+//    dialogContainer.setBackgroundColor(Color.BLACK)
+    dialog.setCardBackgroundColor(view.context.colorList(view.context, R.color.second_hand_success))
 
     dialog.animate()
         .translationY(150f)
@@ -414,4 +419,22 @@ fun showCartQuantity(view: View, owner: ViewModelStoreOwner, lifecycleOwner: Lif
         }
         viewModel.getBuyerOrderQuantity(it)
     })
+}
+
+/**
+ * To be able to use color from R.color
+ */
+fun Context.colorList(context: Context, id: Int): ColorStateList {
+    return ColorStateList.valueOf(ContextCompat.getColor(context, id))
+}
+
+/**
+ * Capitalize or make first letter of string to upper case
+ */
+fun capitalize(string: String): String {
+    return string.replaceFirstChar {
+        if (it.isLowerCase()) it.titlecase(
+            Locale.getDefault()
+        ) else it.toString()
+    }
 }

@@ -11,6 +11,7 @@ import andlima.group3.secondhand.func.quickNotifyDialog
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.model.buyer.order.BuyerOrderRequest
+import andlima.group3.secondhand.model.detail.EditBid
 import andlima.group3.secondhand.model.detail.ProductDataForBid
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
 import android.annotation.SuppressLint
@@ -48,6 +49,7 @@ class DetailBottomDialogFragment : BottomSheetDialogFragment() {
         return inflater.inflate(R.layout.fragment_detail_bottom_dialog, container, false)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -55,23 +57,48 @@ class DetailBottomDialogFragment : BottomSheetDialogFragment() {
         userManager = UserManager(requireContext())
 
         bidSuccess.postValue(false)
-
-        val dataForBid = arguments?.getParcelable<ProductDataForBid>("BID_PRODUCT") as ProductDataForBid
-        showDataOnPopUp(dataForBid)
-
         val btnSendBid : Button = requireView().findViewById(R.id.btn_detail_popup_kirim)
-        btnSendBid.setOnClickListener {
-            val bidInputField : EditText = requireView().findViewById(R.id.et_detail_popup_bid)
-            val userBid = bidInputField.text.toString()
 
-            if (userBid != "") {
-                if (userBid.toInt() <= dataForBid.price) {
-                    sendBid(dataForBid.productId, userBid.toInt())
+        // If user never bid/product never been ordered before
+        val dataForBid = arguments?.getParcelable<ProductDataForBid>("BID_PRODUCT")
+        if (dataForBid != null) {
+            showDataOnPopUp(dataToBid = dataForBid)
+
+            btnSendBid.setOnClickListener {
+                val bidInputField : EditText = requireView().findViewById(R.id.et_detail_popup_bid)
+                val userBid = bidInputField.text.toString()
+
+                if (userBid != "") {
+                    if (userBid.toInt() <= dataForBid.price) {
+                        sendBid(dataForBid.productId, userBid.toInt())
+                    } else {
+                        toast(requireContext(), "Mohon masukkan harga setidaknya sama atau kurang dari harga asli")
+                    }
                 } else {
-                    toast(requireContext(), "Mohon masukkan harga setidaknya sama atau kurang dari harga asli")
+                    toast(requireContext(), "Masukkan besar tawaranmu untuk produk ini")
                 }
-            } else {
-                toast(requireContext(), "Masukkan besar tawaranmu untuk produk ini")
+            }
+        }
+
+        // If user come from cart/user wanted to edit bid
+        val editBidData = arguments?.getParcelable<EditBid>("EDIT_BID")
+        if (editBidData != null) {
+            val dialogTitle : TextView = requireView().findViewById(R.id.tv_detail_dialog_title)
+            dialogTitle.text = "Ubah besar tawaran"
+
+            btnSendBid.setOnClickListener {
+                val bidInputField : EditText = requireView().findViewById(R.id.et_detail_popup_bid)
+                val userBid = bidInputField.text.toString()
+
+                if (userBid != "") {
+                    if (userBid.toInt() <= editBidData.basePrice) {
+                        editBid(editBidData.orderId, userBid.toInt())
+                    } else {
+                        toast(requireContext(), "Mohon masukkan harga setidaknya sama atau kurang dari harga asli")
+                    }
+                } else {
+                    toast(requireContext(), "Masukkan besar tawaranmu untuk produk ini")
+                }
             }
         }
     }
@@ -96,14 +123,24 @@ class DetailBottomDialogFragment : BottomSheetDialogFragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun showDataOnPopUp(data: ProductDataForBid) {
+    private fun showDataOnPopUp(dataToBid: ProductDataForBid? = null, bidToEdit: EditBid? = null) {
         val productImage : ImageView = view!!.findViewById(R.id.iv_detail_popup_product_image)
         val productName : TextView = view!!.findViewById(R.id.tv_detail_popup_product_name)
         val productPrice : TextView = view!!.findViewById(R.id.tv_detail_popup_product_price)
+        val productBid : EditText = view!!.findViewById(R.id.et_detail_popup_bid)
 
-        Glide.with(this).load(data.imageUrl).into(productImage)
-        productName.text = data.name
-        productPrice.text = "Rp " + data.price
+        if (dataToBid != null) {
+            Glide.with(this).load(dataToBid.imageUrl).into(productImage)
+            productName.text = dataToBid.name
+            productPrice.text = "Rp " + dataToBid.price
+        }
+
+        if (bidToEdit != null) {
+            Glide.with(this).load(bidToEdit.imageUrl).into(productImage)
+            productName.text = bidToEdit.name
+            productPrice.text = "Rp " + bidToEdit.basePrice
+            productBid.setText(bidToEdit.bidPrice)
+        }
     }
 
     private fun sendBid(productId: Int, bidPrice: Int) {
@@ -131,5 +168,18 @@ class DetailBottomDialogFragment : BottomSheetDialogFragment() {
         })
     }
 
-
+    private fun editBid(orderId: Int, newBidPrice: Int) {
+        val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
+        viewModel.editResponse.observe(this, {
+            if (it != null) {
+                bidSuccess.postValue(true)
+                this.dialog!!.dismiss()
+            } else {
+                toast(requireContext(), "Edit tawaran gagal, mohon coba lagi")
+            }
+        })
+        userManager.accessTokenFlow.asLiveData().observeOnce(this, {
+            viewModel.editOrder(it, orderId, newBidPrice)
+        })
+    }
 }
