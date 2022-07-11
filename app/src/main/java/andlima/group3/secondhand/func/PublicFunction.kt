@@ -423,6 +423,10 @@ fun showCartQuantity(view: View, owner: ViewModelStoreOwner, lifecycleOwner: Lif
 
 /**
  * To be able to use color from R.color
+ *
+ * Example:
+ *
+ * cardView.setCardBackgroundColor(context.colorList(context, R.color.white))
  */
 fun Context.colorList(context: Context, id: Int): ColorStateList {
     return ColorStateList.valueOf(ContextCompat.getColor(context, id))

@@ -1,13 +1,22 @@
 package andlima.group3.secondhand
 
+import andlima.group3.secondhand.func.colorList
+import andlima.group3.secondhand.func.toast
+import andlima.group3.secondhand.services.ConnectionStatus
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.view.WindowManager
+import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
@@ -17,6 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -34,6 +44,32 @@ class MainActivity : AppCompatActivity() {
 
         // Make status bar transparent
         transparentStatusBar()
+
+        checkInternetConnection(this)
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun checkInternetConnection(lifecycleOwner: LifecycleOwner) {
+        var oldStatus = true
+        ConnectionStatus(this).observe(lifecycleOwner, {
+            val containerView: CardView = findViewById(R.id.cv_connection_container)
+            val status: TextView = findViewById(R.id.tv_connection_information)
+
+            if (it) {
+                if (!oldStatus) {
+                    containerView.setCardBackgroundColor(this.colorList(this, R.color.second_hand_success))
+                    status.text = "Connected"
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        containerView.visibility = View.GONE
+                    }, 3000)
+                }
+            } else {
+                containerView.visibility = View.VISIBLE
+                containerView.setCardBackgroundColor(this.colorList(this, R.color.second_hand_danger))
+                status.text = "No connection"
+            }
+            oldStatus = it
+        })
     }
 
     private fun hideBottomNavigationForSubPage(bottomNavigationView : BottomNavigationView) {

@@ -1,0 +1,71 @@
+package andlima.group3.secondhand.services
+
+import android.content.Context
+import android.content.Context.CONNECTIVITY_SERVICE
+import android.net.ConnectivityManager
+import android.net.Network
+import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
+import android.net.NetworkRequest
+import android.util.Log
+import androidx.core.content.getSystemService
+import androidx.lifecycle.LiveData
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
+class ConnectionStatus(context: Context): LiveData<Boolean>() {
+
+    private lateinit var networkCallback: ConnectivityManager.NetworkCallback
+    private val cm = context.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+    private val validNetwork : MutableSet<Network> = HashSet()
+
+    private fun checkValidNetwork() {
+        postValue(validNetwork.size > 0)
+    }
+
+    override fun onActive() {
+        super.onActive()
+
+        networkCallback = createNetworkCallback()
+        val networkRequest = NetworkRequest
+            .Builder()
+            .addCapability(NET_CAPABILITY_INTERNET)
+            .build()
+        cm.registerNetworkCallback(networkRequest, networkCallback)
+    }
+
+    override fun onInactive() {
+        super.onInactive()
+        cm.unregisterNetworkCallback(networkCallback)
+    }
+
+    private fun createNetworkCallback() = object : ConnectivityManager.NetworkCallback() {
+        override fun onAvailable(network: Network) {
+            super.onAvailable(network)
+            val networkCapabilities = cm.getNetworkCapabilities(network)
+            val hasInternetCapability = networkCapabilities?.hasCapability(NET_CAPABILITY_INTERNET)
+
+            if (hasInternetCapability == true) {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val hasInternet = InternetAvailability.check(network.socketFactory)
+
+                    if (hasInternet) {
+                        withContext(Dispatchers.Main) {
+                            Log.d("Checking connection", "onAvailable $network")
+                            validNetwork.add(network)
+                            checkValidNetwork()
+                        }
+                    }
+                }
+            }
+        }
+
+        override fun onLost(network: Network) {
+            super.onLost(network)
+            Log.d("Checking connection", "onLost $network")
+            validNetwork.remove(network)
+            checkValidNetwork()
+        }
+    }
+}
