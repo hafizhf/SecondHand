@@ -1,5 +1,6 @@
 package andlima.group3.secondhand.view
 
+import andlima.group3.secondhand.MarketApplication
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,8 @@ import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.*
 import andlima.group3.secondhand.local.datastore.UserManager
+import andlima.group3.secondhand.local.room.LocalDatabase
+import andlima.group3.secondhand.local.room.fashiontable.FashionLocal
 import andlima.group3.secondhand.model.home.newhome.ProductItemResponse
 import andlima.group3.secondhand.view.adapter.ProductPreviewAdapter
 import andlima.group3.secondhand.view.adapter.SearchResultAdapter
@@ -17,6 +20,7 @@ import android.app.Activity
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
@@ -32,6 +36,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.synnapps.carouselview.CarouselView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -40,6 +46,7 @@ class HomeFragment : Fragment() {
     private var doubleBackToExit = false
 
     lateinit var userManager: UserManager
+    private var mDb: LocalDatabase? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,35 +57,24 @@ class HomeFragment : Fragment() {
         return inflater.inflate(R.layout.home_layout, container, false)
     }
 
-    // INI DARI YG SEBELUMNYA
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//
-//        // Check if user click back button twice
-//        doubleBackExit()
-//
-//        val adapter = AdapterHomePager(childFragmentManager)
-//        viewpager_home.adapter = adapter
-//        viewpager_home.layoutParams.height = getDeviceScreenHeight(requireActivity()) + 100
-//        tabs_home.setupWithViewPager(viewpager_home)
-//        adapter.notifyDataSetChanged()
-//        retainInstance = true
-//
-//        isScrollReachedBottom(scroll_view_home) {
-//            MarketApplication.homeFragmentReachedBottom.value = it
-//        }
-//
-//        homeSearchView()
-//    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         userManager = UserManager(requireContext())
+        mDb = LocalDatabase.getInstance(requireContext())
 
+        doubleBackExit()
         bannerCarousel()
-        homeSearchView(requireView(), requireContext(), requireActivity(), this, this)
-        showCartQuantity(requireView(), this, this, userManager)
+        MarketApplication.isConnected.observe(this, { isConnected ->
+            if (isConnected) {
+                homeSearchView(requireView(), requireContext(), requireActivity(), this, this)
+                userManager.accessTokenFlow.asLiveData().observeOnce(this, {
+                    if (it != "") {
+                        showCartQuantity(requireView(), this, this, userManager)
+                    }
+                })
+            }
+        })
 
         // Go to buyer order list / cart
         requireView().findViewById<RelativeLayout>(R.id.btn_goto_cart).setOnClickListener {
@@ -86,10 +82,7 @@ class HomeFragment : Fragment() {
                 .navigate(R.id.action_homeFragment_to_cartFragment)
         }
 
-        getElectronicPreviewData()
-        getFashionPreviewData()
-        getFoodPreviewData()
-        getHomeSuppliesPreviewData()
+        getPreviewData()
 
         // Click listener on category button
         actionCategoryButton(
@@ -183,6 +176,13 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun getPreviewData() {
+        getElectronicPreviewData()
+        getFashionPreviewData()
+        getFoodPreviewData()
+        getHomeSuppliesPreviewData()
+    }
+
     private fun actionCategoryButton(linearLayoutId: Int, navigationId: Int, requestCode: Int = 0) {
         val btnGotoCategory: LinearLayout = requireView().findViewById(linearLayoutId)
         btnGotoCategory.setOnClickListener {
@@ -217,11 +217,6 @@ class HomeFragment : Fragment() {
                 Navigation.findNavController(view!!).navigate(navigationId)
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
     }
 
     private fun bannerCarousel() {
@@ -260,7 +255,7 @@ class HomeFragment : Fragment() {
     private fun getElectronicPreviewData() {
         val recyclerView: RecyclerView = requireView().findViewById(R.id.rv_preview_elektronik)
 
-        val adapter = ProductPreviewAdapter {
+        val adapter = ProductPreviewAdapter(this, 96) {
             // On item click
             navigateToDetailProduct(it.id, requireView(), R.id.action_homeFragment_to_detailFragment)
         }
@@ -272,29 +267,72 @@ class HomeFragment : Fragment() {
         )
         recyclerView.adapter = adapter
 
-        val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
-        viewModel.electronicProducts.observe(this, {
-            if (it != null) {
-                if (it.isNotEmpty()) {
-                    val a : MutableList<ProductItemResponse> = mutableListOf()
-                    for (i in 0..7) {
-                        a.add(it[i])
-                    }
-                    adapter.setProductData(a)
-                    adapter.notifyDataSetChanged()
-                } else {
+        MarketApplication.isConnected.observe(this, { isConnected ->
+            if (isConnected) {
+                GlobalScope.launch {
+                    mDb?.electronicDao()?.resetData()
+                }
 
+                val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
+                viewModel.electronicProducts.observe(this, {
+                    if (it != null) {
+                        if (it.isNotEmpty()) {
+                            val a : MutableList<ProductItemResponse> = mutableListOf()
+                            for (i in 0..7) {
+                                a.add(it[i])
+                            }
+                            adapter.setProductData(a)
+                            adapter.notifyDataSetChanged()
+//                    })
+                        } else {
+
+                        }
+                    }
+                })
+                viewModel.getElectronicProducts()
+
+            } else {
+                GlobalScope.launch {
+                    val listData = mDb?.electronicDao()?.getOfflineProduct()
+                    Log.d("SecondLocal", listData?.size.toString())
+
+                    requireActivity().runOnUiThread {
+                        if (listData?.isNotEmpty()!!) {
+                            val dataToShow : MutableList<ProductItemResponse> = mutableListOf()
+
+                            listData.forEach { product ->
+                                dataToShow.add(
+                                    ProductItemResponse(
+                                        product.basePrice!!,
+                                        emptyList(),
+                                        "",
+                                        "",
+                                        product.id!!,
+                                        "",
+                                        encodeByteArrayToString(product.image!!),
+                                        product.location!!,
+                                        product.name!!,
+                                        "",
+                                        "",
+                                        0
+                                    )
+                                )
+                            }
+
+                            adapter.setProductData(dataToShow)
+                            adapter.notifyDataSetChanged()
+                        }
+                    }
                 }
             }
         })
-        viewModel.getElectronicProducts()
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun getFashionPreviewData() {
         val recyclerView: RecyclerView = requireView().findViewById(R.id.rv_preview_fashion)
 
-        val adapter = ProductPreviewAdapter {
+        val adapter = ProductPreviewAdapter(this, 99) {
             navigateToDetailProduct(it.id, requireView(), R.id.action_homeFragment_to_detailFragment)
         }
 
@@ -305,29 +343,72 @@ class HomeFragment : Fragment() {
         )
         recyclerView.adapter = adapter
 
-        val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
-        viewModel.fashionProducts.observe(this, {
-            if (it != null) {
-                if (it.isNotEmpty()) {
-                    val a : MutableList<ProductItemResponse> = mutableListOf()
-//                    for (i in 0..7) {
-//                        a.add(it[i])
-//                    }
-                    adapter.setProductData(it)
-                    adapter.notifyDataSetChanged()
-                } else {
+        MarketApplication.isConnected.observe(this, { isConnected ->
+            if (isConnected) {
+                GlobalScope.launch {
+                    mDb?.fashionDao()?.resetData()
+                }
 
+                val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
+                viewModel.fashionProducts.observe(this, {
+                    if (it != null) {
+                        if (it.isNotEmpty()) {
+                            val a : MutableList<ProductItemResponse> = mutableListOf()
+                            for (i in 0..7) {
+                                a.add(it[i])
+                            }
+
+                            adapter.setProductData(a)
+                            adapter.notifyDataSetChanged()
+//                    })
+                        } else {
+
+                        }
+                    }
+                })
+                viewModel.getFashionProducts()
+
+            } else {
+                GlobalScope.launch {
+                    val listData = mDb?.fashionDao()?.getOfflineProduct()
+
+                    requireActivity().runOnUiThread {
+                        if (listData?.isNotEmpty()!!) {
+                            val dataToShow : MutableList<ProductItemResponse> = mutableListOf()
+
+                            listData.forEach { product ->
+                                dataToShow.add(
+                                    ProductItemResponse(
+                                        product.basePrice!!,
+                                        emptyList(),
+                                        "",
+                                        "",
+                                        product.id!!,
+                                        "",
+                                        encodeByteArrayToString(product.image!!),
+                                        product.location!!,
+                                        product.name!!,
+                                        "",
+                                        "",
+                                        0
+                                    )
+                                )
+                            }
+
+                            adapter.setProductData(dataToShow)
+                            adapter.notifyDataSetChanged()
+                        }
+                    }
                 }
             }
         })
-        viewModel.getFashionProducts()
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun getFoodPreviewData() {
         val recyclerView: RecyclerView = requireView().findViewById(R.id.rv_preview_food)
 
-        val adapter = ProductPreviewAdapter {
+        val adapter = ProductPreviewAdapter(this, 105) {
             navigateToDetailProduct(it.id, requireView(), R.id.action_homeFragment_to_detailFragment)
         }
 
@@ -338,29 +419,72 @@ class HomeFragment : Fragment() {
         )
         recyclerView.adapter = adapter
 
-        val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
-        viewModel.foodProducts.observe(this, {
-            if (it != null) {
-                if (it.isNotEmpty()) {
-                    val a : MutableList<ProductItemResponse> = mutableListOf()
-//                    for (i in 0..7) {
-//                        a.add(it[i])
-//                    }
-                    adapter.setProductData(it)
-                    adapter.notifyDataSetChanged()
-                } else {
+        MarketApplication.isConnected.observe(this, { isConnected ->
+            if (isConnected) {
+                GlobalScope.launch {
+                    mDb?.foodDao()?.resetData()
+                }
 
+                val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
+                viewModel.foodProducts.observe(this, {
+                    if (it != null) {
+                        if (it.isNotEmpty()) {
+                            val a : MutableList<ProductItemResponse> = mutableListOf()
+                            for (i in 0..7) {
+                                a.add(it[i])
+                            }
+
+                            adapter.setProductData(a)
+                            adapter.notifyDataSetChanged()
+//                    })
+                        } else {
+
+                        }
+                    }
+                })
+                viewModel.getFoodProducts()
+
+            } else {
+                GlobalScope.launch {
+                    val listData = mDb?.foodDao()?.getOfflineProduct()
+
+                    requireActivity().runOnUiThread {
+                        if (listData?.isNotEmpty()!!) {
+                            val dataToShow : MutableList<ProductItemResponse> = mutableListOf()
+
+                            listData.forEach { product ->
+                                dataToShow.add(
+                                    ProductItemResponse(
+                                        product.basePrice!!,
+                                        emptyList(),
+                                        "",
+                                        "",
+                                        product.id!!,
+                                        "",
+                                        encodeByteArrayToString(product.image!!),
+                                        product.location!!,
+                                        product.name!!,
+                                        "",
+                                        "",
+                                        0
+                                    )
+                                )
+                            }
+
+                            adapter.setProductData(dataToShow)
+                            adapter.notifyDataSetChanged()
+                        }
+                    }
                 }
             }
         })
-        viewModel.getFoodProducts()
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun getHomeSuppliesPreviewData() {
         val recyclerView: RecyclerView = requireView().findViewById(R.id.rv_preview_home_supplies)
 
-        val adapter = ProductPreviewAdapter {
+        val adapter = ProductPreviewAdapter(this, 107) {
             navigateToDetailProduct(it.id, requireView(), R.id.action_homeFragment_to_detailFragment)
         }
 
@@ -371,22 +495,65 @@ class HomeFragment : Fragment() {
         )
         recyclerView.adapter = adapter
 
-        val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
-        viewModel.homeSuppliesProducts.observe(this, {
-            if (it != null) {
-                if (it.isNotEmpty()) {
-                    val a : MutableList<ProductItemResponse> = mutableListOf()
-//                    for (i in 0..7) {
-//                        a.add(it[i])
-//                    }
-                    adapter.setProductData(it)
-                    adapter.notifyDataSetChanged()
-                } else {
+        MarketApplication.isConnected.observe(this, { isConnected ->
+            if (isConnected) {
+                GlobalScope.launch {
+                    mDb?.homeSuppliesDao()?.resetData()
+                }
 
+                val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
+                viewModel.homeSuppliesProducts.observe(this, {
+                    if (it != null) {
+                        if (it.isNotEmpty()) {
+                            val a : MutableList<ProductItemResponse> = mutableListOf()
+                            for (i in 0..7) {
+                                a.add(it[i])
+                            }
+
+                            adapter.setProductData(a)
+                            adapter.notifyDataSetChanged()
+//                    })
+                        } else {
+
+                        }
+                    }
+                })
+                viewModel.getHomeSuppliesProducts()
+
+            } else {
+                GlobalScope.launch {
+                    val listData = mDb?.homeSuppliesDao()?.getOfflineProduct()
+
+                    requireActivity().runOnUiThread {
+                        if (listData?.isNotEmpty()!!) {
+                            val dataToShow : MutableList<ProductItemResponse> = mutableListOf()
+
+                            listData.forEach { product ->
+                                dataToShow.add(
+                                    ProductItemResponse(
+                                        product.basePrice!!,
+                                        emptyList(),
+                                        "",
+                                        "",
+                                        product.id!!,
+                                        "",
+                                        encodeByteArrayToString(product.image!!),
+                                        product.location!!,
+                                        product.name!!,
+                                        "",
+                                        "",
+                                        0
+                                    )
+                                )
+                            }
+
+                            adapter.setProductData(dataToShow)
+                            adapter.notifyDataSetChanged()
+                        }
+                    }
                 }
             }
         })
-        viewModel.getHomeSuppliesProducts()
     }
 
 }

@@ -42,6 +42,12 @@ class MainActivity : AppCompatActivity() {
             hideBottomNavigationForSubPage(bottomNavigationView)
         }
 
+        // Set global variable of connection status, so everything can observe with only one register
+        ConnectionStatus(this).observe(this, {
+            MarketApplication.isConnected.postValue(it)
+            MarketApplication.isPreviouslyConnected.postValue(!it)
+        })
+
         // Make status bar transparent
         transparentStatusBar()
 
@@ -51,7 +57,8 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun checkInternetConnection(lifecycleOwner: LifecycleOwner) {
         var oldStatus = true
-        ConnectionStatus(this).observe(lifecycleOwner, {
+
+        MarketApplication.isConnected.observe(this, {
             val containerView: CardView = findViewById(R.id.cv_connection_container)
             val status: TextView = findViewById(R.id.tv_connection_information)
 

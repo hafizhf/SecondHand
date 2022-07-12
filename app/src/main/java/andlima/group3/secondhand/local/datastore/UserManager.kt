@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -20,6 +21,7 @@ class UserManager(context: Context) {
         val USERNAME = stringPreferencesKey("username")
         val EMAIL = stringPreferencesKey("email")
         val PASSWORD = stringPreferencesKey("password")
+        val FIRST_TIME = booleanPreferencesKey("first_time")
     }
 
     val accessTokenFlow : Flow<String> = context.dataStore.data.map {
@@ -38,12 +40,22 @@ class UserManager(context: Context) {
         it[PASSWORD] ?: ""
     }
 
+    val firstTimeFlow: Flow<Boolean> = context.dataStore.data.map {
+        it[FIRST_TIME] ?: true
+    }
+
+    /**
+     * To save new access token
+     */
     suspend fun saveAccessToken(accessToken: String) {
         itContext.dataStore.edit {
             it[ACCESS_TOKEN] = accessToken
         }
     }
 
+    /**
+     * To save new user data after login
+     */
     suspend fun saveUserData(username: String, email: String, password: String) {
         itContext.dataStore.edit {
             it[USERNAME] = username
@@ -52,15 +64,34 @@ class UserManager(context: Context) {
         }
     }
 
+    /**
+     * To clear old access token
+     */
     suspend fun clearOldAccessTokenPreferences() {
         itContext.dataStore.edit {
             it[ACCESS_TOKEN] = ""
         }
     }
 
+    /**
+     * To clear user data when logout
+     */
     suspend fun clearDataPreferences() {
         itContext.dataStore.edit {
-            it.clear()
+            it[USERNAME] = ""
+            it[EMAIL] = ""
+            it[PASSWORD] = ""
+            it[ACCESS_TOKEN] = ""
+//            it.clear()
+        }
+    }
+
+    /**
+     * To set app is not on first time run
+     */
+    suspend fun setNotFirstTimeRun() {
+        itContext.dataStore.edit {
+            it[FIRST_TIME] = false
         }
     }
 }

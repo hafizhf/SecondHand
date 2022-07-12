@@ -2,6 +2,7 @@ package andlima.group3.secondhand.view.splashscreen
 
 import andlima.group3.secondhand.AuthActivity
 import andlima.group3.secondhand.MainActivity
+import andlima.group3.secondhand.MarketApplication
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.alertDialog
 import andlima.group3.secondhand.func.observeOnce
@@ -10,6 +11,7 @@ import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.model.login.GetLoginResponse
 import andlima.group3.secondhand.model.login.LoginRequest
 import andlima.group3.secondhand.repository.AuthRepository
+import andlima.group3.secondhand.services.ConnectionStatus
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
@@ -38,20 +40,79 @@ class SplashScreenActivity : AppCompatActivity() {
     // Get data store
     private lateinit var userManager: UserManager
 
+    private val hasConnection = MutableLiveData(false)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
+        setWindowFullScreen()
+        checkConnectionFirst()
+
         // Get something from data store
         userManager = UserManager(this)
 
-        userDataAuth { response, code, message ->
-            if (code != -500)
-                actionBaseOnResponse(response, code, message)
-            else
+        Log.d("DISINI", "0")
+        userManager.firstTimeFlow.asLiveData().observeOnce(this, { firstTime ->
+            Log.d("DISINI", "1")
+
+            if (firstTime) {
+                Log.d("DISINI", "2")
+
+                MarketApplication.isConnected.observe(this, { isConnected ->
+
+                    if (isConnected) {
+
+                        Log.d("DISINI", "3")
+                        GlobalScope.launch {
+                            userManager.setNotFirstTimeRun()
+                        }
+                        continueToMainActivity()
+
+                    } else {
+
+                        Log.d("DISINI", "4")
+                        alertDialog(
+                            this,
+                            "You're not connected",
+                            "Please connect to internet on your first run"
+                        ) {
+                            finish()
+                        }
+
+                    }
+
+                })
+
+            } else {
+                Log.d("DISINI", "5")
+                continueToMainActivity()
+            }
+            Log.d("DISINI", "6")
+        })
+    }
+
+    private fun continueToMainActivity() {
+        MarketApplication.isConnected.observeOnce(this, { isConnected ->
+            Log.d("DISINI", "7")
+            if (isConnected) {
+                userDataAuth { response, code, message ->
+                    if (code != -500)
+                        actionBaseOnResponse(response, code, message)
+                    else
+                        splashHandler(MainActivity::class.java)
+                }
+            } else {
                 splashHandler(MainActivity::class.java)
-        }
-        transparentStatusBar()
+            }
+        })
+    }
+
+    private fun checkConnectionFirst() {
+        ConnectionStatus(this).observe(this, {
+            MarketApplication.isConnected.postValue(it)
+            MarketApplication.isPreviouslyConnected.postValue(!it)
+        })
     }
 
     private fun userDataAuth(action: (response: GetLoginResponse, code: Int, message: String) -> Unit) {
@@ -104,23 +165,10 @@ class SplashScreenActivity : AppCompatActivity() {
         }, 3000)
     }
 
-    private fun transparentStatusBar() {
-        if (Build.VERSION.SDK_INT in 19..20) {
-            setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, true)
-        }
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-        setWindowFlag(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, false)
-        window.statusBarColor = Color.TRANSPARENT
-    }
-
-    private fun setWindowFlag(bits: Int, on: Boolean) {
-        val win = window
-        val winParams = win.attributes
-        if (on) {
-            winParams.flags = winParams.flags or bits
-        } else {
-            winParams.flags = winParams.flags and bits.inv()
-        }
-        win.attributes = winParams
+    private fun setWindowFullScreen() {
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
     }
 }

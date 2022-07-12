@@ -16,10 +16,12 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.os.Looper
 import android.util.Base64
 import android.util.DisplayMetrics
+import android.util.Patterns
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
@@ -123,7 +125,10 @@ fun alertDialog(context: Context, title: String, message: String, action: Any.()
 
 // IMAGE CONVERT METHOD ############################################################################
 
-private fun convertImageToByteArray(imageView: ImageView): ByteArray {
+/**
+ * Image encoder or converter from image that displayed in ImageView into ByteArray
+ */
+fun encodeImageToByteArray(imageView: ImageView): ByteArray {
     val bitmap = (imageView.drawable as BitmapDrawable).bitmap
     val stream = ByteArrayOutputStream()
     bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream)
@@ -131,11 +136,43 @@ private fun convertImageToByteArray(imageView: ImageView): ByteArray {
     return stream.toByteArray()
 }
 
-fun encodeImageBase64(imageView: ImageView): String {
-    return Base64.encodeToString(convertImageToByteArray(imageView), Base64.NO_WRAP)
+/**
+ * Image encoder or converter from Drawable into ByteArray
+ */
+fun encodeDrawableToByteArray(drawable: Drawable): ByteArray {
+//    val bitmap = (imageView.drawable as BitmapDrawable).bitmap
+    val bitmap = (drawable as BitmapDrawable).bitmap
+    val stream = ByteArrayOutputStream()
+    bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream)
+
+    return stream.toByteArray()
 }
 
-fun decodeBase64Image(base64String: String): Bitmap {
+/**
+ * Image decoder or converter from ByteArray to Bitmap to be used on ImageView
+ */
+fun decodeImageFromByteArray(byteArray: ByteArray): Bitmap {
+    return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+}
+
+/**
+ * Encoder or converter ByteArray to String
+ */
+fun encodeByteArrayToString(byteArray: ByteArray): String {
+    return Base64.encodeToString(byteArray, Base64.NO_WRAP)
+}
+
+/**
+ * Image encoder or converter from image that displayed in ImageView into Base64String
+ */
+fun encodeImageBase64String(imageView: ImageView): String {
+    return Base64.encodeToString(encodeImageToByteArray(imageView), Base64.NO_WRAP)
+}
+
+/**
+ * Image decoder or converter from Base64String to Bitmap to be used on ImageView
+ */
+fun decodeBase64ImageString(base64String: String): Bitmap {
     val imageBytes = Base64.decode(base64String, Base64.DEFAULT)
 
     return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
@@ -441,4 +478,11 @@ fun capitalize(string: String): String {
             Locale.getDefault()
         ) else it.toString()
     }
+}
+
+/**
+ * To validate URL on string
+ */
+fun isURLValid(urlString: String): Boolean {
+    return Patterns.WEB_URL.matcher(urlString).matches()
 }
