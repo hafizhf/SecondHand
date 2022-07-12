@@ -6,6 +6,9 @@ import andlima.group3.secondhand.model.daftarjual.terimatolak.PatchOrderResponse
 import andlima.group3.secondhand.model.daftarjual.terimatolak.StatusTawaran
 import andlima.group3.secondhand.model.jual.PostProductResponse
 import andlima.group3.secondhand.model.kategori.KategoriResponseItem
+import andlima.group3.secondhand.model.lokasi.KotaResponse
+import andlima.group3.secondhand.model.lokasi.Provinsi
+import andlima.group3.secondhand.model.lokasi.ProvinsiResponse
 import andlima.group3.secondhand.model.notification.NotificationResponseItem
 import andlima.group3.secondhand.model.produk.ProductResponse
 import andlima.group3.secondhand.model.register.RegisterResponse
@@ -104,4 +107,14 @@ interface ApiService {
         @Header("access_token") accessToken: String,
         @Path("id") id : Int,
     ) : Call<NotificationResponseItem>
+
+
+    @GET("api/daerahindonesia/provinsi")
+    fun getProvinsi(
+    ) : Call<ProvinsiResponse>
+
+    @GET("api/daerahindonesia/kota")
+    fun getKota(
+        @Query("id_provinsi") provinsi : Int
+    ) : Call<KotaResponse>
 }

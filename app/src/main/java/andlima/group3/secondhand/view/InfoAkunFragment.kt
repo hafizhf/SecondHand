@@ -12,6 +12,8 @@ import andlima.group3.secondhand.func.alertDialog
 import andlima.group3.secondhand.func.observeOnce
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
+import andlima.group3.secondhand.model.kategori.KategoriPilihan
+import andlima.group3.secondhand.viewmodel.LokasiViewModel
 import andlima.group3.secondhand.viewmodel.ProfileViewModel
 import andlima.group3.secondhand.viewmodel.UserViewModel
 import android.Manifest
@@ -21,12 +23,17 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.provider.Settings
+import android.util.Log
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.fragment_akun.*
@@ -41,6 +48,8 @@ import java.io.File
 class InfoAkunFragment : Fragment() {
     lateinit var body: MultipartBody.Part
     lateinit var userManager: UserManager
+    var pilihan = ""
+    var cek = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,25 +61,27 @@ class InfoAkunFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         userManager = UserManager(requireContext())
-//        infoAkun_btn_Simpan.setOnClickListener {
-//            Navigation.findNavController(view).navigate(R.id.action_infoAkunFragment_to_AkunFragment)
-//        }
+
         infoakun_arrowback.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            view.findNavController().navigate(R.id.action_infoAkunFragment2_to_akunFragment)
         }
         userManager.accessTokenFlow.asLiveData().observeOnce(viewLifecycleOwner){
             getDataUser(it)
         }
+        getLokasi()
+
+
 
 
         infoAkun_btn_Simpan.setOnClickListener {
             val nama = infoAkun_et_nama.text.toString()
-            val kota = infoAkun_et_kota.text.toString()
+
+
             val alamat = infoAkun_et_alamat.text.toString()
             val nohp = infoAkun_et_nohp.text.toString().toInt()
-            if (nama.isNotBlank() && kota.isNotBlank() && alamat.isNotBlank()){
+            if (nama.isNotBlank()  && alamat.isNotBlank()){
                 userManager.accessTokenFlow.asLiveData().observeOnce(viewLifecycleOwner){
-                    profile(it,nama,kota,alamat,nohp)
+                    profile(it,nama,pilihan,alamat,nohp)
 
                 }
             }
@@ -79,22 +90,102 @@ class InfoAkunFragment : Fragment() {
             setImageprofile()
         }
     }
+    fun getDataUser(token : String){
+        val viewModel = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
+        viewModel.userDetailLiveData.observeOnce(viewLifecycleOwner){
+            if (it != null){
+                if (it.imageUrl != null){
+                    Glide.with(requireContext()).load(it.imageUrl).apply(
+                        RequestOptions()
+                    ).into(ImageProfileInfoAkun)
+                }
+                if (it.address != "A"){
+                    infoAkun_et_alamat.setText(it.address)
+                }
+                if (it.city != "Surabaya"){
+                    txtKota.setText(it.city)
+                }
+                if (it.phoneNumber.equals(0)){
+
+                }else{
+                    infoAkun_et_nohp.setText(it.phoneNumber.toString())
+                }
+                infoAkun_et_nama.setText(it.fullName)
+
+            }
+        }
+        viewModel.userDetailLive(token)
+    }
+    fun getLokasi(){
+        val items : MutableList<String> = mutableListOf()
+        val items2 : MutableList<String> = mutableListOf()
+        val itemsID = mutableListOf<Int>()
+        val itemsID2 = mutableListOf<Int>()
+        var pilihanID = 0
+
+        val viewModel2 = ViewModelProvider(requireActivity()).get(LokasiViewModel::class.java)
+        viewModel2.provinsiLiveData.observe(viewLifecycleOwner){
+            if (it != null){
+                it.provinsi.forEach {
+                    items.add(it.nama)
+                    itemsID.add(it.id)
+                }
+                Log.d("provinsias", items.toString())
+            }
+        }
+        viewModel2.kotaLiveData.observe(viewLifecycleOwner){
+            if (it != null){
+                it.kotaKabupaten.forEach {
+                    items2.add(it.nama)
+                    itemsID2.add(it.id)
+                }
+            }
+        }
+        viewModel2.getProvinsi()
+        val adapter = ArrayAdapter(requireContext(), R.layout.list_kategori, items)
+
+        (textFieldProvinsi.editText as? AutoCompleteTextView)?.setAdapter(adapter)
+
+        (textFieldProvinsi.getEditText() as AutoCompleteTextView).onItemClickListener =
+            AdapterView.OnItemClickListener { adapterView, view, position, id ->
+                pilihanID = itemsID[position]
+                textFieldKota.isEnabled = true
+                Log.d("idprovinsi", pilihanID.toString())
+                items2.clear()
+                viewModel2.getKota(pilihanID)
+                val adapter2 = ArrayAdapter(requireContext(), R.layout.list_kategori, items2)
+                (textFieldKota.editText as? AutoCompleteTextView)?.setAdapter(adapter2)
+
+
+
+            }
+        (textFieldKota.getEditText() as AutoCompleteTextView).onItemClickListener =
+            AdapterView.OnItemClickListener { adapterView, view, position, id ->
+                pilihan = txtKota.text.toString()
+                Log.d("idprovinsi", pilihan.toString())
+
+
+
+
+
+            }
+            }
     fun profile(token: String,nama : String, kota : String, alamat : String, nohp : Int){
         val viewModel = ViewModelProvider(requireActivity()).get(ProfileViewModel::class.java)
         viewModel.profileLiveData.observe(requireActivity()){
             when (it) {
                 "200" -> {
                     toast(requireContext(), "Update Profille success")
-//                    requireActivity().onBackPressedDispatcher.addCallback(this, MarketApplication.onBackPressedCallback)
-                    parentFragmentManager.popBackStack()
                 }
                 "400" -> toast(requireContext(), "Email already used")
                 "500" -> alertDialog(requireContext(), "Internal server error", "Try again later") {}
                 else -> alertDialog(requireContext(), "Update failed", "No connection") {}
             }
         }
+        if (cek == 1){
+            viewModel.profileLiveData(token, nama, kota, alamat,nohp,body)
+        }
 
-        viewModel.profileLiveData(token, nama, kota, alamat,nohp,body)
 
 
     }
@@ -115,37 +206,38 @@ class InfoAkunFragment : Fragment() {
             uri.let {
                 setDataImagee(it!!)
             }
+            cek = 1
 
 
         }else {
         }
     }
-    fun getDataUser(token : String){
-        val viewModel = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
-        viewModel.userDetailLiveData.observeOnce(viewLifecycleOwner){
-            if (it != null){
-                if (it.imageUrl != null){
-                    Glide.with(requireContext()).load(it.imageUrl).apply(
-                        RequestOptions()
-                    ).into(ImageProfileInfoAkun)
-                }
-                if (it.address != "A"){
-                    infoAkun_et_alamat.setText(it.address)
-                }
-                if (it.city != "sementara"){
-                    infoAkun_et_kota.setText(it.city)
-                }
-                if (it.phoneNumber.equals(0)){
-
-                }else{
-                    infoAkun_et_nohp.setText(it.phoneNumber.toString())
-                }
-                infoAkun_et_nama.setText(it.fullName)
-
-            }
-        }
-        viewModel.userDetailLive(token)
-    }
+//    fun getDataUser(token : String){
+//        val viewModel = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
+//        viewModel.userDetailLiveData.observeOnce(viewLifecycleOwner){
+//            if (it != null){
+//                if (it.imageUrl != null){
+//                    Glide.with(requireContext()).load(it.imageUrl).apply(
+//                        RequestOptions()
+//                    ).into(ImageProfileInfoAkun)
+//                }
+//                if (it.address != "A"){
+//                    infoAkun_et_alamat.setText(it.address)
+//                }
+//                if (it.city != "sementara"){
+//                    infoAkun_et_kota.setText(it.city)
+//                }
+//                if (it.phoneNumber.equals(0)){
+//
+//                }else{
+//                    infoAkun_et_nohp.setText(it.phoneNumber.toString())
+//                }
+//                infoAkun_et_nama.setText(it.fullName)
+//
+//            }
+//        }
+//        viewModel.userDetailLive(token)
+//    }
     fun setDataImagee(it : Uri){
         val contentResolver = requireActivity().contentResolver
 

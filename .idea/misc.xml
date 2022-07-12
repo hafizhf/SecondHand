@@ -28,6 +28,7 @@
         <entry key="..\:/Users/Muhajir/AndroidStudioProjects/SecondHand/app/src/main/res/layout/component_example.xml" value="0.358695652173913" />
         <entry key="..\:/Users/Muhajir/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_akun.xml" value="0.358695652173913" />
         <entry key="..\:/Users/Muhajir/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_daftar_jual.xml" value="0.33" />
+        <entry key="..\:/Users/Muhajir/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_detail.xml" value="0.3625" />
         <entry key="..\:/Users/Muhajir/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_detail_bottom_dialog.xml" value="0.3625" />
         <entry key="..\:/Users/Muhajir/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_diminati.xml" value="0.303125" />
         <entry key="..\:/Users/Muhajir/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_elektronik.xml" value="0.303125" />
@@ -75,11 +76,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home.xml" value="0.22" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_info_akun.xml" value="0.22" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_info_penawar.xml" value="0.2" />
-
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_jual.xml" value="0.22" />
-
-        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_jual.xml" value="0.18" />
-
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_kendaraan.xml" value="0.13903985507246377" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_kesehatan.xml" value="0.13903985507246377" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_login.xml" value="0.22" />
