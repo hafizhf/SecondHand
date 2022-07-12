@@ -18,7 +18,7 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
     private const val BASE_URL = "https://market-final-project.herokuapp.com/"
-
+    private const val BASE_KOTA = "http://dev.farizdotid.com/"
     private  val logging : HttpLoggingInterceptor
         get(){
             val httpLoggingInterceptor = HttpLoggingInterceptor()
@@ -37,6 +37,18 @@ object AppModule {
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
+
+    @Provides
+    @Singleton
+    @Named("kota")
+    fun provideRetrofitKota() : ApiService{
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_KOTA)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+        return retrofit.create(ApiService::class.java)
+    }
 
     @Provides
     @Singleton

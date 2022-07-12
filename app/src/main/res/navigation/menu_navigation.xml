@@ -42,7 +42,11 @@
         android:id="@+id/jualFragment"
         android:name="andlima.group3.secondhand.view.JualFragment"
         android:label="fragment_jual"
-        tools:layout="@layout/fragment_jual" />
+        tools:layout="@layout/fragment_jual" >
+        <action
+            android:id="@+id/action_jualFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/daftarJualFragment"
         android:name="andlima.group3.secondhand.view.DaftarJualFragment"
@@ -78,7 +82,11 @@
         android:id="@+id/infoAkunFragment2"
         android:name="andlima.group3.secondhand.view.InfoAkunFragment"
         android:label="fragment_info_akun"
-        tools:layout="@layout/fragment_info_akun" />
+        tools:layout="@layout/fragment_info_akun" >
+        <action
+            android:id="@+id/action_infoAkunFragment2_to_akunFragment"
+            app:destination="@id/akunFragment" />
+    </fragment>
     <fragment
         android:id="@+id/homeElectronicFragment"
         android:name="andlima.group3.secondhand.view.home.HomeElectronicFragment"

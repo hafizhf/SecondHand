@@ -11,9 +11,11 @@ import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.model.detail.ProductDataForBid
 import andlima.group3.secondhand.model.home.BuyerProductDetail
 import andlima.group3.secondhand.model.home.newhome.ProductDetailItemResponse
+import andlima.group3.secondhand.model.produk.ProdukPreview
 import andlima.group3.secondhand.view.bottomsheet.DetailBottomDialogFragment
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
 import android.annotation.SuppressLint
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -22,6 +24,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_detail.*
 
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
@@ -42,7 +45,44 @@ class DetailFragment : Fragment() {
         userManager = UserManager(requireContext())
 
         val productID = arguments?.getInt("SELECTED_ID") as Int
-        getData(productID)
+        val product = arguments?.getParcelable("PREVIEW2") as ProdukPreview?
+        Log.d("previewproduk", product.toString())
+        if (product?.name.isNullOrBlank()){
+            getData(productID)
+
+        }else{
+            setDataPreview(product!!)
+        }
+    }
+    private fun setDataPreview(produkPreview: ProdukPreview){
+        // Get view id -----------------------------------------------------------------------------
+        val productImage : ImageView = view!!.findViewById(R.id.iv_detail_product_image)
+        val productName : TextView = view!!.findViewById(R.id.tv_detail_product_name)
+        val productCategory : TextView = view!!.findViewById(R.id.tv_detail_product_category)
+        val productPrice : TextView = view!!.findViewById(R.id.tv_detail_product_price)
+        val productDesc : TextView = view!!.findViewById(R.id.tv_detail_product_description)
+
+        val productSellerImage : ImageView = view!!.findViewById(R.id.iv_detail_product_seller_image)
+        val productSellerName : TextView = view!!.findViewById(R.id.tv_detail_product_seller_name)
+        val productSellerAddress : TextView = view!!.findViewById(R.id.tv_detail_product_seller_address)
+
+        // Set data to view ------------------------------------------------------------------------
+        productImage.setImageURI(produkPreview.imageUrl)
+        productName.text = produkPreview.name
+        if (produkPreview.categories.isNotEmpty()) {
+            productCategory.text = produkPreview.categories.elementAt(0).nama
+        } else {
+            productCategory.text = "Uncategorized"
+        }
+        productPrice.text = "Rp " + produkPreview.basePrice
+        productDesc.text = produkPreview.description
+
+        Glide.with(this).load(produkPreview.sellerImage).into(productSellerImage)
+        productSellerName.text = produkPreview.sellerName
+        productSellerAddress.text = produkPreview.location
+        btn_saya_tertarik_ingin_nego.text = "Preview"
+        btn_saya_tertarik_ingin_nego.isEnabled = false
+
     }
 
     @SuppressLint("SetTextI18n")

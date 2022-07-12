@@ -5,6 +5,7 @@ import andlima.group3.secondhand.func.requireLogin
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.model.kategori.KategoriPilihan
+import andlima.group3.secondhand.model.produk.ProdukPreview
 import andlima.group3.secondhand.view.adapter.KategoriAdapter
 import andlima.group3.secondhand.viewmodel.ProdukViewModel
 import andlima.group3.secondhand.viewmodel.SellerViewModel
@@ -17,6 +18,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
 import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
@@ -28,9 +30,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.fragment_info_akun.*
 import kotlinx.android.synthetic.main.fragment_jual.*
@@ -48,6 +52,10 @@ import java.io.File
 class JualFragment : Fragment() {
     lateinit var body: MultipartBody.Part
     lateinit var userManager: UserManager
+    var uriGambar : Uri? = null
+    var gambarSeller : String = ""
+    var namaSeller : String = ""
+    val gabungan : MutableSet<KategoriPilihan>? = mutableSetOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,6 +70,21 @@ class JualFragment : Fragment() {
         btnBackJual.setOnClickListener {
             parentFragmentManager.popBackStack()
         }
+        btnPreview.setOnClickListener {
+            val nama = editNamaProduk.text.toString()
+            val description = editDeskripsiProduk.text.toString()
+            val basePrice = editHargaProduk.text.toString()
+            val lokasi = "Preview"
+
+            if (nama.isNotBlank() && description.isNotBlank() && basePrice.isNotBlank() && gabungan!!.isNotEmpty() && uriGambar != null && gambarSeller.isNotBlank() && namaSeller.isNotBlank()){
+                val code = bundleOf("PREVIEW2" to ProdukPreview(nama,basePrice,gabungan,description,
+                    uriGambar!!, lokasi, gambarSeller, namaSeller))
+                Navigation.findNavController(view)
+                    .navigate(R.id.action_jualFragment_to_detailFragment, code)
+
+            }
+
+        }
 
         userManager = UserManager(requireContext())
 
@@ -71,7 +94,6 @@ class JualFragment : Fragment() {
 
         val items = mutableListOf<String>()
         val itemsID = mutableListOf<Int>()
-        val gabungan : MutableSet<KategoriPilihan>? = mutableSetOf()
 
 
         val pilihan : MutableSet<String?> = mutableSetOf()
@@ -136,19 +158,40 @@ class JualFragment : Fragment() {
             }
         adapterKategori.setDataProduk(gabungan)
         rv_kategori.adapter = adapterKategori
+        var userManager = UserManager(requireContext())
 
+        val viewModel2 = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
+
+        userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
+            viewModel2.userDetailLiveData.observe(viewLifecycleOwner){
+                gambarSeller = it.imageUrl
+                namaSeller = it.fullName
+            }
+            viewModel2.userDetailLive(it)
+
+
+        }
 
         btnTerbitkan.setOnClickListener {
             val nama = editNamaProduk.text.toString()
             val description = editDeskripsiProduk.text.toString()
             val basePrice = editHargaProduk.text.toString().toInt()
-            val lokasi = "sementara"
+
+            var lokasi = "sementara"
 
 
 
-            var userManager = UserManager(requireContext())
             userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
-                postProduct(it,nama, description, basePrice, listDataID,lokasi)
+                viewModel2.userDetailLiveData.observe(viewLifecycleOwner){
+                    lokasi = it.city
+
+                }
+                viewModel2.userDetailLive(it)
+                Handler().postDelayed({
+                    postProduct(it,nama, description, basePrice, listDataID,lokasi)
+
+                }, 1000)
+
                 Log.d("AKSES TOKEN", it)
             }
         }
@@ -183,6 +226,7 @@ class JualFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == 2000 && data != null){
             val uri = data?.data
+            uriGambar = uri
             imageFotoProduk.setImageURI(uri)
             uri.let {
                 setDataImagee(it!!)
