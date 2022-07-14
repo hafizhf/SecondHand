@@ -1,23 +1,19 @@
 package andlima.group3.secondhand.view.home
 
+import andlima.group3.secondhand.MarketApplication
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
-import andlima.group3.secondhand.func.homeSearchView
-import andlima.group3.secondhand.func.navigateToDetailProduct
-import andlima.group3.secondhand.func.showCartQuantity
-import andlima.group3.secondhand.func.toast
+import andlima.group3.secondhand.func.*
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.view.adapter.ProductPreviewAdapter
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
 import android.annotation.SuppressLint
 import android.content.Context
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
@@ -45,24 +41,36 @@ class HomeSubFashionFragment : Fragment() {
 
         userManager = UserManager(requireContext())
 
-        // Back button on top bar
-        requireView().findViewById<ImageView>(R.id.btn_back).visibility = View.VISIBLE
-        requireView().findViewById<ImageView>(R.id.btn_back).setOnClickListener {
-            parentFragmentManager.popBackStack()
-        }
+        MarketApplication.isConnected.observe(this, { isConnected ->
+            val connectionInterfaceHandler: LinearLayout = requireView()
+                .findViewById(R.id.dialog_require_internet)
 
-        // Go to buyer order list / cart
-        requireView().findViewById<RelativeLayout>(R.id.btn_goto_cart).setOnClickListener {
-            Navigation.findNavController(view)
-                .navigate(R.id.action_homeSubFashionFragment_to_cartFragment)
-        }
+            if (!isConnected) {
+                connectionInterfaceHandler.layoutParams.height = getDeviceScreenHeight(requireActivity())
+                connectionInterfaceHandler.visibility = View.VISIBLE
+            } else {
+                connectionInterfaceHandler.visibility = View.GONE
 
-        homeSearchView(requireView(), requireContext(), requireActivity(), this, this)
-        showCartQuantity(requireView(), this, this, userManager)
+                // Back button on top bar
+                requireView().findViewById<ImageView>(R.id.btn_back).visibility = View.VISIBLE
+                requireView().findViewById<ImageView>(R.id.btn_back).setOnClickListener {
+                    parentFragmentManager.popBackStack()
+                }
 
-        val requestCode = arguments?.getInt("REQUEST_CODE") as Int
+                // Go to buyer order list / cart
+                requireView().findViewById<RelativeLayout>(R.id.btn_goto_cart).setOnClickListener {
+                    Navigation.findNavController(view)
+                        .navigate(R.id.action_homeSubFashionFragment_to_cartFragment)
+                }
 
-        getDetailFashion(requestCode)
+                homeSearchView(requireView(), requireContext(), requireActivity(), this, this)
+                showCartQuantity(requireView(), this, this, userManager)
+
+                val requestCode = arguments?.getInt("REQUEST_CODE") as Int
+
+                getDetailFashion(requestCode)
+            }
+        })
     }
 
     @SuppressLint("SetTextI18n")

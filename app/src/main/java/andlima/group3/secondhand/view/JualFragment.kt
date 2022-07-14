@@ -1,6 +1,8 @@
 package andlima.group3.secondhand.view
 
+import andlima.group3.secondhand.MarketApplication
 import andlima.group3.secondhand.R
+import andlima.group3.secondhand.func.getDeviceScreenHeight
 import andlima.group3.secondhand.func.requireLogin
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
@@ -67,146 +69,158 @@ class JualFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btnBackJual.setOnClickListener {
-            parentFragmentManager.popBackStack()
-        }
-        btnPreview.setOnClickListener {
-            val nama = editNamaProduk.text.toString()
-            val description = editDeskripsiProduk.text.toString()
-            val basePrice = editHargaProduk.text.toString()
-            val lokasi = "Preview"
-
-            if (nama.isNotBlank() && description.isNotBlank() && basePrice.isNotBlank() && gabungan!!.isNotEmpty() && uriGambar != null && gambarSeller.isNotBlank() && namaSeller.isNotBlank()){
-                val code = bundleOf("PREVIEW2" to ProdukPreview(nama,basePrice,gabungan,description,
-                    uriGambar!!, lokasi, gambarSeller, namaSeller))
-                Navigation.findNavController(view)
-                    .navigate(R.id.action_jualFragment_to_detailFragment, code)
-
-            }
-
-        }
 
         userManager = UserManager(requireContext())
 
-        val requireLoginView: LinearLayout = requireView().findViewById(R.id.dialog_require_login)
-        val requireLoginButton: Button = requireView().findViewById(R.id.btn_require_goto_login)
-        requireLogin(requireContext(), userManager, requireLoginView, requireLoginButton)
+        MarketApplication.isConnected.observe(this, { isConnected ->
+            val connectionInterfaceHandler: LinearLayout = requireView()
+                .findViewById(R.id.dialog_require_internet)
 
-        val items = mutableListOf<String>()
-        val itemsID = mutableListOf<Int>()
+            if (!isConnected) {
+                connectionInterfaceHandler.layoutParams.height = getDeviceScreenHeight(requireActivity())
+                connectionInterfaceHandler.visibility = View.VISIBLE
+            } else {
+                connectionInterfaceHandler.visibility = View.GONE
 
+                val requireLoginView: LinearLayout = requireView().findViewById(R.id.dialog_require_login)
+                val requireLoginButton: Button = requireView().findViewById(R.id.btn_require_goto_login)
+                val isLoggedIn = requireLogin(
+                    requireActivity(),
+                    requireContext(),
+                    userManager,
+                    requireLoginView,
+                    requireLoginButton
+                )
 
-        val pilihan : MutableSet<String?> = mutableSetOf()
-        val pilihanID : MutableSet<Int?> = mutableSetOf()
-
-        val listData : MutableList<String> = mutableListOf()
-        val listDataID : MutableList<Int> = mutableListOf()
-        val adapter = ArrayAdapter(requireContext(), R.layout.list_kategori, items)
-        val viewModel = ViewModelProvider(requireActivity()).get(ProdukViewModel::class.java)
-        viewModel.kategoriLiveData.observe(viewLifecycleOwner){
-            it.forEach {
-                items.add(it.name)
-                itemsID.add(it.id)
-            }
-
-        }
-        viewModel.getKategoriLive()
-
-
-
-        rv_kategori.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        var adapterKategori = KategoriAdapter{
-            listData.remove(it.nama)
-            listDataID.remove(it.id)
-            pilihan.remove(it.nama)
-            pilihanID.remove(it.id)
-            gabungan?.remove(it)
-            viewModel.kategoriPilihanLiveData.value = gabungan
-        }
-        viewModel.getKategoiPilihanObserver().observe(viewLifecycleOwner){
-            adapterKategori.setDataProduk(gabungan)
-            adapterKategori.notifyDataSetChanged()
-        }
-
-        (textFieldMenu.editText as? AutoCompleteTextView)?.setAdapter(adapter)
-        (textFieldMenu.getEditText() as AutoCompleteTextView).onItemClickListener =
-            OnItemClickListener { adapterView, view, position, id ->
-                val selectedValue: String? = adapter.getItem(position)
-                listData.clear()
-                listDataID.clear()
-                pilihan.add(selectedValue)
-                pilihanID.add(itemsID[position])
-                pilihan.forEach { nama ->
-                    listData.add(nama!!)
+                if (isLoggedIn) {
+                    btnBackJual.setOnClickListener {
+                        parentFragmentManager.popBackStack()
                     }
-                pilihanID.forEach { id ->
-                    listDataID.add(id!!)
-                }
-                for ((index, element) in pilihan.withIndex()){
-                    gabungan?.add(KategoriPilihan(pilihanID.elementAt(index)!!, pilihan.elementAt(index)!!))
-                }
 
-                viewModel.kategoriPilihanLiveData.postValue(gabungan)
-                viewModel.getKategoiPilihanObserver().observe(viewLifecycleOwner){
+                    btnPreview.setOnClickListener {
+                        val nama = editNamaProduk.text.toString()
+                        val description = editDeskripsiProduk.text.toString()
+                        val basePrice = editHargaProduk.text.toString()
+                        val lokasi = "Preview"
+
+                        if (nama.isNotBlank() && description.isNotBlank() && basePrice.isNotBlank() && gabungan!!.isNotEmpty() && uriGambar != null && gambarSeller.isNotBlank() && namaSeller.isNotBlank()){
+                            val code = bundleOf("PREVIEW2" to ProdukPreview(nama,basePrice,gabungan,description,
+                                uriGambar!!, lokasi, gambarSeller, namaSeller))
+                            Navigation.findNavController(view)
+                                .navigate(R.id.action_jualFragment_to_detailFragment, code)
+                        }
+                    }
+
+                    val items = mutableListOf<String>()
+                    val itemsID = mutableListOf<Int>()
+
+                    val pilihan : MutableSet<String?> = mutableSetOf()
+                    val pilihanID : MutableSet<Int?> = mutableSetOf()
+
+                    val listData : MutableList<String> = mutableListOf()
+                    val listDataID : MutableList<Int> = mutableListOf()
+                    val adapter = ArrayAdapter(requireContext(), R.layout.list_kategori, items)
+                    val viewModel = ViewModelProvider(requireActivity()).get(ProdukViewModel::class.java)
+                    viewModel.kategoriLiveData.observe(viewLifecycleOwner){
+                        it.forEach {
+                            items.add(it.name)
+                            itemsID.add(it.id)
+                        }
+
+                    }
+                    viewModel.getKategoriLive()
+
+                    rv_kategori.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    var adapterKategori = KategoriAdapter{
+                        listData.remove(it.nama)
+                        listDataID.remove(it.id)
+                        pilihan.remove(it.nama)
+                        pilihanID.remove(it.id)
+                        gabungan?.remove(it)
+                        viewModel.kategoriPilihanLiveData.value = gabungan
+                    }
+                    viewModel.getKategoiPilihanObserver().observe(viewLifecycleOwner){
+                        adapterKategori.setDataProduk(gabungan)
+                        adapterKategori.notifyDataSetChanged()
+                    }
+
+                    (textFieldMenu.editText as? AutoCompleteTextView)?.setAdapter(adapter)
+                    (textFieldMenu.getEditText() as AutoCompleteTextView).onItemClickListener =
+                        OnItemClickListener { adapterView, view, position, id ->
+                            val selectedValue: String? = adapter.getItem(position)
+                            listData.clear()
+                            listDataID.clear()
+                            pilihan.add(selectedValue)
+                            pilihanID.add(itemsID[position])
+                            pilihan.forEach { nama ->
+                                listData.add(nama!!)
+                            }
+                            pilihanID.forEach { id ->
+                                listDataID.add(id!!)
+                            }
+                            for ((index, element) in pilihan.withIndex()){
+                                gabungan?.add(KategoriPilihan(pilihanID.elementAt(index)!!, pilihan.elementAt(index)!!))
+                            }
+
+                            viewModel.kategoriPilihanLiveData.postValue(gabungan)
+                            viewModel.getKategoiPilihanObserver().observe(viewLifecycleOwner){
+                                adapterKategori.setDataProduk(gabungan)
+                                adapterKategori.notifyDataSetChanged()
+                            }
+
+                            rv_kategori.visibility = View.VISIBLE
+
+
+                        }
                     adapterKategori.setDataProduk(gabungan)
-                    adapterKategori.notifyDataSetChanged()
-                }
+                    rv_kategori.adapter = adapterKategori
+                    var userManager = UserManager(requireContext())
 
-                rv_kategori.visibility = View.VISIBLE
+                    val viewModel2 = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
 
-
-            }
-        adapterKategori.setDataProduk(gabungan)
-        rv_kategori.adapter = adapterKategori
-        var userManager = UserManager(requireContext())
-
-        val viewModel2 = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
-
-        userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
-            viewModel2.userDetailLiveData.observe(viewLifecycleOwner){
-                gambarSeller = it.imageUrl
-                namaSeller = it.fullName
-            }
-            viewModel2.userDetailLive(it)
-
-
-        }
-
-        btnTerbitkan.setOnClickListener {
-            val nama = editNamaProduk.text.toString()
-            val description = editDeskripsiProduk.text.toString()
-            val basePrice = editHargaProduk.text.toString().toInt()
-
-            var lokasi = "sementara"
-
-            if (nama.isNotBlank() && description.isNotBlank() && basePrice.toString().isNotBlank() && gambarSeller.isNotEmpty() && listDataID.isNotEmpty()){
-                userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
-                    viewModel2.userDetailLiveData.observe(viewLifecycleOwner){
-                        lokasi = it.city
-
+                    userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
+                        viewModel2.userDetailLiveData.observe(viewLifecycleOwner){
+                            gambarSeller = it.imageUrl
+                            namaSeller = it.fullName
+                        }
+                        viewModel2.userDetailLive(it)
                     }
-                    viewModel2.userDetailLive(it)
-                    Handler().postDelayed({
-                        postProduct(it,nama, description, basePrice, listDataID,lokasi)
 
-                    }, 1000)
+                    btnTerbitkan.setOnClickListener {
+                        val nama = editNamaProduk.text.toString()
+                        val description = editDeskripsiProduk.text.toString()
+                        val basePrice = editHargaProduk.text.toString().toInt()
 
-                    Log.d("AKSES TOKEN", it)
+                        var lokasi = "sementara"
+
+                        if (nama.isNotBlank() && description.isNotBlank() && basePrice.toString().isNotBlank() && gambarSeller.isNotEmpty() && listDataID.isNotEmpty()){
+                            userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
+                                viewModel2.userDetailLiveData.observe(viewLifecycleOwner){
+                                    lokasi = it.city
+
+                                }
+                                viewModel2.userDetailLive(it)
+                                Handler().postDelayed({
+                                    postProduct(it,nama, description, basePrice, listDataID,lokasi)
+
+                                }, 1000)
+
+                                Log.d("AKSES TOKEN", it)
+                            }
+                        }else{
+                            toast(requireContext(), "Lengkapi semua data produk")
+
+                        }
+                    }
+
+                    imageFotoProduk.setOnClickListener {
+                        setImage()
+                    }
                 }
-            }else{
-                toast(requireContext(), "Lengkapi semua data produk")
-
             }
-            }
-
-
-
-
-        imageFotoProduk.setOnClickListener {
-            setImage()
-        }
-
+        })
     }
+
     fun postProduct(token: String, name : String, description : String, basePrice : Int, categoryIDs : List<Int>, location : String){
         val viewModel = ViewModelProvider(requireActivity()).get(SellerViewModel::class.java)
 

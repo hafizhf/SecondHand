@@ -211,5 +211,7 @@
 
     <include
         layout="@layout/dialog_quick_notification"/>
+
+    <include layout="@layout/dialog_require_internet"/>
         
 </RelativeLayout>

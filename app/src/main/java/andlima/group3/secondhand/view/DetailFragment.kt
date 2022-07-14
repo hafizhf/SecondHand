@@ -1,5 +1,6 @@
 package andlima.group3.secondhand.view
 
+import andlima.group3.secondhand.MarketApplication
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ import android.annotation.SuppressLint
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
@@ -44,16 +46,29 @@ class DetailFragment : Fragment() {
 
         userManager = UserManager(requireContext())
 
-        val productID = arguments?.getInt("SELECTED_ID") as Int
-        val product = arguments?.getParcelable("PREVIEW2") as ProdukPreview?
-        Log.d("previewproduk", product.toString())
-        if (product?.name.isNullOrBlank()){
-            getData(productID)
+        MarketApplication.isConnected.observe(this, { isConnected ->
+            val connectionInterfaceHandler: LinearLayout = requireView()
+                .findViewById(R.id.dialog_require_internet)
 
-        }else{
-            setDataPreview(product!!)
-        }
+            if (!isConnected) {
+                connectionInterfaceHandler.layoutParams.height = getDeviceScreenHeight(requireActivity())
+                connectionInterfaceHandler.visibility = View.VISIBLE
+            } else {
+                connectionInterfaceHandler.visibility = View.GONE
+
+                val productID = arguments?.getInt("SELECTED_ID") as Int
+                val product = arguments?.getParcelable("PREVIEW2") as ProdukPreview?
+                Log.d("previewproduk", product.toString())
+                if (product?.name.isNullOrBlank()){
+                    getData(productID)
+
+                }else{
+                    setDataPreview(product!!)
+                }
+            }
+        })
     }
+
     private fun setDataPreview(produkPreview: ProdukPreview){
         // Get view id -----------------------------------------------------------------------------
         val productImage : ImageView = view!!.findViewById(R.id.iv_detail_product_image)

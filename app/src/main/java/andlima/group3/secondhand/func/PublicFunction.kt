@@ -226,17 +226,26 @@ fun isUserLoggedIn(userManager: UserManager): Boolean {
 }
 
 /**
- *
+ * Handler to block user from access feature that required login
  */
-fun requireLogin(context: Context, userManager: UserManager, linearLayout: LinearLayout, button: Button) {
-    if (isUserLoggedIn(userManager)) {
+fun requireLogin(
+    activity: Activity,
+    context: Context,
+    userManager: UserManager,
+    linearLayout: LinearLayout,
+    button: Button
+): Boolean {
+    return if (isUserLoggedIn(userManager)) {
         linearLayout.visibility = View.GONE
+        true
     } else {
+        linearLayout.layoutParams.height = getDeviceScreenHeight(activity)
         linearLayout.visibility = View.VISIBLE
 
         button.setOnClickListener {
             context.startActivity(Intent(context, AuthActivity::class.java))
         }
+        false
     }
 }
 

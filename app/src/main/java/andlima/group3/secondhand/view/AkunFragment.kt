@@ -2,6 +2,7 @@ package andlima.group3.secondhand.view
 
 import andlima.group3.secondhand.AuthActivity
 import andlima.group3.secondhand.MainActivity
+import andlima.group3.secondhand.MarketApplication
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.alertDialog
+import andlima.group3.secondhand.func.getDeviceScreenHeight
 
 import andlima.group3.secondhand.func.requireLogin
 import andlima.group3.secondhand.func.toast
@@ -53,36 +55,57 @@ class AkunFragment : Fragment() {
         // Get something from data store
         userManager = UserManager(requireContext())
 
-        val requireLoginView: LinearLayout = requireView().findViewById(R.id.dialog_require_login)
-        val requireLoginButton: Button = requireView().findViewById(R.id.btn_require_goto_login)
-        requireLogin(requireContext(), userManager, requireLoginView, requireLoginButton)
-        akun_tv_ubahakun.setOnClickListener {
-            view.findNavController().navigate(R.id.action_akunFragment_to_infoAkunFragment2)
-        }
-        val viewModel = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
-        viewModel.userDetailLiveData.observe(viewLifecycleOwner){
-            if (it != null){
-                if (it.imageUrl != null){
-                    Glide.with(requireContext()).load(it.imageUrl).apply(
-                        RequestOptions()
-                    ).into(imageAkunSaya)
-                }
-            }
-        }
-        userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
-            viewModel.userDetailLive(it)
-        }
+        MarketApplication.isConnected.observe(this, { isConnected ->
+            val connectionInterfaceHandler: LinearLayout = requireView()
+                .findViewById(R.id.dialog_require_internet)
+
+            if (!isConnected) {
+                connectionInterfaceHandler.layoutParams.height = getDeviceScreenHeight(requireActivity())
+                connectionInterfaceHandler.visibility = View.VISIBLE
+            } else {
+                connectionInterfaceHandler.visibility = View.GONE
+
+                val requireLoginView: LinearLayout = requireView().findViewById(R.id.dialog_require_login)
+                val requireLoginButton: Button = requireView().findViewById(R.id.btn_require_goto_login)
+                val isLoggedIn = requireLogin(
+                    requireActivity(),
+                    requireContext(),
+                    userManager,
+                    requireLoginView,
+                    requireLoginButton
+                )
+
+                if (isLoggedIn) {
+                    akun_tv_ubahakun.setOnClickListener {
+                        view.findNavController().navigate(R.id.action_akunFragment_to_infoAkunFragment2)
+                    }
+                    val viewModel = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
+                    viewModel.userDetailLiveData.observe(viewLifecycleOwner){
+                        if (it != null){
+                            if (it.imageUrl != null){
+                                Glide.with(requireContext()).load(it.imageUrl).apply(
+                                    RequestOptions()
+                                ).into(imageAkunSaya)
+                            }
+                        }
+                    }
+                    userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
+                        viewModel.userDetailLive(it)
+                    }
 
 
-        btn_logout.setOnClickListener {
-            alertDialog(requireContext(), "Logout", "Are you sure want to log out?") {
-                GlobalScope.launch {
-                    userManager.clearDataPreferences()
+                    btn_logout.setOnClickListener {
+                        alertDialog(requireContext(), "Logout", "Are you sure want to log out?") {
+                            GlobalScope.launch {
+                                userManager.clearDataPreferences()
+                            }
+                            toast(requireContext(), "You are logged out")
+                            requireActivity().startActivity(Intent(requireContext(), MainActivity::class.java))
+                            requireActivity().finish()
+                        }
+                    }
                 }
-                toast(requireContext(), "You are logged out")
-                requireActivity().startActivity(Intent(requireContext(), MainActivity::class.java))
-                requireActivity().finish()
             }
-        }
+        })
     }
 }

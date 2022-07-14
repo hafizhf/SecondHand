@@ -56,6 +56,7 @@
         <entry key="..\:/Users/Muhajir/AndroidStudioProjects/SecondHand/app/src/main/res/layout/item_terjual.xml" value="0.36302083333333335" />
         <entry key="..\:/Users/Muhajir/AndroidStudioProjects/SecondHand/app/src/main/res/layout/list_kategori.xml" value="0.5" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable/component_border.xml" value="0.22552083333333334" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable/ic_disconnected.xml" value="1.2035714285714285" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable/ic_require_login.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable/placeholder.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/activity_auth.xml" value="0.12771739130434784" />
@@ -64,10 +65,12 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/component_example.xml" value="0.209375" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/dialog_alert.xml" value="0.209375" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/dialog_quick_notification.xml" value="0.209375" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/dialog_require_internet.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/dialog_require_login.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/dialog_success.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_aksesoris.xml" value="0.13903985507246377" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_akun.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_cart.xml" value="0.13179347826086957" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_daftar_jual.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_detail.xml" value="0.22" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_detail_bottom_dialog.xml" value="0.25" />
@@ -75,6 +78,11 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_elektronik.xml" value="0.13903985507246377" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_hobi.xml" value="0.13903985507246377" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home.xml" value="0.22" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home_electronic.xml" value="0.13179347826086957" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home_fashion.xml" value="0.13179347826086957" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home_more_category.xml" value="0.13179347826086957" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home_result_list.xml" value="0.13179347826086957" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home_sub_fashion.xml" value="0.13179347826086957" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_info_akun.xml" value="0.22" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_info_penawar.xml" value="0.2" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_jual.xml" value="0.22" />

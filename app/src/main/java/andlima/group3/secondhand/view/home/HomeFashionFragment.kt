@@ -1,20 +1,17 @@
 package andlima.group3.secondhand.view.home
 
+import andlima.group3.secondhand.MarketApplication
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
-import andlima.group3.secondhand.func.homeSearchView
-import andlima.group3.secondhand.func.navigateToDetailProduct
-import andlima.group3.secondhand.func.showCartQuantity
+import andlima.group3.secondhand.func.*
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.view.adapter.ProductPreviewAdapter
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -40,58 +37,70 @@ class HomeFashionFragment : Fragment() {
 
         userManager = UserManager(requireContext())
 
-        homeSearchView(requireView(), requireContext(), requireActivity(), this, this)
-        showCartQuantity(requireView(), this, this, userManager)
+        MarketApplication.isConnected.observe(this, { isConnected ->
+            val connectionInterfaceHandler: LinearLayout = requireView()
+                .findViewById(R.id.dialog_require_internet)
 
-        // Back button on top bar
-        requireView().findViewById<ImageView>(R.id.btn_back).visibility = View.VISIBLE
-        requireView().findViewById<ImageView>(R.id.btn_back).setOnClickListener {
-            parentFragmentManager.popBackStack()
-        }
+            if (!isConnected) {
+                connectionInterfaceHandler.layoutParams.height = getDeviceScreenHeight(requireActivity())
+                connectionInterfaceHandler.visibility = View.VISIBLE
+            } else {
+                connectionInterfaceHandler.visibility = View.GONE
 
-        // Go to buyer order list / cart
-        requireView().findViewById<RelativeLayout>(R.id.btn_goto_cart).setOnClickListener {
-            Navigation.findNavController(view)
-                .navigate(R.id.action_homeFashionFragment_to_cartFragment)
-        }
+                homeSearchView(requireView(), requireContext(), requireActivity(), this, this)
+                showCartQuantity(requireView(), this, this, userManager)
 
-        getClothesProduct()
-        getShoesProduct()
-        getBagProduct()
-        getMuslimFashionProduct()
-        getKidFashionProduct()
-        getAccessoriesFashionProduct()
+                // Back button on top bar
+                requireView().findViewById<ImageView>(R.id.btn_back).visibility = View.VISIBLE
+                requireView().findViewById<ImageView>(R.id.btn_back).setOnClickListener {
+                    parentFragmentManager.popBackStack()
+                }
 
-        actionButtonMore(
-            R.id.btn_goto_clothes_more,
-            R.id.action_homeFashionFragment_to_homeSubFashionFragment,
-            1
-        )
-        actionButtonMore(
-            R.id.btn_goto_shoes_more,
-            R.id.action_homeFashionFragment_to_homeSubFashionFragment,
-            2
-        )
-        actionButtonMore(
-            R.id.btn_goto_bag_more,
-            R.id.action_homeFashionFragment_to_homeSubFashionFragment,
-            3
-        )
-        actionButtonMore(
-            R.id.btn_goto_muslim_more,
-            R.id.action_homeFashionFragment_to_homeResultListFragment,
-            109
-        )
-        actionButtonMore(
-            R.id.btn_goto_fashion_kid_more,
-            R.id.action_homeFashionFragment_to_homeResultListFragment,
-            110
-        )
-        actionButtonMore(
-            R.id.btn_goto_accessories_more,
-            R.id.action_homeFashionFragment_to_homeResultListFragment,
-            102
-        )
+                // Go to buyer order list / cart
+                requireView().findViewById<RelativeLayout>(R.id.btn_goto_cart).setOnClickListener {
+                    Navigation.findNavController(view)
+                        .navigate(R.id.action_homeFashionFragment_to_cartFragment)
+                }
+
+                getClothesProduct()
+                getShoesProduct()
+                getBagProduct()
+                getMuslimFashionProduct()
+                getKidFashionProduct()
+                getAccessoriesFashionProduct()
+
+                actionButtonMore(
+                    R.id.btn_goto_clothes_more,
+                    R.id.action_homeFashionFragment_to_homeSubFashionFragment,
+                    1
+                )
+                actionButtonMore(
+                    R.id.btn_goto_shoes_more,
+                    R.id.action_homeFashionFragment_to_homeSubFashionFragment,
+                    2
+                )
+                actionButtonMore(
+                    R.id.btn_goto_bag_more,
+                    R.id.action_homeFashionFragment_to_homeSubFashionFragment,
+                    3
+                )
+                actionButtonMore(
+                    R.id.btn_goto_muslim_more,
+                    R.id.action_homeFashionFragment_to_homeResultListFragment,
+                    109
+                )
+                actionButtonMore(
+                    R.id.btn_goto_fashion_kid_more,
+                    R.id.action_homeFashionFragment_to_homeResultListFragment,
+                    110
+                )
+                actionButtonMore(
+                    R.id.btn_goto_accessories_more,
+                    R.id.action_homeFashionFragment_to_homeResultListFragment,
+                    102
+                )
+            }
+        })
     }
 
     private fun actionButtonMore(textId: Int, navigationId: Int, requestCode: Int = 0) {

@@ -1,5 +1,6 @@
 package andlima.group3.secondhand.view
 
+import andlima.group3.secondhand.MarketApplication
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -36,26 +37,45 @@ class DaftarJualFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = AdapterDaftarJualPager(childFragmentManager)
-        viewpager_daftar_jual.adapter = adapter
-        viewpager_daftar_jual.layoutParams.height = getDeviceScreenHeight(requireActivity()) + 100
-        tabs_daftar_jual.setupWithViewPager(viewpager_daftar_jual)
-        adapter.notifyDataSetChanged()
-
-
         val userManager = UserManager(requireContext())
 
-        val requireLoginView: LinearLayout = requireView().findViewById(R.id.dialog_require_login)
-        val requireLoginButton: Button = requireView().findViewById(R.id.btn_require_goto_login)
-        requireLogin(requireContext(), userManager, requireLoginView, requireLoginButton)
+        MarketApplication.isConnected.observe(this, { isConnected ->
+            val connectionInterfaceHandler: LinearLayout = requireView()
+                .findViewById(R.id.dialog_require_internet)
 
-        userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
-            getDataSeller(it)
-            Log.d("AKSES TOKEN", it)
-        }
-        buttonEdit.setOnClickListener {
-            view.findNavController().navigate(R.id.action_mainContainerFragment_to_infoAkunFragment)
-        }
+            if (!isConnected) {
+                connectionInterfaceHandler.layoutParams.height = getDeviceScreenHeight(requireActivity())
+                connectionInterfaceHandler.visibility = View.VISIBLE
+            } else {
+                connectionInterfaceHandler.visibility = View.GONE
+
+                val requireLoginView: LinearLayout = requireView().findViewById(R.id.dialog_require_login)
+                val requireLoginButton: Button = requireView().findViewById(R.id.btn_require_goto_login)
+                val isLoggedIn = requireLogin(
+                    requireActivity(),
+                    requireContext(),
+                    userManager,
+                    requireLoginView,
+                    requireLoginButton
+                )
+
+                if (isLoggedIn) {
+                    val adapter = AdapterDaftarJualPager(childFragmentManager)
+                    viewpager_daftar_jual.adapter = adapter
+                    viewpager_daftar_jual.layoutParams.height = getDeviceScreenHeight(requireActivity()) + 100
+                    tabs_daftar_jual.setupWithViewPager(viewpager_daftar_jual)
+                    adapter.notifyDataSetChanged()
+
+                    userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
+                        getDataSeller(it)
+                        Log.d("AKSES TOKEN", it)
+                    }
+                    buttonEdit.setOnClickListener {
+                        view.findNavController().navigate(R.id.action_mainContainerFragment_to_infoAkunFragment)
+                    }
+                }
+            }
+        })
     }
 
 

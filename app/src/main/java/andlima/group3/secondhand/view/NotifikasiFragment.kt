@@ -1,11 +1,13 @@
 package andlima.group3.secondhand.view
 
+import andlima.group3.secondhand.MarketApplication
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
+import andlima.group3.secondhand.func.getDeviceScreenHeight
 import andlima.group3.secondhand.func.requireLogin
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
@@ -48,14 +50,33 @@ class NotifikasiFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         userManager = UserManager(requireContext())
 
-        val requireLoginView: LinearLayout = requireView().findViewById(R.id.dialog_require_login)
-        val requireLoginButton: Button = requireView().findViewById(R.id.btn_require_goto_login)
-        requireLogin(requireContext(), userManager, requireLoginView, requireLoginButton)
-        userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
-            getNotifs(it)
-        }
+        MarketApplication.isConnected.observe(this, { isConnected ->
+            val connectionInterfaceHandler: LinearLayout = requireView()
+                .findViewById(R.id.dialog_require_internet)
 
+            if (!isConnected) {
+                connectionInterfaceHandler.layoutParams.height = getDeviceScreenHeight(requireActivity())
+                connectionInterfaceHandler.visibility = View.VISIBLE
+            } else {
+                connectionInterfaceHandler.visibility = View.GONE
 
+                val requireLoginView: LinearLayout = requireView().findViewById(R.id.dialog_require_login)
+                val requireLoginButton: Button = requireView().findViewById(R.id.btn_require_goto_login)
+                val isLoggedIn = requireLogin(
+                    requireActivity(),
+                    requireContext(),
+                    userManager,
+                    requireLoginView,
+                    requireLoginButton
+                )
+
+                if (isLoggedIn) {
+                    userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
+                        getNotifs(it)
+                    }
+                }
+            }
+        })
     }
 
     fun getNotifs(token : String){
@@ -91,21 +112,5 @@ class NotifikasiFragment : Fragment() {
             }
         }
         viewModel.notifUserLive(token)
-
-
-
-
-
-
     }
-
-    companion object {
-        fun newInstane(): NotifikasiFragment {
-            val fragment = NotifikasiFragment()
-            val args = Bundle()
-            fragment.arguments = args
-            return fragment
-        }
-    }
-
 }

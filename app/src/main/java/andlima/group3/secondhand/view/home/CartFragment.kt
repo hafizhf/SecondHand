@@ -1,5 +1,6 @@
 package andlima.group3.secondhand.view.home
 
+import andlima.group3.secondhand.MarketApplication
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,6 +17,8 @@ import andlima.group3.secondhand.view.adapter.ProductPreviewAdapter
 import andlima.group3.secondhand.view.bottomsheet.DetailBottomDialogFragment
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
 import android.annotation.SuppressLint
+import android.widget.Button
+import android.widget.LinearLayout
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
@@ -39,15 +42,38 @@ class CartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        userManager = UserManager(requireContext())
-
-        getBuyerOrderListData()
     }
 
     override fun onResume() {
         super.onResume()
-        getBuyerOrderListData()
+
+        userManager = UserManager(requireContext())
+
+        MarketApplication.isConnected.observe(this, { isConnected ->
+            val connectionInterfaceHandler: LinearLayout = requireView()
+                .findViewById(R.id.dialog_require_internet)
+
+            if (!isConnected) {
+                connectionInterfaceHandler.layoutParams.height = getDeviceScreenHeight(requireActivity())
+                connectionInterfaceHandler.visibility = View.VISIBLE
+            } else {
+                connectionInterfaceHandler.visibility = View.GONE
+
+                val requireLoginView: LinearLayout = requireView().findViewById(R.id.dialog_require_login)
+                val requireLoginButton: Button = requireView().findViewById(R.id.btn_require_goto_login)
+                val isLoggedIn = requireLogin(
+                    requireActivity(),
+                    requireContext(),
+                    userManager,
+                    requireLoginView,
+                    requireLoginButton
+                )
+
+                if (isLoggedIn) {
+                    getBuyerOrderListData()
+                }
+            }
+        })
     }
 
     @SuppressLint("NotifyDataSetChanged")

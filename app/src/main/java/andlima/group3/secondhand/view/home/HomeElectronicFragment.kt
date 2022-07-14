@@ -1,22 +1,19 @@
 package andlima.group3.secondhand.view.home
 
+import andlima.group3.secondhand.MarketApplication
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
-import andlima.group3.secondhand.func.homeSearchView
-import andlima.group3.secondhand.func.navigateToDetailProduct
-import andlima.group3.secondhand.func.showCartQuantity
+import andlima.group3.secondhand.func.*
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.model.home.newhome.ProductItemResponse
 import andlima.group3.secondhand.view.adapter.ProductPreviewAdapter
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
 import android.annotation.SuppressLint
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.core.os.bundleOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
@@ -43,40 +40,52 @@ class HomeElectronicFragment : Fragment() {
 
         userManager = UserManager(requireContext())
 
-        homeSearchView(requireView(), requireContext(), requireActivity(), this, this)
-        showCartQuantity(requireView(), this, this, userManager)
+        MarketApplication.isConnected.observe(this, { isConnected ->
+            val connectionInterfaceHandler: LinearLayout = requireView()
+                .findViewById(R.id.dialog_require_internet)
 
-        // Back button on top bar
-        requireView().findViewById<ImageView>(R.id.btn_back).visibility = View.VISIBLE
-        requireView().findViewById<ImageView>(R.id.btn_back).setOnClickListener {
-            parentFragmentManager.popBackStack()
-        }
+            if (!isConnected) {
+                connectionInterfaceHandler.layoutParams.height = getDeviceScreenHeight(requireActivity())
+                connectionInterfaceHandler.visibility = View.VISIBLE
+            } else {
+                connectionInterfaceHandler.visibility = View.GONE
 
-        // Go to buyer order list / cart
-        requireView().findViewById<RelativeLayout>(R.id.btn_goto_cart).setOnClickListener {
-            Navigation.findNavController(view)
-                .navigate(R.id.action_homeElectronicFragment_to_cartFragment)
-        }
+                homeSearchView(requireView(), requireContext(), requireActivity(), this, this)
+                showCartQuantity(requireView(), this, this, userManager)
 
-        getComputerProducts()
-        getPhoneProducts()
-        getElectronicProducts()
+                // Back button on top bar
+                requireView().findViewById<ImageView>(R.id.btn_back).visibility = View.VISIBLE
+                requireView().findViewById<ImageView>(R.id.btn_back).setOnClickListener {
+                    parentFragmentManager.popBackStack()
+                }
 
-        actionButtonMore(
-            R.id.btn_goto_handphone_more,
-            R.id.action_homeElectronicFragment_to_homeResultListFragment,
-            98
-        )
-        actionButtonMore(
-            R.id.btn_goto_computer_more,
-            R.id.action_homeElectronicFragment_to_homeResultListFragment,
-            97
-        )
-        actionButtonMore(
-            R.id.btn_goto_electronic_more_more,
-            R.id.action_homeElectronicFragment_to_homeResultListFragment,
-            96
-        )
+                // Go to buyer order list / cart
+                requireView().findViewById<RelativeLayout>(R.id.btn_goto_cart).setOnClickListener {
+                    Navigation.findNavController(view)
+                        .navigate(R.id.action_homeElectronicFragment_to_cartFragment)
+                }
+
+                getComputerProducts()
+                getPhoneProducts()
+                getElectronicProducts()
+
+                actionButtonMore(
+                    R.id.btn_goto_handphone_more,
+                    R.id.action_homeElectronicFragment_to_homeResultListFragment,
+                    98
+                )
+                actionButtonMore(
+                    R.id.btn_goto_computer_more,
+                    R.id.action_homeElectronicFragment_to_homeResultListFragment,
+                    97
+                )
+                actionButtonMore(
+                    R.id.btn_goto_electronic_more_more,
+                    R.id.action_homeElectronicFragment_to_homeResultListFragment,
+                    96
+                )
+            }
+        })
     }
 
     private fun actionButtonMore(textId: Int, navigationId: Int, requestCode: Int = 0) {

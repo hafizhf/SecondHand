@@ -1,24 +1,20 @@
 package andlima.group3.secondhand.view.home
 
+import andlima.group3.secondhand.MarketApplication
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
-import andlima.group3.secondhand.func.homeSearchView
-import andlima.group3.secondhand.func.navigateToDetailProduct
-import andlima.group3.secondhand.func.showCartQuantity
-import andlima.group3.secondhand.func.toast
+import andlima.group3.secondhand.func.*
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.view.adapter.ProductPreviewAdapter
 import andlima.group3.secondhand.view.adapter.ProductResultAdapter
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
 import android.annotation.SuppressLint
 import android.util.Log
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
@@ -44,36 +40,48 @@ class HomeResultListFragment : Fragment() {
 
         userManager = UserManager(requireContext())
 
-        homeSearchView(requireView(), requireContext(), requireActivity(), this, this, true)
-        showCartQuantity(requireView(), this, this, userManager)
+        MarketApplication.isConnected.observe(this, { isConnected ->
+            val connectionInterfaceHandler: LinearLayout = requireView()
+                .findViewById(R.id.dialog_require_internet)
 
-        // Back button on top bar
-        requireView().findViewById<ImageView>(R.id.btn_back).visibility = View.VISIBLE
-        requireView().findViewById<ImageView>(R.id.btn_back).setOnClickListener {
-            parentFragmentManager.popBackStack()
-        }
+            if (!isConnected) {
+                connectionInterfaceHandler.layoutParams.height = getDeviceScreenHeight(requireActivity())
+                connectionInterfaceHandler.visibility = View.VISIBLE
+            } else {
+                connectionInterfaceHandler.visibility = View.GONE
 
-        // Go to buyer order list / cart
-        requireView().findViewById<RelativeLayout>(R.id.btn_goto_cart).setOnClickListener {
-            Navigation.findNavController(view)
-                .navigate(R.id.action_homeResultListFragment_to_cartFragment)
-        }
+                homeSearchView(requireView(), requireContext(), requireActivity(), this, this, true)
+                showCartQuantity(requireView(), this, this, userManager)
 
-        val requestCode = arguments?.getInt("REQUEST_CODE")
-        val searchKeyword = arguments?.getString("SEARCH_KEYWORD")
+                // Back button on top bar
+                requireView().findViewById<ImageView>(R.id.btn_back).visibility = View.VISIBLE
+                requireView().findViewById<ImageView>(R.id.btn_back).setOnClickListener {
+                    parentFragmentManager.popBackStack()
+                }
 
-        val searchResultTitle: TextView = requireView().findViewById(R.id.tv_search_result)
-        val resultTitle: TextView = requireView().findViewById(R.id.tv_result_title)
+                // Go to buyer order list / cart
+                requireView().findViewById<RelativeLayout>(R.id.btn_goto_cart).setOnClickListener {
+                    Navigation.findNavController(view)
+                        .navigate(R.id.action_homeResultListFragment_to_cartFragment)
+                }
 
-        if (searchKeyword != null) {
-            resultTitle.text = getResultTitle(10, searchKeyword)
-            getResult(10, searchKeyword)
-        } else {
-            if (requestCode != null) {
-                resultTitle.text = getResultTitle(requestCode)
-                getResult(requestCode)
+                val requestCode = arguments?.getInt("REQUEST_CODE")
+                val searchKeyword = arguments?.getString("SEARCH_KEYWORD")
+
+                val searchResultTitle: TextView = requireView().findViewById(R.id.tv_search_result)
+                val resultTitle: TextView = requireView().findViewById(R.id.tv_result_title)
+
+                if (searchKeyword != null) {
+                    resultTitle.text = getResultTitle(10, searchKeyword)
+                    getResult(10, searchKeyword)
+                } else {
+                    if (requestCode != null) {
+                        resultTitle.text = getResultTitle(requestCode)
+                        getResult(requestCode)
+                    }
+                }
             }
-        }
+        })
     }
 
     private fun getResultTitle(requestCode: Int?, searchKeyword: String? = null): String {

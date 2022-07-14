@@ -286,4 +286,6 @@
 
     <include layout="@layout/dialog_require_login"/>
 
+    <include layout="@layout/dialog_require_internet"/>
+
 </RelativeLayout>
