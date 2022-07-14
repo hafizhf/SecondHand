@@ -78,13 +78,20 @@ class InfoAkunFragment : Fragment() {
 
 
             val alamat = infoAkun_et_alamat.text.toString()
-            val nohp = infoAkun_et_nohp.text.toString().toInt()
-            if (nama.isNotBlank()  && alamat.isNotBlank()){
-                userManager.accessTokenFlow.asLiveData().observeOnce(viewLifecycleOwner){
-                    profile(it,nama,pilihan,alamat,nohp)
+            val nohp = infoAkun_et_nohp.text.toString()
+            if (nohp.startsWith("62")){
+                if (nama.isNotBlank()  && alamat.isNotBlank() && pilihan.isNotBlank()){
+                    userManager.accessTokenFlow.asLiveData().observeOnce(viewLifecycleOwner){
+                        profile(it,nama,pilihan,alamat,nohp)
 
+                    }
+                }else{
+                    toast(requireContext(), "Isi semua data")
                 }
+            }else{
+                toast(requireContext(), "Nomor HP harus diawali dengan 62")
             }
+
         }
         ImageProfileInfoAkun.setOnClickListener {
             setImageprofile()
@@ -170,7 +177,7 @@ class InfoAkunFragment : Fragment() {
 
             }
             }
-    fun profile(token: String,nama : String, kota : String, alamat : String, nohp : Int){
+    fun profile(token: String,nama : String, kota : String, alamat : String, nohp : String){
         val viewModel = ViewModelProvider(requireActivity()).get(ProfileViewModel::class.java)
         viewModel.profileLiveData.observe(requireActivity()){
             when (it) {
@@ -212,62 +219,19 @@ class InfoAkunFragment : Fragment() {
         }else {
         }
     }
-//    fun getDataUser(token : String){
-//        val viewModel = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
-//        viewModel.userDetailLiveData.observeOnce(viewLifecycleOwner){
-//            if (it != null){
-//                if (it.imageUrl != null){
-//                    Glide.with(requireContext()).load(it.imageUrl).apply(
-//                        RequestOptions()
-//                    ).into(ImageProfileInfoAkun)
-//                }
-//                if (it.address != "A"){
-//                    infoAkun_et_alamat.setText(it.address)
-//                }
-//                if (it.city != "sementara"){
-//                    infoAkun_et_kota.setText(it.city)
-//                }
-//                if (it.phoneNumber.equals(0)){
 //
-//                }else{
-//                    infoAkun_et_nohp.setText(it.phoneNumber.toString())
-//                }
-//                infoAkun_et_nama.setText(it.fullName)
-//
-//            }
-//        }
-//        viewModel.userDetailLive(token)
-//    }
     fun setDataImagee(it : Uri){
         val contentResolver = requireActivity().contentResolver
-
         // image/png or jpeg or gif
-
         val type = contentResolver.getType(it)
-
         // temp-712793019827391820739.tmp < nano time, directory
-
         // akan terbuat secara otomatis kalau value nya null,> akan di simpan dalam dir cache
-
         val tempFile = File.createTempFile("temp-", null, null)
-
         val inputstream = contentResolver.openInputStream(it)
-
-
-
-
         tempFile.outputStream().use {
-
             inputstream?.copyTo(it)
-
         }
-
-
-
-
         val requestBody: RequestBody = tempFile.asRequestBody(type?.toMediaType())
-
-
         body =
             MultipartBody.Part.createFormData("image", tempFile.name, requestBody)
     }

@@ -13,6 +13,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import javax.inject.Inject
 
 
@@ -37,9 +40,17 @@ class UserViewModel @Inject constructor(private val repository : UserRepository)
     }
 
 
-    fun registerLiveData(fullName : String, email : String, password : String, phoneNumber : Int,address : String, city : String){
+    fun registerLiveData(fullName : String, email : String, password : String, phoneNumber : String,address : String, city : String){
         viewModelScope.launch {
-            repository.registerRepo(fullName, email, password, phoneNumber, address, city ,registerLiveData)
+            val fullName2 = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), fullName)
+            val email2 = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), email)
+            val password2 = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), password)
+            val phoneNumber2 = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), phoneNumber.toString())
+            val address2 = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), address)
+            val city2 = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), city)
+
+
+            repository.registerRepo(fullName2, email2, password2, phoneNumber2, address2, city2,registerLiveData)
         }
     }
     fun userDetailLive(token : String){

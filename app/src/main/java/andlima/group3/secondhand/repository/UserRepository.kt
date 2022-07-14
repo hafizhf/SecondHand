@@ -9,6 +9,8 @@ import andlima.group3.secondhand.model.user.UserDetailResponse
 import andlima.group3.secondhand.network.ApiService
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,9 +19,8 @@ import javax.inject.Inject
 
 class UserRepository @Inject constructor(private val apiService: ApiService) {
     val listProduk : MutableList<ProductResponse> = mutableListOf()
-
-    fun registerRepo(fullName : String, email : String, password : String, phoneNumber : Int,
-                     address : String,city : String,liveData: MutableLiveData<String>){
+    fun registerRepo(fullName : RequestBody, email : RequestBody, password : RequestBody, phoneNumber : RequestBody,
+                     address : RequestBody,city : RequestBody,liveData: MutableLiveData<String>){
         val call : Call<RegisterResponse> = apiService.registerUser(fullName, email, password, phoneNumber, address, city)
         call?.enqueue(object : Callback<RegisterResponse>{
             override fun onResponse(

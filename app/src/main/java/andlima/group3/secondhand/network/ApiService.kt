@@ -20,15 +20,15 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface ApiService {
+    @Multipart
     @POST("auth/register")
-    @FormUrlEncoded
     fun registerUser(
-        @Field("full_name") fullName : String,
-        @Field("email") email : String,
-        @Field("password") password : String,
-        @Field("phone_number") phoneNumber : Int,
-        @Field("address") address :String,
-        @Field("city") city :String
+        @Part("full_name") fullName : RequestBody,
+        @Part("email") email : RequestBody,
+        @Part("password") password : RequestBody,
+        @Part("phone_number") phoneNumber : RequestBody,
+        @Part("address") address :RequestBody,
+        @Part("city") city :RequestBody
     ) : Call<RegisterResponse>
 //--------------------------------------------------------------------------------------------------------
     @Multipart
@@ -70,7 +70,8 @@ interface ApiService {
 
     @GET("seller/order")
     fun getSellerAllOrder(
-        @Header("access_token") accessToken: String
+        @Header("access_token") accessToken: String,
+        @Query("status") status : String = "pending"
     ) : Call<List<SellerOrdersItem>>
 
     @Multipart
