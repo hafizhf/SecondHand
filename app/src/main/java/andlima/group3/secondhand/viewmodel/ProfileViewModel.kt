@@ -28,7 +28,7 @@ class ProfileViewModel  @Inject constructor(private val repository : ProfileRepo
 
 
     fun profileLiveData(
-        accesstoken : String, nama: String, kota: String, alamat: String, nohp: Int, image :MultipartBody.Part
+        accesstoken : String, nama: String, kota: String, alamat: String, nohp: String, image :MultipartBody.Part
     ) {
         viewModelScope.launch {
             val namaa = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), nama)

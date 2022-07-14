@@ -179,22 +179,29 @@ class JualFragment : Fragment() {
 
             var lokasi = "sementara"
 
+            if (nama.isNotBlank() && description.isNotBlank() && basePrice.toString().isNotBlank() && gambarSeller.isNotEmpty() && listDataID.isNotEmpty()){
+                userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
+                    viewModel2.userDetailLiveData.observe(viewLifecycleOwner){
+                        lokasi = it.city
 
+                    }
+                    viewModel2.userDetailLive(it)
+                    Handler().postDelayed({
+                        postProduct(it,nama, description, basePrice, listDataID,lokasi)
 
-            userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
-                viewModel2.userDetailLiveData.observe(viewLifecycleOwner){
-                    lokasi = it.city
+                    }, 1000)
 
+                    Log.d("AKSES TOKEN", it)
                 }
-                viewModel2.userDetailLive(it)
-                Handler().postDelayed({
-                    postProduct(it,nama, description, basePrice, listDataID,lokasi)
+            }else{
+                toast(requireContext(), "Lengkapi semua data produk")
 
-                }, 1000)
-
-                Log.d("AKSES TOKEN", it)
             }
-        }
+            }
+
+
+
+
         imageFotoProduk.setOnClickListener {
             setImage()
         }
