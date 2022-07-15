@@ -136,8 +136,8 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <include layout="@layout/search_layout"/>
-
     <include layout="@layout/dialog_require_internet"/>
+
+    <include layout="@layout/search_layout"/>
 
 </RelativeLayout>

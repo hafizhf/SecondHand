@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.getDeviceScreenHeight
 import andlima.group3.secondhand.func.requireLogin
+import andlima.group3.secondhand.func.showPageLoading
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.model.kategori.KategoriPilihan
@@ -72,6 +73,7 @@ class NotifikasiFragment : Fragment() {
 
                 if (isLoggedIn) {
                     userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
+                        showPageLoading(requireView(), true)
                         getNotifs(it)
                     }
                 }
@@ -82,7 +84,7 @@ class NotifikasiFragment : Fragment() {
     fun getNotifs(token : String){
         val viewModel = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
         viewModel.notifLiveDataResponse.observe(viewLifecycleOwner){
-
+            showPageLoading(requireView(), false)
             if (it.isNotEmpty()){
                 val notifAdapter = NotifikasiAdapter{
                     if (it.read.equals(false)){

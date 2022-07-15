@@ -9,26 +9,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
-import andlima.group3.secondhand.func.alertDialog
-import andlima.group3.secondhand.func.getDeviceScreenHeight
+import andlima.group3.secondhand.func.*
 
-import andlima.group3.secondhand.func.requireLogin
-import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.viewmodel.SellerViewModel
 import andlima.group3.secondhand.viewmodel.UserViewModel
+import android.annotation.SuppressLint
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.util.Log
 
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 
 import kotlinx.android.synthetic.main.fragment_akun.*
 import kotlinx.android.synthetic.main.item_terjual.view.*
@@ -49,6 +57,7 @@ class AkunFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_akun, container, false)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -79,20 +88,77 @@ class AkunFragment : Fragment() {
                     akun_tv_ubahakun.setOnClickListener {
                         view.findNavController().navigate(R.id.action_akunFragment_to_infoAkunFragment2)
                     }
-                    val viewModel = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
+                    val viewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
                     viewModel.userDetailLiveData.observe(viewLifecycleOwner){
                         if (it != null){
+                            val isImageLoaded = MutableLiveData<Boolean>(false)
+
                             if (it.imageUrl != null){
-                                Glide.with(requireContext()).load(it.imageUrl).apply(
-                                    RequestOptions()
-                                ).into(imageAkunSaya)
+                                Glide.with(requireContext())
+                                    .load(it.imageUrl)
+                                    .apply(RequestOptions())
+                                    .listener(object : RequestListener<Drawable>{
+                                        override fun onLoadFailed(
+                                            e: GlideException?,
+                                            model: Any?,
+                                            target: Target<Drawable>?,
+                                            isFirstResource: Boolean
+                                        ): Boolean {
+                                            isImageLoaded.postValue(false)
+                                            return false
+                                        }
+
+                                        override fun onResourceReady(
+                                            resource: Drawable?,
+                                            model: Any?,
+                                            target: Target<Drawable>?,
+                                            dataSource: DataSource?,
+                                            isFirstResource: Boolean
+                                        ): Boolean {
+                                            isImageLoaded.postValue(true)
+
+                                            return false
+                                        }
+
+                                    })
+                                    .into(imageAkunSaya)
+
+                            } else {
+                                isImageLoaded.postValue(false)
                             }
+
+//                            val profileImage: ImageView = requireView().findViewById(R.id.imageAkunSaya)
+//                            val profileBackground: CardView = requireView().findViewById(R.id.cv_background_user_profile)
+//
+//                            isImageLoaded.observe(this, { imageLoaded ->
+//                                if (imageLoaded) {
+//                                    setBackgroundProfile(
+//                                        requireView(),
+//                                        profileImage,
+//                                        profileBackground
+//                                    )
+//                                } else {
+//                                    setBackgroundProfile(
+//                                        requireView(),
+//                                        profileImage,
+//                                        profileBackground
+//                                    )
+//                                }
+//                            })
+
+                            requireView().findViewById<TextView>(R.id.tv_user_name_profile)
+                                .text = it.fullName
+                            requireView().findViewById<TextView>(R.id.tv_user_phone_profile)
+                                .text = "+62 ${it.phoneNumber}"
+                            requireView().findViewById<TextView>(R.id.tv_user_address_profile)
+                                .text = it.address
+                            requireView().findViewById<TextView>(R.id.tv_user_city_profile)
+                                .text = it.city
                         }
                     }
                     userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
                         viewModel.userDetailLive(it)
                     }
-
 
                     btn_logout.setOnClickListener {
                         alertDialog(requireContext(), "Logout", "Are you sure want to log out?") {

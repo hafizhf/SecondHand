@@ -12,26 +12,29 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/txtDaftarJualSaya"
                 style="@style/Heading1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="25dp"
                 android:text="@string/daftar_jual_saya" />
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_below="@id/txtDaftarJualSaya"
-                app:cardElevation="4dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/second_hand_neutral5"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginStart="15dp"
+                android:layout_marginEnd="25dp"
+                android:layout_marginStart="25dp"
                 android:id="@+id/cardPenjual"
-                app:cardCornerRadius="14dp">
+                app:cardCornerRadius="15dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -39,44 +42,46 @@
                     android:gravity="center_vertical"
                     android:padding="5dp"
                     android:orientation="horizontal">
+
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:layout_marginStart="15dp"
                         android:id="@+id/imagePenjualDaftarJual"
                         android:src="@drawable/ic_launcher_background"/>
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="24dp">
+                        android:layout_marginStart="24dp"
+                        android:gravity="center_vertical">
 
                         <TextView
+                            android:id="@+id/tv_namaPenjual"
+                            style="@style/Heading3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/nama_penjual"
-                            android:layout_marginTop="16dp"
-                            android:id="@+id/tv_namaPenjual"
-                            style="@style/Heading3"/>
+                            android:text="@string/nama_penjual" />
 
                         <TextView
+                            android:id="@+id/tv_kotaPenjual"
                             style="@style/Body2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/tv_kotaPenjual"
                             android:layout_below="@id/tv_namaPenjual"
                             android:text="@string/kota" />
 
-                        <Button
-                            android:layout_width="70dp"
-                            android:layout_weight="1"
-                            android:layout_height="50dp"
-                            android:id="@+id/buttonEdit"
-                            android:text="Edit"
-                            android:layout_marginEnd="10dp"
-                            android:layout_centerVertical="true"
-                            android:layout_alignParentEnd="true"
-                            android:textSize="16sp"
-                            style="@style/ButtonOutlined"/>
+<!--                        <Button-->
+<!--                            android:id="@+id/buttonEdit"-->
+<!--                            style="@style/ButtonOutlined"-->
+<!--                            android:layout_width="70dp"-->
+<!--                            android:layout_height="50dp"-->
+<!--                            android:layout_alignParentEnd="true"-->
+<!--                            android:layout_centerVertical="true"-->
+<!--                            android:layout_marginEnd="10dp"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:text="Edit"-->
+<!--                            android:textSize="16sp" />-->
 
                     </RelativeLayout>
 
@@ -90,9 +95,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/cardPenjual"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="25dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="25dp"
 
                 android:background="@color/second_hand_transparent"
                 app:tabContentStart="42dp"
@@ -100,9 +105,9 @@
                 app:tabIndicator="@drawable/tab_indicator"
                 app:tabIndicatorGravity="center"
                 app:tabIndicatorHeight="47dp"
-                app:tabPaddingEnd="20dp"
+                app:tabPaddingEnd="0dp"
 
-                app:tabPaddingStart="20dp"
+                app:tabPaddingStart="0dp"
                 app:tabRippleColor="@color/second_hand_transparent"
 
                 app:tabSelectedTextColor="@color/white">
@@ -124,14 +129,16 @@
 
 
             </com.google.android.material.tabs.TabLayout>
+
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewpager_daftar_jual"
                 android:layout_width="match_parent"
                 android:layout_height="400dp"
                 android:layout_below="@id/tabs_daftar_jual"
+                android:layout_marginStart="12.5dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="12.5dp"
+                android:layout_marginBottom="80dp"
                 tools:ignore="SpeakableTextPresentCheck" />
 
         </RelativeLayout>

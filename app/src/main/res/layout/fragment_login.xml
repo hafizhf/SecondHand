@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_margin="20dp"
+<RelativeLayout
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,94 +8,103 @@
     tools:context=".view.LoginFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:id="@+id/login_arrowback"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_fi_arrow_left"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Masuk"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="40dp"
-        android:textSize="30dp"
-        style="@style/Heading1"/>
-    <TextView
-        style="@style/Body1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email"
-        android:layout_marginBottom="10dp"
-        android:textSize="20dp"/>
-    <EditText
-        android:id="@+id/login_et_email"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="contoh: group3@gmail.com"
-        style="@style/InputField"
-        android:layout_marginBottom="20dp"/>
-    <TextView
-        style="@style/Body1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Password"
-        android:textSize="20dp"
-        android:layout_marginBottom="10dp"/>
-    <com.google.android.material.textfield.TextInputLayout
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="20dp">
 
-        android:layout_gravity="center_horizontal"
-        app:passwordToggleEnabled="true"
-        app:boxBackgroundMode="outline"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/login_arrowback"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_fi_arrow_left"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Masuk"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp"
+            android:textSize="30dp"
+            style="@style/Heading1"/>
+        <TextView
+            style="@style/Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:layout_marginBottom="10dp"
+            android:textSize="20dp"/>
         <EditText
-            android:id="@+id/login_et_password"
-            style="@style/InputField"
+            android:id="@+id/login_et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:hint="Masukkan Password"
-            tools:ignore="SpeakableTextPresentCheck" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <Button
-        android:id="@+id/login_btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="Masuk"
-        style="@style/Button"
-        android:layout_marginTop="30dp"/>
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-
-    <LinearLayout
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
+            android:hint="contoh: group3@gmail.com"
+            style="@style/InputField"
+            android:layout_marginBottom="20dp"/>
         <TextView
+            style="@style/Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Belum punya akun?"
-            android:layout_marginRight="10dp"/>
+            android:text="Password"
+            android:textSize="20dp"
+            android:layout_marginBottom="10dp"/>
+        <com.google.android.material.textfield.TextInputLayout
 
-        <TextView
-            android:id="@+id/login_btn_daftar"
+            android:layout_gravity="center_horizontal"
+            app:passwordToggleEnabled="true"
+            app:boxBackgroundMode="outline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/login_et_password"
+                style="@style/InputField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:hint="Masukkan Password"
+                tools:ignore="SpeakableTextPresentCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/login_btn_login"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="Masuk"
+            style="@style/Button"
+            android:layout_marginTop="30dp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Daftar disini"
-            android:textColor="@color/purple_200"
-            android:layout_marginRight="10dp"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Belum punya akun?"
+                android:layout_marginRight="10dp"/>
+
+            <TextView
+                android:id="@+id/login_btn_daftar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Daftar disini"
+                android:textColor="@color/purple_200"
+                android:layout_marginRight="10dp"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
+    <include layout="@layout/dialog_loading"/>
 
-</LinearLayout>
+</RelativeLayout>

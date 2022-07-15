@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.alertDialog
+import andlima.group3.secondhand.func.showPageLoading
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.model.login.GetLoginResponse
@@ -61,6 +62,7 @@ class LoginFragment : Fragment() {
             val password = login_et_password.text.toString()
 
             if (email != "" && password != "") {
+                showPageLoading(requireView(), true, "Logging In")
                 login(email, password)
             } else {
                 Toast.makeText(requireContext(), "Please input all field", Toast.LENGTH_SHORT).show()
@@ -71,6 +73,7 @@ class LoginFragment : Fragment() {
     private fun login(email: String, password: String) {
         val viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         viewModel.requestLogin(email, password) { response, code, message ->
+            showPageLoading(requireView(), false)
             when (code) {
                 201 -> {
                     saveLoginResponse(response, password)

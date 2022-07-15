@@ -32,6 +32,7 @@ import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.*
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
+import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -494,4 +495,45 @@ fun capitalize(string: String): String {
  */
 fun isURLValid(urlString: String): Boolean {
     return Patterns.WEB_URL.matcher(urlString).matches()
+}
+
+/**
+ * Get dominant color of an image
+ */
+fun getDominantColor(imageView: ImageView): Int {
+    val bitmap = (imageView.drawable as BitmapDrawable).bitmap
+    val newBitmap = Bitmap.createScaledBitmap(bitmap, 1, 1, true)
+    val color = newBitmap.getPixel(0,0)
+    newBitmap.recycle()
+
+    return color
+}
+
+fun setBackgroundProfile(view: View, imageView: ImageView, cardView: CardView) {
+    val bitmap = (imageView.drawable as BitmapDrawable).bitmap
+    Palette.from(bitmap).generate {
+        val dominantColor = it
+            ?.getDominantColor(ContextCompat.getColor(view.context, R.color.second_hand_primary))
+        cardView.setCardBackgroundColor(ContextCompat.getColor(view.context, dominantColor!!))
+    }
+}
+
+/**
+ * Require **include layout="@layout/dialog_loading"** in view layout
+ * with RelativeLayout as parent layout
+ */
+fun showPageLoading(view: View, show: Boolean, text: String? = null) {
+    val loadingLayout: LinearLayout = view.findViewById(R.id.loading_layout)
+    val loadingText: TextView = view.findViewById(R.id.tv_loading_title)
+
+    if (show) {
+        loadingLayout.visibility = View.VISIBLE
+
+        if (text != null) {
+            loadingText.text = text
+        }
+
+    } else {
+        loadingLayout.visibility = View.GONE
+    }
 }

@@ -3,39 +3,113 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="15dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="25dp"
     tools:context=".view.AkunFragment">
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_background_user_profile"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/second_hand_neutral5"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="0dp"
+        app:strokeWidth="0dp"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/container_profile_image"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:strokeWidth="0dp"
+        app:cardElevation="0dp"
+        app:cardCornerRadius="100dp"
+        android:layout_marginTop="110dp"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:strokeWidth="0dp"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerInParent="true"
+                android:backgroundTint="@color/white">
+
+                <ImageView
+                    android:id="@+id/imageAkunSaya"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_placeholder_user"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </RelativeLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
     <TextView
+        android:id="@+id/tv_user_name_profile"
+        style="@style/Heading1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/akun_saya"
-        android:id="@+id/txtAkunSaya"
-        style="@style/Heading1"/>
-
-    <ImageButton
-        android:id="@+id/imageAkunSaya"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_below="@id/txtAkunSaya"
+        android:layout_below="@+id/container_profile_image"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/component_border"
-        android:backgroundTint="#E2D4F0"
-        android:src="@drawable/ic_fi_camera"
-        tools:ignore="SpeakableTextPresentCheck" />
+        android:text="Name"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/tv_user_phone_profile"
+        style="@style/Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_user_name_profile"
+        android:layout_centerHorizontal="true"
+        android:text="+62 123456" />
+
+    <TextView
+        android:id="@+id/tv_user_address_profile"
+        style="@style/Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_user_phone_profile"
+        android:layout_centerHorizontal="true"
+        android:maxWidth="300dp"
+        android:text="Address" />
+
+    <TextView
+        android:id="@+id/tv_user_city_profile"
+        style="@style/Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_user_address_profile"
+        android:layout_centerHorizontal="true"
+        android:maxWidth="300dp"
+        android:text="City" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
-        android:id="@+id/linearUbahAkun"
-        android:layout_below="@id/imageAkunSaya"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
         android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/second_hand_neutral5"/>
+
         <LinearLayout
+            android:id="@+id/akun_tv_ubahakun"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingVertical="15dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -44,31 +118,24 @@
                 android:background="@drawable/ic_fi_edit_3"/>
 
             <TextView
-                android:id="@+id/akun_tv_ubahakun"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="18dp"
+                android:layout_marginTop="3dp"
                 android:text="@string/ubah_akun"
                 style="@style/Heading3"/>
 
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="12dp"
-            android:background="#E5E5E5"/>
-    </LinearLayout>
+            android:background="@color/second_hand_neutral5"/>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:id="@+id/linearPengaturanAkun"
-        android:layout_below="@id/linearUbahAkun"
-        android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingVertical="15dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -80,35 +147,28 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="18dp"
+                android:layout_marginTop="3dp"
                 android:text="@string/pengaturan_akun"
                 style="@style/Heading3"/>
 
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="12dp"
-            android:background="#E5E5E5"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:id="@+id/linearKeluar"
-        android:layout_below="@id/linearPengaturanAkun"
-        android:orientation="vertical">
+            android:background="@color/second_hand_neutral5"/>
 
         <LinearLayout
             android:id="@+id/btn_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingVertical="15dp"
             android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/ic_fi_log_out"/>
+                android:background="@drawable/ic_fi_log_out" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -118,21 +178,8 @@
                 style="@style/Heading3"/>
 
         </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="12dp"
-            android:background="#E5E5E5"/>
-    </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/version_1_0_0"
-        android:layout_below="@id/linearKeluar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        style="@style/Body2"/>
+    </LinearLayout>
 
     <include layout="@layout/dialog_require_login"/>
 

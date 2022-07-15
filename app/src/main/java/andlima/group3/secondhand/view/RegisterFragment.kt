@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.alertDialog
+import andlima.group3.secondhand.func.showPageLoading
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.viewmodel.LokasiViewModel
 import andlima.group3.secondhand.viewmodel.UserViewModel
@@ -57,8 +58,10 @@ class RegisterFragment : Fragment() {
             val password =register_et_password.text.toString()
             val alamat = alamatFinal.text.toString()
             val nohp = nohpFinal.text.toString()
+
             if (nohp.startsWith("62")){
                 if (namaLengkap.isNotBlank() && email.isNotBlank() && password.isNotBlank() && alamat.isNotBlank()    && pilihan.isNotBlank()){
+                    showPageLoading(requireView(), true, "Registering")
                     register(namaLengkap, email, password,alamat,pilihan,nohp)
                 }else{
                     toast(requireContext(), "Isi semua data!")
@@ -125,6 +128,7 @@ class RegisterFragment : Fragment() {
     fun register(namaLengkap : String, email : String, password : String, alamat : String, kota : String, nohp : String){
         val viewModel = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
         viewModel.registerLiveData.observe(requireActivity()){
+            showPageLoading(requireView(), false)
             when (it) {
                 "201" -> {
                     toast(requireContext(), "Register success")

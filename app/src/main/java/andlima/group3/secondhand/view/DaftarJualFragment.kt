@@ -70,9 +70,9 @@ class DaftarJualFragment : Fragment() {
                         getDataSeller(it)
                         Log.d("AKSES TOKEN", it)
                     }
-                    buttonEdit.setOnClickListener {
-                        view.findNavController().navigate(R.id.action_mainContainerFragment_to_infoAkunFragment)
-                    }
+//                    buttonEdit.setOnClickListener {
+//                        view.findNavController().navigate(R.id.action_mainContainerFragment_to_infoAkunFragment)
+//                    }
                 }
             }
         })
@@ -83,7 +83,7 @@ class DaftarJualFragment : Fragment() {
         val viewModel = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
         viewModel.userDetailLiveData.observe(viewLifecycleOwner){
             if (it != null){
-                tv_namaPenjual.text = it.email
+                tv_namaPenjual.text = it.fullName
                 tv_kotaPenjual.text = it.city
                 Glide.with(this).load(it.imageUrl).into(imagePenjualDaftarJual)
 

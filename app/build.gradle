@@ -95,7 +95,8 @@ dependencies {
     // Carousel view
     implementation 'com.synnapps:carouselview:0.1.5'
 
-
+    // Palette
+    implementation 'androidx.palette:palette-ktx:1.0.0'
 }
 
 //kapt {
