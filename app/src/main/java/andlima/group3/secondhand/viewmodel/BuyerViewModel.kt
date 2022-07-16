@@ -5,6 +5,9 @@ import andlima.group3.secondhand.model.home.BuyerProductDetail
 import andlima.group3.secondhand.model.home.BuyerProductItem
 import andlima.group3.secondhand.model.home.newhome.ProductDetailItemResponse
 import andlima.group3.secondhand.model.home.newhome.ProductItemResponse
+import andlima.group3.secondhand.model.home.newhome.wishlist.DeleteWishlistResponse
+import andlima.group3.secondhand.model.home.newhome.wishlist.GetWishlistResponse
+import andlima.group3.secondhand.model.home.newhome.wishlist.PostWishlistResponse
 import andlima.group3.secondhand.repository.BuyerRepository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -200,5 +203,21 @@ class BuyerViewModel @Inject constructor(api: BuyerRepository): ViewModel() {
                     message(-2, "Failed to connect")
                 }
             })
+    }
+
+    // BUYER WISHLIST ------------------------------------------------------------------------------
+
+    val wishlistList: MutableLiveData<List<GetWishlistResponse>> = MutableLiveData()
+    fun getWishlist(accessToken: String) {apiHelper.getWishlist(accessToken, wishlistList)}
+
+    val wishlistDelete: MutableLiveData<DeleteWishlistResponse> = MutableLiveData()
+    fun deleteWishlist(accessToken: String, id: Int) {apiHelper.deleteWishlist(accessToken, id, wishlistDelete)}
+
+    val wishlistPost: MutableLiveData<PostWishlistResponse> = MutableLiveData()
+    fun postWishlist(accessToken: String, id: Int) {apiHelper.postWishlist(accessToken, id, wishlistPost)}
+
+    val wishlistQuantity: MutableLiveData<Int> = MutableLiveData()
+    fun getWishlistQuantity(accessToken: String) {
+        apiHelper.checkBuyerWishlistQuantity(accessToken, wishlistQuantity)
     }
 }

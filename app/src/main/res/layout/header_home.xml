@@ -70,6 +70,50 @@
         </com.google.android.material.card.MaterialCardView>
 
         <RelativeLayout
+            android:id="@+id/btn_goto_wishlist"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp">
+
+            <ImageView
+                android:id="@+id/wishlist_icon"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="2dp"
+                android:src="@drawable/ic_wishlist"
+                app:tint="@color/second_hand_neutral4" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/wishlist_info"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:backgroundTint="#F14949"
+                android:layout_alignStart="@+id/wishlist_icon"
+                android:layout_marginTop="3dp"
+                android:layout_marginStart="13dp"
+                app:cardElevation="0dp"
+                android:visibility="gone"
+                app:cardCornerRadius="50dp">
+
+                <TextView
+                    android:id="@+id/tv_wishlist_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0.5dp"
+                    android:text="3"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    style="@style/Heading3"
+                    tools:ignore="HardcodedText,SmallSp"
+                    android:layout_gravity="center"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:id="@+id/btn_goto_cart"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

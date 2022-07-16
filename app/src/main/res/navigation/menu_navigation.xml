@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_homeFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_homeWishlistFragment"
+            app:destination="@id/homeWishlistFragment" />
     </fragment>
     <fragment
         android:id="@+id/notifikasiFragment"
@@ -101,6 +104,9 @@
         <action
             android:id="@+id/action_homeElectronicFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_homeElectronicFragment_to_homeWishlistFragment"
+            app:destination="@id/homeWishlistFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeMoreCategoryFragment"
@@ -116,6 +122,9 @@
         <action
             android:id="@+id/action_homeMoreCategoryFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_homeMoreCategoryFragment_to_homeWishlistFragment"
+            app:destination="@id/homeWishlistFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFashionFragment"
@@ -134,6 +143,9 @@
         <action
             android:id="@+id/action_homeFashionFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_homeFashionFragment_to_homeWishlistFragment"
+            app:destination="@id/homeWishlistFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeSubFashionFragment"
@@ -149,6 +161,9 @@
         <action
             android:id="@+id/action_homeSubFashionFragment_to_cartFragment"
             app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_homeSubFashionFragment_to_homeWishlistFragment"
+            app:destination="@id/homeWishlistFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeResultListFragment"
@@ -164,10 +179,22 @@
         <action
             android:id="@+id/action_homeResultListFragment_self"
             app:destination="@id/homeResultListFragment" />
+        <action
+            android:id="@+id/action_homeResultListFragment_to_homeWishlistFragment"
+            app:destination="@id/homeWishlistFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
         android:name="andlima.group3.secondhand.view.home.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" />
+    <fragment
+        android:id="@+id/homeWishlistFragment"
+        android:name="andlima.group3.secondhand.view.home.HomeWishlistFragment"
+        android:label="fragment_home_wishlist"
+        tools:layout="@layout/fragment_home_wishlist" >
+        <action
+            android:id="@+id/action_homeWishlistFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
 </navigation>

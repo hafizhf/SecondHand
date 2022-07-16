@@ -51,6 +51,10 @@ class HomeSubFashionFragment : Fragment() {
             } else {
                 connectionInterfaceHandler.visibility = View.GONE
 
+                homeSearchView(requireView(), requireContext(), requireActivity(), this, this)
+                showCartQuantity(requireView(), this, this, userManager)
+                showWishlistQuantity(requireView(), this, this, userManager)
+
                 // Back button on top bar
                 requireView().findViewById<ImageView>(R.id.btn_back).visibility = View.VISIBLE
                 requireView().findViewById<ImageView>(R.id.btn_back).setOnClickListener {
@@ -63,8 +67,11 @@ class HomeSubFashionFragment : Fragment() {
                         .navigate(R.id.action_homeSubFashionFragment_to_cartFragment)
                 }
 
-                homeSearchView(requireView(), requireContext(), requireActivity(), this, this)
-                showCartQuantity(requireView(), this, this, userManager)
+                // Go to buyer wishlist
+                requireView().findViewById<RelativeLayout>(R.id.btn_goto_wishlist).setOnClickListener {
+                    Navigation.findNavController(view)
+                        .navigate(R.id.action_homeSubFashionFragment_to_homeWishlistFragment)
+                }
 
                 val requestCode = arguments?.getInt("REQUEST_CODE") as Int
 

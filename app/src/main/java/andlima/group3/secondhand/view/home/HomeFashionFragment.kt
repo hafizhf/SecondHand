@@ -49,6 +49,7 @@ class HomeFashionFragment : Fragment() {
 
                 homeSearchView(requireView(), requireContext(), requireActivity(), this, this)
                 showCartQuantity(requireView(), this, this, userManager)
+                showWishlistQuantity(requireView(), this, this, userManager)
 
                 // Back button on top bar
                 requireView().findViewById<ImageView>(R.id.btn_back).visibility = View.VISIBLE
@@ -60,6 +61,12 @@ class HomeFashionFragment : Fragment() {
                 requireView().findViewById<RelativeLayout>(R.id.btn_goto_cart).setOnClickListener {
                     Navigation.findNavController(view)
                         .navigate(R.id.action_homeFashionFragment_to_cartFragment)
+                }
+
+                // Go to buyer wishlist
+                requireView().findViewById<RelativeLayout>(R.id.btn_goto_wishlist).setOnClickListener {
+                    Navigation.findNavController(view)
+                        .navigate(R.id.action_homeFashionFragment_to_homeWishlistFragment)
                 }
 
                 getClothesProduct()

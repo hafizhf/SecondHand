@@ -451,12 +451,20 @@ fun navigateToDetailProduct(productId: Int, view: View, navigationId: Int) {
 }
 
 /**
+ * Directly navigate to wishlist
+ */
+fun navigateToWishlist(view: View, navigationId: Int) {
+    Navigation.findNavController(view).navigate(navigationId)
+}
+
+/**
  * Show cart quantity/amount badge on home pages
  */
 fun showCartQuantity(view: View, owner: ViewModelStoreOwner, lifecycleOwner: LifecycleOwner, userManager: UserManager) {
     val viewModel = ViewModelProvider(owner)[BuyerViewModel::class.java]
     userManager.accessTokenFlow.asLiveData().observeOnce(lifecycleOwner, {
-        viewModel.orderQuantity.observeForever { quantity ->
+        if (it != "") {
+            viewModel.orderQuantity.observeForever { quantity ->
             if (quantity != 0) {
                 view.findViewById<CardView>(R.id.cart_info).visibility = View.VISIBLE
                 view.findViewById<TextView>(R.id.tv_item_amount).text = quantity.toString()
@@ -465,6 +473,27 @@ fun showCartQuantity(view: View, owner: ViewModelStoreOwner, lifecycleOwner: Lif
             }
         }
         viewModel.getBuyerOrderQuantity(it)
+        }
+    })
+}
+
+/**
+ * Show wishlist quantity/amount badge on home pages
+ */
+fun showWishlistQuantity(view: View, owner: ViewModelStoreOwner, lifecycleOwner: LifecycleOwner, userManager: UserManager) {
+    val viewModel = ViewModelProvider(owner)[BuyerViewModel::class.java]
+    userManager.accessTokenFlow.asLiveData().observeOnce(lifecycleOwner, {
+        if (it != "") {
+            viewModel.wishlistQuantity.observeForever { quantity ->
+            if (quantity != 0) {
+                view.findViewById<CardView>(R.id.wishlist_info).visibility = View.VISIBLE
+                view.findViewById<TextView>(R.id.tv_wishlist_amount).text = quantity.toString()
+            } else {
+                view.findViewById<CardView>(R.id.wishlist_info).visibility = View.GONE
+            }
+        }
+        viewModel.getWishlistQuantity(it)
+        }
     })
 }
 

@@ -9,6 +9,9 @@ import andlima.group3.secondhand.model.home.BuyerProductDetail
 import andlima.group3.secondhand.model.home.BuyerProductItem
 import andlima.group3.secondhand.model.home.newhome.ProductDetailItemResponse
 import andlima.group3.secondhand.model.home.newhome.ProductItemResponse
+import andlima.group3.secondhand.model.home.newhome.wishlist.DeleteWishlistResponse
+import andlima.group3.secondhand.model.home.newhome.wishlist.GetWishlistResponse
+import andlima.group3.secondhand.model.home.newhome.wishlist.PostWishlistResponse
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import retrofit2.Call
@@ -273,4 +276,98 @@ class BuyerRepository @Inject constructor(private val api: BuyerApi) {
             })
     }
 
+    // BUYER WISHLIST ------------------------------------------------------------------------------
+
+    // Delete Wishlist
+    fun deleteWishlist(accessToken: String, id: Int, deleteResponse: MutableLiveData<DeleteWishlistResponse>) {
+        api.deleteUserWishlist(accessToken, id).enqueue(object : retrofit2.Callback<DeleteWishlistResponse>{
+            override fun onResponse(
+                call: Call<DeleteWishlistResponse>,
+                response: Response<DeleteWishlistResponse>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.code() == 200) {
+                        deleteResponse.postValue(response.body())
+                    } else {
+                        deleteResponse.postValue(null)
+                    }
+                } else {
+                    deleteResponse.postValue(null)
+                }
+            }
+
+            override fun onFailure(call: Call<DeleteWishlistResponse>, t: Throwable) {
+                deleteResponse.postValue(null)
+            }
+
+        })
+    }
+
+    // Post Wishlist
+    fun postWishlist(accessToken: String, id: Int, postResponse: MutableLiveData<PostWishlistResponse>) {
+        api.postUserWishlist(accessToken, id).enqueue(object : retrofit2.Callback<PostWishlistResponse>{
+            override fun onResponse(
+                call: Call<PostWishlistResponse>,
+                response: Response<PostWishlistResponse>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.code() == 200) {
+                        postResponse.postValue(response.body())
+                    } else {
+                        postResponse.postValue(null)
+                    }
+                } else {
+                    postResponse.postValue(null)
+                }
+            }
+
+            override fun onFailure(call: Call<PostWishlistResponse>, t: Throwable) {
+                postResponse.postValue(null)
+            }
+        })
+    }
+
+    // Get Wishlist
+    fun getWishlist(accessToken: String, getResponse: MutableLiveData<List<GetWishlistResponse>>) {
+        api.getUserWishlist(accessToken).enqueue(object : retrofit2.Callback<List<GetWishlistResponse>>{
+            override fun onResponse(
+                call: Call<List<GetWishlistResponse>>,
+                response: Response<List<GetWishlistResponse>>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.code() == 200) {
+                        getResponse.postValue(response.body())
+                    } else {
+                        getResponse.postValue(null)
+                    }
+                } else {
+                    getResponse.postValue(null)
+                }
+            }
+
+            override fun onFailure(call: Call<List<GetWishlistResponse>>, t: Throwable) {
+                getResponse.postValue(null)
+            }
+        })
+    }
+
+    fun checkBuyerWishlistQuantity(accessToken: String, quantity: MutableLiveData<Int>) {
+        api.getUserWishlist(accessToken)
+            .enqueue(object : retrofit2.Callback<List<GetWishlistResponse>>{
+                override fun onResponse(
+                    call: Call<List<GetWishlistResponse>>,
+                    response: Response<List<GetWishlistResponse>>
+                ) {
+                    if (response.isSuccessful) {
+                        quantity.postValue(response.body()!!.size)
+                    } else {
+                        quantity.postValue(0)
+                    }
+                }
+
+                override fun onFailure(call: Call<List<GetWishlistResponse>>, t: Throwable) {
+                    quantity.postValue(0)
+                }
+            })
+    }
 }

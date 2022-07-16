@@ -5,6 +5,9 @@ import andlima.group3.secondhand.model.home.BuyerProductDetail
 import andlima.group3.secondhand.model.home.BuyerProductItem
 import andlima.group3.secondhand.model.home.newhome.ProductDetailItemResponse
 import andlima.group3.secondhand.model.home.newhome.ProductItemResponse
+import andlima.group3.secondhand.model.home.newhome.wishlist.DeleteWishlistResponse
+import andlima.group3.secondhand.model.home.newhome.wishlist.GetWishlistResponse
+import andlima.group3.secondhand.model.home.newhome.wishlist.PostWishlistResponse
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -79,4 +82,23 @@ interface BuyerApi {
         @Header("access_token") accessToken: String,
         @Path("id") id: Int
     ) : Call<DeleteOrderResponse>
+
+    // BUYER WISHLIST ------------------------------------------------------------------------------
+
+    @POST("buyer/wishlist")
+    fun postUserWishlist(
+        @Header("access_token") accessToken: String,
+        @Field("product_id") id: Int
+    ): Call<PostWishlistResponse>
+
+    @GET("buyer/wishlist")
+    fun getUserWishlist(
+        @Header("access_token") accessToken: String
+    ): Call<List<GetWishlistResponse>>
+
+    @DELETE("buyer/wishlist/{id}")
+    fun deleteUserWishlist(
+        @Header("access_token") accessToken: String,
+        @Path("id") id: Int
+    ): Call<DeleteWishlistResponse>
 }

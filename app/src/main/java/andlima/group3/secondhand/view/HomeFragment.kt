@@ -68,11 +68,8 @@ class HomeFragment : Fragment() {
         MarketApplication.isConnected.observe(this, { isConnected ->
             if (isConnected) {
                 homeSearchView(requireView(), requireContext(), requireActivity(), this, this)
-                userManager.accessTokenFlow.asLiveData().observeOnce(this, {
-                    if (it != "") {
-                        showCartQuantity(requireView(), this, this, userManager)
-                    }
-                })
+                showCartQuantity(requireView(), this, this, userManager)
+                showWishlistQuantity(requireView(), this, this, userManager)
             }
         })
 
@@ -80,6 +77,12 @@ class HomeFragment : Fragment() {
         requireView().findViewById<RelativeLayout>(R.id.btn_goto_cart).setOnClickListener {
             Navigation.findNavController(view)
                 .navigate(R.id.action_homeFragment_to_cartFragment)
+        }
+
+        // Go to buyer wishlist
+        requireView().findViewById<RelativeLayout>(R.id.btn_goto_wishlist).setOnClickListener {
+            Navigation.findNavController(view)
+                .navigate(R.id.action_homeFragment_to_homeWishlistFragment)
         }
 
         getPreviewData()
