@@ -46,6 +46,12 @@ class ProductResultAdapter (private var onClick: (ProductItemResponse) -> Unit)
             item_product_location.text = productList!![position].location
             item_product_price.text = "Rp " + productList!![position].basePrice.toString()
 
+            if (productList!![position].status != "available" && productList!![position].status != "seller") {
+                cv_item_product_result_is_sold.visibility = View.VISIBLE
+            } else {
+                cv_item_product_result_is_sold.visibility = View.GONE
+            }
+
             item_product_result.setOnClickListener {
                 onClick(productList!![position])
             }

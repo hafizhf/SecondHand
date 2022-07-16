@@ -48,6 +48,31 @@
                         android:paddingTop="20dp"
                         android:paddingBottom="20dp">
 
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cv_item_product_is_sold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="0dp"
+                            android:visibility="gone"
+                            android:backgroundTint="@color/second_hand_danger"
+                            app:cardCornerRadius="3dp"
+                            android:layout_marginBottom="1dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Habis"
+                                android:textSize="10sp"
+                                style="@style/Heading3"
+                                android:textColor="@color/white"
+                                android:paddingTop="2dp"
+                                android:paddingStart="4dp"
+                                android:paddingEnd="4dp"
+                                tools:ignore="SmallSp" />
+
+                        </com.google.android.material.card.MaterialCardView>
+
                         <TextView
                             android:id="@+id/tv_detail_product_name"
                             android:layout_width="wrap_content"

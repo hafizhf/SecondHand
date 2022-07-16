@@ -21,6 +21,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
@@ -108,12 +109,17 @@ class DetailFragment : Fragment() {
         val productCategory : TextView = view!!.findViewById(R.id.tv_detail_product_category)
         val productPrice : TextView = view!!.findViewById(R.id.tv_detail_product_price)
         val productDesc : TextView = view!!.findViewById(R.id.tv_detail_product_description)
+        val productIsSold: CardView = view!!.findViewById(R.id.cv_item_product_is_sold)
 
         val productSellerImage : ImageView = view!!.findViewById(R.id.iv_detail_product_seller_image)
         val productSellerName : TextView = view!!.findViewById(R.id.tv_detail_product_seller_name)
         val productSellerAddress : TextView = view!!.findViewById(R.id.tv_detail_product_seller_address)
 
         // Set data to view ------------------------------------------------------------------------
+        if (data.status != "available" && data.status != "seller") {
+            productIsSold.visibility = View.VISIBLE
+        }
+
         Glide.with(this).load(data.imageUrl).into(productImage)
         productName.text = data.name
         if (data.categories.isNotEmpty()) {
@@ -141,11 +147,18 @@ class DetailFragment : Fragment() {
                 showProductData(data)
 
                 if (isUserLoggedIn(userManager)) {
-                    btnImInterested.setOnClickListener {
-                        showBottomSheetDialogFragment(
-                            ProductDataForBid(data.id, data.name, data.basePrice, data.imageUrl)
-                        )
+                    if (data.status == "available") {
+                        btnImInterested.setOnClickListener {
+                            showBottomSheetDialogFragment(
+                                ProductDataForBid(data.id, data.name, data.basePrice, data.imageUrl)
+                            )
+                        }
+                    } else {
+                        btnImInterested.text = "Stok barang habis"
+                        btnImInterested.isEnabled = false
+                        btnImInterested.isClickable = false
                     }
+
                 } else {
                     btnImInterested.text = "Login untuk bisa melakukan penawaran"
                     btnImInterested.isEnabled = false

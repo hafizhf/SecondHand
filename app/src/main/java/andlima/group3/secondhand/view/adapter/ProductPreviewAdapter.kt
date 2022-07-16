@@ -78,6 +78,7 @@ class ProductPreviewAdapter(
                 MarketApplication.isConnected.observe(owner, { isConnected ->
                     if (isConnected) {
                         Log.d("Get data status", "Online")
+
                         Glide.with(context)
                             .load(productList!![position].imageUrl)
                             .listener(object : RequestListener<Drawable>{
@@ -103,6 +104,13 @@ class ProductPreviewAdapter(
 
                             })
                             .into(item_product_image)
+
+                        if (productList!![position].status != "available" && productList!![position].status != "seller") {
+                            cv_item_product_preview_is_sold.visibility = View.VISIBLE
+                        } else {
+                            cv_item_product_preview_is_sold.visibility = View.GONE
+                        }
+
                     } else {
                         Log.d("Get data status", "Offline")
                         /*

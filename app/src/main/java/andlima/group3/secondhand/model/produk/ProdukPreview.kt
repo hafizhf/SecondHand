@@ -26,5 +26,4 @@ data class ProdukPreview(
     val sellerImage : String,
     val sellerName : String,
 
-
     ) : Parcelable
