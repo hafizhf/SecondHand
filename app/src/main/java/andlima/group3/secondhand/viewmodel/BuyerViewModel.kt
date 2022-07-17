@@ -220,4 +220,9 @@ class BuyerViewModel @Inject constructor(api: BuyerRepository): ViewModel() {
     fun getWishlistQuantity(accessToken: String) {
         apiHelper.checkBuyerWishlistQuantity(accessToken, wishlistQuantity)
     }
+
+    val isProductWishListed: MutableLiveData<GetWishlistResponse> = MutableLiveData()
+    fun checkIsProductWishListed(accessToken: String, productId: Int) {
+        apiHelper.checkProductWishListed(accessToken, productId, isProductWishListed)
+    }
 }

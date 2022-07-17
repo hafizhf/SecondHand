@@ -7,6 +7,7 @@ import andlima.group3.secondhand.model.home.newhome.ProductDetailItemResponse
 import andlima.group3.secondhand.model.home.newhome.ProductItemResponse
 import andlima.group3.secondhand.model.home.newhome.wishlist.DeleteWishlistResponse
 import andlima.group3.secondhand.model.home.newhome.wishlist.GetWishlistResponse
+import andlima.group3.secondhand.model.home.newhome.wishlist.PostWishListRequest
 import andlima.group3.secondhand.model.home.newhome.wishlist.PostWishlistResponse
 import retrofit2.Call
 import retrofit2.http.*
@@ -88,7 +89,7 @@ interface BuyerApi {
     @POST("buyer/wishlist")
     fun postUserWishlist(
         @Header("access_token") accessToken: String,
-        @Field("product_id") id: Int
+        @Body request: PostWishListRequest
     ): Call<PostWishlistResponse>
 
     @GET("buyer/wishlist")

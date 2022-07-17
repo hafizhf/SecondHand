@@ -23,6 +23,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import com.bumptech.glide.Glide
@@ -33,6 +34,8 @@ import kotlinx.android.synthetic.main.fragment_detail.*
 class DetailFragment : Fragment() {
 
     lateinit var userManager: UserManager
+    private val productWishListed = MutableLiveData(false)
+    private var token = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,6 +59,10 @@ class DetailFragment : Fragment() {
                 connectionInterfaceHandler.visibility = View.VISIBLE
             } else {
                 connectionInterfaceHandler.visibility = View.GONE
+
+                userManager.accessTokenFlow.asLiveData().observeForever {
+                    token = it
+                }
 
                 val productID = arguments?.getInt("SELECTED_ID") as Int
                 val product = arguments?.getParcelable("PREVIEW2") as ProdukPreview?
@@ -139,6 +146,7 @@ class DetailFragment : Fragment() {
     private fun getData(id: Int) {
         val btnImInterested : Button = requireView().findViewById(R.id.btn_saya_tertarik_ingin_nego)
         val btnEditProduct : Button = requireView().findViewById(R.id.btn_goto_edit_product)
+        val btnWishlist: Button = requireView().findViewById(R.id.btn_add_to_wishlist)
 
         val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
         viewModel.getDetailProduct(id)
@@ -147,17 +155,35 @@ class DetailFragment : Fragment() {
                 showProductData(data)
 
                 if (isUserLoggedIn(userManager)) {
-                    if (data.status == "available") {
+                    if (data.status == "available" || data.status == "seller") {
                         btnImInterested.setOnClickListener {
                             showBottomSheetDialogFragment(
                                 ProductDataForBid(data.id, data.name, data.basePrice, data.imageUrl)
                             )
+                        }
+                        btnWishlist.setOnClickListener {
+                            toast(requireContext(), "Menambahkan ke wishlist")
+                            viewModel.postWishlist(token, data.id)
+                            viewModel.wishlistPost.observe(this, { response ->
+                                if (response != null) {
+                                    productWishListed.postValue(true)
+//                                toast(requireContext(), "Berhasil menambah ke wishlist")
+                                    snackbarCustom(
+                                        requireView(),
+                                        "Berhasil tambah wishlist",
+                                        "Lihat wishlist"
+                                    ) {
+
+                                    }
+                                }
+                            })
                         }
                     } else {
                         btnImInterested.text = "Stok barang habis"
                         btnImInterested.isEnabled = false
                         btnImInterested.isClickable = false
                     }
+                    isProductWishListed(data.id)
 
                 } else {
                     btnImInterested.text = "Login untuk bisa melakukan penawaran"
@@ -174,6 +200,7 @@ class DetailFragment : Fragment() {
             viewModel.isSellerProduct.observe(this, {
                 if (it) {
                     btnImInterested.visibility = View.GONE
+                    btnWishlist.visibility = View.GONE
                     btnEditProduct.visibility = View.VISIBLE
 
                     btnEditProduct.setOnClickListener {
@@ -183,7 +210,84 @@ class DetailFragment : Fragment() {
 
                 } else {
                     btnImInterested.visibility = View.VISIBLE
+                    btnWishlist.visibility = View.VISIBLE
                     btnEditProduct.visibility = View.GONE
+                }
+            })
+        })
+    }
+
+    private fun isProductWishListed(productId: Int) {
+        val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
+
+        userManager.accessTokenFlow.asLiveData().observeOnce(this, { accessToken ->
+            viewModel.checkIsProductWishListed(accessToken, productId)
+        })
+        viewModel.isProductWishListed.observeForever {
+            if (it != null) {
+                productWishListed.postValue(true)
+            } else {
+                productWishListed.postValue(false)
+            }
+//            wishlistActionButton(productId, it.id)
+        }
+    }
+
+    private fun wishlistActionButton(productId: Int, wishlistId: Int) {
+        val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
+        val btnWishlist: Button = requireView().findViewById(R.id.btn_add_to_wishlist)
+
+        userManager.accessTokenFlow.asLiveData().observeOnce(this, { accessToken ->
+            productWishListed.observe(this, { wishListed ->
+//                if (wishListed) {
+////                    btnWishlist.setImageResource(R.drawable.ic_wishlisted)
+//
+////                    btnWishlist.setOnClickListener {
+////
+////                    }
+//
+//                } else {
+////                    btnWishlist.setImageResource(R.drawable.ic_wishlist)
+//
+////                    btnWishlist.setOnClickListener {
+////
+////                    }
+//                }
+
+                btnWishlist.setOnClickListener {
+                    if (!wishListed) {
+                        toast(requireContext(), "Menambahkan ke wishlist")
+                        viewModel.postWishlist(accessToken, productId)
+                        viewModel.wishlistPost.observe(this, { response ->
+                            if (response != null) {
+                                productWishListed.postValue(true)
+//                                toast(requireContext(), "Berhasil menambah ke wishlist")
+                                snackbarCustom(
+                                    requireView(),
+                                    "Berhasil tambah wishlist",
+                                    "Lihat wishlist"
+                                ) {
+
+                                }
+                            }
+                        })
+                    } else {
+                        snackbarCustom(
+                            requireView(),
+                            "Produk sudah ada di wishlist",
+                            "Lihat wishlist"
+                        ) {
+
+                        }
+//                        toast(requireContext(), "Menghapus dari wishlist")
+//                        viewModel.deleteWishlist(accessToken, wishlistId)
+//                        viewModel.wishlistDelete.observe(this, { response ->
+//                            if (response != null) {
+//                                productWishListed.postValue(false)
+//                                toast(requireContext(), "Berhasil menghapus dari wishlist")
+//                            }
+//                        })
+                    }
                 }
             })
         })

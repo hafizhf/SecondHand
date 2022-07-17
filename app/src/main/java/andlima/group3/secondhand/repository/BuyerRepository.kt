@@ -11,6 +11,7 @@ import andlima.group3.secondhand.model.home.newhome.ProductDetailItemResponse
 import andlima.group3.secondhand.model.home.newhome.ProductItemResponse
 import andlima.group3.secondhand.model.home.newhome.wishlist.DeleteWishlistResponse
 import andlima.group3.secondhand.model.home.newhome.wishlist.GetWishlistResponse
+import andlima.group3.secondhand.model.home.newhome.wishlist.PostWishListRequest
 import andlima.group3.secondhand.model.home.newhome.wishlist.PostWishlistResponse
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -305,7 +306,7 @@ class BuyerRepository @Inject constructor(private val api: BuyerApi) {
 
     // Post Wishlist
     fun postWishlist(accessToken: String, id: Int, postResponse: MutableLiveData<PostWishlistResponse>) {
-        api.postUserWishlist(accessToken, id).enqueue(object : retrofit2.Callback<PostWishlistResponse>{
+        api.postUserWishlist(accessToken, PostWishListRequest(id)).enqueue(object : retrofit2.Callback<PostWishlistResponse>{
             override fun onResponse(
                 call: Call<PostWishlistResponse>,
                 response: Response<PostWishlistResponse>
@@ -337,6 +338,36 @@ class BuyerRepository @Inject constructor(private val api: BuyerApi) {
                 if (response.isSuccessful) {
                     if (response.code() == 200) {
                         getResponse.postValue(response.body())
+                    } else {
+                        getResponse.postValue(null)
+                    }
+                } else {
+                    getResponse.postValue(null)
+                }
+            }
+
+            override fun onFailure(call: Call<List<GetWishlistResponse>>, t: Throwable) {
+                getResponse.postValue(null)
+            }
+        })
+    }
+
+    // Check Wish Listed
+    fun checkProductWishListed(accessToken: String, productId: Int, getResponse: MutableLiveData<GetWishlistResponse>) {
+        api.getUserWishlist(accessToken).enqueue(object : retrofit2.Callback<List<GetWishlistResponse>>{
+            override fun onResponse(
+                call: Call<List<GetWishlistResponse>>,
+                response: Response<List<GetWishlistResponse>>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.code() == 200) {
+                        val raw = response.body()
+                        raw?.forEach { product ->
+                            if (product.productId == productId) {
+                                getResponse.postValue(product)
+                                return@forEach
+                            }
+                        }
                     } else {
                         getResponse.postValue(null)
                     }

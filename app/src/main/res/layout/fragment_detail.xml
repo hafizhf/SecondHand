@@ -73,12 +73,27 @@
 
                         </com.google.android.material.card.MaterialCardView>
 
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+<!--                            <ImageView-->
+<!--                                android:id="@+id/btn_add_to_wishlist"-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_alignParentEnd="true"-->
+<!--                                android:visibility="gone"-->
+<!--                                android:src="@drawable/ic_wishlist" />-->
+
+                        </RelativeLayout>
+
                         <TextView
                             android:id="@+id/tv_detail_product_name"
+                            style="@style/Heading3"
                             android:layout_width="wrap_content"
+                            android:maxWidth="250dp"
                             android:layout_height="wrap_content"
-                            android:text="@string/loading"
-                            style="@style/Heading3"/>
+                            android:text="@string/loading" />
 
                         <TextView
                             android:id="@+id/tv_detail_product_category"
@@ -202,7 +217,7 @@
 
                 <View
                     android:layout_width="0dp"
-                    android:layout_height="100dp"/>
+                    android:layout_height="110dp"/>
 
             </LinearLayout>
 
@@ -210,16 +225,35 @@
 
     </ScrollView>
 
-    <Button
-        android:id="@+id/btn_saya_tertarik_ingin_nego"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Saya Tertarik dan ingin Nego"
-        style="@style/Button"
+        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="20dp">
+
+        <Button
+            android:id="@+id/btn_add_to_wishlist"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Tambah Wishlist"
+            android:backgroundTint="@color/white"
+            android:layout_marginEnd="5dp"
+            style="@style/ButtonOutlined" />
+
+        <Button
+            android:id="@+id/btn_saya_tertarik_ingin_nego"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Tawar Produk"
+            android:layout_marginStart="5dp"
+            style="@style/Button" />
+
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_goto_edit_product"
