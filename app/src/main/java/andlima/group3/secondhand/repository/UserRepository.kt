@@ -1,6 +1,8 @@
 package andlima.group3.secondhand.repository
 
 import andlima.group3.secondhand.SingleLiveEvent.SingleLiveMutableData
+import andlima.group3.secondhand.model.history.HistoryResponse
+import andlima.group3.secondhand.model.history.HistoryResponseItem
 import andlima.group3.secondhand.model.notification.NotifData
 import andlima.group3.secondhand.model.notification.NotificationResponseItem
 import andlima.group3.secondhand.model.produk.ProductResponse
@@ -109,6 +111,23 @@ class UserRepository @Inject constructor(private val apiService: ApiService) {
                 liveData.postValue(null)
 
 
+            }
+
+        })
+
+    }
+    fun getHistoryRepo(token: String,liveData: MutableLiveData<List<HistoryResponseItem>>){
+        val call : Call<List<HistoryResponseItem>> = apiService.getHistory(token)
+        call.enqueue(object : Callback<List<HistoryResponseItem>>{
+            override fun onResponse(
+                call: Call<List<HistoryResponseItem>>,
+                response: Response<List<HistoryResponseItem>>
+            ) {
+                liveData.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<List<HistoryResponseItem>>, t: Throwable) {
+                liveData.postValue(null)
             }
 
         })

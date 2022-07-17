@@ -85,6 +85,9 @@ class AkunFragment : Fragment() {
                 )
 
                 if (isLoggedIn) {
+                    btn_history.setOnClickListener {
+                        view.findNavController().navigate(R.id.action_akunFragment_to_historyFragment)
+                    }
                     akun_tv_ubahakun.setOnClickListener {
                         view.findNavController().navigate(R.id.action_akunFragment_to_infoAkunFragment2)
                     }
