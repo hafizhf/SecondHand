@@ -193,7 +193,7 @@ class JualFragment : Fragment() {
 
                         var lokasi = "sementara"
 
-                        if (nama.isNotBlank() && description.isNotBlank() && basePrice.toString().isNotBlank() && gambarSeller.isNotEmpty() && listDataID.isNotEmpty()){
+                        if (nama.isNotBlank() && description.isNotBlank() && basePrice.toString().isNotBlank()  && listDataID.isNotEmpty()){
                             userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
                                 viewModel2.userDetailLiveData.observe(viewLifecycleOwner){
                                     lokasi = it.city

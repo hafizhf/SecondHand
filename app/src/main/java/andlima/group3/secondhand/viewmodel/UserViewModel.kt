@@ -1,6 +1,7 @@
 package andlima.group3.secondhand.viewmodel
 
 import andlima.group3.secondhand.SingleLiveEvent.SingleLiveMutableData
+import andlima.group3.secondhand.model.history.HistoryResponseItem
 import andlima.group3.secondhand.model.notification.NotifData
 import andlima.group3.secondhand.model.notification.NotificationResponseItem
 import andlima.group3.secondhand.model.produk.ProductResponse
@@ -29,6 +30,8 @@ class UserViewModel @Inject constructor(private val repository : UserRepository)
     var notifLiveDataResponse : MutableLiveData<List<NotificationResponseItem>> = SingleLiveMutableData()
     var notifReadLiveData : MutableLiveData<NotificationResponseItem> = MutableLiveData()
 
+    var historyLiveData : MutableLiveData<List<HistoryResponseItem>> = MutableLiveData()
+
 
 
 
@@ -37,6 +40,11 @@ class UserViewModel @Inject constructor(private val repository : UserRepository)
 
     fun getRegisterLiveDataObserver() : MutableLiveData<String>{
         return registerLiveData
+    }
+    fun getHistoryLive(token: String) {
+        viewModelScope.launch {
+            repository.getHistoryRepo(token, historyLiveData)
+        }
     }
 
 
