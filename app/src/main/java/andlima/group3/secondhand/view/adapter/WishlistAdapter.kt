@@ -38,10 +38,10 @@ class WishlistAdapter(private var action: (id: Int, actionCode: Int) -> Unit)
             Glide.with(context)
                 .load(productList!![position].product.imageUrl)
                 .into(iv_item_wishlist_image)
-            tv_item_wishlist_name.text = productList!![position].product.name
-            tv_item_wishlist_price.text = "Rp " + productList!![position].product.basePrice
+            tv_item_wishlist_name.text = capitalize(productList!![position].product.name)
+            tv_item_wishlist_price.text = productList!![position].product.location
             tv_item_wishlist_status.text = capitalize(productList!![position].product.status)
-            tv_item_wishlist_location.text = "Tawaranmu: Rp " + productList!![position].product.location
+            tv_item_wishlist_location.text = "Rp " + productList!![position].product.basePrice
 
             when (productList!![position].product.status) {
                 "available" -> {

@@ -36,6 +36,8 @@
 
     </androidx.core.widget.NestedScrollView>
 
+    <include layout="@layout/dialog_empty_list"/>
+
     <include layout="@layout/dialog_require_login"/>
 
     <include layout="@layout/dialog_require_internet"/>

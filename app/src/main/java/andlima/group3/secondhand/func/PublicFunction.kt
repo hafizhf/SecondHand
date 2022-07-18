@@ -566,3 +566,28 @@ fun showPageLoading(view: View, show: Boolean, text: String? = null) {
         loadingLayout.visibility = View.GONE
     }
 }
+
+/**
+ * Require **include layout="@layout/dialog_empty_list"** in view layout
+ * with RelativeLayout as parent layout
+ */
+fun showEmptyListSign(view: View, show: Boolean, title: String? = null, message: String? = null) {
+    val dialog: LinearLayout = view.findViewById(R.id.dialog_empty_list)
+    val tvTitle: TextView = view.findViewById(R.id.tv_empty_title)
+    val tvMessage: TextView = view.findViewById(R.id.tv_empty_message)
+
+    if (show) {
+        dialog.visibility = View.VISIBLE
+
+        if (title != null) {
+            tvTitle.text = title
+        }
+
+        if (message != null) {
+            tvMessage.text = message
+        }
+
+    } else {
+        dialog.visibility = View.GONE
+    }
+}

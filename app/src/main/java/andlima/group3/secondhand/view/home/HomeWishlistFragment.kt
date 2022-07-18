@@ -111,9 +111,24 @@ class HomeWishlistFragment : Fragment() {
         viewModel.wishlistList.observe(this, { list ->
             if (list != null) {
                 if (list.isNotEmpty()) {
+                    showEmptyListSign(requireView(), false)
                     adapter.setProductData(list)
                     adapter.notifyDataSetChanged()
+                } else {
+                    showEmptyListSign(
+                        requireView(),
+                        true,
+                        "Wishlist masih kosong",
+                        "Ada barang impian? Langsung tambah ke wishlist!"
+                    )
                 }
+            } else {
+//                showEmptyListSign(
+//                    requireView(),
+//                    true,
+//                    "Wishlist masih kosong",
+//                    "Ada barang impian? Langsung tambah ke wishlist!"
+//                )
             }
         })
 
