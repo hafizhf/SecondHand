@@ -1,17 +1,11 @@
-package andlima.group3.secondhand.model.home.newhome
+package andlima.group3.secondhand.model.jual
 
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.RawValue
 
-@Parcelize
-data class ProductDetailItemResponse(
+data class EditResponse(
     @SerializedName("base_price")
     val basePrice: Int,
-    @SerializedName("Categories")
-    val categories:  List<Category>,
     @SerializedName("createdAt")
     val createdAt: String,
     @SerializedName("description")
@@ -30,8 +24,6 @@ data class ProductDetailItemResponse(
     val status: String,
     @SerializedName("updatedAt")
     val updatedAt: String,
-    @SerializedName("User")
-    val user:  User,
     @SerializedName("user_id")
     val userId: Int
-) : Parcelable
+)

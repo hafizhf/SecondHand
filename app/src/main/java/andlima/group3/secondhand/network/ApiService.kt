@@ -6,6 +6,8 @@ import andlima.group3.secondhand.model.daftarjual.terimatolak.PatchOrderResponse
 import andlima.group3.secondhand.model.daftarjual.terimatolak.StatusTawaran
 import andlima.group3.secondhand.model.history.HistoryResponse
 import andlima.group3.secondhand.model.history.HistoryResponseItem
+import andlima.group3.secondhand.model.jual.DeleteResponse
+import andlima.group3.secondhand.model.jual.EditResponse
 import andlima.group3.secondhand.model.jual.PostProductResponse
 import andlima.group3.secondhand.model.kategori.KategoriResponseItem
 import andlima.group3.secondhand.model.lokasi.KotaResponse
@@ -87,6 +89,23 @@ interface ApiService {
         @Part("category_ids") categoryIDs : RequestBody,
         @Part("location") location : RequestBody
     ) : Call<PostProductResponse>
+    @Multipart
+    @PUT("seller/product/{id}")
+    fun editProduct(
+        @Header("access_token") accessToken: String,
+        @Path ("id") id : Int,
+        @Part image : MultipartBody.Part?,
+        @Part("name") name : RequestBody,
+        @Part("description") description : RequestBody,
+        @Part("base_price") basePrice : RequestBody,
+        @Part("category_ids") categoryIDs : RequestBody,
+        @Part("location") location : RequestBody
+    ) : Call<EditResponse>
+    @DELETE("seller/product/{id}")
+    fun deleteProduct(
+        @Header("access_token") accessToken: String,
+        @Path ("id") id : Int
+    ) : Call<DeleteResponse>
 
     @GET("notification")
     fun getNotif(
@@ -125,4 +144,5 @@ interface ApiService {
     fun getKota(
         @Query("id_provinsi") provinsi : Int
     ) : Call<KotaResponse>
+
 }
