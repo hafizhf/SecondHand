@@ -108,11 +108,12 @@
 
         <ImageView
             android:id="@+id/btn_remove_wishlist"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_wishlist"
-            android:layout_marginStart="10dp"/>
+            android:src="@drawable/ic_close"
+            android:layout_marginStart="10dp"
+            app:tint="@color/second_hand_danger" />
 
     </LinearLayout>
 

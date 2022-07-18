@@ -10,7 +10,6 @@ import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.*
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.model.detail.ProductDataForBid
-import andlima.group3.secondhand.model.home.BuyerProductDetail
 import andlima.group3.secondhand.model.home.newhome.ProductDetailItemResponse
 import andlima.group3.secondhand.model.produk.ProdukPreview
 import andlima.group3.secondhand.view.bottomsheet.DetailBottomDialogFragment
@@ -23,9 +22,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
+import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_detail.*
@@ -34,7 +33,6 @@ import kotlinx.android.synthetic.main.fragment_detail.*
 class DetailFragment : Fragment() {
 
     lateinit var userManager: UserManager
-    private val productWishListed = MutableLiveData(false)
     private var token = ""
 
     override fun onCreateView(
@@ -77,6 +75,7 @@ class DetailFragment : Fragment() {
         })
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setDataPreview(produkPreview: ProdukPreview){
         // Get view id -----------------------------------------------------------------------------
         val productImage : ImageView = view!!.findViewById(R.id.iv_detail_product_image)
@@ -161,29 +160,24 @@ class DetailFragment : Fragment() {
                                 ProductDataForBid(data.id, data.name, data.basePrice, data.imageUrl)
                             )
                         }
-                        btnWishlist.setOnClickListener {
-                            toast(requireContext(), "Menambahkan ke wishlist")
-                            viewModel.postWishlist(token, data.id)
-                            viewModel.wishlistPost.observe(this, { response ->
-                                if (response != null) {
-                                    productWishListed.postValue(true)
-//                                toast(requireContext(), "Berhasil menambah ke wishlist")
-                                    snackbarCustom(
-                                        requireView(),
-                                        "Berhasil tambah wishlist",
-                                        "Lihat wishlist"
-                                    ) {
-
-                                    }
-                                }
-                            })
-                        }
                     } else {
                         btnImInterested.text = "Stok barang habis"
                         btnImInterested.isEnabled = false
                         btnImInterested.isClickable = false
                     }
-                    isProductWishListed(data.id)
+                    btnWishlist.setOnClickListener {
+                        viewModel.postWishlist(token, data.id)
+                        viewModel.wishlistPost.observe(this, {
+                            snackbarCustom(
+                                requireView(),
+                                "Berhasil menambah wishlist",
+                                "Lihat Wishlist"
+                            ) {
+                                Navigation.findNavController(view!!)
+                                    .navigate(R.id.action_detailFragment_to_homeWishlistFragment)
+                            }
+                        })
+                    }
 
                 } else {
                     btnImInterested.text = "Login untuk bisa melakukan penawaran"
@@ -212,82 +206,6 @@ class DetailFragment : Fragment() {
                     btnImInterested.visibility = View.VISIBLE
                     btnWishlist.visibility = View.VISIBLE
                     btnEditProduct.visibility = View.GONE
-                }
-            })
-        })
-    }
-
-    private fun isProductWishListed(productId: Int) {
-        val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
-
-        userManager.accessTokenFlow.asLiveData().observeOnce(this, { accessToken ->
-            viewModel.checkIsProductWishListed(accessToken, productId)
-        })
-        viewModel.isProductWishListed.observeForever {
-            if (it != null) {
-                productWishListed.postValue(true)
-            } else {
-                productWishListed.postValue(false)
-            }
-//            wishlistActionButton(productId, it.id)
-        }
-    }
-
-    private fun wishlistActionButton(productId: Int, wishlistId: Int) {
-        val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
-        val btnWishlist: Button = requireView().findViewById(R.id.btn_add_to_wishlist)
-
-        userManager.accessTokenFlow.asLiveData().observeOnce(this, { accessToken ->
-            productWishListed.observe(this, { wishListed ->
-//                if (wishListed) {
-////                    btnWishlist.setImageResource(R.drawable.ic_wishlisted)
-//
-////                    btnWishlist.setOnClickListener {
-////
-////                    }
-//
-//                } else {
-////                    btnWishlist.setImageResource(R.drawable.ic_wishlist)
-//
-////                    btnWishlist.setOnClickListener {
-////
-////                    }
-//                }
-
-                btnWishlist.setOnClickListener {
-                    if (!wishListed) {
-                        toast(requireContext(), "Menambahkan ke wishlist")
-                        viewModel.postWishlist(accessToken, productId)
-                        viewModel.wishlistPost.observe(this, { response ->
-                            if (response != null) {
-                                productWishListed.postValue(true)
-//                                toast(requireContext(), "Berhasil menambah ke wishlist")
-                                snackbarCustom(
-                                    requireView(),
-                                    "Berhasil tambah wishlist",
-                                    "Lihat wishlist"
-                                ) {
-
-                                }
-                            }
-                        })
-                    } else {
-                        snackbarCustom(
-                            requireView(),
-                            "Produk sudah ada di wishlist",
-                            "Lihat wishlist"
-                        ) {
-
-                        }
-//                        toast(requireContext(), "Menghapus dari wishlist")
-//                        viewModel.deleteWishlist(accessToken, wishlistId)
-//                        viewModel.wishlistDelete.observe(this, { response ->
-//                            if (response != null) {
-//                                productWishListed.postValue(false)
-//                                toast(requireContext(), "Berhasil menghapus dari wishlist")
-//                            }
-//                        })
-                    }
                 }
             })
         })

@@ -7,9 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
-import andlima.group3.secondhand.func.getDeviceScreenHeight
-import andlima.group3.secondhand.func.navigateToDetailProduct
-import andlima.group3.secondhand.func.requireLogin
+import andlima.group3.secondhand.func.*
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.view.adapter.CartAdapter
 import andlima.group3.secondhand.view.adapter.WishlistAdapter
@@ -74,9 +72,33 @@ class HomeWishlistFragment : Fragment() {
         val recyclerView: RecyclerView = requireView().findViewById(R.id.rv_buyer_wishlist)
         val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
 
-        adapter = WishlistAdapter { productId ->
+        adapter = WishlistAdapter { id, code ->
             // Go to detail with productId (it)
-            navigateToDetailProduct(productId, requireView(), R.id.action_homeWishlistFragment_to_detailFragment)
+            when (code) {
+                // See detail
+                1 -> {
+                    navigateToDetailProduct(id, requireView(), R.id.action_homeWishlistFragment_to_detailFragment)
+                }
+                // Remove from wishlist
+                2 -> {
+                    userManager.accessTokenFlow.asLiveData().observeOnce(this, { token ->
+                        viewModel.deleteWishlist(token, id)
+                        viewModel.wishlistDelete.observe(this, { response ->
+                            if (response != null) {
+                                toast(
+                                    requireContext(),
+                                    "Produk berhasil dihapus dari wishlist"
+                                )
+                                viewModel.getWishlist(token)
+                                adapter.notifyDataSetChanged()
+                            }
+                        })
+                    })
+                }
+                else -> {
+                    toast(requireContext(), "N/A")
+                }
+            }
         }
 
         recyclerView.layoutManager = LinearLayoutManager(

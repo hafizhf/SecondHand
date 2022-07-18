@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_wishlist.view.*
 
-class WishlistAdapter(private var action: (productId: Int) -> Unit)
+class WishlistAdapter(private var action: (id: Int, actionCode: Int) -> Unit)
     : RecyclerView.Adapter<WishlistAdapter.ViewHolder>() {
 
     private var productList: List<GetWishlistResponse>? = null
@@ -65,19 +65,12 @@ class WishlistAdapter(private var action: (productId: Int) -> Unit)
             }
 
             item_wishlist.setOnClickListener {
-                action(productList!![position].productId)
+                action(productList!![position].productId, 1)
             }
 
             btn_remove_wishlist.setOnClickListener {
                 // Int action to delete -> 2
-                alertDialog(
-                    context,
-                    "Batalkan tawaran",
-                    "Apakah kamu yakin ingin membatalkan penawaran?"
-                ) {
-//                    action(productList!![position].product.basePrice)
-                    toast(context, "Remove wishlist WIP")
-                }
+                action(productList!![position].id, 2)
             }
         }
     }
