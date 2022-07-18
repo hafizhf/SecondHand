@@ -18,8 +18,10 @@ import andlima.group3.secondhand.viewmodel.BuyerViewModel
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.os.Handler
 import android.os.Looper
+import android.os.StrictMode
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
@@ -36,8 +38,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.synnapps.carouselview.CarouselView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import java.io.IOException
+import java.io.InputStream
+import java.lang.Runnable
+import java.net.URL
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -64,12 +69,16 @@ class HomeFragment : Fragment() {
         mDb = LocalDatabase.getInstance(requireContext())
 
         doubleBackExit()
-        bannerCarousel()
+//        bannerCarousel()
+
         MarketApplication.isConnected.observe(this, { isConnected ->
             if (isConnected) {
+                getBanner()
                 homeSearchView(requireView(), requireContext(), requireActivity(), this, this)
                 showCartQuantity(requireView(), this, this, userManager)
                 showWishlistQuantity(requireView(), this, this, userManager)
+            } else {
+                offlineBanner()
             }
         })
 
@@ -222,7 +231,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun bannerCarousel() {
+    private fun offlineBanner() {
         val carousel : CarouselView = requireView().findViewById(R.id.banner_carousel_home)
         val sampleBanner = listOf(R.drawable.dummy_banner_1, R.drawable.dummy_banner_2)
 
@@ -230,6 +239,60 @@ class HomeFragment : Fragment() {
             imageView.setImageResource(sampleBanner[position])
         }
         carousel.pageCount = sampleBanner.size
+    }
+
+    private fun bannerCarousel(imageUrlList: List<String>) {
+        val carousel : CarouselView = requireView().findViewById(R.id.banner_carousel_home)
+//        val sampleBanner = listOf(R.drawable.dummy_banner_1, R.drawable.dummy_banner_2)
+
+        carousel.setImageListener { position, imageView ->
+
+            val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+            StrictMode.setThreadPolicy(policy)
+            val url = URL(imageUrlList[position])
+            CoroutineScope(Dispatchers.IO).launch {
+//                runCatching {
+//                    val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+//                    StrictMode.setThreadPolicy(policy)
+//                    val url = URL(imageUrlList[position])
+//                    imageView.setImageBitmap(BitmapFactory.decodeStream(url.content as InputStream))
+//                }
+                val bitmap = BitmapFactory.decodeStream(url.content as InputStream)
+                requireActivity().runOnUiThread {
+                    imageView.setImageBitmap(bitmap)
+                }
+            }
+
+
+
+//            val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+//            StrictMode.setThreadPolicy(policy)
+//            val url = URL(imageUrlList[position])
+//            imageView.setImageBitmap(BitmapFactory.decodeStream(url.content as InputStream))
+//            try {
+//                val url = URL(imageUrlList[position])
+//                imageView.setImageBitmap(BitmapFactory.decodeStream(url.content as InputStream))
+//            } catch (e: IOException) {
+//                //Log.e(TAG, e.getMessage());
+//            }
+//            imageView.setImageResource(sampleBanner[position])
+        }
+        carousel.pageCount = imageUrlList.size
+    }
+
+    private fun getBanner() {
+        val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
+        viewModel.bannerList.observe(this, {
+            if (it != null) {
+                val raw = it
+                val imageUrlList: MutableList<String> = mutableListOf()
+                raw.forEach { banner ->
+                    imageUrlList.add(banner.imageUrl)
+                }
+                bannerCarousel(imageUrlList)
+            }
+        })
+        viewModel.getBanner()
     }
 
     // Function to exit app with double click on back button----------------------------------------

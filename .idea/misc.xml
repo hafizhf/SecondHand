@@ -75,6 +75,7 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/dialog_success.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_aksesoris.xml" value="0.13903985507246377" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_akun.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_cart.xml" value="0.15534420289855072" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_daftar_jual.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_detail.xml" value="0.22" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_detail_bottom_dialog.xml" value="0.25" />
@@ -94,6 +95,8 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_produk.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_register.xml" value="0.18" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_semua.xml" value="0.13722826086956522" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/header_home.xml" value="0.22" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/home_layout.xml" value="0.15534420289855072" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/horizontalline.xml" value="0.2" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/item_daftar_jual.xml" value="0.1328125" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/item_home.xml" value="0.25" />

@@ -1,5 +1,6 @@
 package andlima.group3.secondhand.viewmodel
 
+import andlima.group3.secondhand.model.banner.GetBannerResponse
 import andlima.group3.secondhand.model.buyer.order.*
 import andlima.group3.secondhand.model.home.BuyerProductDetail
 import andlima.group3.secondhand.model.home.BuyerProductItem
@@ -225,4 +226,9 @@ class BuyerViewModel @Inject constructor(api: BuyerRepository): ViewModel() {
     fun checkIsProductWishListed(accessToken: String, productId: Int) {
         apiHelper.checkProductWishListed(accessToken, productId, isProductWishListed)
     }
+
+    // BANNER --------------------------------------------------------------------------------------
+
+    val bannerList: MutableLiveData<List<GetBannerResponse>> = MutableLiveData()
+    fun getBanner() {apiHelper.getBanner(bannerList)}
 }

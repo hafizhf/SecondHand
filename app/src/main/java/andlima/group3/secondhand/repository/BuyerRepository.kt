@@ -1,6 +1,7 @@
 package andlima.group3.secondhand.repository
 
 import andlima.group3.secondhand.api.buyer.BuyerApi
+import andlima.group3.secondhand.model.banner.GetBannerResponse
 import andlima.group3.secondhand.model.buyer.order.BuyerOrderRequest
 import andlima.group3.secondhand.model.buyer.order.DeleteOrderResponse
 import andlima.group3.secondhand.model.buyer.order.GetBuyerOrderResponseItem
@@ -400,5 +401,26 @@ class BuyerRepository @Inject constructor(private val api: BuyerApi) {
                     quantity.postValue(0)
                 }
             })
+    }
+
+    // BANNER --------------------------------------------------------------------------------------
+
+    fun getBanner(bannerData: MutableLiveData<List<GetBannerResponse>>) {
+        api.getBanner().enqueue(object : retrofit2.Callback<List<GetBannerResponse>>{
+            override fun onResponse(
+                call: Call<List<GetBannerResponse>>,
+                response: Response<List<GetBannerResponse>>
+            ) {
+                if (response.isSuccessful) {
+                    bannerData.postValue(response.body())
+                } else {
+                    bannerData.postValue(null)
+                }
+            }
+
+            override fun onFailure(call: Call<List<GetBannerResponse>>, t: Throwable) {
+                bannerData.postValue(null)
+            }
+        })
     }
 }

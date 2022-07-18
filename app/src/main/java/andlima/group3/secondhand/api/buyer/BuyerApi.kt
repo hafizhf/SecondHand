@@ -1,5 +1,6 @@
 package andlima.group3.secondhand.api.buyer
 
+import andlima.group3.secondhand.model.banner.GetBannerResponse
 import andlima.group3.secondhand.model.buyer.order.*
 import andlima.group3.secondhand.model.home.BuyerProductDetail
 import andlima.group3.secondhand.model.home.BuyerProductItem
@@ -102,4 +103,9 @@ interface BuyerApi {
         @Header("access_token") accessToken: String,
         @Path("id") id: Int
     ): Call<DeleteWishlistResponse>
+
+    // BANNER --------------------------------------------------------------------------------------
+
+    @GET("seller/banner")
+    fun getBanner() : Call<List<GetBannerResponse>>
 }

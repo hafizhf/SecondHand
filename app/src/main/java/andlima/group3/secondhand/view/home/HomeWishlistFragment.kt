@@ -123,12 +123,12 @@ class HomeWishlistFragment : Fragment() {
                     )
                 }
             } else {
-//                showEmptyListSign(
-//                    requireView(),
-//                    true,
-//                    "Wishlist masih kosong",
-//                    "Ada barang impian? Langsung tambah ke wishlist!"
-//                )
+                showEmptyListSign(
+                    requireView(),
+                    true,
+                    "Wishlist masih kosong",
+                    "Ada barang impian? Langsung tambah ke wishlist!"
+                )
             }
         })
 

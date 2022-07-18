@@ -10,10 +10,7 @@ import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.*
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.model.detail.EditBid
-import andlima.group3.secondhand.model.detail.ProductDataForBid
-import andlima.group3.secondhand.model.home.newhome.ProductItemResponse
 import andlima.group3.secondhand.view.adapter.CartAdapter
-import andlima.group3.secondhand.view.adapter.ProductPreviewAdapter
 import andlima.group3.secondhand.view.bottomsheet.DetailBottomDialogFragment
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
 import android.annotation.SuppressLint
@@ -38,10 +35,6 @@ class CartFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_cart, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onResume() {
@@ -127,8 +120,20 @@ class CartFragment : Fragment() {
                     adapter.setProductData(it)
                     adapter.notifyDataSetChanged()
                 } else {
-
+                    showEmptyListSign(
+                        requireView(),
+                        true,
+                        "Belum ada order apapun",
+                        "Ayo order barang favoritmu sebelum kehabisan!"
+                    )
                 }
+            } else {
+                showEmptyListSign(
+                    requireView(),
+                    true,
+                    "Belum ada order apapun",
+                    "Ayo order barang favoritmu sebelum kehabisan!"
+                )
             }
         })
         userManager.accessTokenFlow.asLiveData().observeOnce(this, {
