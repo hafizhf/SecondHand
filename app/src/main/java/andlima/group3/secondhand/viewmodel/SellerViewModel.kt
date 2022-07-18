@@ -3,8 +3,11 @@ package andlima.group3.secondhand.viewmodel
 import andlima.group3.secondhand.model.daftarjual.SellerProductsItem
 import andlima.group3.secondhand.model.daftarjual.diminati.SellerOrdersItem
 import andlima.group3.secondhand.model.daftarjual.terimatolak.PatchOrderResponse
+import andlima.group3.secondhand.model.jual.DeleteResponse
+import andlima.group3.secondhand.model.jual.EditResponse
 import andlima.group3.secondhand.model.jual.PostProductResponse
 import andlima.group3.secondhand.repository.SellerRepository
+import android.util.Log
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,6 +26,8 @@ class SellerViewModel@Inject constructor(private val repository : SellerReposito
     var sellerSoldLiveData : MutableLiveData<List<SellerProductsItem>> = MutableLiveData()
 
     var sellerPostProductLive : MutableLiveData<PostProductResponse> = MutableLiveData()
+    var sellerEditProductLive : MutableLiveData<EditResponse> = MutableLiveData()
+    var sellerDeleteProductLive : MutableLiveData<DeleteResponse> = MutableLiveData()
     var sellerOrdersLiveData : MutableLiveData<List<SellerOrdersItem>> = MutableLiveData()
     var sellerBuyerOrdersLiveData : MutableLiveData<List<SellerOrdersItem>> = MutableLiveData()
     var patchOrderLiveData : MutableLiveData<PatchOrderResponse> = MutableLiveData()
@@ -59,6 +64,26 @@ class SellerViewModel@Inject constructor(private val repository : SellerReposito
             repository.postProduct(token,sellerPostProductLive,nama, deskripsi, harga, kategori, lokasi, image)
         }
     }
+    fun editProductLive(token: String, id: Int,name : String, description : String, basePrice : Int, categoryIDs : List<Int>, location : String, image : MultipartBody.Part?){
+        viewModelScope.launch {
+            val nama = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), name)
+            val deskripsi = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), description)
+            val harga = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), basePrice.toString())
+            var kategoriFiX : String = categoryIDs.toString().replace("[", "").replace("]","")
+            Log.d("kategoriku", kategoriFiX)
+            val kategori = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), kategoriFiX)
+            val lokasi = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), location)
+
+
+            repository.editProduct(token,id,sellerEditProductLive,nama, deskripsi, harga, kategori, lokasi, image)
+        }
+    }
+    fun deleteProductLive(token: String, id: Int){
+        viewModelScope.launch {
+            repository.deleteProduct(token,id, sellerDeleteProductLive)
+        }
+    }
+
     fun getSellerAllOrdersLive(token : String){
         viewModelScope.launch {
             repository.getSellerAllOrders(token, sellerOrdersLiveData)

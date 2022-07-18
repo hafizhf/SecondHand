@@ -25,6 +25,7 @@ import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_detail.*
@@ -151,6 +152,11 @@ class DetailFragment : Fragment() {
         viewModel.getDetailProduct(id)
         viewModel.detailProduct.observe(this, { data ->
             if (data != null) {
+                btnEditProduct.setOnClickListener {
+                    // Disini arahin ke edit produk
+                    val dataP = bundleOf("DATAPRODUK" to data)
+                    view?.findNavController()?.navigate(R.id.action_detailFragment_to_jualFragment, dataP)
+                }
                 showProductData(data)
 
                 if (isUserLoggedIn(userManager)) {
@@ -197,10 +203,7 @@ class DetailFragment : Fragment() {
                     btnWishlist.visibility = View.GONE
                     btnEditProduct.visibility = View.VISIBLE
 
-                    btnEditProduct.setOnClickListener {
-                        // Disini arahin ke edit produk
-                        toast(requireContext(), "WIP: Edit product")
-                    }
+
 
                 } else {
                     btnImInterested.visibility = View.VISIBLE

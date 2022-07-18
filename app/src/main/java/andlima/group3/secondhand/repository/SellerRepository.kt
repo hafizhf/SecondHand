@@ -5,6 +5,8 @@ import andlima.group3.secondhand.model.daftarjual.SellerProductsItem
 import andlima.group3.secondhand.model.daftarjual.diminati.SellerOrdersItem
 import andlima.group3.secondhand.model.daftarjual.terimatolak.PatchOrderResponse
 import andlima.group3.secondhand.model.daftarjual.terimatolak.StatusTawaran
+import andlima.group3.secondhand.model.jual.DeleteResponse
+import andlima.group3.secondhand.model.jual.EditResponse
 import andlima.group3.secondhand.model.jual.PostProductResponse
 import andlima.group3.secondhand.model.kategori.KategoriResponseItem
 import andlima.group3.secondhand.model.register.RegisterResponse
@@ -65,6 +67,44 @@ class SellerRepository @Inject constructor(private val apiService: ApiService) {
                 Log.d("PESAN", t.message.toString())
 
                 liveData.postValue(null)
+            }
+
+        })
+    }
+    fun editProduct(token: String, id : Int,liveData : MutableLiveData<EditResponse>,name : RequestBody, description : RequestBody, basePrice : RequestBody, categoryIDs : RequestBody, location : RequestBody, image : MultipartBody.Part?){
+        val call : Call<EditResponse> = apiService.editProduct(token, id,image,name,description,basePrice,categoryIDs,location)
+        call.enqueue(object  : Callback<EditResponse>{
+            override fun onResponse(
+                call: Call<EditResponse>,
+                response: Response<EditResponse>
+            ) {
+                liveData.postValue(response.body())
+
+
+            }
+
+            override fun onFailure(call: Call<EditResponse>, t: Throwable) {
+                Log.d("PESAN", t.message.toString())
+
+                liveData.postValue(null)
+            }
+
+        })
+    }
+    fun deleteProduct(token : String, id : Int,liveData: MutableLiveData<DeleteResponse>){
+        val call : Call<DeleteResponse> = apiService.deleteProduct(token,id)
+        call.enqueue(object : Callback<DeleteResponse>{
+            override fun onResponse(
+                call: Call<DeleteResponse>,
+                response: Response<DeleteResponse>
+            ) {
+                liveData.postValue(response.body())
+
+            }
+
+            override fun onFailure(call: Call<DeleteResponse>, t: Throwable) {
+                liveData.postValue(null)
+
             }
 
         })

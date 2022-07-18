@@ -2,6 +2,9 @@ package andlima.group3.secondhand.model.home.newhome
 
 
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
+import java.io.Serializable
+
 
 data class User(
     @SerializedName("address")
@@ -18,4 +21,4 @@ data class User(
     val imageUrl: String,
     @SerializedName("phone_number")
     val phoneNumber: String
-)
+) : Serializable
