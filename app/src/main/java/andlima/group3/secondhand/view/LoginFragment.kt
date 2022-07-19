@@ -9,12 +9,15 @@ import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.alertDialog
 import andlima.group3.secondhand.func.showPageLoading
+import andlima.group3.secondhand.func.showPassword
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.model.login.GetLoginResponse
 import andlima.group3.secondhand.repository.AuthRepository
 import andlima.group3.secondhand.viewmodel.LoginViewModel
 import android.content.Intent
+import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
@@ -43,6 +46,13 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val targetEditText: EditText = requireView().findViewById(R.id.login_et_password)
+        val btnShowPassword: ImageView = requireView().findViewById(R.id.btn_show_pwd)
+        btnShowPassword.setOnClickListener {
+            showPassword(targetEditText, btnShowPassword)
+        }
+
         login_arrowback.setOnClickListener {
             parentFragmentManager.popBackStack()
         }

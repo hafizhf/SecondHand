@@ -41,6 +41,7 @@
             android:layout_height="wrap_content"
             android:hint="contoh: group3@gmail.com"
             style="@style/InputField"
+            android:windowSoftInputMode="adjustResize|stateHidden"
             android:layout_marginBottom="20dp"/>
         <TextView
             style="@style/Body1"
@@ -49,23 +50,32 @@
             android:text="Password"
             android:textSize="20dp"
             android:layout_marginBottom="10dp"/>
-        <com.google.android.material.textfield.TextInputLayout
 
-            android:layout_gravity="center_horizontal"
-            app:passwordToggleEnabled="true"
-            app:boxBackgroundMode="outline"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp">
 
             <EditText
                 android:id="@+id/login_et_password"
                 style="@style/InputField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
                 android:hint="Masukkan Password"
+                android:inputType="textPassword"
+                android:windowSoftInputMode="adjustResize|stateHidden"
                 tools:ignore="SpeakableTextPresentCheck" />
-        </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/btn_show_pwd"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/ic_eye" />
+
+        </RelativeLayout>
 
 
         <Button

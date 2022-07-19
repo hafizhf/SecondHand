@@ -19,6 +19,8 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.os.Looper
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.util.Base64
 import android.util.DisplayMetrics
 import android.util.Patterns
@@ -589,5 +591,21 @@ fun showEmptyListSign(view: View, show: Boolean, title: String? = null, message:
 
     } else {
         dialog.visibility = View.GONE
+    }
+}
+
+/**
+ * Show password on password edittext
+ */
+fun showPassword(editText: EditText, imageView: ImageView) {
+    val hidden = PasswordTransformationMethod.getInstance()
+    val show = HideReturnsTransformationMethod.getInstance()
+
+    if (editText.transformationMethod == hidden) {
+        editText.transformationMethod = show
+        imageView.setImageResource(R.drawable.ic_eye_off)
+    } else {
+        editText.transformationMethod = hidden
+        imageView.setImageResource(R.drawable.ic_eye)
     }
 }
