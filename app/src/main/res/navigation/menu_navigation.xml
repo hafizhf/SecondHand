@@ -200,7 +200,11 @@
         android:id="@+id/cartFragment"
         android:name="andlima.group3.secondhand.view.home.CartFragment"
         android:label="fragment_cart"
-        tools:layout="@layout/fragment_cart" />
+        tools:layout="@layout/fragment_cart" >
+        <action
+            android:id="@+id/action_cartFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/homeWishlistFragment"
         android:name="andlima.group3.secondhand.view.home.HomeWishlistFragment"

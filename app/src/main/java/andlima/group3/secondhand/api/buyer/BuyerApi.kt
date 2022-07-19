@@ -75,7 +75,7 @@ interface BuyerApi {
     fun editOrderBid(
         @Header("access_token") accessToken: String,
         @Path("id") id: Int,
-        @Field("bid_price") bidPrice: Int
+        @Body request: PutOrderRequest
     ) : Call<PutOrderResponse>
 
     // Delete order by id

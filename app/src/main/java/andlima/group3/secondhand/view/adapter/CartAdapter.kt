@@ -37,7 +37,7 @@ class CartAdapter(private var action: (code: Int, orderData: GetBuyerOrderRespon
 
         holder.itemView.apply {
             Glide.with(context)
-                .load(productList!![position].imageProduct)
+                .load(productList!![position].product.imageUrl)
                 .into(iv_item_cart_image)
             tv_item_cart_name.text = productList!![position].productName
             tv_item_cart_price.text = "Rp " + productList!![position].basePrice
@@ -73,10 +73,15 @@ class CartAdapter(private var action: (code: Int, orderData: GetBuyerOrderRespon
                 }
             }
 
+            item_cart.setOnClickListener {
+                // Go to detail product
+                action(3, productList!![position])
+            }
+
             btn_edit_bid.setOnClickListener {
                 // Int action to edit -> 1
-//                action(1, productList!![position])
-                toast(context, "Edit order is under maintenance")
+                action(1, productList!![position])
+//                toast(context, "Edit order is under maintenance")
             }
 
             btn_cancel_bid.setOnClickListener {

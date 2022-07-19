@@ -83,6 +83,7 @@ class DetailBottomDialogFragment : BottomSheetDialogFragment() {
         // If user come from cart/user wanted to edit bid
         val editBidData = arguments?.getParcelable<EditBid>("EDIT_BID")
         if (editBidData != null) {
+            showDataOnPopUp(bidToEdit = editBidData)
             val dialogTitle : TextView = requireView().findViewById(R.id.tv_detail_dialog_title)
             dialogTitle.text = "Ubah besar tawaran"
 
@@ -139,7 +140,7 @@ class DetailBottomDialogFragment : BottomSheetDialogFragment() {
             Glide.with(this).load(bidToEdit.imageUrl).into(productImage)
             productName.text = bidToEdit.name
             productPrice.text = "Rp " + bidToEdit.basePrice
-            productBid.setText(bidToEdit.bidPrice)
+            productBid.setText(bidToEdit.bidPrice.toString())
         }
     }
 
@@ -173,6 +174,7 @@ class DetailBottomDialogFragment : BottomSheetDialogFragment() {
         viewModel.editResponse.observe(this, {
             if (it != null) {
                 bidSuccess.postValue(true)
+                toast(requireContext(), "Edit besar tawaran berhasil")
                 this.dialog!!.dismiss()
             } else {
                 toast(requireContext(), "Edit tawaran gagal, mohon coba lagi")

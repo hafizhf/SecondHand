@@ -79,12 +79,17 @@ class CartFragment : Fragment() {
             when (code) {
                 // Edit
                 1 -> {
+//                    alertDialog(
+//                        requireContext(),
+//                        "Product Data",
+//                        orderData.toString()
+//                    ) {}
                     val data = EditBid(
                         orderData.id,
                         orderData.productName,
                         orderData.basePrice.toInt(),
                         orderData.price,
-                        orderData.imageProduct
+                        orderData.product.imageUrl
                     )
                     showBottomSheetDialogFragment(data)
                 }
@@ -103,6 +108,13 @@ class CartFragment : Fragment() {
                         adapter.notifyDataSetChanged()
                         adapter.notifyDataSetChanged()
                     })
+                }
+                3 -> {
+                    navigateToDetailProduct(
+                        orderData.productId,
+                        requireView(),
+                        R.id.action_cartFragment_to_detailFragment
+                    )
                 }
             }
         }

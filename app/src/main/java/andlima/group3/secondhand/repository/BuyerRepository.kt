@@ -2,10 +2,7 @@ package andlima.group3.secondhand.repository
 
 import andlima.group3.secondhand.api.buyer.BuyerApi
 import andlima.group3.secondhand.model.banner.GetBannerResponse
-import andlima.group3.secondhand.model.buyer.order.BuyerOrderRequest
-import andlima.group3.secondhand.model.buyer.order.DeleteOrderResponse
-import andlima.group3.secondhand.model.buyer.order.GetBuyerOrderResponseItem
-import andlima.group3.secondhand.model.buyer.order.PutOrderResponse
+import andlima.group3.secondhand.model.buyer.order.*
 import andlima.group3.secondhand.model.home.BuyerProductDetail
 import andlima.group3.secondhand.model.home.BuyerProductItem
 import andlima.group3.secondhand.model.home.newhome.ProductDetailItemResponse
@@ -255,7 +252,7 @@ class BuyerRepository @Inject constructor(private val api: BuyerApi) {
 
     // Edit order
     fun editOrder(accessToken: String, orderId: Int, newBidPrice: Int, editResponse: MutableLiveData<PutOrderResponse>) {
-        api.editOrderBid(accessToken, orderId, newBidPrice)
+        api.editOrderBid(accessToken, orderId, PutOrderRequest(newBidPrice))
             .enqueue(object : retrofit2.Callback<PutOrderResponse>{
                 override fun onResponse(
                     call: Call<PutOrderResponse>,
