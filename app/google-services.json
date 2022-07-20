@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "361831231679",
+    "project_id": "secondhand-3",
+    "storage_bucket": "secondhand-3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:361831231679:android:d280dc382160469285d60a",
+        "android_client_info": {
+          "package_name": "andlima.group3.secondhand"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "361831231679-tp496licaqvl8km1sd2ar9r9hst0b5m5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtc1BpAYb5KcUwkRneuR5BWUrGFKdTwIs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "361831231679-tp496licaqvl8km1sd2ar9r9hst0b5m5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

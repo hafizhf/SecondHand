@@ -4,6 +4,8 @@ plugins {
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -100,6 +102,15 @@ dependencies {
 
     // Biometric
     implementation 'androidx.biometric:biometric:1.1.0'
+
+    // Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:30.2.0')
+
+    // Firebase Analytics
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    // Firebase Crashlytics
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
 }
 
 //kapt {
