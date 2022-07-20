@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
+import andlima.group3.secondhand.func.showEmptyListSign
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.view.adapter.PenawaranAdapter
 import andlima.group3.secondhand.view.adapter.TerjualAdapter
@@ -61,11 +62,22 @@ class TerjualFragment : Fragment() {
         val viewModel = ViewModelProvider(requireActivity()).get(SellerViewModel::class.java)
         viewModel.sellerSoldLiveData.observe(viewLifecycleOwner){
             if (it != null){
-                val soldAdapter = TerjualAdapter(viewModel,token,viewLifecycleOwner)
-                soldAdapter.setDataProduk(it)
-                soldAdapter.notifyDataSetChanged()
-                rv_terjual_daftarjual.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-                rv_terjual_daftarjual.adapter = soldAdapter
+                if (it.isNotEmpty()){
+                    val soldAdapter = TerjualAdapter(
+                        {
+                            val selectedID = bundleOf("SELECTED_ID" to it.buyerId, "ORDER" to it.id)
+                            view?.findNavController()
+                                ?.navigate(R.id.action_daftarJualFragment_to_infoPenawarFragment2, selectedID)},
+                        viewModel,token,viewLifecycleOwner)
+                    soldAdapter.setDataProduk(it)
+                    soldAdapter.notifyDataSetChanged()
+                    rv_terjual_daftarjual.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                    rv_terjual_daftarjual.adapter = soldAdapter
+                }else{
+                    showEmptyListSign(requireView(),true, "", "Belum Ada Yang Terjual")
+
+                }
+
         }
         }
         viewModel.getSellerSoldProductsLive(token)

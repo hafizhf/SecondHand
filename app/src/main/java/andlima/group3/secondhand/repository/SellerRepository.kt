@@ -131,29 +131,23 @@ class SellerRepository @Inject constructor(private val apiService: ApiService) {
         })
 
     }
-    fun getSellerSoldProduct(token : String, liveData: MutableLiveData<List<SellerProductsItem>>){
-        val call : Call<List<SellerProductsItem>> = apiService.getSellerAllProduct(token)
-        call.enqueue(object : Callback<List<SellerProductsItem>>{
+    fun getSellerSoldProduct(token : String, liveData: MutableLiveData<List<SellerOrdersItem>>){
+        val call : Call<List<SellerOrdersItem>> = apiService.getSellerSoldOrder(token)
+        call.enqueue(object : Callback<List<SellerOrdersItem>>{
             override fun onResponse(
-                call: Call<List<SellerProductsItem>>,
-                response: Response<List<SellerProductsItem>>
+                call: Call<List<SellerOrdersItem>>,
+                response: Response<List<SellerOrdersItem>>
             ) {
                 if (response.code() == 200){
-                    val listSold : MutableList<SellerProductsItem> = mutableListOf()
-                    response.body()!!.forEach {
-                        if (it.status == "sold"){
-                            listSold.add(it)
 
-                        }
-                    }
-                    liveData.postValue(listSold)
+                    liveData.postValue(response.body())
                 }else{
                     liveData.postValue(null)
 
                 }
             }
 
-            override fun onFailure(call: Call<List<SellerProductsItem>>, t: Throwable) {
+            override fun onFailure(call: Call<List<SellerOrdersItem>>, t: Throwable) {
                 liveData.postValue(null)
             }
 
@@ -169,6 +163,8 @@ class SellerRepository @Inject constructor(private val apiService: ApiService) {
                 call: Call<List<SellerOrdersItem>>,
                 response: Response<List<SellerOrdersItem>>
             ) {
+                liveData.postValue(response.body())
+
                 if (response.code() == 200){
                     liveData.postValue(response.body())
                 }else{

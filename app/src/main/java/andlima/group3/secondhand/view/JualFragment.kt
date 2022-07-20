@@ -340,8 +340,11 @@ class JualFragment : Fragment() {
 
                     userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
                         viewModel2.userDetailLiveData.observe(viewLifecycleOwner){
-                            gambarSeller = it.imageUrl
+                            if (it.imageUrl != null){
+                                gambarSeller = it.imageUrl
+                            }
                             namaSeller = it.fullName
+
                         }
                         viewModel2.userDetailLive(it)
                     }

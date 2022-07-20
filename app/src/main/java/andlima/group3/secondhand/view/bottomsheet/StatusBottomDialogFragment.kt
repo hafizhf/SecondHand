@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
+import andlima.group3.secondhand.func.showPageLoading2
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.model.daftarjual.diminati.SellerOrdersItem
 import andlima.group3.secondhand.viewmodel.SellerViewModel
+import android.os.Handler
 import android.util.Log
 import android.widget.RadioButton
 import androidx.lifecycle.ViewModelProvider
@@ -57,8 +59,15 @@ class StatusBottomDialogFragment : BottomSheetDialogFragment() {
 
             }
 
-            dismiss()
-            viewModel.getBuyerOrdersLive(token, buyerID)
+            showPageLoading2(requireView(),true)
+            Handler().postDelayed({
+                viewModel.getBuyerOrdersLive(token, buyerID)
+                showPageLoading2(requireView(),false)
+                dismiss()
+
+
+            },2200)
+
 
 
         }

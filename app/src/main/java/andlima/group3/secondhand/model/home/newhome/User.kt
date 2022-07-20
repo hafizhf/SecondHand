@@ -18,7 +18,7 @@ data class User(
     @SerializedName("id")
     val id: Int,
     @SerializedName("image_url")
-    val imageUrl: String,
+    val imageUrl: String?,
     @SerializedName("phone_number")
     val phoneNumber: String
 ) : Serializable

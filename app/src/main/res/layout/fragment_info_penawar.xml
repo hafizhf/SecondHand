@@ -44,7 +44,7 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="15dp"
                 android:id="@+id/imagePembeliPenawar"
-                android:src="@drawable/ic_launcher_background"/>
+                android:src="@drawable/ic_placeholder_user"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -89,6 +89,8 @@
         android:layout_below="@id/txtDaftarProdukTawar"
         android:id="@+id/rv_order_buyer"
         android:layout_marginTop="10dp"/>
+    <include layout="@layout/dialog_layout_2"/>
+
 
 
 

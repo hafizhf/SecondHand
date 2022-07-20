@@ -10,5 +10,6 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="100dp"
         android:id="@+id/rv_terjual_daftarjual"/>
+    <include layout="@layout/dialog_empty_list"/>
 
 </RelativeLayout>

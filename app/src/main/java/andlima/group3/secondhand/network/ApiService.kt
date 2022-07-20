@@ -74,9 +74,15 @@ interface ApiService {
 
     @GET("seller/order")
     fun getSellerAllOrder(
-        @Header("access_token") accessToken: String,
-        @Query("status") status : String = "pending"
+        @Header("access_token") accessToken: String
     ) : Call<List<SellerOrdersItem>>
+
+    @GET("seller/order")
+    fun getSellerSoldOrder(
+        @Header("access_token") accessToken: String,
+        @Query("status") status : String = "accepted"
+    ) : Call<List<SellerOrdersItem>>
+
 
     @Multipart
     @POST("seller/product")

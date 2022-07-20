@@ -18,11 +18,11 @@ import kotlinx.android.synthetic.main.item_penawaran.view.tv_tanggalPenawaran
 import kotlinx.android.synthetic.main.item_terjual.view.*
 import java.text.SimpleDateFormat
 
-class TerjualAdapter( var viewModel : SellerViewModel, var token : String, var owner: LifecycleOwner) : RecyclerView.Adapter<TerjualAdapter.ViewHolder>() {
+class TerjualAdapter(private var onClick : (SellerOrdersItem)->Unit, var viewModel : SellerViewModel, var token : String, var owner: LifecycleOwner) : RecyclerView.Adapter<TerjualAdapter.ViewHolder>() {
 
-    private var dataProduk : List<SellerProductsItem>? = null
+    private var dataProduk : List<SellerOrdersItem>? = null
 
-    fun setDataProduk(produk : List<SellerProductsItem>){
+    fun setDataProduk(produk : List<SellerOrdersItem>){
         this.dataProduk = produk
     }
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
@@ -41,15 +41,22 @@ class TerjualAdapter( var viewModel : SellerViewModel, var token : String, var o
 //            holder.itemView.tv_terjual.text = "Terjual Rp " + it.price
 //
 //        }
-        holder.itemView.tv_namaTerjual.text = dataProduk!![position].name
+        holder.itemView.tv_terjualBuyer.text = dataProduk!![position].user.fullName
+        holder.itemView.tv_terjual.text = "Terjual Rp " + dataProduk!![position].price
+        holder.itemView.tv_namaTerjual.text = dataProduk!![position].productName
         holder.itemView.tv_hargaTerjual.text = "Rp " + dataProduk!![position].basePrice
-        Glide.with(holder.itemView.context).load(dataProduk!![position].imageUrl).apply(
+        Glide.with(holder.itemView.context).load(dataProduk!![position].product.imageUrl).apply(
             RequestOptions()
         ).into(holder.itemView.imageTerjual)
         val parser =  SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
         val formatter = SimpleDateFormat("dd MMM, HH:mm")
         val formattedDate = formatter.format(parser.parse(dataProduk!![position].updatedAt))
         holder.itemView.tv_tanggalTerjual.text = formattedDate
+
+
+        holder.itemView.card_itemTerjual.setOnClickListener{
+            onClick(dataProduk!![position])
+        }
 
     }
 

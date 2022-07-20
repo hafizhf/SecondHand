@@ -10,4 +10,8 @@
         android:layout_height="match_parent"
         android:id="@+id/rv_produk_daftarjual"/>
 
+    <include layout="@layout/dialog_layout_2"/>
+
+    <include layout="@layout/dialog_empty_list"/>
+
 </RelativeLayout>

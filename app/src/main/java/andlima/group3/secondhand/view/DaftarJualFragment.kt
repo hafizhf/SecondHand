@@ -85,7 +85,10 @@ class DaftarJualFragment : Fragment() {
             if (it != null){
                 tv_namaPenjual.text = it.fullName
                 tv_kotaPenjual.text = it.city
-                Glide.with(this).load(it.imageUrl).into(imagePenjualDaftarJual)
+                if (it.imageUrl != null){
+                    Glide.with(this).load(it.imageUrl).into(imagePenjualDaftarJual)
+
+                }
 
             }else{
                 toast(requireContext(), "$token")
