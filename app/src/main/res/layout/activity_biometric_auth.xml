@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BiometricAuthActivity"
+    android:layout_margin="25dp"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_lock"
+        app:tint="@color/second_hand_primary"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Verifikasi data"
+        android:layout_marginBottom="10dp"
+        style="@style/Heading1"
+        android:layout_gravity="center"/>
+
+    <LinearLayout
+        android:id="@+id/layout_verify_with_biometric"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:visibility="visible">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="70dp"/>
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_fingerprint"
+            app:tint="@color/second_hand_primary" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="100dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Verifikasi dengan:"
+            style="@style/Body1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_use_password"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Password"
+                style="@style/ButtonOutlined"
+                android:layout_marginEnd="5dp"/>
+
+            <Button
+                android:id="@+id/iv_authenticate"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="Fingerprint"
+                style="@style/Button"
+                android:layout_marginStart="5dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_verify_with_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp">
+
+            <EditText
+                android:id="@+id/et_password_verify"
+                style="@style/InputField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Masukkan Password"
+                android:inputType="textPassword"
+                android:windowSoftInputMode="adjustResize|stateHidden"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+            <ImageView
+                android:id="@+id/btn_show_pwd"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15dp"
+                android:src="@drawable/ic_eye" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_verify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Verifikasi"
+            style="@style/Button"/>
+
+    </LinearLayout>
+
+</LinearLayout>

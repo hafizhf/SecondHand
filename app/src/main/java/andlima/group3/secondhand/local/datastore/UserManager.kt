@@ -22,6 +22,7 @@ class UserManager(context: Context) {
         val EMAIL = stringPreferencesKey("email")
         val PASSWORD = stringPreferencesKey("password")
         val FIRST_TIME = booleanPreferencesKey("first_time")
+        val BIOMETRIC_AUTH = booleanPreferencesKey("biometric_auth")
     }
 
     val accessTokenFlow : Flow<String> = context.dataStore.data.map {
@@ -42,6 +43,10 @@ class UserManager(context: Context) {
 
     val firstTimeFlow: Flow<Boolean> = context.dataStore.data.map {
         it[FIRST_TIME] ?: true
+    }
+
+    val biometricAuthFlow: Flow<Boolean> = context.dataStore.data.map {
+        it[BIOMETRIC_AUTH] ?: false
     }
 
     /**
@@ -92,6 +97,24 @@ class UserManager(context: Context) {
     suspend fun setNotFirstTimeRun() {
         itContext.dataStore.edit {
             it[FIRST_TIME] = false
+        }
+    }
+
+    /**
+     * Enable biometric authentication
+     */
+    suspend fun enableBiometricAuth() {
+        itContext.dataStore.edit {
+            it[BIOMETRIC_AUTH] = true
+        }
+    }
+
+    /**
+     * Disable biometric authentication
+     */
+    suspend fun disableBiometricAuth() {
+        itContext.dataStore.edit {
+            it[BIOMETRIC_AUTH] = false
         }
     }
 }

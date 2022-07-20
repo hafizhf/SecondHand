@@ -1,6 +1,6 @@
 package andlima.group3.secondhand.view.splashscreen
 
-import andlima.group3.secondhand.AuthActivity
+import andlima.group3.secondhand.BiometricAuthActivity
 import andlima.group3.secondhand.MainActivity
 import andlima.group3.secondhand.MarketApplication
 import andlima.group3.secondhand.R
@@ -14,14 +14,10 @@ import andlima.group3.secondhand.repository.AuthRepository
 import andlima.group3.secondhand.services.ConnectionStatus
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Color
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
 import android.util.Log
-import android.view.View
 import android.view.WindowManager
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
@@ -99,11 +95,24 @@ class SplashScreenActivity : AppCompatActivity() {
                 userDataAuth { response, code, message ->
                     if (code != -500)
                         actionBaseOnResponse(response, code, message)
-                    else
-                        splashHandler(MainActivity::class.java)
+                    else {
+                        userManager.biometricAuthFlow.asLiveData().observeOnce(this, {
+                            if (it) {
+                                splashHandler(BiometricAuthActivity::class.java)
+                            } else {
+                                splashHandler(MainActivity::class.java)
+                            }
+                        })
+                    }
                 }
             } else {
-                splashHandler(MainActivity::class.java)
+                userManager.biometricAuthFlow.asLiveData().observeOnce(this, {
+                    if (it) {
+                        splashHandler(BiometricAuthActivity::class.java)
+                    } else {
+                        splashHandler(MainActivity::class.java)
+                    }
+                })
             }
         })
     }

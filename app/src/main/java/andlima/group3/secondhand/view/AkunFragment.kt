@@ -163,6 +163,11 @@ class AkunFragment : Fragment() {
                         viewModel.userDetailLive(it)
                     }
 
+                    btn_goto_setting.setOnClickListener {
+                        Navigation.findNavController(view)
+                            .navigate(R.id.action_akunFragment_to_settingFragment)
+                    }
+
                     btn_logout.setOnClickListener {
                         alertDialog(requireContext(), "Logout", "Are you sure want to log out?") {
                             GlobalScope.launch {

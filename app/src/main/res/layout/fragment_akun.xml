@@ -10,12 +10,12 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cv_background_user_profile"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
+        android:layout_height="100dp"
         android:layout_marginTop="10dp"
         android:backgroundTint="@color/second_hand_neutral5"
         app:cardCornerRadius="15dp"
         app:cardElevation="0dp"
-        app:strokeWidth="0dp"/>
+        app:strokeWidth="0dp" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/container_profile_image"
@@ -24,7 +24,7 @@
         app:strokeWidth="0dp"
         app:cardElevation="0dp"
         app:cardCornerRadius="100dp"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
         android:backgroundTint="@color/white">
 
@@ -160,6 +160,7 @@
             android:background="@color/second_hand_neutral5"/>
 
         <LinearLayout
+            android:id="@+id/btn_goto_setting"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="15dp"
