@@ -3,6 +3,8 @@ package andlima.group3.secondhand.view.adapter
 import andlima.group3.secondhand.MainActivity
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.quickNotifyDialog
+import andlima.group3.secondhand.func.showPageLoading
+import andlima.group3.secondhand.func.showPageLoading2
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.model.daftarjual.diminati.SellerOrdersItem
 import andlima.group3.secondhand.model.detail.ProductDataForBid
@@ -30,9 +32,10 @@ import kotlinx.android.synthetic.main.item_penawaran.view.*
 import kotlinx.android.synthetic.main.item_tawaran_buyer.view.*
 import java.net.URLEncoder
 import java.text.SimpleDateFormat
+import java.util.logging.Handler
 
 
-class TawaranBuyerAdapter(private var viewModel : SellerViewModel, var token : String, var context : Context, var manager : FragmentManager, var buyerId : Int) : RecyclerView.Adapter<TawaranBuyerAdapter.ViewHolder>() {
+class TawaranBuyerAdapter(private var viewModel : SellerViewModel, var token : String, var context : Context, var manager : FragmentManager, var buyerId : Int, var view2: View) : RecyclerView.Adapter<TawaranBuyerAdapter.ViewHolder>() {
 
     private var dataProduk : List<SellerOrdersItem>? = null
 
@@ -79,7 +82,11 @@ class TawaranBuyerAdapter(private var viewModel : SellerViewModel, var token : S
         holder.itemView.btnTerima.setOnClickListener {
             if (holder.itemView.btnTerima.text == "Terima"){
                 viewModel.patchOrderLive(token, dataProduk!![position].id, "terima")
-                viewModel.getBuyerOrdersLive(token, buyerId)
+                showPageLoading2(view2,true)
+                android.os.Handler().postDelayed({
+                    viewModel.getBuyerOrdersLive(token, buyerId)
+                    showPageLoading2(view2,false)
+                },2200)
                 showBottomSheetDialogFragment(dataProduk!![position], token, buyerId)
 
 
@@ -95,8 +102,15 @@ class TawaranBuyerAdapter(private var viewModel : SellerViewModel, var token : S
         }
         holder.itemView.btnTolak.setOnClickListener {
             if (holder.itemView.btnTolak.text == "Tolak"){
+                showPageLoading2(view2,true)
+
                 viewModel.patchOrderLive(token, dataProduk!![position].id, "declined")
-                viewModel.getBuyerOrdersLive(token, buyerId)
+                android.os.Handler().postDelayed({
+                    viewModel.getBuyerOrdersLive(token, buyerId)
+                    showPageLoading2(view2,false)
+
+                },2200)
+
 
                 toast(context, "Tawaran telah ditolak")
             }else{

@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
+import andlima.group3.secondhand.func.showPageLoading
+import andlima.group3.secondhand.func.showPageLoading2
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.view.adapter.PenawaranAdapter
 import andlima.group3.secondhand.view.adapter.TawaranBuyerAdapter
@@ -39,7 +41,7 @@ class InfoPenawarFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         btnBackInfoTawar.setOnClickListener {
-            parentFragmentManager.popBackStack()
+            view.findNavController().navigate(R.id.action_infoPenawarFragment2_to_daftarJualFragment)
         }
         userManager = UserManager(requireContext())
 
@@ -54,13 +56,17 @@ class InfoPenawarFragment : Fragment() {
     }
     fun getPenawarOrders(token: String, id: Int){
         val viewModel = ViewModelProvider(requireActivity()).get(SellerViewModel::class.java)
+
+
+        showPageLoading2(requireView(), true,"Loading")
         viewModel.sellerBuyerOrdersLiveData.observe(viewLifecycleOwner){
             if (it != null){
-                val orderAdapter = TawaranBuyerAdapter(viewModel, token, requireContext(), parentFragmentManager, buyerID)
+                val orderAdapter = TawaranBuyerAdapter(viewModel, token, requireContext(), parentFragmentManager, buyerID, requireView())
                 orderAdapter.setDataProduk(it)
                 orderAdapter.notifyDataSetChanged()
                 rv_order_buyer.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
                 rv_order_buyer.adapter = orderAdapter
+                showPageLoading2(requireView(), false)
             }
 
         }
@@ -73,9 +79,10 @@ class InfoPenawarFragment : Fragment() {
             if (it != null){
                 tv_namaPenawar.text = it.user.fullName
                 tv_kotaPenawar.text = it.user.city
-                Glide.with(requireActivity()).load(it.imageProduct).apply(
-                    RequestOptions()
-                ).into(imagePembeliPenawar)
+
+//                Glide.with(requireActivity()).load(it.imageProduct).apply(
+//                    RequestOptions()
+//                ).into(imagePembeliPenawar)
             }
         }
         viewModel.getDetailOrderLive(token, id)

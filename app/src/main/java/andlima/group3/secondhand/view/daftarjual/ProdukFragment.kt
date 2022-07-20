@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import andlima.group3.secondhand.R
+import andlima.group3.secondhand.func.showEmptyListSign
+import andlima.group3.secondhand.func.showPageLoading
+import andlima.group3.secondhand.func.showPageLoading2
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.view.adapter.DaftarJualAdapter
 import andlima.group3.secondhand.view.adapter.HomeAdapter
@@ -62,20 +65,32 @@ class ProdukFragment : Fragment() {
     }
 
     private fun getAllProducts(token: String) {
+        showPageLoading2(requireView(), true)
+
         val viewModel = ViewModelProvider(requireActivity()).get(SellerViewModel::class.java)
         viewModel.sellerProductsLiveData.observe(viewLifecycleOwner){
             if (it != null){
-                val produkAdapter = DaftarJualAdapter {
-                    val selectedID = bundleOf("SELECTED_ID" to it.id)
-                    view?.findNavController()
-                        ?.navigate(R.id.action_daftarJualFragment_to_detailFragment, selectedID)
+                if (it.isNotEmpty()){
+                    showEmptyListSign(requireView(),false, "Kosong", "Belum Post Produk")
 
-
+                    val produkAdapter = DaftarJualAdapter {
+                        val selectedID = bundleOf("SELECTED_ID" to it.id)
+                        view?.findNavController()
+                            ?.navigate(R.id.action_daftarJualFragment_to_detailFragment, selectedID)
+                    }
+                    produkAdapter.setDataProduk(it)
+                    produkAdapter.notifyDataSetChanged()
+                    rv_produk_daftarjual.layoutManager = GridLayoutManager(requireContext(), 2)
+                    rv_produk_daftarjual.adapter = produkAdapter
+                    showPageLoading2(requireView(), false)
+                }else{
+                    showPageLoading2(requireView(), false)
+                    showEmptyListSign(requireView(),true, "", "Belum Post Produk")
                 }
-                produkAdapter.setDataProduk(it)
-                produkAdapter.notifyDataSetChanged()
-                rv_produk_daftarjual.layoutManager = GridLayoutManager(requireContext(), 2)
-                rv_produk_daftarjual.adapter = produkAdapter
+
+
+            }else{
+
             }
         }
         viewModel.getSellerAllProductsLive(token)

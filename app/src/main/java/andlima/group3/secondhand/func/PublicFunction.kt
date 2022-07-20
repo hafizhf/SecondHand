@@ -568,6 +568,21 @@ fun showPageLoading(view: View, show: Boolean, text: String? = null) {
         loadingLayout.visibility = View.GONE
     }
 }
+fun showPageLoading2(view: View, show: Boolean, text: String? = null) {
+    val loadingLayout: LinearLayout = view.findViewById(R.id.loading_layout3)
+    val loadingText: TextView = view.findViewById(R.id.tv_loading_title3)
+
+    if (show) {
+        loadingLayout.visibility = View.VISIBLE
+
+        if (text != null) {
+            loadingText.text = text
+        }
+
+    } else {
+        loadingLayout.visibility = View.GONE
+    }
+}
 
 /**
  * Require **include layout="@layout/dialog_empty_list"** in view layout

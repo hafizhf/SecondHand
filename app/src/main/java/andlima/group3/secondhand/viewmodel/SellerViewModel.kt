@@ -23,7 +23,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SellerViewModel@Inject constructor(private val repository : SellerRepository) : ViewModel() {
     var sellerProductsLiveData : MutableLiveData<List<SellerProductsItem>> = MutableLiveData()
-    var sellerSoldLiveData : MutableLiveData<List<SellerProductsItem>> = MutableLiveData()
+    var sellerSoldLiveData : MutableLiveData<List<SellerOrdersItem>> = MutableLiveData()
 
     var sellerPostProductLive : MutableLiveData<PostProductResponse> = MutableLiveData()
     var sellerEditProductLive : MutableLiveData<EditResponse> = MutableLiveData()
