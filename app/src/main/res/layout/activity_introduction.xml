@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".IntroductionActivity">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpager_intro"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_intro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:background="@color/second_hand_transparent"
+        app:tabBackground="@drawable/tab_intro_selector"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="0dp"
+        tools:ignore="SpeakableTextPresentCheck"
+        android:visibility="gone">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <LinearLayout
+        android:id="@+id/container_tour_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:layout_marginBottom="40dp"
+        android:orientation="vertical"
+        android:layout_alignParentEnd="true">
+
+        <ImageView
+            android:id="@+id/btn_intro_next"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/ic_next"
+            android:layout_gravity="end"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/btn_intro_skip"
+            style="@style/Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/skip_tour"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp">
+
+        <ImageView
+            android:id="@+id/btn_intro_next_first"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/ic_next"/>
+
+        <TextView
+            android:id="@+id/btn_intro_skip_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/skip_tour"
+            style="@style/Body1"
+            android:layout_marginTop="15dp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

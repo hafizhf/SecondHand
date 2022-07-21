@@ -60,12 +60,16 @@
         <entry key="..\:/Users/Muhajir/AndroidStudioProjects/SecondHand/app/src/main/res/layout/item_terjual.xml" value="0.36302083333333335" />
         <entry key="..\:/Users/Muhajir/AndroidStudioProjects/SecondHand/app/src/main/res/layout/list_kategori.xml" value="0.5" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable/component_border.xml" value="0.22552083333333334" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable/default_dot.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable/ic_eye.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable/ic_require_login.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable/placeholder.xml" value="0.22552083333333334" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable/selected_dot.xml" value="0.22552083333333334" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/drawable/tab_intro_selector.xml" value="0.22552083333333334" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout-v23/fragment_setting.xml" value="0.209375" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/activity_auth.xml" value="0.12771739130434784" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/activity_biometric_auth.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/activity_introduction.xml" value="0.18" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/activity_splash_screen.xml" value="0.2" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/component_example.xml" value="0.209375" />
@@ -84,8 +88,12 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_detail_bottom_dialog.xml" value="0.25" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_diminati.xml" value="0.2" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_elektronik.xml" value="0.13903985507246377" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_fifth_intro.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_first_intro.xml" value="0.18" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_forth_intro.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_fourth_intro.xml" value="0.209375" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_hobi.xml" value="0.13903985507246377" />
-        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home.xml" value="0.22" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home.xml" value="0.16" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_home_wishlist.xml" value="0.15534420289855072" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_info_akun.xml" value="0.22" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_info_penawar.xml" value="0.2" />
@@ -97,8 +105,10 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_notifikasi.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_produk.xml" value="0.1" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_register.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_second_intro.xml" value="0.14" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_semua.xml" value="0.13722826086956522" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_setting.xml" value="0.33" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/fragment_third_intro.xml" value="0.22" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/header_home.xml" value="0.22" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/home_layout.xml" value="0.15534420289855072" />
         <entry key="..\:/Users/User/AndroidStudioProjects/SecondHand/app/src/main/res/layout/horizontalline.xml" value="0.2" />

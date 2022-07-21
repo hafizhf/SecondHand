@@ -1,9 +1,6 @@
 package andlima.group3.secondhand.view.splashscreen
 
-import andlima.group3.secondhand.BiometricAuthActivity
-import andlima.group3.secondhand.MainActivity
-import andlima.group3.secondhand.MarketApplication
-import andlima.group3.secondhand.R
+import andlima.group3.secondhand.*
 import andlima.group3.secondhand.func.alertDialog
 import andlima.group3.secondhand.func.observeOnce
 import andlima.group3.secondhand.func.toast
@@ -60,10 +57,11 @@ class SplashScreenActivity : AppCompatActivity() {
                     if (isConnected) {
 
                         Log.d("DISINI", "3")
-                        GlobalScope.launch {
-                            userManager.setNotFirstTimeRun()
-                        }
-                        continueToMainActivity()
+//                        GlobalScope.launch {
+//                            userManager.setNotFirstTimeRun()
+//                        }
+//                        continueToMainActivity()
+                        splashHandler(IntroductionActivity::class.java)
 
                     } else {
 

@@ -73,7 +73,8 @@ class HomeFragment : Fragment() {
 
         MarketApplication.isConnected.observe(this, { isConnected ->
             if (isConnected) {
-                getBanner()
+//                getBanner()
+                getBannerIGuess()
                 homeSearchView(requireView(), requireContext(), requireActivity(), this, this)
                 showCartQuantity(requireView(), this, this, userManager)
                 showWishlistQuantity(requireView(), this, this, userManager)
@@ -243,39 +244,16 @@ class HomeFragment : Fragment() {
 
     private fun bannerCarousel(imageUrlList: List<String>) {
         val carousel : CarouselView = requireView().findViewById(R.id.banner_carousel_home)
-//        val sampleBanner = listOf(R.drawable.dummy_banner_1, R.drawable.dummy_banner_2)
-
         carousel.setImageListener { position, imageView ->
-
             val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
             StrictMode.setThreadPolicy(policy)
             val url = URL(imageUrlList[position])
             CoroutineScope(Dispatchers.IO).launch {
-//                runCatching {
-//                    val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-//                    StrictMode.setThreadPolicy(policy)
-//                    val url = URL(imageUrlList[position])
-//                    imageView.setImageBitmap(BitmapFactory.decodeStream(url.content as InputStream))
-//                }
                 val bitmap = BitmapFactory.decodeStream(url.content as InputStream)
                 requireActivity().runOnUiThread {
                     imageView.setImageBitmap(bitmap)
                 }
             }
-
-
-
-//            val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-//            StrictMode.setThreadPolicy(policy)
-//            val url = URL(imageUrlList[position])
-//            imageView.setImageBitmap(BitmapFactory.decodeStream(url.content as InputStream))
-//            try {
-//                val url = URL(imageUrlList[position])
-//                imageView.setImageBitmap(BitmapFactory.decodeStream(url.content as InputStream))
-//            } catch (e: IOException) {
-//                //Log.e(TAG, e.getMessage());
-//            }
-//            imageView.setImageResource(sampleBanner[position])
         }
         carousel.pageCount = imageUrlList.size
     }
@@ -293,6 +271,22 @@ class HomeFragment : Fragment() {
             }
         })
         viewModel.getBanner()
+    }
+
+    private fun getBannerIGuess() {
+        val carousel : CarouselView = requireView().findViewById(R.id.banner_carousel_home)
+        val sampleBanner = listOf(
+            R.drawable.api_banner_1,
+            R.drawable.api_banner_2,
+            R.drawable.api_banner_3,
+            R.drawable.api_banner_4,
+            R.drawable.api_banner_5
+        )
+
+        carousel.setImageListener { position, imageView ->
+            imageView.setImageResource(sampleBanner[position])
+        }
+        carousel.pageCount = sampleBanner.size
     }
 
     // Function to exit app with double click on back button----------------------------------------

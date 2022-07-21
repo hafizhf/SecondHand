@@ -32,4 +32,6 @@
     <string name="success_message">Success message</string>
     <string name="danger_message">Danger message</string>
     <string name="dialog_message">Dialog message</string>
+    <string name="skip_tour"><u>Skip tour</u></string>
+    <string name="skip"><u>Nanti lagi</u></string>
 </resources>
