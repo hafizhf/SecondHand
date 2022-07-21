@@ -34,7 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/placeholder"/>
+                    android:src="@drawable/placeholder" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/cv_item_product_preview_is_sold"
@@ -105,7 +105,7 @@
         <LinearLayout
             android:id="@+id/item_product_more"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="240dp"
             android:orientation="vertical"
             android:gravity="center"
             android:visibility="gone">

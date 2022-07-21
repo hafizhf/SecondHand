@@ -41,7 +41,7 @@ class InfoPenawarFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         btnBackInfoTawar.setOnClickListener {
-            view.findNavController().navigate(R.id.action_infoPenawarFragment2_to_daftarJualFragment)
+            view.findNavController().navigate(R.id.action_infoPenawarFragment2_to_daftarJualFragment2)
         }
         userManager = UserManager(requireContext())
 

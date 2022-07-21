@@ -79,8 +79,8 @@ class HomeResultListFragment : Fragment() {
                 val resultTitle: TextView = requireView().findViewById(R.id.tv_result_title)
 
                 if (searchKeyword != null) {
-                    resultTitle.text = getResultTitle(10, searchKeyword)
-                    getResult(10, searchKeyword)
+                    resultTitle.text = getResultTitle(-1, searchKeyword)
+                    getResult(-1, searchKeyword)
                 } else {
                     if (requestCode != null) {
                         resultTitle.text = getResultTitle(requestCode)
@@ -93,32 +93,32 @@ class HomeResultListFragment : Fragment() {
 
     private fun getResultTitle(requestCode: Int?, searchKeyword: String? = null): String {
         return when (requestCode) {
+            -1 -> searchKeyword!!
             0 -> "Semua Produk"
-            10 -> searchKeyword!!
-            96 -> "Elektonik"
-            97 -> "Komputer dan Aksesoris"
-            98 -> "Handphone dan Aksesoris"
-            99 -> "Pakaian Pria"
-            100 -> "Sepatu Pria"
-            101 -> "Tas Pria"
-            102 -> "Aksesoris Fashion"
-            103 -> "Kesehatan"
-            104 -> "Hobi dan Koleksi"
-            105 -> "Makanan dan Minuman"
-            106 -> "Perawatan dan Kecantikan"
-            107 -> "Perlengkapan Rumah"
-            108 -> "Pakaian Wanita"
-            109 -> "Pakaian Muslim"
-            110 -> "Fashion Bayi dan Anak"
-            111 -> "Ibu dan Bayi"
-            112 -> "Sepatu Wanita"
-            113 -> "Tas Wanita"
-            114 -> "Otomotif"
-            115 -> "Olahraga dan Outdoor"
-            116 -> "Buku dan Alat Tulis"
-            117 -> "Voucher"
-            118 -> "Souvenir dan Pesta"
-            119 -> "Fotografi"
+            1 -> "Elektonik"
+            2 -> "Komputer dan Aksesoris"
+            3 -> "Handphone dan Aksesoris"
+            4 -> "Pakaian Pria"
+            5 -> "Sepatu Pria"
+            6 -> "Tas Pria"
+            7 -> "Aksesoris Fashion"
+            8 -> "Kesehatan"
+            9 -> "Hobi dan Koleksi"
+            10 -> "Makanan dan Minuman"
+            11 -> "Perawatan dan Kecantikan"
+            12 -> "Perlengkapan Rumah"
+            13 -> "Pakaian Wanita"
+            14 -> "Pakaian Muslim"
+            15 -> "Fashion Bayi dan Anak"
+            16 -> "Ibu dan Bayi"
+            17 -> "Sepatu Wanita"
+            18 -> "Tas Wanita"
+            19 -> "Otomotif"
+            20 -> "Olahraga dan Outdoor"
+            21 -> "Buku dan Alat Tulis"
+            22 -> "Voucher"
+            23 -> "Souvenir dan Pesta"
+            24 -> "Fotografi"
             else -> "Hasil Pencarian"
         }
     }
@@ -135,24 +135,8 @@ class HomeResultListFragment : Fragment() {
         recyclerView.adapter = adapter
 
         when (requestCode) {
-            // Semua
-            0 -> {
-                viewModel.getAllProducts()
-                viewModel.allProducts.observe(this, {
-                    if (it != null) {
-                        if (it.isNotEmpty()) {
-                            adapter.setProductData(it)
-                            adapter.notifyDataSetChanged()
-                        } else {
-
-                        }
-                    } else {
-
-                    }
-                })
-            }
             // Search result
-            10 -> {
+            -1 -> {
 //                toast(requireContext(), searchKeyword!!)
                 viewModel.getSearchResult(searchKeyword!!)
                 viewModel.searchResult.observe(this, {
@@ -169,8 +153,24 @@ class HomeResultListFragment : Fragment() {
                 })
 
             }
+            // Semua
+            0 -> {
+                viewModel.getAllProducts()
+                viewModel.allProducts.observe(this, {
+                    if (it != null) {
+                        if (it.isNotEmpty()) {
+                            adapter.setProductData(it)
+                            adapter.notifyDataSetChanged()
+                        } else {
+
+                        }
+                    } else {
+
+                    }
+                })
+            }
             // Elektronik
-            96 -> {
+            1 -> {
                 viewModel.getElectronicProducts()
                 viewModel.electronicProducts.observe(this, {
                     if (it != null) {
@@ -186,7 +186,7 @@ class HomeResultListFragment : Fragment() {
                 })
             }
             // Komputer dan Aksesoris
-            97 -> {
+            2 -> {
                 viewModel.getComputerProducts()
                 viewModel.computerProducts.observe(this, {
                     if (it != null) {
@@ -202,7 +202,7 @@ class HomeResultListFragment : Fragment() {
                 })
             }
             // Handphone dan Aksesoris
-            98 -> {
+            3 -> {
                 viewModel.getPhoneProducts()
                 viewModel.phoneProducts.observe(this, {
                     if (it != null) {
@@ -218,7 +218,7 @@ class HomeResultListFragment : Fragment() {
                 })
             }
             // Pakaian Pria
-            99 -> {
+            4 -> {
                 viewModel.getManClothesProducts()
                 viewModel.manClothesProducts.observe(this, {
                     if (it != null) {
@@ -234,7 +234,7 @@ class HomeResultListFragment : Fragment() {
                 })
             }
             // Sepatu Pria
-            100 -> {
+            5 -> {
                 viewModel.getManShoesProducts()
                 viewModel.manShoesProducts.observe(this, {
                     if (it != null) {
@@ -250,7 +250,7 @@ class HomeResultListFragment : Fragment() {
                 })
             }
             // Tas Pria
-            101 -> {
+            6 -> {
                 viewModel.getManBagProducts()
                 viewModel.manBagProducts.observe(this, {
                     if (it != null) {
@@ -266,7 +266,7 @@ class HomeResultListFragment : Fragment() {
                 })
             }
             // Aksesoris Fashion
-            102 -> {
+            7 -> {
                 viewModel.getAccessoriesFashionProducts()
                 viewModel.accessoriesFashionProducts.observe(this, {
                     if (it != null) {
@@ -282,7 +282,7 @@ class HomeResultListFragment : Fragment() {
                 })
             }
             // Kesehatan
-            103 -> {
+            8 -> {
                 viewModel.getHealthProducts()
                 viewModel.healthProducts.observe(this, {
                     if (it != null) {
@@ -298,7 +298,7 @@ class HomeResultListFragment : Fragment() {
                 })
             }
             // Hobi dan Koleksi
-            104 -> {
+            9 -> {
                 viewModel.getHobbyProducts()
                 viewModel.hobbyProducts.observe(this, {
                     if (it != null) {
@@ -314,7 +314,7 @@ class HomeResultListFragment : Fragment() {
                 })
             }
             // Makanan dan Minuman
-            105 -> {
+            10 -> {
                 viewModel.getFoodProducts()
                 viewModel.foodProducts.observe(this, {
                     if (it != null) {
@@ -330,7 +330,7 @@ class HomeResultListFragment : Fragment() {
                 })
             }
             // Perawatan dan Kecantikan
-            106 -> {
+            11 -> {
                 viewModel.getBeautyProducts()
                 viewModel.beautyProducts.observe(this, {
                     if (it != null) {
@@ -346,7 +346,7 @@ class HomeResultListFragment : Fragment() {
                 })
             }
             // Perlengkapan Rumah
-            107 -> {
+            12 -> {
                 viewModel.getHomeSuppliesProducts()
                 viewModel.homeSuppliesProducts.observe(this, {
                     if (it != null) {
@@ -362,7 +362,7 @@ class HomeResultListFragment : Fragment() {
                 })
             }
             // Pakaian Wanita
-            108 -> {
+            13 -> {
                 viewModel.getWomanClothesProducts()
                 viewModel.womanClothesProducts.observe(this, {
                     if (it != null) {
@@ -378,7 +378,7 @@ class HomeResultListFragment : Fragment() {
                 })
             }
             // Pakaian Muslim
-            109 -> {
+            14 -> {
                 viewModel.getMuslimFashionProducts()
                 viewModel.muslimFashionProducts.observe(this, {
                     if (it != null) {
@@ -394,7 +394,7 @@ class HomeResultListFragment : Fragment() {
                 })
             }
             // Fashion Bayi dan Anak
-            110 -> {
+            15 -> {
                 viewModel.getKidFashionProducts()
                 viewModel.kidFashionProducts.observe(this, {
                     if (it != null) {
@@ -410,7 +410,7 @@ class HomeResultListFragment : Fragment() {
                 })
             }
             // Ibu dan Bayi
-            111 -> {
+            16 -> {
                 viewModel.getMotherChildProducts()
                 viewModel.motherChildProducts.observe(this, {
                     if (it != null) {
@@ -426,7 +426,7 @@ class HomeResultListFragment : Fragment() {
                 })
             }
             // Sepatu Wanita
-            112 -> {
+            17 -> {
                 viewModel.getWomanShoesProducts()
                 viewModel.womanShoesProducts.observe(this, {
                     if (it != null) {
@@ -442,7 +442,7 @@ class HomeResultListFragment : Fragment() {
                 })
             }
             // Tas Wanita
-            113 -> {
+            18 -> {
                 viewModel.getWomanBagProducts()
                 viewModel.womanBagProducts.observe(this, {
                     if (it != null) {
@@ -458,7 +458,7 @@ class HomeResultListFragment : Fragment() {
                 })
             }
             // Otomotif
-            114 -> {
+            19 -> {
                 viewModel.getAutomotiveProducts()
                 viewModel.automotiveProducts.observe(this, {
                     if (it != null) {
@@ -474,7 +474,7 @@ class HomeResultListFragment : Fragment() {
                 })
             }
             // Olahraga dan Outdoor
-            115 -> {
+            20 -> {
                 viewModel.getSportsProducts()
                 viewModel.sportsProducts.observe(this, {
                     if (it != null) {
@@ -490,7 +490,7 @@ class HomeResultListFragment : Fragment() {
                 })
             }
             // Buku dan Alat Tulis
-            116 -> {
+            21 -> {
                 viewModel.getBooksProducts()
                 viewModel.booksProducts.observe(this, {
                     if (it != null) {
@@ -506,7 +506,7 @@ class HomeResultListFragment : Fragment() {
                 })
             }
             // Voucher
-            117 -> {
+            22 -> {
                 viewModel.getVoucherProducts()
                 viewModel.voucherProducts.observe(this, {
                     if (it != null) {
@@ -522,7 +522,7 @@ class HomeResultListFragment : Fragment() {
                 })
             }
             // Souvenir dan Pesta
-            118 -> {
+            23 -> {
                 viewModel.getSouvenirProducts()
                 viewModel.souvenirProducts.observe(this, {
                     if (it != null) {
@@ -538,7 +538,7 @@ class HomeResultListFragment : Fragment() {
                 })
             }
             // Fotografi
-            119 -> {
+            24 -> {
                 viewModel.getPhotographyProducts()
                 viewModel.photographyProducts.observe(this, {
                     if (it != null) {

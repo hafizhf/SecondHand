@@ -101,47 +101,47 @@ class HomeFragment : Fragment() {
         actionCategoryButton(
             R.id.btn_goto_category_computer,
             R.id.action_homeFragment_to_homeResultListFragment,
-            97
+            2
         )
         actionCategoryButton(
             R.id.btn_goto_category_handphone,
             R.id.action_homeFragment_to_homeResultListFragment,
-            98
+            3
         )
         actionCategoryButton(
             R.id.btn_goto_category_voucher,
             R.id.action_homeFragment_to_homeResultListFragment,
-            117
+            22
         )
         actionCategoryButton(
             R.id.btn_goto_category_health,
             R.id.action_homeFragment_to_homeResultListFragment,
-            103
+            8
         )
         actionCategoryButton(
             R.id.btn_goto_category_hobby,
             R.id.action_homeFragment_to_homeResultListFragment,
-            104
+            9
         )
         actionCategoryButton(
             R.id.btn_goto_category_fashion_kid,
             R.id.action_homeFragment_to_homeResultListFragment,
-            110
+            15
         )
         actionCategoryButton(
             R.id.btn_goto_category_mother_child,
             R.id.action_homeFragment_to_homeResultListFragment,
-            111
+            16
         )
         actionCategoryButton(
             R.id.btn_goto_category_automotive,
             R.id.action_homeFragment_to_homeResultListFragment,
-            114
+            19
         )
         actionCategoryButton(
             R.id.btn_goto_category_sports,
             R.id.action_homeFragment_to_homeResultListFragment,
-            115
+            20
         )
         actionCategoryButton(
             R.id.btn_goto_category_more,
@@ -160,24 +160,24 @@ class HomeFragment : Fragment() {
         actionButtonMore(
             R.id.btn_goto_food_more,
             R.id.action_homeFragment_to_homeResultListFragment,
-            105
+            10
         )
         actionButtonMore(
             R.id.btn_goto_home_supplies_more,
             R.id.action_homeFragment_to_homeResultListFragment,
-            107
+            12
         )
 
         // Static banner listener
         actionStaticBanner(
             R.id.btn_banner_to_category_computer,
             R.id.action_homeFragment_to_homeResultListFragment,
-            97
+            2
         )
         actionStaticBanner(
             R.id.btn_banner_to_category_handphone,
             R.id.action_homeFragment_to_homeResultListFragment,
-            98
+            3
         )
 
         // Button see all product
@@ -337,11 +337,11 @@ class HomeFragment : Fragment() {
                 viewModel.electronicProducts.observe(this, {
                     if (it != null) {
                         if (it.isNotEmpty()) {
-                            val a : MutableList<ProductItemResponse> = mutableListOf()
-                            for (i in 0..7) {
-                                a.add(it[i])
-                            }
-                            adapter.setProductData(a)
+//                            val a : MutableList<ProductItemResponse> = mutableListOf()
+//                            for (i in 0..7) {
+//                                a.add(it[i])
+//                            }
+                            adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
 //                    })
                         } else {
@@ -413,12 +413,12 @@ class HomeFragment : Fragment() {
                 viewModel.fashionProducts.observe(this, {
                     if (it != null) {
                         if (it.isNotEmpty()) {
-                            val a : MutableList<ProductItemResponse> = mutableListOf()
-                            for (i in 0..7) {
-                                a.add(it[i])
-                            }
+//                            val a : MutableList<ProductItemResponse> = mutableListOf()
+//                            for (i in 0..7) {
+//                                a.add(it[i])
+//                            }
 
-                            adapter.setProductData(a)
+                            adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
 //                    })
                         } else {
@@ -489,12 +489,12 @@ class HomeFragment : Fragment() {
                 viewModel.foodProducts.observe(this, {
                     if (it != null) {
                         if (it.isNotEmpty()) {
-                            val a : MutableList<ProductItemResponse> = mutableListOf()
-                            for (i in 0..7) {
-                                a.add(it[i])
-                            }
+//                            val a : MutableList<ProductItemResponse> = mutableListOf()
+//                            for (i in 0..7) {
+//                                a.add(it[i])
+//                            }
 
-                            adapter.setProductData(a)
+                            adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
 //                    })
                         } else {
@@ -565,12 +565,12 @@ class HomeFragment : Fragment() {
                 viewModel.homeSuppliesProducts.observe(this, {
                     if (it != null) {
                         if (it.isNotEmpty()) {
-                            val a : MutableList<ProductItemResponse> = mutableListOf()
-                            for (i in 0..7) {
-                                a.add(it[i])
-                            }
+//                            val a : MutableList<ProductItemResponse> = mutableListOf()
+//                            for (i in 0..7) {
+//                                a.add(it[i])
+//                            }
 
-                            adapter.setProductData(a)
+                            adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
 //                    })
                         } else {

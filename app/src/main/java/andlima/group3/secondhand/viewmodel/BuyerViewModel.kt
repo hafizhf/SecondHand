@@ -61,17 +61,17 @@ class BuyerViewModel @Inject constructor(api: BuyerRepository): ViewModel() {
     val foodProducts: MutableLiveData<List<ProductItemResponse>> = MutableLiveData()
     val homeSuppliesProducts: MutableLiveData<List<ProductItemResponse>> = MutableLiveData()
 
-    fun getElectronicProducts() {apiHelper.getProductsByCategory(96, electronicProducts)}
-    fun getFashionProducts() {apiHelper.getProductsByCategory(99, fashionProducts)}
-    fun getFoodProducts() {apiHelper.getProductsByCategory(105, foodProducts)}
-    fun getHomeSuppliesProducts() {apiHelper.getProductsByCategory(107, homeSuppliesProducts)}
+    fun getElectronicProducts() {apiHelper.getProductsByCategory(1, electronicProducts)}
+    fun getFashionProducts() {apiHelper.getProductsByCategory(4, fashionProducts)}
+    fun getFoodProducts() {apiHelper.getProductsByCategory(10, foodProducts)}
+    fun getHomeSuppliesProducts() {apiHelper.getProductsByCategory(12, homeSuppliesProducts)}
 
     // For HomeElectronicFragment --------------
     val phoneProducts: MutableLiveData<List<ProductItemResponse>> = MutableLiveData()
     val computerProducts: MutableLiveData<List<ProductItemResponse>> = MutableLiveData()
 
-    fun getPhoneProducts() {apiHelper.getProductsByCategory(98, phoneProducts)}
-    fun getComputerProducts() {apiHelper.getProductsByCategory(97, computerProducts)}
+    fun getPhoneProducts() {apiHelper.getProductsByCategory(3, phoneProducts)}
+    fun getComputerProducts() {apiHelper.getProductsByCategory(2, computerProducts)}
 
     // For HomeFashionFragment
     val manClothesProducts: MutableLiveData<List<ProductItemResponse>> = MutableLiveData()
@@ -84,15 +84,15 @@ class BuyerViewModel @Inject constructor(api: BuyerRepository): ViewModel() {
     val kidFashionProducts: MutableLiveData<List<ProductItemResponse>> = MutableLiveData()
     val accessoriesFashionProducts: MutableLiveData<List<ProductItemResponse>> = MutableLiveData()
 
-    fun getManClothesProducts() {apiHelper.getProductsByCategory(99, manClothesProducts)}
-    fun getManShoesProducts() {apiHelper.getProductsByCategory(100, manShoesProducts)}
-    fun getManBagProducts() {apiHelper.getProductsByCategory(101, manBagProducts)}
-    fun getWomanClothesProducts() {apiHelper.getProductsByCategory(108, womanClothesProducts)}
-    fun getWomanShoesProducts() {apiHelper.getProductsByCategory(112, womanShoesProducts)}
-    fun getWomanBagProducts() {apiHelper.getProductsByCategory(113, womanBagProducts)}
-    fun getMuslimFashionProducts() {apiHelper.getProductsByCategory(109, muslimFashionProducts)}
-    fun getKidFashionProducts() {apiHelper.getProductsByCategory(110, kidFashionProducts)}
-    fun getAccessoriesFashionProducts() {apiHelper.getProductsByCategory(110, accessoriesFashionProducts)}
+    fun getManClothesProducts() {apiHelper.getProductsByCategory(4, manClothesProducts)}
+    fun getManShoesProducts() {apiHelper.getProductsByCategory(5, manShoesProducts)}
+    fun getManBagProducts() {apiHelper.getProductsByCategory(6, manBagProducts)}
+    fun getWomanClothesProducts() {apiHelper.getProductsByCategory(13, womanClothesProducts)}
+    fun getWomanShoesProducts() {apiHelper.getProductsByCategory(17, womanShoesProducts)}
+    fun getWomanBagProducts() {apiHelper.getProductsByCategory(18, womanBagProducts)}
+    fun getMuslimFashionProducts() {apiHelper.getProductsByCategory(14, muslimFashionProducts)}
+    fun getKidFashionProducts() {apiHelper.getProductsByCategory(15, kidFashionProducts)}
+    fun getAccessoriesFashionProducts() {apiHelper.getProductsByCategory(7, accessoriesFashionProducts)}
 
     // HomeMoreCategory
     val booksProducts: MutableLiveData<List<ProductItemResponse>> = MutableLiveData()
@@ -106,16 +106,16 @@ class BuyerViewModel @Inject constructor(api: BuyerRepository): ViewModel() {
     val sportsProducts: MutableLiveData<List<ProductItemResponse>> = MutableLiveData()
     val voucherProducts: MutableLiveData<List<ProductItemResponse>> = MutableLiveData()
 
-    fun getBooksProducts() {apiHelper.getProductsByCategory(116, booksProducts)}
-    fun getSouvenirProducts() {apiHelper.getProductsByCategory(118, souvenirProducts)}
-    fun getPhotographyProducts() {apiHelper.getProductsByCategory(119, photographyProducts)}
-    fun getHealthProducts() {apiHelper.getProductsByCategory(103, healthProducts)}
-    fun getHobbyProducts() {apiHelper.getProductsByCategory(104, hobbyProducts)}
-    fun getBeautyProducts() {apiHelper.getProductsByCategory(106, beautyProducts)}
-    fun getMotherChildProducts() {apiHelper.getProductsByCategory(111, motherChildProducts)}
-    fun getAutomotiveProducts() {apiHelper.getProductsByCategory(114, automotiveProducts)}
-    fun getSportsProducts() {apiHelper.getProductsByCategory(115, sportsProducts)}
-    fun getVoucherProducts() {apiHelper.getProductsByCategory(117, sportsProducts)}
+    fun getBooksProducts() {apiHelper.getProductsByCategory(21, booksProducts)}
+    fun getSouvenirProducts() {apiHelper.getProductsByCategory(23, souvenirProducts)}
+    fun getPhotographyProducts() {apiHelper.getProductsByCategory(24, photographyProducts)}
+    fun getHealthProducts() {apiHelper.getProductsByCategory(8, healthProducts)}
+    fun getHobbyProducts() {apiHelper.getProductsByCategory(9, hobbyProducts)}
+    fun getBeautyProducts() {apiHelper.getProductsByCategory(11, beautyProducts)}
+    fun getMotherChildProducts() {apiHelper.getProductsByCategory(16, motherChildProducts)}
+    fun getAutomotiveProducts() {apiHelper.getProductsByCategory(19, automotiveProducts)}
+    fun getSportsProducts() {apiHelper.getProductsByCategory(20, sportsProducts)}
+    fun getVoucherProducts() {apiHelper.getProductsByCategory(22, voucherProducts)}
 
     // Buyer Order
     val orderQuantity: MutableLiveData<Int> = MutableLiveData()

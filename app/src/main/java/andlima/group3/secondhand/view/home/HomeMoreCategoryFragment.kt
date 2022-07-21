@@ -78,17 +78,17 @@ class HomeMoreCategoryFragment : Fragment() {
                 actionButtonMore(
                     R.id.btn_goto_book_more,
                     R.id.action_homeMoreCategoryFragment_to_homeResultListFragment,
-                    116
+                    21
                 )
                 actionButtonMore(
                     R.id.btn_goto_souvenir_more,
                     R.id.action_homeMoreCategoryFragment_to_homeResultListFragment,
-                    118
+                    23
                 )
                 actionButtonMore(
                     R.id.btn_goto_photography_more,
                     R.id.action_homeMoreCategoryFragment_to_homeResultListFragment,
-                    119
+                    24
                 )
             }
         })

@@ -79,17 +79,17 @@ class HomeElectronicFragment : Fragment() {
                 actionButtonMore(
                     R.id.btn_goto_handphone_more,
                     R.id.action_homeElectronicFragment_to_homeResultListFragment,
-                    98
+                    3
                 )
                 actionButtonMore(
                     R.id.btn_goto_computer_more,
                     R.id.action_homeElectronicFragment_to_homeResultListFragment,
-                    97
+                    2
                 )
                 actionButtonMore(
                     R.id.btn_goto_electronic_more_more,
                     R.id.action_homeElectronicFragment_to_homeResultListFragment,
-                    96
+                    1
                 )
             }
         })

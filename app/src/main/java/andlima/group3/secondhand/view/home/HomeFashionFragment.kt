@@ -94,17 +94,17 @@ class HomeFashionFragment : Fragment() {
                 actionButtonMore(
                     R.id.btn_goto_muslim_more,
                     R.id.action_homeFashionFragment_to_homeResultListFragment,
-                    109
+                    14
                 )
                 actionButtonMore(
                     R.id.btn_goto_fashion_kid_more,
                     R.id.action_homeFashionFragment_to_homeResultListFragment,
-                    110
+                    15
                 )
                 actionButtonMore(
                     R.id.btn_goto_accessories_more,
                     R.id.action_homeFashionFragment_to_homeResultListFragment,
-                    102
+                    7
                 )
             }
         })
