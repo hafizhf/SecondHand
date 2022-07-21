@@ -12,6 +12,7 @@ import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.view.adapter.PenawaranAdapter
 import andlima.group3.secondhand.view.adapter.TawaranBuyerAdapter
 import andlima.group3.secondhand.viewmodel.SellerViewModel
+import android.os.Handler
 import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
@@ -27,7 +28,6 @@ import kotlinx.android.synthetic.main.item_notifikasi_penawaranproduk.view.*
 
 class InfoPenawarFragment : Fragment() {
     lateinit var userManager: UserManager
-    var buyerID : Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,11 +45,10 @@ class InfoPenawarFragment : Fragment() {
         }
         userManager = UserManager(requireContext())
 
-         buyerID = arguments?.getInt("SELECTED_ID") as Int
         val orderID = arguments?.getInt("ORDER") as Int
         userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
             getDataPenawar(it, orderID)
-            getPenawarOrders(it, buyerID)
+
             Log.d("AKSES TOKEN", it)
         }
 
@@ -61,7 +60,7 @@ class InfoPenawarFragment : Fragment() {
         showPageLoading2(requireView(), true,"Loading")
         viewModel.sellerBuyerOrdersLiveData.observe(viewLifecycleOwner){
             if (it != null){
-                val orderAdapter = TawaranBuyerAdapter(viewModel, token, requireContext(), parentFragmentManager, buyerID, requireView())
+                val orderAdapter = TawaranBuyerAdapter(viewModel, token, requireContext(), parentFragmentManager, id, requireView())
                 orderAdapter.setDataProduk(it)
                 orderAdapter.notifyDataSetChanged()
                 rv_order_buyer.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -80,13 +79,16 @@ class InfoPenawarFragment : Fragment() {
                 tv_namaPenawar.text = it.user.fullName
                 tv_kotaPenawar.text = it.user.city
 
-//                Glide.with(requireActivity()).load(it.imageProduct).apply(
-//                    RequestOptions()
-//                ).into(imagePembeliPenawar)
+                if (it.user.imageUrl != null){
+                    Glide.with(requireActivity()).load(it.user.imageUrl).apply(
+                        RequestOptions()
+                    ).into(imagePembeliPenawar)
+                }
+                Handler().postDelayed({
+                    getPenawarOrders(token, it.buyerId)
+                }, 900)
             }
         }
         viewModel.getDetailOrderLive(token, id)
-
-
     }
 }

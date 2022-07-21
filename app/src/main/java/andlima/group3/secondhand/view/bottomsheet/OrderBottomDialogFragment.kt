@@ -41,10 +41,12 @@ class OrderBottomDialogFragment : BottomSheetDialogFragment() {
         tvNamaProdukBottomSheet.text = dataOrder.productName
         tvBasePriceProdukBottomSheet.text = "Rp ${dataOrder.product.basePrice}"
         tvDitawarProdukBottomSheet.text = "Ditawar Rp ${dataOrder.price}"
+        if (dataOrder.user.imageUrl != null){
+            Glide.with(requireActivity()).load(dataOrder.user.imageUrl).apply(
+                RequestOptions()
+            ).into(imagePembeliBottomSheet)
+        }
 
-        Glide.with(requireActivity()).load(dataOrder.imageProduct).apply(
-            RequestOptions()
-        ).into(imagePembeliBottomSheet)
         Glide.with(requireActivity()).load(dataOrder.imageProduct).apply(
             RequestOptions()
         ).into(imageProdukBottomSheet)

@@ -8,6 +8,7 @@ import andlima.group3.secondhand.model.history.HistoryResponse
 import andlima.group3.secondhand.model.history.HistoryResponseItem
 import andlima.group3.secondhand.model.jual.DeleteResponse
 import andlima.group3.secondhand.model.jual.EditResponse
+import andlima.group3.secondhand.model.jual.PatchResponse
 import andlima.group3.secondhand.model.jual.PostProductResponse
 import andlima.group3.secondhand.model.kategori.KategoriResponseItem
 import andlima.group3.secondhand.model.lokasi.KotaResponse
@@ -82,6 +83,13 @@ interface ApiService {
         @Header("access_token") accessToken: String,
         @Query("status") status : String = "accepted"
     ) : Call<List<SellerOrdersItem>>
+    @FormUrlEncoded
+    @PATCH("seller/product/{id}")
+    fun patchProductSeller(
+        @Header("access_token") accessToken: String,
+        @Path("id") id : Int,
+        @Field("status") status: String
+    ) : Call<PatchResponse>
 
 
     @Multipart

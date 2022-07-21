@@ -5,6 +5,7 @@ import andlima.group3.secondhand.model.daftarjual.diminati.SellerOrdersItem
 import andlima.group3.secondhand.model.daftarjual.terimatolak.PatchOrderResponse
 import andlima.group3.secondhand.model.jual.DeleteResponse
 import andlima.group3.secondhand.model.jual.EditResponse
+import andlima.group3.secondhand.model.jual.PatchResponse
 import andlima.group3.secondhand.model.jual.PostProductResponse
 import andlima.group3.secondhand.repository.SellerRepository
 import android.util.Log
@@ -31,6 +32,7 @@ class SellerViewModel@Inject constructor(private val repository : SellerReposito
     var sellerOrdersLiveData : MutableLiveData<List<SellerOrdersItem>> = MutableLiveData()
     var sellerBuyerOrdersLiveData : MutableLiveData<List<SellerOrdersItem>> = MutableLiveData()
     var patchOrderLiveData : MutableLiveData<PatchOrderResponse> = MutableLiveData()
+    var patchProductLiveData : MutableLiveData<PatchResponse> = MutableLiveData()
 
     var sellerDetailOrdersLiveData : MutableLiveData<SellerOrdersItem> = MutableLiveData()
 
@@ -47,6 +49,11 @@ class SellerViewModel@Inject constructor(private val repository : SellerReposito
     fun patchOrderLive(token: String, id: Int, status : String){
         viewModelScope.launch {
             repository.patchOrderRepo(token, id, status, patchOrderLiveData)
+        }
+    }
+    fun patchProductLive(token: String, id: Int, status : String){
+        viewModelScope.launch {
+            repository.patchSellerProduct(token, id, status, patchProductLiveData)
         }
     }
 

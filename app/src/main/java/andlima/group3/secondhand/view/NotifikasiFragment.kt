@@ -98,6 +98,16 @@ class NotifikasiFragment : Fragment() {
                             ?.navigate(R.id.action_notifikasiFragment_to_detailFragment, selectedID)
 
                     }else {
+                        if (it.notificationType == "seller"){
+                            val orderID = bundleOf("ORDER" to it.orderId)
+                            view?.findNavController()?.navigate(R.id.action_notifikasiFragment_to_infoPenawarFragment2, orderID)
+                        }else{
+                            val selectedID = bundleOf("SELECTED_ID" to it.productId)
+                            view?.findNavController()
+                                ?.navigate(R.id.action_notifikasiFragment_to_detailFragment, selectedID)
+                        }
+
+
 //                            val selectedID = bundleOf("SELECTED_ID" to it., "ORDER" to it.id)
 //                            view?.findNavController()
 //                                ?.navigate(R.id.action_daftarJualFragment_to_infoPenawarFragment2, selectedID)

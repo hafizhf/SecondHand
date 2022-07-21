@@ -3,10 +3,7 @@ package andlima.group3.secondhand.view
 import andlima.group3.secondhand.MainActivity
 import andlima.group3.secondhand.MarketApplication
 import andlima.group3.secondhand.R
-import andlima.group3.secondhand.func.alertDialog
-import andlima.group3.secondhand.func.getDeviceScreenHeight
-import andlima.group3.secondhand.func.requireLogin
-import andlima.group3.secondhand.func.toast
+import andlima.group3.secondhand.func.*
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.model.home.newhome.Category
 import andlima.group3.secondhand.model.home.newhome.ProductDetailItemResponse
@@ -63,11 +60,12 @@ class JualFragment : Fragment() {
     lateinit var body2: MultipartBody.Part
     lateinit var userManager: UserManager
     var uriGambar : Uri? = null
-    var gambarSeller : String = ""
+    var gambarSeller : String? = null
     var namaSeller : String = ""
     val gabungan : MutableSet<KategoriPilihan>? = mutableSetOf()
     val listDataID : MutableList<Int> = mutableListOf()
     val pilihanID : MutableSet<Int?> = mutableSetOf()
+    var statusProduk : String? = null
 
 
 
@@ -87,7 +85,7 @@ class JualFragment : Fragment() {
                 val basePrice = editHargaProduk.text.toString()
                 val lokasi = "Preview"
 
-                if (nama.isNotBlank() && description.isNotBlank() && basePrice.isNotBlank() && gabungan!!.isNotEmpty() && uriGambar != null && gambarSeller.isNotBlank() && namaSeller.isNotBlank()){
+                if (nama.isNotBlank() && description.isNotBlank() && basePrice.isNotBlank() && gabungan!!.isNotEmpty() && uriGambar != null  && namaSeller.isNotBlank()){
                     val code = bundleOf("PREVIEW2" to ProdukPreview(nama,basePrice,gabungan,description,
                         uriGambar!!, lokasi, gambarSeller, namaSeller))
                     Navigation.findNavController(requireView())
@@ -128,7 +126,7 @@ class JualFragment : Fragment() {
                 val basePrice = editHargaProduk.text.toString().toInt()
                 var lokasi = "sementara"
 
-                if (nama.isNotBlank() && description.isNotBlank() && basePrice.toString().isNotBlank()  && listDataID.isNotEmpty()){
+                if (nama.isNotBlank() && description.isNotBlank() && basePrice.toString().isNotBlank()  && listDataID.isNotEmpty() && statusProduk != null ){
                     userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
                         viewModel2.userDetailLiveData.observe(viewLifecycleOwner){
                             lokasi = it.city
@@ -137,6 +135,7 @@ class JualFragment : Fragment() {
                         viewModel2.userDetailLive(it)
                         Handler().postDelayed({
                             editProduct(it,nama, description, basePrice, listDataID,lokasi)
+
 
                         }, 1000)
 
@@ -265,6 +264,19 @@ class JualFragment : Fragment() {
         }
     }
 
+    fun statusProduk(){
+        val items : MutableList<String> = mutableListOf("available", "sold")
+        val adapter = ArrayAdapter(requireContext(), R.layout.list_kategori, items)
+        (textFieldStatus.editText as? AutoCompleteTextView)?.setAdapter(adapter)
+        (textFieldStatus.getEditText() as AutoCompleteTextView).onItemClickListener =
+            OnItemClickListener { adapterView, view, position, id ->
+                val selectedValue: String? = adapter.getItem(position)
+                statusProduk = selectedValue
+
+
+            }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -304,7 +316,9 @@ class JualFragment : Fragment() {
                         editNamaProduk.setText(dataProduk.name)
                         editDeskripsiProduk.setText(dataProduk.description)
                         editHargaProduk.setText(dataProduk.basePrice.toString())
+                        txtStatus.setText(dataProduk.status)
                         gambar()
+                        statusProduk()
                         kategori(dataProduk.categories)
                         if (uriGambar == null){
                             Glide.with(this).load(dataProduk.imageUrl).into(imageFotoProduk)
@@ -317,6 +331,7 @@ class JualFragment : Fragment() {
                         idEdit = dataProduk.id
                         btnTerbitkan.setText("Edit")
                         btnPreview.setText("Hapus")
+                        linearStatusProdukJual.visibility = View.VISIBLE
 
 
 
@@ -373,18 +388,22 @@ class JualFragment : Fragment() {
     }
     fun editProduct(token: String, name : String, description : String, basePrice : Int, categoryIDs : List<Int>, location : String){
         val viewModel = ViewModelProvider(requireActivity()).get(SellerViewModel::class.java)
+        showPageLoading(requireView(),true)
 
 
         viewModel.sellerEditProductLive.observe(viewLifecycleOwner){
             if (it != null){
                 Log.d("kenapatoastgamuncul", it.toString())
                 toast(requireContext(), "Berhasil mengubah produk")
+
             }else{
                 Log.d("kenapatoastgamuncul", it.toString())
 
                 toast(requireContext(), "Gagal mengubah produk")
             }
+            showPageLoading(requireView(), false)
         }
+        viewModel.patchProductLive(token,idEdit,statusProduk!!)
         if (cek == 1){
             viewModel.editProductLive(token, idEdit,name, description, basePrice, categoryIDs, location, body2)
 
