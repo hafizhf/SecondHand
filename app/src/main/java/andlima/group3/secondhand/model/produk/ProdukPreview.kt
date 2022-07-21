@@ -20,10 +20,10 @@ data class ProdukPreview(
 
 
 
-    val imageUrl: Uri,
+    val imageUrl: Uri?,
 
     val location: String,
-    val sellerImage : String,
+    val sellerImage : String?,
     val sellerName : String,
 
     ) : Parcelable

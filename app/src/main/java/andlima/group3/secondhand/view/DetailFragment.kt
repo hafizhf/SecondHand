@@ -99,12 +99,15 @@ class DetailFragment : Fragment() {
         }
         productPrice.text = "Rp " + produkPreview.basePrice
         productDesc.text = produkPreview.description
+        if (produkPreview.sellerImage != null){
+            Glide.with(this).load(produkPreview.sellerImage).into(productSellerImage)
+        }
 
-        Glide.with(this).load(produkPreview.sellerImage).into(productSellerImage)
         productSellerName.text = produkPreview.sellerName
         productSellerAddress.text = produkPreview.location
         btn_saya_tertarik_ingin_nego.text = "Preview"
         btn_saya_tertarik_ingin_nego.isEnabled = false
+        btn_add_to_wishlist.isEnabled = false
 
     }
 

@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_notifikasiFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_notifikasiFragment_to_infoPenawarFragment2"
+            app:destination="@id/infoPenawarFragment2" />
     </fragment>
     <fragment
         android:id="@+id/jualFragment"

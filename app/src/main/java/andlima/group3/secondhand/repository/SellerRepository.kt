@@ -7,6 +7,7 @@ import andlima.group3.secondhand.model.daftarjual.terimatolak.PatchOrderResponse
 import andlima.group3.secondhand.model.daftarjual.terimatolak.StatusTawaran
 import andlima.group3.secondhand.model.jual.DeleteResponse
 import andlima.group3.secondhand.model.jual.EditResponse
+import andlima.group3.secondhand.model.jual.PatchResponse
 import andlima.group3.secondhand.model.jual.PostProductResponse
 import andlima.group3.secondhand.model.kategori.KategoriResponseItem
 import andlima.group3.secondhand.model.register.RegisterResponse
@@ -202,6 +203,20 @@ class SellerRepository @Inject constructor(private val apiService: ApiService) {
             }
 
             override fun onFailure(call: Call<List<SellerOrdersItem>>, t: Throwable) {
+                liveData.postValue(null)
+            }
+
+        })
+
+    }
+    fun patchSellerProduct(token: String, id: Int, status: String, liveData: MutableLiveData<PatchResponse>){
+        val call : Call<PatchResponse> = apiService.patchProductSeller(token, id, status)
+        call.enqueue(object :Callback<PatchResponse>{
+            override fun onResponse(call: Call<PatchResponse>, response: Response<PatchResponse>) {
+                liveData.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<PatchResponse>, t: Throwable) {
                 liveData.postValue(null)
             }
 

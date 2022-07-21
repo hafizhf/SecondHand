@@ -144,7 +144,7 @@
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/placeholder"/>
+                                android:src="@drawable/ic_placeholder_user"/>
 
                         </com.google.android.material.card.MaterialCardView>
 
