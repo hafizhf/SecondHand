@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <issue id="IconLocation">
+        <ignore path="src/main/res/drawable/api_banner_1.png" />
+        <ignore path="src/main/res/drawable/api_banner_2.jpg" />
+        <ignore path="src/main/res/drawable/api_banner_3.png" />
+        <ignore path="src/main/res/drawable/api_banner_4.jpg" />
+        <ignore path="src/main/res/drawable/api_banner_5.jpg" />
+        <ignore path="src/main/res/drawable/banner_computer.jpg" />
+        <ignore path="src/main/res/drawable/banner_phone.jpg" />
+        <ignore path="src/main/res/drawable/dummy1.png" />
+        <ignore path="src/main/res/drawable/dummy_banner_1.jpg" />
+        <ignore path="src/main/res/drawable/dummy_banner_2.jpg" />
+        <ignore path="src/main/res/drawable/intro_2.png" />
+        <ignore path="src/main/res/drawable/intro_3.png" />
+        <ignore path="src/main/res/drawable/intro_4.png" />
+    </issue>
+    <issue id="UnusedResources">
+        <ignore path="src/main/res/drawable/dummy1.png" />
+    </issue>
+</lint>

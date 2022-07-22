@@ -4,7 +4,8 @@
     package="andlima.group3.secondhand">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -18,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SecondHand"
         android:usesCleartextTraffic="true"
-        tools:targetApi="m">
+        tools:targetApi="m"
+        tools:ignore="AllowBackup">
         <activity
             android:name=".IntroductionActivity"
             android:exported="true" />
@@ -41,7 +43,8 @@
             android:name=".MainActivity"
             android:configChanges="orientation"
             android:exported="true"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
     </application>
 
 </manifest>

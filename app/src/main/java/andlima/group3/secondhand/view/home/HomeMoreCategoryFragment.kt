@@ -131,9 +131,10 @@ class HomeMoreCategoryFragment : Fragment() {
 //                    }
                     adapter.setProductData(it)
                     adapter.notifyDataSetChanged()
-                } else {
-
                 }
+//                else {
+//
+//                }
             }
         })
         viewModel.getBooksProducts()
@@ -164,9 +165,10 @@ class HomeMoreCategoryFragment : Fragment() {
 //                    }
                     adapter.setProductData(it)
                     adapter.notifyDataSetChanged()
-                } else {
-
                 }
+//                else {
+//
+//                }
             }
         })
         viewModel.getSouvenirProducts()
@@ -197,9 +199,10 @@ class HomeMoreCategoryFragment : Fragment() {
 //                    }
                     adapter.setProductData(it)
                     adapter.notifyDataSetChanged()
-                } else {
-
                 }
+//                else {
+//
+//                }
             }
         })
         viewModel.getPhotographyProducts()

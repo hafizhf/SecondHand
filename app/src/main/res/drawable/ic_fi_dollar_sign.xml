@@ -1,8 +1,10 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:width="20dp"
     android:height="20dp"
     android:viewportWidth="20"
-    android:viewportHeight="20">
+    android:viewportHeight="20"
+    tools:keep="@drawable/ic_fi_dollar_sign">
   <group>
     <clip-path
         android:pathData="M0,0h20v20h-20z"/>

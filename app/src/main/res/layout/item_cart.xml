@@ -40,7 +40,8 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/placeholder"/>
+                android:src="@drawable/placeholder"
+                tools:ignore="ContentDescription" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -71,7 +72,7 @@
                     android:paddingTop="1dp"
                     android:paddingStart="4dp"
                     android:paddingEnd="4dp"
-                    tools:ignore="SmallSp" />
+                    tools:ignore="HardcodedText,SmallSp" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -81,7 +82,8 @@
                 android:layout_height="wrap_content"
                 android:text="Nama Barang"
                 android:textSize="14sp"
-                style="@style/Heading3"/>
+                style="@style/Heading3"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/tv_item_cart_price"
@@ -89,7 +91,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
                 android:text="Rp 000.000"
-                style="@style/Body2"/>
+                style="@style/Body2"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/tv_item_cart_my_bid"
@@ -97,7 +100,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="11sp"
                 android:text="Tawaranmu: Rp 123.456"
-                style="@style/Body1"/>
+                style="@style/Body1"
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
 
@@ -111,7 +115,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_edit"
-            app:tint="@color/second_hand_neutral3"/>
+            app:tint="@color/second_hand_neutral3"
+            tools:ignore="ContentDescription" />
 
         <ImageView
             android:id="@+id/btn_cancel_bid"
@@ -119,7 +124,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_close"
             app:tint="@color/second_hand_danger"
-            android:layout_marginStart="10dp"/>
+            android:layout_marginStart="10dp"
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 

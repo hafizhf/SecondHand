@@ -27,7 +27,8 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginEnd="25dp"
                 app:lineHeight="30dp"
-                android:text="Hasil pencarian:" />
+                android:text="Hasil pencarian:"
+                tools:ignore="HardcodedText" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_result_title"
@@ -37,7 +38,8 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginEnd="25dp"
                 app:lineHeight="30dp"
-                android:text="Nama Barang" />
+                android:text="Nama Barang"
+                tools:ignore="HardcodedText" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_result_list"

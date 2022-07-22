@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package andlima.group3.secondhand.auth.helper
 
 enum class AuthenticationError(val errorCode : Int) {

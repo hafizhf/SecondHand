@@ -11,18 +11,19 @@ import andlima.group3.secondhand.repository.AuthRepository
 import andlima.group3.secondhand.services.ConnectionStatus
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.view.WindowManager
-import androidx.lifecycle.MutableLiveData
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.asLiveData
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@DelicateCoroutinesApi
 @AndroidEntryPoint
 @SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
@@ -32,8 +33,6 @@ class SplashScreenActivity : AppCompatActivity() {
 
     // Get data store
     private lateinit var userManager: UserManager
-
-    private val hasConnection = MutableLiveData(false)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

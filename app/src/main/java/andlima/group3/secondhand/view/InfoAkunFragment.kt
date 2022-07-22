@@ -1,44 +1,54 @@
+@file:Suppress("KotlinDeprecation", "KotlinDeprecation", "KotlinDeprecation", "KotlinDeprecation",
+    "KotlinDeprecation", "KotlinDeprecation", "KotlinDeprecation", "KotlinDeprecation",
+    "KotlinDeprecation", "KotlinDeprecation", "KotlinDeprecation", "KotlinDeprecation",
+    "KotlinDeprecation", "KotlinDeprecation", "KotlinDeprecation", "KotlinDeprecation",
+    "KotlinDeprecation", "KotlinDeprecation", "KotlinDeprecation", "KotlinDeprecation",
+    "KotlinDeprecation", "KotlinDeprecation", "KotlinDeprecation", "KotlinDeprecation",
+    "EqualsBetweenInconvertibleTypes", "RemoveRedundantCallsOfConversionMethods",
+    "RemoveRedundantCallsOfConversionMethods", "RemoveRedundantCallsOfConversionMethods",
+    "RemoveRedundantCallsOfConversionMethods", "IfThenToSafeAccess", "IfThenToSafeAccess",
+    "NestedLambdaShadowedImplicitParameter", "NestedLambdaShadowedImplicitParameter",
+    "NestedLambdaShadowedImplicitParameter", "NestedLambdaShadowedImplicitParameter",
+    "NestedLambdaShadowedImplicitParameter", "NestedLambdaShadowedImplicitParameter",
+    "NestedLambdaShadowedImplicitParameter", "NestedLambdaShadowedImplicitParameter",
+    "NestedLambdaShadowedImplicitParameter", "NestedLambdaShadowedImplicitParameter",
+    "NestedLambdaShadowedImplicitParameter", "NestedLambdaShadowedImplicitParameter",
+    "NestedLambdaShadowedImplicitParameter", "NestedLambdaShadowedImplicitParameter",
+    "NestedLambdaShadowedImplicitParameter", "NestedLambdaShadowedImplicitParameter",
+    "NestedLambdaShadowedImplicitParameter", "NestedLambdaShadowedImplicitParameter",
+    "NestedLambdaShadowedImplicitParameter", "NestedLambdaShadowedImplicitParameter",
+    "NestedLambdaShadowedImplicitParameter", "NestedLambdaShadowedImplicitParameter"
+)
+
 package andlima.group3.secondhand.view
 
-import andlima.group3.secondhand.MarketApplication
-
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.alertDialog
 import andlima.group3.secondhand.func.observeOnce
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
-import andlima.group3.secondhand.model.kategori.KategoriPilihan
 import andlima.group3.secondhand.viewmodel.LokasiViewModel
 import andlima.group3.secondhand.viewmodel.ProfileViewModel
 import andlima.group3.secondhand.viewmodel.UserViewModel
-import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.DialogInterface
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
-import android.provider.Settings
+import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
-import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import kotlinx.android.synthetic.main.fragment_akun.*
 import kotlinx.android.synthetic.main.fragment_info_akun.*
-import kotlinx.android.synthetic.main.fragment_jual.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -48,8 +58,8 @@ import java.io.File
 class InfoAkunFragment : Fragment() {
     lateinit var body: MultipartBody.Part
     lateinit var userManager: UserManager
-    var pilihan = ""
-    var cek = 0
+    private var pilihan = ""
+    private var cek = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -97,8 +107,8 @@ class InfoAkunFragment : Fragment() {
             setImageprofile()
         }
     }
-    fun getDataUser(token : String){
-        val viewModel = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
+    private fun getDataUser(token : String){
+        val viewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
         viewModel.userDetailLiveData.observeOnce(viewLifecycleOwner){
             if (it != null){
                 if (it.imageUrl != null){
@@ -112,9 +122,7 @@ class InfoAkunFragment : Fragment() {
                 if (it.city != "Surabaya"){
                     txtKota.setText(it.city)
                 }
-                if (it.phoneNumber.equals(0)){
-
-                }else{
+                if (!(it.phoneNumber.equals(0))){
                     infoAkun_et_nohp.setText(it.phoneNumber.toString())
                 }
                 infoAkun_et_nama.setText(it.fullName)
@@ -123,14 +131,14 @@ class InfoAkunFragment : Fragment() {
         }
         viewModel.userDetailLive(token)
     }
-    fun getLokasi(){
+    private fun getLokasi(){
         val items : MutableList<String> = mutableListOf()
         val items2 : MutableList<String> = mutableListOf()
         val itemsID = mutableListOf<Int>()
         val itemsID2 = mutableListOf<Int>()
-        var pilihanID = 0
+        var pilihanID: Int
 
-        val viewModel2 = ViewModelProvider(requireActivity()).get(LokasiViewModel::class.java)
+        val viewModel2 = ViewModelProvider(requireActivity())[LokasiViewModel::class.java]
         viewModel2.provinsiLiveData.observe(viewLifecycleOwner){
             if (it != null){
                 it.provinsi.forEach {
@@ -153,8 +161,8 @@ class InfoAkunFragment : Fragment() {
 
         (textFieldProvinsi.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 
-        (textFieldProvinsi.getEditText() as AutoCompleteTextView).onItemClickListener =
-            AdapterView.OnItemClickListener { adapterView, view, position, id ->
+        (textFieldProvinsi.editText as AutoCompleteTextView).onItemClickListener =
+            AdapterView.OnItemClickListener { _, _, position, _ ->
                 pilihanID = itemsID[position]
                 textFieldKota.isEnabled = true
                 Log.d("idprovinsi", pilihanID.toString())
@@ -166,8 +174,8 @@ class InfoAkunFragment : Fragment() {
 
 
             }
-        (textFieldKota.getEditText() as AutoCompleteTextView).onItemClickListener =
-            AdapterView.OnItemClickListener { adapterView, view, position, id ->
+        (textFieldKota.editText as AutoCompleteTextView).onItemClickListener =
+            AdapterView.OnItemClickListener { _, _, _, _ ->
                 pilihan = txtKota.text.toString()
                 Log.d("idprovinsi", pilihan.toString())
 
@@ -178,7 +186,7 @@ class InfoAkunFragment : Fragment() {
             }
             }
     fun profile(token: String,nama : String, kota : String, alamat : String, nohp : String){
-        val viewModel = ViewModelProvider(requireActivity()).get(ProfileViewModel::class.java)
+        val viewModel = ViewModelProvider(requireActivity())[ProfileViewModel::class.java]
         viewModel.profileLiveData.observe(requireActivity()){
             when (it) {
                 "200" -> {
@@ -197,6 +205,7 @@ class InfoAkunFragment : Fragment() {
 
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     private fun setImageprofile() {
         val cameraIntent = Intent(Intent.ACTION_GET_CONTENT)
         cameraIntent.type = "image/*"
@@ -208,19 +217,18 @@ class InfoAkunFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == 2000 && data != null){
-            val uri = data?.data
+            val uri = data.data
             ImageProfileInfoAkun.setImageURI(uri)
-            uri.let {
-                setDataImagee(it!!)
-            }
+            setDataImagee(uri!!)
             cek = 1
 
 
-        }else {
         }
+//        else {
+//        }
     }
 //
-    fun setDataImagee(it : Uri){
+private fun setDataImagee(it : Uri){
         val contentResolver = requireActivity().contentResolver
         // image/png or jpeg or gif
         val type = contentResolver.getType(it)
@@ -237,54 +245,52 @@ class InfoAkunFragment : Fragment() {
     }
 
 
-    fun isPermissionsAllowed(): Boolean {
-        return if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            false
-        } else true
-    }
+//    private fun isPermissionsAllowed(): Boolean {
+//        return ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+//    }
 
-    fun askForPermissions(): Boolean {
-        if (!isPermissionsAllowed()) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                showPermissionDeniedDialog()
-            } else {
-                ActivityCompat.requestPermissions(requireActivity(),arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),2000)
-            }
-            return false
-        }
-        return true
-    }
+//    fun askForPermissions(): Boolean {
+//        if (!isPermissionsAllowed()) {
+//            if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
+//                showPermissionDeniedDialog()
+//            } else {
+//                ActivityCompat.requestPermissions(requireActivity(),arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),2000)
+//            }
+//            return false
+//        }
+//        return true
+//    }
 
     override fun onRequestPermissionsResult(requestCode: Int,permissions: Array<String>,grantResults: IntArray) {
-        when (requestCode) {
-            2000 -> {
-                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission is granted, you can perform your operation here
-                } else {
-                    // permission is denied, you can ask for permission again, if you want
-                    //  askForPermissions()
-                }
-                return
-            }
-        }
+//        when (requestCode) {
+//            2000 -> {
+//                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    // permission is granted, you can perform your operation here
+//                } else {
+//                    // permission is denied, you can ask for permission again, if you want
+//                    //  askForPermissions()
+//                }
+//                return
+//            }
+//        }
     }
 
-    private fun showPermissionDeniedDialog() {
-        AlertDialog.Builder(requireContext())
-            .setTitle("Permission Denied")
-            .setMessage("Permission is denied, Please allow permissions from App Settings.")
-            .setPositiveButton("App Settings",
-                DialogInterface.OnClickListener { dialogInterface, i ->
-                    // send to app settings if permission is denied permanently
-                    val intent = Intent()
-                    intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                    val uri = Uri.fromParts("package", "andlima.group3.secondhand", null)
-                    intent.data = uri
-                    startActivity(intent)
-                })
-            .setNegativeButton("Cancel",null)
-            .show()
-    }
+//    private fun showPermissionDeniedDialog() {
+//        AlertDialog.Builder(requireContext())
+//            .setTitle("Permission Denied")
+//            .setMessage("Permission is denied, Please allow permissions from App Settings.")
+//            .setPositiveButton("App Settings"
+//            ) { _, _ ->
+//                // send to app settings if permission is denied permanently
+//                val intent = Intent()
+//                intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+//                val uri = Uri.fromParts("package", "andlima.group3.secondhand", null)
+//                intent.data = uri
+//                startActivity(intent)
+//            }
+//            .setNegativeButton("Cancel",null)
+//            .show()
+//    }
 
 
 

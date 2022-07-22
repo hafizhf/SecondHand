@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--suppress ALL -->
 <RelativeLayout
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,7 +19,8 @@
             android:id="@+id/login_arrowback"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_fi_arrow_left"/>
+            android:src="@drawable/ic_fi_arrow_left"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -26,30 +28,36 @@
             android:text="Masuk"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="40dp"
-            android:textSize="30dp"
-            style="@style/Heading1"/>
+            android:textSize="30sp"
+            style="@style/Heading1"
+            tools:ignore="HardcodedText" />
         <TextView
             style="@style/Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Email"
             android:layout_marginBottom="10dp"
-            android:textSize="20dp"/>
+            android:textSize="20sp"
+            tools:ignore="HardcodedText" />
         <EditText
             android:id="@+id/login_et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="contoh: group3@gmail.com"
+            android:inputType="textEmailAddress"
+            android:autofillHints="emailAddress"
             style="@style/InputField"
             android:windowSoftInputMode="adjustResize|stateHidden"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="20dp"
+            tools:ignore="HardcodedText" />
         <TextView
             style="@style/Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Password"
-            android:textSize="20dp"
-            android:layout_marginBottom="10dp"/>
+            android:textSize="20sp"
+            android:layout_marginBottom="10dp"
+            tools:ignore="HardcodedText" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -62,9 +70,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Masukkan Password"
+                android:autofillHints="password"
                 android:inputType="textPassword"
                 android:windowSoftInputMode="adjustResize|stateHidden"
-                tools:ignore="SpeakableTextPresentCheck" />
+                tools:ignore="HardcodedText,SpeakableTextPresentCheck" />
 
             <ImageView
                 android:id="@+id/btn_show_pwd"
@@ -73,7 +82,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="15dp"
-                android:src="@drawable/ic_eye" />
+                android:src="@drawable/ic_eye"
+                tools:ignore="ContentDescription" />
 
         </RelativeLayout>
 
@@ -84,7 +94,8 @@
             android:layout_height="60dp"
             android:text="Masuk"
             style="@style/Button"
-            android:layout_marginTop="30dp"/>
+            android:layout_marginTop="30dp"
+            tools:ignore="HardcodedText" />
 
         <View
             android:layout_width="0dp"
@@ -101,7 +112,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Belum punya akun?"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginEnd="10dp"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/login_btn_daftar"
@@ -109,7 +121,8 @@
                 android:layout_height="wrap_content"
                 android:text="Daftar disini"
                 android:textColor="@color/purple_200"
-                android:layout_marginRight="10dp"/>
+                android:layout_marginEnd="10dp"
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
 

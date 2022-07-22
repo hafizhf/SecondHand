@@ -1,11 +1,11 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">SecondHand</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" tools:keep="@string/hello_blank_fragment">Hello blank fragment</string>
     <string name="pengaturan_akun">Pengaturan Akun</string>
     <string name="ubah_akun">Ubah Akun</string>
-    <string name="akun_saya">Akun Saya</string>
+    <string name="akun_saya" tools:keep="@string/akun_saya">Akun Saya</string>
     <string name="keluar">Keluar</string>
-    <string name="version_1_0_0">Version 1.0.0</string>
+    <string name="version_1_0_0" tools:keep="@string/version_1_0_0">Version 1.0.0</string>
     <string name="lengkapi_detail_produk">Lengkapi Detail Produk</string>
     <string name="nama_produk">Nama Produk</string>
     <string name="harga_produk">Harga Produk</string>
@@ -19,19 +19,29 @@
     <string name="nama_penjual">Nama Penjual</string>
     <string name="kota">Kota</string>
     <string name="produk">Produk</string>
-    <string name="aksesoris">Aksesoris</string>
+    <string name="aksesoris" tools:keep="@string/aksesoris">Aksesoris</string>
     <string name="jam_tangan_casio">Jam Tangan Casio</string>
     <string name="penawaran_produk">Penawaran produk</string>
     <string name="ditawar_rp_150_000">Ditawar Rp 150.000</string>
     <string name="diminati">Diminati</string>
     <string name="terjual">Terjual</string>
     <string name="nama_pembeli">Nama Pembeli</string>
-    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer laoreet lobortis mattis. Curabitur tristique pellentesque pulvinar. Mauris pellentesque felis lacinia porta laoreet. Nullam at lectus magna. Curabitur id placerat risus, at venenatis ipsum. Donec consectetur auctor enim, non molestie lorem consequat in. Proin sed commodo nibh. Donec a rhoncus orci. Praesent scelerisque arcu arcu, sed porta nibh egestas et. Mauris at quam eros. Vivamus id velit egestas, laoreet elit eu, vehicula leo. Vestibulum et odio molestie, dictum nunc id, hendrerit nulla. Morbi ac odio sit amet leo fermentum feugiat ut id velit. Vivamus eu est dapibus, consectetur eros nec, semper odio. Aliquam tempus a dui non molestie. Praesent sit amet neque et nisi lobortis posuere vitae sed mi.<br /><br />Praesent tincidunt arcu ante, at venenatis massa feugiat non. Cras accumsan, lacus eu condimentum hendrerit, eros ligula vestibulum lorem, non maximus ligula nibh sed ex. Sed pellentesque hendrerit tristique. Donec eget urna facilisis, tincidunt enim sit amet, bibendum urna. Sed mauris elit, pretium vitae commodo at, interdum et lacus. Quisque tempus sapien at velit porttitor, at consequat dolor imperdiet. Pellentesque sagittis facilisis purus. In egestas scelerisque enim, sed porttitor enim consequat vitae. Ut aliquet, massa id semper fermentum, risus tortor egestas nulla, at suscipit ipsum enim sed nisi. Phasellus ultricies sed felis eget commodo. Nulla eros libero, tincidunt non dolor a, scelerisque feugiat enim. Vivamus pretium vestibulum lectus ornare porta. Pellentesque risus tortor, commodo vitae molestie vel, lobortis viverra tellus.</string>
+    <string name="lorem" tools:ignore="Typos" tools:keep="@string/lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer laoreet lobortis mattis. Curabitur tristique pellentesque pulvinar. Mauris pellentesque felis lacinia porta laoreet. Nullam at lectus magna. Curabitur id placerat risus, at venenatis ipsum. Donec consectetur auctor enim, non molestie lorem consequat in. Proin sed commodo nibh. Donec a rhoncus orci. Praesent scelerisque arcu arcu, sed porta nibh egestas et. Mauris at quam eros. Vivamus id velit egestas, laoreet elit eu, vehicula leo. Vestibulum et odio molestie, dictum nunc id, hendrerit nulla. Morbi ac odio sit amet leo fermentum feugiat ut id velit. Vivamus eu est dapibus, consectetur eros nec, semper odio. Aliquam tempus a dui non molestie. Praesent sit amet neque et nisi lobortis posuere vitae sed mi.<br /><br />Praesent tincidunt arcu ante, at venenatis massa feugiat non. Cras accumsan, lacus eu condimentum hendrerit, eros ligula vestibulum lorem, non maximus ligula nibh sed ex. Sed pellentesque hendrerit tristique. Donec eget urna facilisis, tincidunt enim sit amet, bibendum urna. Sed mauris elit, pretium vitae commodo at, interdum et lacus. Quisque tempus sapien at velit porttitor, at consequat dolor imperdiet. Pellentesque sagittis facilisis purus. In egestas scelerisque enim, sed porttitor enim consequat vitae. Ut aliquet, massa id semper fermentum, risus tortor egestas nulla, at suscipit ipsum enim sed nisi. Phasellus ultricies sed felis eget commodo. Nulla eros libero, tincidunt non dolor a, scelerisque feugiat enim. Vivamus pretium vestibulum lectus ornare porta. Pellentesque risus tortor, commodo vitae molestie vel, lobortis viverra tellus.</string>
     <string name="detail_popup_desc">Harga tawaranmu akan diketahui penjual, jika penjual cocok kamu akan segera dihubungi penjual</string>
     <string name="loading">Loading</string>
-    <string name="success_message">Success message</string>
-    <string name="danger_message">Danger message</string>
+    <string name="success_message" tools:keep="@string/success_message">Success message</string>
+    <string name="danger_message" tools:keep="@string/danger_message">Danger message</string>
     <string name="dialog_message">Dialog message</string>
     <string name="skip_tour"><u>Skip tour</u></string>
     <string name="skip"><u>Nanti lagi</u></string>
+    <string name="verifikasi_data">Verifikasi data</string>
+    <string name="verifikasi_dengan">Verifikasi dengan:</string>
+    <string name="password">Password</string>
+    <string name="fingerprint">Fingerprint</string>
+    <string name="masukkan_password">Masukkan Password</string>
+    <string name="verifikasi">Verifikasi</string>
+    <string name="sellerpicture">sellerPicture</string>
+    <string name="buyer_picture">buyerPicture</string>
+    <string name="status_produk">Status Produk</string>
+    <string name="perbarui_status_produk">Perbarui status produk</string>
 </resources>

@@ -3,12 +3,8 @@ package andlima.group3.secondhand.viewmodel
 import andlima.group3.secondhand.model.login.GetLoginResponse
 import andlima.group3.secondhand.model.login.LoginRequest
 import andlima.group3.secondhand.repository.AuthRepository
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
-import retrofit2.Call
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel

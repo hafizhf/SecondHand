@@ -1,20 +1,19 @@
 package andlima.group3.secondhand.view.home
 
 import andlima.group3.secondhand.MarketApplication
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.*
 import andlima.group3.secondhand.local.datastore.UserManager
-import andlima.group3.secondhand.view.adapter.CartAdapter
 import andlima.group3.secondhand.view.adapter.WishlistAdapter
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
 import android.annotation.SuppressLint
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.recyclerview.widget.LinearLayoutManager

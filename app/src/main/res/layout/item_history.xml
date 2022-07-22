@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
@@ -18,7 +19,8 @@
             android:layout_height="match_parent"
             android:scaleType="fitXY"
             android:id="@+id/imageHistory"
-            android:src="@drawable/ic_launcher_background"/>
+            android:src="@drawable/ic_launcher_background"
+            tools:ignore="ContentDescription" />
 
     </androidx.cardview.widget.CardView>
 
@@ -29,7 +31,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_toEndOf="@id/cardGambar"
-        android:text="Riwayat" />
+        android:text="Riwayat"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/tvTanggalRiwayat"
@@ -38,7 +41,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="20dp"
-        android:text="20 Apr, 14:04" />
+        android:text="20 Apr, 14:04"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -74,7 +78,8 @@
         android:layout_marginTop="2dp"
         android:layout_toEndOf="@id/cardGambar"
         android:maxLines="1"
-        android:text="Status :  " />
+        android:text="Status :  "
+        tools:ignore="HardcodedText" />
 
     <View
         android:layout_width="match_parent"

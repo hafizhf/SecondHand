@@ -9,16 +9,14 @@ import andlima.group3.secondhand.model.jual.PatchResponse
 import andlima.group3.secondhand.model.jual.PostProductResponse
 import andlima.group3.secondhand.repository.SellerRepository
 import android.util.Log
-
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,8 +29,8 @@ class SellerViewModel@Inject constructor(private val repository : SellerReposito
     var sellerDeleteProductLive : MutableLiveData<DeleteResponse> = MutableLiveData()
     var sellerOrdersLiveData : MutableLiveData<List<SellerOrdersItem>> = MutableLiveData()
     var sellerBuyerOrdersLiveData : MutableLiveData<List<SellerOrdersItem>> = MutableLiveData()
-    var patchOrderLiveData : MutableLiveData<PatchOrderResponse> = MutableLiveData()
-    var patchProductLiveData : MutableLiveData<PatchResponse> = MutableLiveData()
+    private var patchOrderLiveData : MutableLiveData<PatchOrderResponse> = MutableLiveData()
+    private var patchProductLiveData : MutableLiveData<PatchResponse> = MutableLiveData()
 
     var sellerDetailOrdersLiveData : MutableLiveData<SellerOrdersItem> = MutableLiveData()
 
@@ -59,13 +57,14 @@ class SellerViewModel@Inject constructor(private val repository : SellerReposito
 
     fun postProductLive(token: String, name : String, description : String, basePrice : Int, categoryIDs : List<Int>, location : String, image : MultipartBody.Part){
         viewModelScope.launch {
-            val nama = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), name)
-            val deskripsi = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), description)
-            val harga = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), basePrice.toString())
-            var kategoriFiX : String = categoryIDs.toString().replace("[", "").replace("]","")
+            val nama = name.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val deskripsi = description.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val harga =
+                basePrice.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val kategoriFiX : String = categoryIDs.toString().replace("[", "").replace("]","")
 
-            val kategori = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), kategoriFiX)
-            val lokasi = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), location)
+            val kategori = kategoriFiX.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val lokasi = location.toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
 
             repository.postProduct(token,sellerPostProductLive,nama, deskripsi, harga, kategori, lokasi, image)
@@ -73,13 +72,14 @@ class SellerViewModel@Inject constructor(private val repository : SellerReposito
     }
     fun editProductLive(token: String, id: Int,name : String, description : String, basePrice : Int, categoryIDs : List<Int>, location : String, image : MultipartBody.Part?){
         viewModelScope.launch {
-            val nama = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), name)
-            val deskripsi = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), description)
-            val harga = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), basePrice.toString())
-            var kategoriFiX : String = categoryIDs.toString().replace("[", "").replace("]","")
+            val nama = name.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val deskripsi = description.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val harga =
+                basePrice.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val kategoriFiX : String = categoryIDs.toString().replace("[", "").replace("]","")
             Log.d("kategoriku", kategoriFiX)
-            val kategori = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), kategoriFiX)
-            val lokasi = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), location)
+            val kategori = kategoriFiX.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val lokasi = location.toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
 
             repository.editProduct(token,id,sellerEditProductLive,nama, deskripsi, harga, kategori, lokasi, image)

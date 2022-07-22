@@ -12,7 +12,8 @@
         android:layout_height="400dp"
         android:src="@drawable/intro_3"
         android:layout_marginTop="20dp"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -20,7 +21,8 @@
         android:text="Tawar harga buat\ndapetin barang impian"
         style="@style/Heading1"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="25dp"/>
+        android:layout_marginStart="25dp"
+        tools:ignore="HardcodedText" />
 
     <View
         android:layout_width="30dp"
@@ -35,7 +37,8 @@
         android:text="Kontak langsung pemilik barang\nbuat diskusi lewat WhatsApp!"
         android:layout_marginTop="10dp"
         style="@style/Body1"
-        android:layout_marginStart="25dp"/>
+        android:layout_marginStart="25dp"
+        tools:ignore="HardcodedText" />
 
     <View
         android:layout_width="0dp"

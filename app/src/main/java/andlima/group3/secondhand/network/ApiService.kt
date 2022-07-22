@@ -1,10 +1,14 @@
+@file:Suppress("unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused",
+    "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused",
+    "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused"
+)
+
 package andlima.group3.secondhand.network
 
 import andlima.group3.secondhand.model.daftarjual.SellerProductsItem
 import andlima.group3.secondhand.model.daftarjual.diminati.SellerOrdersItem
 import andlima.group3.secondhand.model.daftarjual.terimatolak.PatchOrderResponse
 import andlima.group3.secondhand.model.daftarjual.terimatolak.StatusTawaran
-import andlima.group3.secondhand.model.history.HistoryResponse
 import andlima.group3.secondhand.model.history.HistoryResponseItem
 import andlima.group3.secondhand.model.jual.DeleteResponse
 import andlima.group3.secondhand.model.jual.EditResponse
@@ -12,7 +16,6 @@ import andlima.group3.secondhand.model.jual.PatchResponse
 import andlima.group3.secondhand.model.jual.PostProductResponse
 import andlima.group3.secondhand.model.kategori.KategoriResponseItem
 import andlima.group3.secondhand.model.lokasi.KotaResponse
-import andlima.group3.secondhand.model.lokasi.Provinsi
 import andlima.group3.secondhand.model.lokasi.ProvinsiResponse
 import andlima.group3.secondhand.model.notification.NotificationResponseItem
 import andlima.group3.secondhand.model.produk.ProductResponse

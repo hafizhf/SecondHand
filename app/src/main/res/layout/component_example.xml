@@ -1,66 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_margin="20dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:keep="@layout/component_example">
 
     <!--  HEADING 1  -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Heading1"
-        style="@style/Heading1"/>
+        style="@style/Heading1"
+        tools:ignore="HardcodedText" />
 
     <!--  HEADING 2  -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Heading2"
-        style="@style/Heading2"/>
+        style="@style/Heading2"
+        tools:ignore="HardcodedText" />
 
     <!--  HEADING 3  -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Heading3"
-        style="@style/Heading3"/>
+        style="@style/Heading3"
+        tools:ignore="HardcodedText" />
 
     <!--  HEADING 4  -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Heading4"
-        style="@style/Heading4"/>
+        style="@style/Heading4"
+        tools:ignore="HardcodedText" />
 
     <!--  BODY 1  -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Body1"
-        style="@style/Body1"/>
+        style="@style/Body1"
+        tools:ignore="HardcodedText" />
 
     <!--  BODY 2  -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Body2"
-        style="@style/Body2"/>
+        style="@style/Body2"
+        tools:ignore="HardcodedText" />
 
     <!--  Button Filled  -->
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Masuk"
-        style="@style/Button"/>
+        style="@style/Button"
+        tools:ignore="HardcodedText" />
 
     <!--  Button Outlined  -->
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Preview"
-        style="@style/ButtonOutlined"/>
+        style="@style/ButtonOutlined"
+        tools:ignore="HardcodedText" />
 
     <!--  Two Buttons in One Row  -->
     <LinearLayout
@@ -73,7 +82,8 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="Preview"
-            style="@style/ButtonOutlined"/>
+            style="@style/ButtonOutlined"
+            tools:ignore="HardcodedText" />
 
         <View
             android:layout_width="10dp"
@@ -84,7 +94,8 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="Masuk"
-            style="@style/Button"/>
+            style="@style/Button"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 
@@ -93,7 +104,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="EditText"
-        style="@style/InputField"/>
+        style="@style/InputField"
+        tools:ignore="Autofill,HardcodedText,TextFields" />
 
     <View
         android:layout_width="0dp"
@@ -109,7 +121,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="EditText"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            tools:ignore="Autofill,HardcodedText" />
 
         <ImageView
             android:layout_width="wrap_content"
@@ -117,7 +130,8 @@
             android:src="@drawable/ic_eye"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="20dp"/>
+            android:layout_marginEnd="20dp"
+            tools:ignore="ContentDescription" />
     </RelativeLayout>
 
     <View
@@ -130,12 +144,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Masuk"
-        style="@style/Heading1"/>
+        style="@style/Heading1"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Item always on bottom"
-        style="@style/Button"/>
+        style="@style/Button"
+        tools:ignore="HardcodedText" />
 
 </LinearLayout>

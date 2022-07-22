@@ -15,7 +15,8 @@
         android:layout_marginTop="37dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
-        android:paddingBottom="10dp">
+        android:paddingBottom="10dp"
+        tools:ignore="UselessParent">
 
         <ImageView
             android:id="@+id/btn_back"
@@ -24,7 +25,8 @@
             android:src="@drawable/ic_fi_arrow_left"
             app:tint="@color/second_hand_neutral4"
             android:layout_marginEnd="11dp"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            tools:ignore="ContentDescription" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/container_search_event"
@@ -49,7 +51,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_fi_search"
-                    android:layout_marginEnd="10dp"/>
+                    android:layout_marginEnd="10dp"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/tv_search_placeholder"
@@ -58,7 +61,8 @@
                     android:text="Cari barang"
                     android:layout_marginTop="2dp"
                     android:textColor="@color/second_hand_neutral3"
-                    style="@style/Heading4"/>
+                    style="@style/Heading4"
+                    tools:ignore="HardcodedText" />
 
                 <View
                     android:layout_width="0dp"
@@ -82,7 +86,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="2dp"
                 android:src="@drawable/ic_wishlist"
-                app:tint="@color/second_hand_neutral4" />
+                app:tint="@color/second_hand_neutral4"
+                tools:ignore="ContentDescription" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/wishlist_info"
@@ -126,7 +131,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="2dp"
                 android:src="@drawable/ic_cart"
-                app:tint="@color/second_hand_neutral4" />
+                app:tint="@color/second_hand_neutral4"
+                tools:ignore="ContentDescription" />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cart_info"

@@ -1,8 +1,6 @@
 package andlima.group3.secondhand.view.adapter
 
 import andlima.group3.secondhand.R
-import andlima.group3.secondhand.model.home.BuyerProductItem
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

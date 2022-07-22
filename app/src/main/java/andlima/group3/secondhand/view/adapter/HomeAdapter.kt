@@ -2,14 +2,12 @@ package andlima.group3.secondhand.view.adapter
 
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.model.home.BuyerProductItem
-import andlima.group3.secondhand.model.home.Category
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.item_home.view.*
 
 class HomeAdapter(private var onClick: (BuyerProductItem) -> Unit)

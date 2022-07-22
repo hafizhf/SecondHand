@@ -1,22 +1,19 @@
 package andlima.group3.secondhand
 
 import andlima.group3.secondhand.func.colorList
-import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.services.ConnectionStatus
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
@@ -51,11 +48,11 @@ class MainActivity : AppCompatActivity() {
         // Make status bar transparent
         transparentStatusBar()
 
-        checkInternetConnection(this)
+        checkInternetConnection()
     }
 
     @SuppressLint("SetTextI18n")
-    private fun checkInternetConnection(lifecycleOwner: LifecycleOwner) {
+    private fun checkInternetConnection() {
         var oldStatus = true
 
         MarketApplication.isConnected.observe(this, {

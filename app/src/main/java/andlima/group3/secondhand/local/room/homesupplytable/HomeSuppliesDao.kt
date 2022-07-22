@@ -1,6 +1,5 @@
 package andlima.group3.secondhand.local.room.homesupplytable
 
-import andlima.group3.secondhand.local.room.homesupplytable.HomeSuppliesLocal
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query

@@ -3,7 +3,6 @@ package andlima.group3.secondhand.view.adapter
 import andlima.group3.secondhand.view.daftarjual.DiminatiFragment
 import andlima.group3.secondhand.view.daftarjual.ProdukFragment
 import andlima.group3.secondhand.view.daftarjual.TerjualFragment
-import andlima.group3.secondhand.view.homepager.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter

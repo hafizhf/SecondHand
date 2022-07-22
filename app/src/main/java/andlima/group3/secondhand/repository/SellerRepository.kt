@@ -1,6 +1,5 @@
 package andlima.group3.secondhand.repository
 
-import andlima.group3.secondhand.model.daftarjual.SellerProducts
 import andlima.group3.secondhand.model.daftarjual.SellerProductsItem
 import andlima.group3.secondhand.model.daftarjual.diminati.SellerOrdersItem
 import andlima.group3.secondhand.model.daftarjual.terimatolak.PatchOrderResponse
@@ -10,8 +9,6 @@ import andlima.group3.secondhand.model.jual.EditResponse
 import andlima.group3.secondhand.model.jual.PatchResponse
 import andlima.group3.secondhand.model.jual.PostProductResponse
 import andlima.group3.secondhand.model.kategori.KategoriResponseItem
-import andlima.group3.secondhand.model.register.RegisterResponse
-import andlima.group3.secondhand.model.user.UserDetailResponse
 import andlima.group3.secondhand.network.ApiService
 import android.util.Log
 import androidx.lifecycle.MutableLiveData

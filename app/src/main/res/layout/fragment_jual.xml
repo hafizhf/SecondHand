@@ -17,7 +17,8 @@
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/ic_fi_arrow_left" />
+            android:background="@drawable/ic_fi_arrow_left"
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,6 +46,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/nama_produk"
                 android:id="@+id/editNamaProduk"
+                android:inputType="text"
+                android:importantForAutofill="no"
                 style="@style/InputField"/>
 
 
@@ -70,6 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/rp_0_00"
+                android:importantForAutofill="no"
                 android:inputType="number" />
 
         </LinearLayout>
@@ -136,7 +140,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Status Produk"
+                android:text="@string/status_produk"
                 style="@style/Body1"/>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -158,7 +162,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    android:text="Perbarui status produk"
+                    android:text="@string/perbarui_status_produk"
                     android:textColor="@color/second_hand_neutral3"
                     android:fontFamily="@font/poppins_regular"
                     android:textSize="18sp"
@@ -192,8 +196,10 @@
                 android:textAlignment="gravity"
                 android:hint="Contoh : Produk ini adalah salah satu best seller kami"
                 android:inputType="textMultiLine"
+                android:importantForAutofill="no"
                 android:id="@+id/editDeskripsiProduk"
-                style="@style/InputField"/>
+                style="@style/InputField"
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
 
@@ -209,14 +215,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Foto Produk"
-                style="@style/Body1"/>
+                style="@style/Body1"
+                tools:ignore="HardcodedText" />
 
             <ImageButton
                 android:id="@+id/imageFotoProduk"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:background="@drawable/component_border_dotted"
-                android:src="@drawable/ic_fi_plus" />
+                android:src="@drawable/ic_fi_plus"
+                tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
         </LinearLayout>
 

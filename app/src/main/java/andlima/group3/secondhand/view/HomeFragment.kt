@@ -1,49 +1,36 @@
 package andlima.group3.secondhand.view
 
 import andlima.group3.secondhand.MarketApplication
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.*
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.local.room.LocalDatabase
-import andlima.group3.secondhand.local.room.fashiontable.FashionLocal
 import andlima.group3.secondhand.model.home.newhome.ProductItemResponse
 import andlima.group3.secondhand.view.adapter.ProductPreviewAdapter
-import andlima.group3.secondhand.view.adapter.SearchResultAdapter
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Context
-import android.graphics.BitmapFactory
+import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.os.StrictMode
 import android.util.Log
-import android.view.inputmethod.InputMethodManager
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
-import androidx.cardview.widget.CardView
 import androidx.core.os.bundleOf
-import androidx.lifecycle.LifecycleOwner
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
-import androidx.lifecycle.asLiveData
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.synnapps.carouselview.CarouselView
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.coroutines.*
-import java.io.IOException
-import java.io.InputStream
-import java.lang.Runnable
-import java.net.URL
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
+@DelicateCoroutinesApi
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
@@ -242,36 +229,36 @@ class HomeFragment : Fragment() {
         carousel.pageCount = sampleBanner.size
     }
 
-    private fun bannerCarousel(imageUrlList: List<String>) {
-        val carousel : CarouselView = requireView().findViewById(R.id.banner_carousel_home)
-        carousel.setImageListener { position, imageView ->
-            val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-            StrictMode.setThreadPolicy(policy)
-            val url = URL(imageUrlList[position])
-            CoroutineScope(Dispatchers.IO).launch {
-                val bitmap = BitmapFactory.decodeStream(url.content as InputStream)
-                requireActivity().runOnUiThread {
-                    imageView.setImageBitmap(bitmap)
-                }
-            }
-        }
-        carousel.pageCount = imageUrlList.size
-    }
+//    private fun bannerCarousel(imageUrlList: List<String>) {
+//        val carousel : CarouselView = requireView().findViewById(R.id.banner_carousel_home)
+//        carousel.setImageListener { position, imageView ->
+//            val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+//            StrictMode.setThreadPolicy(policy)
+//            val url = URL(imageUrlList[position])
+//            CoroutineScope(Dispatchers.IO).launch {
+//                val bitmap = BitmapFactory.decodeStream(url.content as InputStream)
+//                requireActivity().runOnUiThread {
+//                    imageView.setImageBitmap(bitmap)
+//                }
+//            }
+//        }
+//        carousel.pageCount = imageUrlList.size
+//    }
 
-    private fun getBanner() {
-        val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
-        viewModel.bannerList.observe(this, {
-            if (it != null) {
-                val raw = it
-                val imageUrlList: MutableList<String> = mutableListOf()
-                raw.forEach { banner ->
-                    imageUrlList.add(banner.imageUrl)
-                }
-                bannerCarousel(imageUrlList)
-            }
-        })
-        viewModel.getBanner()
-    }
+//    private fun getBanner() {
+//        val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
+//        viewModel.bannerList.observe(this, {
+//            if (it != null) {
+//                val raw = it
+//                val imageUrlList: MutableList<String> = mutableListOf()
+//                raw.forEach { banner ->
+//                    imageUrlList.add(banner.imageUrl)
+//                }
+//                bannerCarousel(imageUrlList)
+//            }
+//        })
+//        viewModel.getBanner()
+//    }
 
     private fun getBannerIGuess() {
         val carousel : CarouselView = requireView().findViewById(R.id.banner_carousel_home)
@@ -300,7 +287,7 @@ class HomeFragment : Fragment() {
                         doubleBackToExit = true
                         toast(requireContext(), "Press again to exit")
 
-                        Handler(Looper.getMainLooper()).postDelayed(Runnable {
+                        Handler(Looper.getMainLooper()).postDelayed({
                             kotlin.run {
                                 doubleBackToExit = false
                             }
@@ -344,9 +331,10 @@ class HomeFragment : Fragment() {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
 //                    })
-                        } else {
-
                         }
+//                        else {
+//
+//                        }
                     }
                 })
                 viewModel.getElectronicProducts()
@@ -421,9 +409,10 @@ class HomeFragment : Fragment() {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
 //                    })
-                        } else {
-
                         }
+//                        else {
+//
+//                        }
                     }
                 })
                 viewModel.getFashionProducts()
@@ -497,9 +486,10 @@ class HomeFragment : Fragment() {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
 //                    })
-                        } else {
-
                         }
+//                        else {
+//
+//                        }
                     }
                 })
                 viewModel.getFoodProducts()
@@ -573,9 +563,10 @@ class HomeFragment : Fragment() {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
 //                    })
-                        } else {
-
                         }
+//                        else {
+//
+//                        }
                     }
                 })
                 viewModel.getHomeSuppliesProducts()

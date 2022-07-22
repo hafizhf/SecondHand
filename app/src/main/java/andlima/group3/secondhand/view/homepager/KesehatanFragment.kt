@@ -36,7 +36,7 @@ class KesehatanFragment : Fragment() {
     private fun getProductData() {
         val recyclerView : RecyclerView = requireView().findViewById(R.id.rv_home_kesehatan)
 
-        val homeAdapter = HomeAdapter() {
+        val homeAdapter = HomeAdapter {
             // On item click
             val selectedID = bundleOf("SELECTED_ID" to it.id)
             Navigation.findNavController(view!!)
@@ -55,12 +55,14 @@ class KesehatanFragment : Fragment() {
                 if (it.isNotEmpty()) {
                     homeAdapter.setProductData(it)
                     homeAdapter.notifyDataSetChanged()
-                } else {
-                    // Something to show when there is no product
                 }
-            } else {
-                // Something to show when error occurred
+//                else {
+//                    // Something to show when there is no product
+//                }
             }
+//            else {
+//                // Something to show when error occurred
+//            }
         })
         viewModel.getKesehatanProducts()
     }

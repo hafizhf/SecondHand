@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -18,9 +19,11 @@
             android:text="KATEGORI"
             android:maxLines="1"
             android:id="@+id/tv_kategoriCard"
-            android:drawableEnd="@drawable/ic_baseline_clear_24"
-            android:drawableTint="@color/black"
-            style="@style/Heading4"/>
+            style="@style/Heading4"
+            tools:targetApi="m"
+            app:drawableTint="@color/black"
+            app:drawableEndCompat="@drawable/ic_baseline_clear_24"
+            tools:ignore="HardcodedText" />
 
 
     </LinearLayout>

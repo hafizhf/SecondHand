@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package andlima.group3.secondhand.func
 
 import andlima.group3.secondhand.AuthActivity
@@ -14,7 +16,6 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.os.Handler
@@ -24,7 +25,8 @@ import android.text.method.PasswordTransformationMethod
 import android.util.Base64
 import android.util.DisplayMetrics
 import android.util.Patterns
-import android.view.*
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.cardview.widget.CardView
@@ -193,7 +195,7 @@ fun getDeviceScreenHeight(activity: Activity): Int {
 }
 
 fun isScrollReachedBottom(scrollView: NestedScrollView, reachBottom: (Boolean) -> Unit) {
-    scrollView.viewTreeObserver.addOnScrollChangedListener(ViewTreeObserver.OnScrollChangedListener {
+    scrollView.viewTreeObserver.addOnScrollChangedListener {
         if (scrollView.getChildAt(0).bottom == (scrollView.height + scrollView.scrollY)) {
             // Scroll reached bottom
             reachBottom(true)
@@ -201,7 +203,7 @@ fun isScrollReachedBottom(scrollView: NestedScrollView, reachBottom: (Boolean) -
             // Scroll not at bottom
             reachBottom(false)
         }
-    })
+    }
 }
 
 /**
@@ -293,8 +295,7 @@ fun quickNotifyDialog(view: View, message: String) {
 
     dialog.animate()
         .translationY(150f)
-        .alpha(1.0f)
-        .setDuration(300)
+        .alpha(1.0f).duration = 300
 
     dialog.visibility = View.VISIBLE
 //    dialog.clearAnimation()
@@ -394,7 +395,7 @@ private fun getSearchResult(
     newSearch: Boolean? = null
 ) {
     val recyclerView: RecyclerView = view.findViewById(R.id.rv_search_result)
-    val searchAdapter = SearchResultAdapter() {
+    val searchAdapter = SearchResultAdapter {
 //        toast(context, "You thought this was $it? But it was me, Dio!")
         val keyword = bundleOf("SEARCH_KEYWORD" to it)
         if (newSearch != null) {
@@ -430,9 +431,10 @@ private fun getSearchResult(
                 searchAdapter.setResultList(emptyList())
             }
             searchAdapter.notifyDataSetChanged()
-        } else {
-            // Something to show when there is no product
         }
+//        else {
+//            // Something to show when there is no product
+//        }
     })
 }
 

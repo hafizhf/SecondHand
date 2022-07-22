@@ -7,7 +7,8 @@
     android:layout_height="492dp"
     android:background="@color/second_hand_transparent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.bottomsheet.DetailBottomDialogFragment">
+    tools:context=".view.bottomsheet.DetailBottomDialogFragment"
+    tools:ignore="Overdraw">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -36,7 +37,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Masukkan Harga Tawar"
-                style="@style/Heading3"/>
+                style="@style/Heading3"
+                tools:ignore="HardcodedText" />
 
             <View
                 android:layout_width="0dp"
@@ -78,7 +80,8 @@
                             android:layout_width="60dp"
                             android:layout_height="60dp"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/ic_launcher_background"/>
+                            android:src="@drawable/ic_launcher_background"
+                            tools:ignore="ContentDescription" />
 
                     </com.google.android.material.card.MaterialCardView>
 
@@ -94,14 +97,16 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Product"
-                            style="@style/Heading3"/>
+                            style="@style/Heading3"
+                            tools:ignore="HardcodedText" />
 
                         <TextView
                             android:id="@+id/tv_detail_popup_product_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Price"
-                            style="@style/Heading4"/>
+                            style="@style/Heading4"
+                            tools:ignore="HardcodedText" />
 
                     </LinearLayout>
 
@@ -117,14 +122,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Harga Tawar"
-                style="@style/Heading4"/>
+                style="@style/Heading4"
+                tools:ignore="HardcodedText" />
 
             <EditText
                 android:id="@+id/et_detail_popup_bid"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:hint="Rp 0,00"
-                style="@style/InputField"/>
+                android:inputType="number"
+                android:importantForAutofill="no"
+                style="@style/InputField"
+                tools:ignore="HardcodedText" />
 
             <View
                 android:layout_width="0dp"
@@ -135,7 +144,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:text="Kirim"
-                style="@style/Button"/>
+                style="@style/Button"
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
 

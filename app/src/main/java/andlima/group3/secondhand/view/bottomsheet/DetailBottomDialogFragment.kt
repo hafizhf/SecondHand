@@ -1,13 +1,9 @@
+@file:Suppress("ControlFlowWithEmptyBody")
+
 package andlima.group3.secondhand.view.bottomsheet
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.observeOnce
-import andlima.group3.secondhand.func.quickNotifyDialog
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.model.buyer.order.BuyerOrderRequest
@@ -15,13 +11,13 @@ import andlima.group3.secondhand.model.detail.EditBid
 import andlima.group3.secondhand.model.detail.ProductDataForBid
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
 import android.annotation.SuppressLint
-import android.app.Dialog
 import android.graphics.Color
-import android.os.Handler
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.*
-import androidx.cardview.widget.CardView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
@@ -149,9 +145,10 @@ class DetailBottomDialogFragment : BottomSheetDialogFragment() {
         viewModel.gotOrderResponse.observe(this, { gotResponse ->
             if (!gotResponse) {
                 // Show loading when user click send bid
-            } else {
-                // Hide loading when bid got response from API
             }
+//            else {
+//                // Hide loading when bid got response from API
+//            }
         })
         userManager.accessTokenFlow.asLiveData().observeOnce(this, { token ->
             viewModel.postRequestOrder(token, BuyerOrderRequest(bidPrice, productId)) { code, message ->

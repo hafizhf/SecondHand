@@ -7,7 +7,8 @@
     android:layout_height="422dp"
     android:background="@color/second_hand_transparent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.bottomsheet.DetailBottomDialogFragment">
+    tools:context=".view.bottomsheet.DetailBottomDialogFragment"
+    tools:ignore="Overdraw">
     <FrameLayout
 
         android:layout_width="match_parent"
@@ -41,7 +42,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Perbarui status penjualan produkmu"
-                    style="@style/Heading3"/>
+                    style="@style/Heading3"
+                    tools:ignore="HardcodedText" />
 
                 <View
                     android:layout_width="0dp"
@@ -59,7 +61,8 @@
                     <RadioGroup
                         android:layout_width="match_parent"
                         android:id="@+id/radioGroup"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        tools:ignore="UselessParent">
                         <RadioButton
                             android:id="@+id/radioBtnBerhasil"
                             android:layout_width="match_parent"
@@ -67,14 +70,16 @@
                             android:text="Berhasil Terjual"
                             android:paddingStart="10dp"
                             android:hint="sukses"
-                            style="@style/Heading3"/>
+                            style="@style/Heading3"
+                            tools:ignore="HardcodedText,RtlSymmetry" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="40dp"
 
                             android:text="Kamu telah sepakat menjual produk ini kepada pembeli"
-                            style="@style/Heading4"/>
+                            style="@style/Heading4"
+                            tools:ignore="HardcodedText" />
                         <RadioButton
                             android:id="@+id/radioBtnBatal"
                             android:layout_width="match_parent"
@@ -82,14 +87,16 @@
                             android:text="Batalkan Transaksi"
                             android:hint="batal"
                             android:paddingStart="10dp"
-                            style="@style/Heading3"/>
+                            style="@style/Heading3"
+                            tools:ignore="HardcodedText,RtlSymmetry" />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="40dp"
 
                             android:text="Kamu membatalkan transaksi produk ini dengan pembeli"
-                            style="@style/Heading4"/>
+                            style="@style/Heading4"
+                            tools:ignore="HardcodedText" />
                     </RadioGroup>
 
 
@@ -101,7 +108,8 @@
                     android:layout_marginTop="15dp"
                     android:text="Kirim"
                     android:enabled="false"
-                    style="@style/Button"/>
+                    style="@style/Button"
+                    tools:ignore="HardcodedText" />
             </LinearLayout>
 
 

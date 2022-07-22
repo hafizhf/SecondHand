@@ -1,11 +1,6 @@
 package andlima.group3.secondhand.view
 
 import andlima.group3.secondhand.MainActivity
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.alertDialog
 import andlima.group3.secondhand.func.showPageLoading
@@ -13,23 +8,25 @@ import andlima.group3.secondhand.func.showPassword
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.model.login.GetLoginResponse
-import andlima.group3.secondhand.repository.AuthRepository
 import andlima.group3.secondhand.viewmodel.LoginViewModel
 import android.content.Intent
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
 import androidx.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_info_akun.*
 import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.android.synthetic.main.fragment_register.*
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
+@DelicateCoroutinesApi
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 

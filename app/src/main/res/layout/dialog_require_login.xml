@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dialog_require_login"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -7,7 +7,8 @@
     android:orientation="vertical"
     android:background="@color/white"
     android:gravity="center"
-    android:visibility="gone">
+    android:visibility="gone"
+    tools:ignore="Overdraw">
 
 <TextView
     android:layout_width="250dp"
@@ -15,19 +16,22 @@
     android:text="Login untuk bisa menggunakan semua fitur!"
     android:textAlignment="center"
     android:layout_marginBottom="10dp"
-    style="@style/Heading3"/>
+    style="@style/Heading3"
+    tools:ignore="HardcodedText" />
 
 <ImageView
     android:layout_width="match_parent"
     android:layout_height="230dp"
     android:layout_marginBottom="10dp"
-    android:src="@drawable/ic_require_login"/>
+    android:src="@drawable/ic_require_login"
+    tools:ignore="ContentDescription" />
 
 <Button
     android:id="@+id/btn_require_goto_login"
     android:layout_width="250dp"
     android:layout_height="wrap_content"
     android:text="Login"
-    style="@style/Button"/>
+    style="@style/Button"
+    tools:ignore="HardcodedText" />
 
 </LinearLayout>

@@ -1,3 +1,9 @@
+@file:Suppress("unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused",
+    "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused",
+    "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused", "unused",
+    "unused", "unused", "unused", "unused", "unused", "unused", "unused"
+)
+
 package andlima.group3.secondhand.view.adapter
 
 import andlima.group3.secondhand.view.homepager.*

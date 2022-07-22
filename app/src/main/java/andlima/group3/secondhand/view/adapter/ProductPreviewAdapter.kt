@@ -2,27 +2,23 @@ package andlima.group3.secondhand.view.adapter
 
 import andlima.group3.secondhand.MarketApplication
 import andlima.group3.secondhand.R
-import andlima.group3.secondhand.func.*
+import andlima.group3.secondhand.func.decodeBase64ImageString
+import andlima.group3.secondhand.func.encodeDrawableToByteArray
+import andlima.group3.secondhand.func.isURLValid
 import andlima.group3.secondhand.local.room.LocalDatabase
 import andlima.group3.secondhand.local.room.electronictable.ElectronicLocal
 import andlima.group3.secondhand.local.room.fashiontable.FashionLocal
 import andlima.group3.secondhand.local.room.foodtable.FoodLocal
 import andlima.group3.secondhand.local.room.homesupplytable.HomeSuppliesLocal
 import andlima.group3.secondhand.model.home.newhome.ProductItemResponse
-import andlima.group3.secondhand.services.ConnectionStatus
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -30,11 +26,12 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import kotlinx.android.synthetic.main.item_product.view.*
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 
+@DelicateCoroutinesApi
 class ProductPreviewAdapter(
     lifecycleOwner: LifecycleOwner? = null,
     categoryId: Int? = null,

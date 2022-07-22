@@ -1,9 +1,7 @@
 package andlima.group3.secondhand.repository
 
 import andlima.group3.secondhand.model.lokasi.KotaResponse
-import andlima.group3.secondhand.model.lokasi.Provinsi
 import andlima.group3.secondhand.model.lokasi.ProvinsiResponse
-import andlima.group3.secondhand.model.user.UpdateProfileResponse
 import andlima.group3.secondhand.network.ApiService
 import android.util.Log
 import androidx.lifecycle.MutableLiveData

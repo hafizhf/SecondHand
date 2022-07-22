@@ -1,3 +1,5 @@
+@file:Suppress("PrivatePropertyName")
+
 package andlima.group3.secondhand
 
 import andlima.group3.secondhand.auth.helper.AuthenticationError
@@ -6,10 +8,7 @@ import andlima.group3.secondhand.auth.helper.toast
 import andlima.group3.secondhand.func.observeOnce
 import andlima.group3.secondhand.local.datastore.UserManager
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.view.View
@@ -17,12 +16,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.asLiveData
-import kotlinx.android.synthetic.main.activity_biometric_auth.*
-import java.lang.Exception
 import java.security.KeyStore
 import javax.crypto.KeyGenerator
 

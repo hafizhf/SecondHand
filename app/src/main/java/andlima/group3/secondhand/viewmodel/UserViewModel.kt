@@ -2,21 +2,17 @@ package andlima.group3.secondhand.viewmodel
 
 import andlima.group3.secondhand.SingleLiveEvent.SingleLiveMutableData
 import andlima.group3.secondhand.model.history.HistoryResponseItem
-import andlima.group3.secondhand.model.notification.NotifData
 import andlima.group3.secondhand.model.notification.NotificationResponseItem
-import andlima.group3.secondhand.model.produk.ProductResponse
 import andlima.group3.secondhand.model.user.UserDetailResponse
 import andlima.group3.secondhand.repository.UserRepository
 import android.os.Handler
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
 
 
@@ -28,7 +24,7 @@ class UserViewModel @Inject constructor(private val repository : UserRepository)
     var userDetailLiveData : MutableLiveData<UserDetailResponse> = MutableLiveData()
 
     var notifLiveDataResponse : MutableLiveData<List<NotificationResponseItem>> = SingleLiveMutableData()
-    var notifReadLiveData : MutableLiveData<NotificationResponseItem> = MutableLiveData()
+    private var notifReadLiveData : MutableLiveData<NotificationResponseItem> = MutableLiveData()
 
     var historyLiveData : MutableLiveData<List<HistoryResponseItem>> = MutableLiveData()
 
@@ -38,9 +34,9 @@ class UserViewModel @Inject constructor(private val repository : UserRepository)
 
 
 
-    fun getRegisterLiveDataObserver() : MutableLiveData<String>{
-        return registerLiveData
-    }
+//    fun getRegisterLiveDataObserver() : MutableLiveData<String>{
+//        return registerLiveData
+//    }
     fun getHistoryLive(token: String) {
         viewModelScope.launch {
             repository.getHistoryRepo(token, historyLiveData)
@@ -50,12 +46,13 @@ class UserViewModel @Inject constructor(private val repository : UserRepository)
 
     fun registerLiveData(fullName : String, email : String, password : String, phoneNumber : String,address : String, city : String){
         viewModelScope.launch {
-            val fullName2 = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), fullName)
-            val email2 = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), email)
-            val password2 = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), password)
-            val phoneNumber2 = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), phoneNumber.toString())
-            val address2 = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), address)
-            val city2 = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), city)
+            val fullName2 = fullName.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val email2 = email.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val password2 = password.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val phoneNumber2 =
+                phoneNumber.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val address2 = address.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val city2 = city.toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
 
             repository.registerRepo(fullName2, email2, password2, phoneNumber2, address2, city2,registerLiveData)
@@ -76,9 +73,9 @@ class UserViewModel @Inject constructor(private val repository : UserRepository)
 
 
     fun notifUserLive(token: String){
-        var listT : MutableList<NotificationResponseItem> = mutableListOf()
-        var listF : MutableList<NotificationResponseItem> = mutableListOf()
-        var listFiltered : MutableList<NotificationResponseItem> = mutableListOf()
+        val listT : MutableList<NotificationResponseItem> = mutableListOf()
+        val listF : MutableList<NotificationResponseItem> = mutableListOf()
+        val listFiltered : MutableList<NotificationResponseItem> = mutableListOf()
         viewModelScope.launch {
             repository.getNotifRepo(token, listT, listF )
 

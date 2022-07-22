@@ -21,6 +21,6 @@
         android:paddingTop="3dp"
         android:textSize="12.5sp"
         android:textAlignment="center"
-        tools:ignore="RtlCompat" />
+        tools:ignore="HardcodedText,RtlCompat" />
 
 </com.google.android.material.card.MaterialCardView>

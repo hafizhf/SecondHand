@@ -1,9 +1,8 @@
 package andlima.group3.secondhand.view.adapter
 
 import andlima.group3.secondhand.R
-import andlima.group3.secondhand.model.daftarjual.diminati.SellerOrdersItem
-import andlima.group3.secondhand.model.notification.NotifData
 import andlima.group3.secondhand.model.notification.NotificationResponseItem
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Paint
 import android.view.LayoutInflater
@@ -12,10 +11,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import kotlinx.android.synthetic.main.item_notifikasi_berhasilditerbitkan.view.*
 import kotlinx.android.synthetic.main.item_notifikasi_penawaranproduk.view.*
-import kotlinx.android.synthetic.main.item_penawaran.view.*
-import kotlinx.android.synthetic.main.item_tawaran_buyer.view.*
 import java.text.SimpleDateFormat
 
 class NotifikasiAdapter(private var onClick : (NotificationResponseItem)->Unit) : RecyclerView.Adapter<NotifikasiAdapter.ViewHolder>() {
@@ -25,15 +21,14 @@ class NotifikasiAdapter(private var onClick : (NotificationResponseItem)->Unit) 
     fun setDataNotif(notif : List<NotificationResponseItem>){
         this.dataNotif = notif
     }
-    class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
-
-    }
+    class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val viewItem = LayoutInflater.from(parent.context).inflate(R.layout.item_notifikasi_penawaranproduk, parent, false)
         return ViewHolder(viewItem)
     }
 
+    @SuppressLint("SimpleDateFormat", "SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val parser =  SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
         val formatter = SimpleDateFormat("dd MMM, HH:mm")
@@ -101,7 +96,7 @@ class NotifikasiAdapter(private var onClick : (NotificationResponseItem)->Unit) 
                 val formattedDate = formatter.format(parser.parse(dataNotif!![position].transactionDate))
                 holder.itemView.itemnotifikasi_tv_tanggalpenawaran.text = formattedDate
                 holder.itemView.itemnotifikasi_tv_hargaditawar.paintFlags =
-                    holder.itemView.itemnotifikasi_tv_hargaditawar.getPaintFlags() or Paint.STRIKE_THRU_TEXT_FLAG
+                    holder.itemView.itemnotifikasi_tv_hargaditawar.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
             }else if (dataNotif!![position].status == "accepted"){
                 if (dataNotif!![position].receiverId == dataNotif!![position].product.userId){
@@ -131,10 +126,10 @@ class NotifikasiAdapter(private var onClick : (NotificationResponseItem)->Unit) 
 
     override fun getItemCount(): Int {
 
-        if (dataNotif == null){
-            return 0
+        return if (dataNotif == null){
+            0
         }else{
-            return dataNotif!!.size
+            dataNotif!!.size
 
         }
     }

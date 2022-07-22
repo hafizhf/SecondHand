@@ -1,10 +1,8 @@
 package andlima.group3.secondhand.view.adapter
 
 import andlima.group3.secondhand.R
-import andlima.group3.secondhand.func.alertDialog
 import andlima.group3.secondhand.func.capitalize
 import andlima.group3.secondhand.func.colorList
-import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.model.home.newhome.wishlist.GetWishlistResponse
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

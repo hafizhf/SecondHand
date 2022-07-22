@@ -40,8 +40,8 @@ abstract class LocalDatabase: RoomDatabase() {
             return INSTANCE
         }
 
-        fun destroyInstance() {
-            INSTANCE = null
-        }
+//        fun destroyInstance() {
+//            INSTANCE = null
+//        }
     }
 }

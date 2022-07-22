@@ -1,31 +1,27 @@
+@file:Suppress("RemoveExplicitTypeArguments")
+
 package andlima.group3.secondhand.view
 
-import andlima.group3.secondhand.AuthActivity
 import andlima.group3.secondhand.MainActivity
 import andlima.group3.secondhand.MarketApplication
+import andlima.group3.secondhand.R
+import andlima.group3.secondhand.func.alertDialog
+import andlima.group3.secondhand.func.getDeviceScreenHeight
+import andlima.group3.secondhand.func.requireLogin
+import andlima.group3.secondhand.func.toast
+import andlima.group3.secondhand.local.datastore.UserManager
+import andlima.group3.secondhand.viewmodel.UserViewModel
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import andlima.group3.secondhand.R
-import andlima.group3.secondhand.func.*
-
-import andlima.group3.secondhand.local.datastore.UserManager
-import andlima.group3.secondhand.viewmodel.SellerViewModel
-import andlima.group3.secondhand.viewmodel.UserViewModel
-import android.annotation.SuppressLint
-
-import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
-import android.util.Log
-
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.cardview.widget.CardView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
@@ -37,10 +33,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
-
 import kotlinx.android.synthetic.main.fragment_akun.*
-import kotlinx.android.synthetic.main.item_terjual.view.*
-
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 

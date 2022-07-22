@@ -13,14 +13,15 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:orientation="vertical">
             <ImageView
                 android:id="@+id/register_arrowback"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/ic_fi_arrow_left"/>
+                android:src="@drawable/ic_fi_arrow_left"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -28,45 +29,55 @@
                 android:text="Daftar"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="40dp"
-                android:textSize="30dp"
-                style="@style/Heading1"/>
+                android:textSize="30sp"
+                style="@style/Heading1"
+                tools:ignore="HardcodedText" />
             <TextView
                 style="@style/Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nama"
                 android:layout_marginBottom="10dp"
-                android:textSize="20dp"/>
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
             <EditText
                 android:id="@+id/register_et_namalengkap"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nama lengkap"
+                android:inputType="textPersonName"
+                android:importantForAutofill="no"
                 android:windowSoftInputMode="adjustResize|stateHidden"
                 style="@style/InputField"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginBottom="20dp"
+                tools:ignore="HardcodedText" />
             <TextView
                 style="@style/Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Email"
                 android:layout_marginBottom="10dp"
-                android:textSize="20dp"/>
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
             <EditText
                 android:id="@+id/register_et_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="contoh: kelompok3@gmail.com"
+                android:inputType="textEmailAddress"
+                android:importantForAutofill="no"
                 android:windowSoftInputMode="adjustResize|stateHidden"
                 style="@style/InputField"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginBottom="20dp"
+                tools:ignore="HardcodedText" />
             <TextView
                 style="@style/Body1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Buat Password"
-                android:textSize="20dp"
-                android:layout_marginBottom="10dp"/>
+                android:textSize="20sp"
+                android:layout_marginBottom="10dp"
+                tools:ignore="HardcodedText" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -79,8 +90,9 @@
                     android:layout_height="wrap_content"
                     android:hint="Password minimal 8 karakter"
                     android:inputType="textPassword"
+                    android:importantForAutofill="no"
                     android:windowSoftInputMode="adjustResize|stateHidden"
-                    tools:ignore="SpeakableTextPresentCheck" />
+                    tools:ignore="HardcodedText,SpeakableTextPresentCheck" />
 
                 <ImageView
                     android:id="@+id/btn_show_pwd"
@@ -89,7 +101,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="15dp"
-                    android:src="@drawable/ic_eye" />
+                    android:src="@drawable/ic_eye"
+                    tools:ignore="ContentDescription" />
 
             </RelativeLayout>
 
@@ -99,7 +112,8 @@
                 android:layout_height="wrap_content"
                 android:text="Provinsi*"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="4dp"/>
+                android:layout_marginBottom="4dp"
+                tools:ignore="HardcodedText" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -124,7 +138,8 @@
                     android:textColor="@color/second_hand_neutral3"
                     android:fontFamily="@font/poppins_regular"
                     android:textSize="18sp"
-                    android:paddingTop="20dp" />
+                    android:paddingTop="20dp"
+                    tools:ignore="HardcodedText" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -133,7 +148,8 @@
                 android:layout_marginTop="16dp"
                 android:layout_height="wrap_content"
                 android:text="Kota*"
-                android:layout_marginBottom="4dp"/>
+                android:layout_marginBottom="4dp"
+                tools:ignore="HardcodedText" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -162,7 +178,7 @@
                     android:textSize="18sp"
                     android:paddingTop="20dp"
 
-                    />
+                    tools:ignore="HardcodedText" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -172,15 +188,18 @@
                 android:layout_height="wrap_content"
                 android:text="Alamat*"
                 android:layout_marginBottom="4dp"
-                android:layout_marginTop="18dp" />
+                android:layout_marginTop="18dp"
+                tools:ignore="HardcodedText" />
             <EditText
                 android:id="@+id/alamatFinal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Contoh: Jalan Ikan Hiu 33"
+                android:inputType="textPostalAddress"
+                android:importantForAutofill="no"
                 android:windowSoftInputMode="adjustResize|stateHidden"
                 style="@style/InputField"
-                />
+                tools:ignore="HardcodedText" />
             <TextView
                 style="@style/Heading4"
                 android:layout_width="wrap_content"
@@ -188,15 +207,18 @@
 
                 android:layout_marginTop="16dp"
                 android:text="No Handphone*"
-                android:layout_marginBottom="4dp"/>
+                android:layout_marginBottom="4dp"
+                tools:ignore="HardcodedText" />
             <EditText
                 android:inputType="number"
                 android:id="@+id/nohpFinal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Contoh: +6281234567890"
+                android:importantForAutofill="no"
                 android:windowSoftInputMode="adjustResize|stateHidden"
-                style="@style/InputField"/>
+                style="@style/InputField"
+                tools:ignore="HardcodedText" />
 
 
 
@@ -207,7 +229,8 @@
                 android:layout_height="60dp"
                 android:text="Daftar"
                 style="@style/Button"
-                android:layout_marginTop="30dp"/>
+                android:layout_marginTop="30dp"
+                tools:ignore="HardcodedText" />
 
             <LinearLayout
                 android:layout_gravity="center_horizontal"
@@ -220,14 +243,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sudah punya akun?"
-                    android:layout_marginRight="10dp"/>
+                    android:layout_marginEnd="10dp"
+                    tools:ignore="HardcodedText" />
                 <TextView
                     android:id="@+id/register_tv_kembalikelogin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Masuk disini"
                     android:textColor="@color/purple_200"
-                    android:layout_marginRight="10dp"/>
+                    android:layout_marginEnd="10dp"
+                    tools:ignore="HardcodedText" />
 
             </LinearLayout>
 

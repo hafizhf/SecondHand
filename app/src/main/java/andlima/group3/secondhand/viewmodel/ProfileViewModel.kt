@@ -1,3 +1,7 @@
+@file:Suppress("RemoveRedundantCallsOfConversionMethods", "RemoveRedundantCallsOfConversionMethods",
+    "RemoveRedundantCallsOfConversionMethods"
+)
+
 package andlima.group3.secondhand.viewmodel
 
 
@@ -9,10 +13,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import javax.inject.Inject
-
-
 
 
 @HiltViewModel
@@ -22,19 +24,19 @@ class ProfileViewModel  @Inject constructor(private val repository : ProfileRepo
 
 
 
-    fun getProfileLiveDataObserver(): MutableLiveData<String> {
-        return profileLiveData
-    }
+//    fun getProfileLiveDataObserver(): MutableLiveData<String> {
+//        return profileLiveData
+//    }
 
 
     fun profileLiveData(
         accesstoken : String, nama: String, kota: String, alamat: String, nohp: String, image :MultipartBody.Part
     ) {
         viewModelScope.launch {
-            val namaa = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), nama)
-            val kotaa = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), kota)
-            val alamatt = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), alamat)
-            val nohpp = RequestBody.create("multipart/form-data".toMediaTypeOrNull(), nohp.toString())
+            val namaa = nama.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val kotaa = kota.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val alamatt = alamat.toRequestBody("multipart/form-data".toMediaTypeOrNull())
+            val nohpp = nohp.toString().toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
 
 

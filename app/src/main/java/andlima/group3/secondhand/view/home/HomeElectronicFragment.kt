@@ -1,21 +1,22 @@
 package andlima.group3.secondhand.view.home
 
 import andlima.group3.secondhand.MarketApplication
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.*
 import andlima.group3.secondhand.local.datastore.UserManager
-import andlima.group3.secondhand.model.home.newhome.ProductItemResponse
 import andlima.group3.secondhand.view.adapter.ProductPreviewAdapter
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
 import android.annotation.SuppressLint
-import android.widget.*
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.core.os.bundleOf
-import androidx.lifecycle.MutableLiveData
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -132,9 +133,10 @@ class HomeElectronicFragment : Fragment() {
 //                    }
                     adapter.setProductData(it)
                     adapter.notifyDataSetChanged()
-                } else {
-
                 }
+//                else {
+//
+//                }
             }
         })
         viewModel.getPhoneProducts()
@@ -165,9 +167,10 @@ class HomeElectronicFragment : Fragment() {
 //                    }
                     adapter.setProductData(it)
                     adapter.notifyDataSetChanged()
-                } else {
-
                 }
+//                else {
+//
+//                }
             }
         })
         viewModel.getComputerProducts()
@@ -198,9 +201,10 @@ class HomeElectronicFragment : Fragment() {
 //                    }
                     adapter.setProductData(it)
                     adapter.notifyDataSetChanged()
-                } else {
-
                 }
+//                else {
+//
+//                }
             }
         })
         viewModel.getElectronicProducts()

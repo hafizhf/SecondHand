@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
+<com.google.android.material.card.MaterialCardView xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_search_result_found"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -23,6 +23,7 @@
         android:paddingBottom="15dp"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
-        style="@style/Body1"/>
+        style="@style/Body1"
+        tools:ignore="HardcodedText" />
 
 </com.google.android.material.card.MaterialCardView>

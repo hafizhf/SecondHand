@@ -1,16 +1,11 @@
 package andlima.group3.secondhand.view
 
+import andlima.group3.secondhand.R
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import andlima.group3.secondhand.R
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.fragment.app.Fragment
 
 class MainContainerFragment : Fragment() {
     override fun onCreateView(
@@ -21,19 +16,19 @@ class MainContainerFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_main_container, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-//        val navController : NavController = Navigation.findNavController(requireActivity(), R.id.fragment_container)
-//        val bottomNavigationView : BottomNavigationView = requireView().findViewById(R.id.bottom_navigation)
-//        NavigationUI.setupWithNavController(bottomNavigationView, navController)
-
-//        val navHostFragment : NavHostFragment = supportFragmentManager.findFragmentById(R.id.)
-
-//        parentFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment())
-//            .commit()
-//        bottomNavigationInteraction()
-    }
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//
+////        val navController : NavController = Navigation.findNavController(requireActivity(), R.id.fragment_container)
+////        val bottomNavigationView : BottomNavigationView = requireView().findViewById(R.id.bottom_navigation)
+////        NavigationUI.setupWithNavController(bottomNavigationView, navController)
+//
+////        val navHostFragment : NavHostFragment = supportFragmentManager.findFragmentById(R.id.)
+//
+////        parentFragmentManager.beginTransaction().replace(R.id.fragment_container, HomeFragment())
+////            .commit()
+////        bottomNavigationInteraction()
+//    }
 
 //    private fun bottomNavigationInteraction() {
 //

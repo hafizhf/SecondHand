@@ -1,3 +1,5 @@
+@file:Suppress("ControlFlowWithEmptyBody", "ControlFlowWithEmptyBody", "ControlFlowWithEmptyBody")
+
 package andlima.group3.secondhand.view.homepager
 
 import andlima.group3.secondhand.MarketApplication
@@ -36,7 +38,7 @@ class AksesorisFragment : Fragment() {
     private fun getProductData() {
         val recyclerView : RecyclerView = requireView().findViewById(R.id.rv_home_aksesoris)
 
-        val homeAdapter = HomeAdapter() {
+        val homeAdapter = HomeAdapter {
             // On item click
             val selectedID = bundleOf("SELECTED_ID" to it.id)
             Navigation.findNavController(view!!)
@@ -55,12 +57,14 @@ class AksesorisFragment : Fragment() {
                 if (it.isNotEmpty()) {
                     homeAdapter.setProductData(it)
                     homeAdapter.notifyDataSetChanged()
-                } else {
-                    // Something to show when there is no product
                 }
-            } else {
-                // Something to show when error occurred
+//                else {
+//                    // Something to show when there is no product
+//                }
             }
+//            else {
+//                // Something to show when error occurred
+//            }
         })
         viewModel.getAksesorisProducts()
     }

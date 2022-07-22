@@ -1,11 +1,6 @@
 package andlima.group3.secondhand.view.home
 
 import andlima.group3.secondhand.MarketApplication
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.*
 import andlima.group3.secondhand.local.datastore.UserManager
@@ -13,12 +8,19 @@ import andlima.group3.secondhand.view.adapter.ProductPreviewAdapter
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
 import android.annotation.SuppressLint
 import android.content.Context
-import android.widget.*
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
@@ -135,12 +137,14 @@ class HomeSubFashionFragment : Fragment() {
                     if (it.isNotEmpty()) {
                         adapter.setProductData(it)
                         adapter.notifyDataSetChanged()
-                    } else {
-
                     }
-                } else {
-
+//                    else {
+//
+//                    }
                 }
+//                else {
+//
+//                }
             })
         }
 
@@ -159,12 +163,14 @@ class HomeSubFashionFragment : Fragment() {
                     if (it.isNotEmpty()) {
                         adapter.setProductData(it)
                         adapter.notifyDataSetChanged()
-                    } else {
-
                     }
-                } else {
-
+//                    else {
+//
+//                    }
                 }
+//                else {
+//
+//                }
             })
         }
 
@@ -183,12 +189,14 @@ class HomeSubFashionFragment : Fragment() {
                     if (it.isNotEmpty()) {
                         adapter.setProductData(it)
                         adapter.notifyDataSetChanged()
-                    } else {
-
                     }
-                } else {
-
+//                    else {
+//
+//                    }
                 }
+//                else {
+//
+//                }
             })
         }
     }
@@ -215,12 +223,14 @@ class HomeSubFashionFragment : Fragment() {
                     if (it.isNotEmpty()) {
                         adapter.setProductData(it)
                         adapter.notifyDataSetChanged()
-                    } else {
-
                     }
-                } else {
-
+//                    else {
+//
+//                    }
                 }
+//                else {
+//
+//                }
             })
         }
 
@@ -239,12 +249,14 @@ class HomeSubFashionFragment : Fragment() {
                     if (it.isNotEmpty()) {
                         adapter.setProductData(it)
                         adapter.notifyDataSetChanged()
-                    } else {
-
                     }
-                } else {
-
+//                    else {
+//
+//                    }
                 }
+//                else {
+//
+//                }
             })
         }
 
@@ -263,12 +275,14 @@ class HomeSubFashionFragment : Fragment() {
                     if (it.isNotEmpty()) {
                         adapter.setProductData(it)
                         adapter.notifyDataSetChanged()
-                    } else {
-
                     }
-                } else {
-
+//                    else {
+//
+//                    }
                 }
+//                else {
+//
+//                }
             })
         }
     }

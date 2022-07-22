@@ -1,29 +1,27 @@
+@file:Suppress("RemoveSingleExpressionStringTemplate")
+
 package andlima.group3.secondhand.view
 
 import andlima.group3.secondhand.MarketApplication
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.getDeviceScreenHeight
 import andlima.group3.secondhand.func.requireLogin
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.view.adapter.AdapterDaftarJualPager
-import andlima.group3.secondhand.view.adapter.AdapterHomePager
 import andlima.group3.secondhand.viewmodel.UserViewModel
+import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
-import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_daftar_jual.*
-import kotlinx.android.synthetic.main.fragment_home.*
 
 class DaftarJualFragment : Fragment() {
     override fun onCreateView(
@@ -80,7 +78,7 @@ class DaftarJualFragment : Fragment() {
 
 
     private fun getDataSeller(token: String) {
-        val viewModel = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
+        val viewModel = ViewModelProvider(requireActivity())[UserViewModel::class.java]
         viewModel.userDetailLiveData.observe(viewLifecycleOwner){
             if (it != null){
                 tv_namaPenjual.text = it.fullName

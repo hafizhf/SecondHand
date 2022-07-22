@@ -1,8 +1,6 @@
 package andlima.group3.secondhand.viewmodel
 
-import andlima.group3.secondhand.model.banner.GetBannerResponse
 import andlima.group3.secondhand.model.buyer.order.*
-import andlima.group3.secondhand.model.home.BuyerProductDetail
 import andlima.group3.secondhand.model.home.BuyerProductItem
 import andlima.group3.secondhand.model.home.newhome.ProductDetailItemResponse
 import andlima.group3.secondhand.model.home.newhome.ProductItemResponse
@@ -149,9 +147,7 @@ class BuyerViewModel @Inject constructor(api: BuyerRepository): ViewModel() {
     // =============================================================================================
 
 
-
-    fun getProductsByCategory(id: Int) {apiHelper.getProductsByCategory(id, cobacoba)}
-    val cobacoba: MutableLiveData<List<ProductItemResponse>> = MutableLiveData()
+//    private val cobacoba: MutableLiveData<List<ProductItemResponse>> = MutableLiveData()
 
 
     // INI YG LAMA -----------------------------
@@ -222,13 +218,10 @@ class BuyerViewModel @Inject constructor(api: BuyerRepository): ViewModel() {
         apiHelper.checkBuyerWishlistQuantity(accessToken, wishlistQuantity)
     }
 
-    val isProductWishListed: MutableLiveData<GetWishlistResponse> = MutableLiveData()
-    fun checkIsProductWishListed(accessToken: String, productId: Int) {
-        apiHelper.checkProductWishListed(accessToken, productId, isProductWishListed)
-    }
+//    private val isProductWishListed: MutableLiveData<GetWishlistResponse> = MutableLiveData()
 
     // BANNER --------------------------------------------------------------------------------------
 
-    val bannerList: MutableLiveData<List<GetBannerResponse>> = MutableLiveData()
-    fun getBanner() {apiHelper.getBanner(bannerList)}
+//    val bannerList: MutableLiveData<List<GetBannerResponse>> = MutableLiveData()
+//    fun getBanner() {apiHelper.getBanner(bannerList)}
 }

@@ -2,9 +2,7 @@ package andlima.group3.secondhand.services
 
 import android.util.Log
 import java.io.IOException
-import java.lang.Exception
 import java.net.InetSocketAddress
-import java.net.Socket
 import javax.net.SocketFactory
 
 object InternetAvailability {

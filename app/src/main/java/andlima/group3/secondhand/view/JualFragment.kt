@@ -1,6 +1,11 @@
+@file:Suppress("NestedLambdaShadowedImplicitParameter", "NestedLambdaShadowedImplicitParameter",
+    "NestedLambdaShadowedImplicitParameter", "NestedLambdaShadowedImplicitParameter",
+    "NestedLambdaShadowedImplicitParameter", "NestedLambdaShadowedImplicitParameter",
+    "NestedLambdaShadowedImplicitParameter"
+)
+
 package andlima.group3.secondhand.view
 
-import andlima.group3.secondhand.MainActivity
 import andlima.group3.secondhand.MarketApplication
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.*
@@ -13,26 +18,22 @@ import andlima.group3.secondhand.view.adapter.KategoriAdapter
 import andlima.group3.secondhand.viewmodel.ProdukViewModel
 import andlima.group3.secondhand.viewmodel.SellerViewModel
 import andlima.group3.secondhand.viewmodel.UserViewModel
-import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.ContentResolver
-import android.content.DialogInterface
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.provider.Settings
+import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
 import android.widget.AdapterView.OnItemClickListener
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.Button
+import android.widget.LinearLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -41,13 +42,8 @@ import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.fragment_info_akun.*
 import kotlinx.android.synthetic.main.fragment_jual.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -55,17 +51,17 @@ import java.io.File
 
 
 class JualFragment : Fragment() {
-    var cek = 0
+    private var cek = 0
     var idEdit = 0
     lateinit var body2: MultipartBody.Part
     lateinit var userManager: UserManager
-    var uriGambar : Uri? = null
-    var gambarSeller : String? = null
-    var namaSeller : String = ""
-    val gabungan : MutableSet<KategoriPilihan>? = mutableSetOf()
-    val listDataID : MutableList<Int> = mutableListOf()
-    val pilihanID : MutableSet<Int?> = mutableSetOf()
-    var statusProduk : String? = null
+    private var uriGambar : Uri? = null
+    private var gambarSeller : String? = null
+    private var namaSeller : String = ""
+    private val gabungan : MutableSet<KategoriPilihan> = mutableSetOf()
+    private val listDataID : MutableList<Int> = mutableListOf()
+    private val pilihanID : MutableSet<Int?> = mutableSetOf()
+    private var statusProduk : String? = null
 
 
 
@@ -77,7 +73,7 @@ class JualFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_jual, container, false)
     }
 
-    fun btnpreview(){
+    private fun btnpreview(){
         if (btnPreview.text == "Preview"){
             btnPreview.setOnClickListener {
                 val nama = editNamaProduk.text.toString()
@@ -85,7 +81,7 @@ class JualFragment : Fragment() {
                 val basePrice = editHargaProduk.text.toString()
                 val lokasi = "Preview"
 
-                if (nama.isNotBlank() && description.isNotBlank() && basePrice.isNotBlank() && gabungan!!.isNotEmpty() && uriGambar != null  && namaSeller.isNotBlank()){
+                if (nama.isNotBlank() && description.isNotBlank() && basePrice.isNotBlank() && gabungan.isNotEmpty() && uriGambar != null  && namaSeller.isNotBlank()){
                     val code = bundleOf("PREVIEW2" to ProdukPreview(nama,basePrice,gabungan,description,
                         uriGambar!!, lokasi, gambarSeller, namaSeller))
                     Navigation.findNavController(requireView())
@@ -105,8 +101,8 @@ class JualFragment : Fragment() {
         }
 
     }
-    fun deleteProduct(token: String){
-        val viewModel2 = ViewModelProvider(requireActivity()).get(SellerViewModel::class.java)
+    private fun deleteProduct(token: String){
+        val viewModel2 = ViewModelProvider(requireActivity())[SellerViewModel::class.java]
         viewModel2.sellerDeleteProductLive.observe(viewLifecycleOwner){
             if (it != null){
                 toast(requireContext(), "Produk telah dihapus")
@@ -116,8 +112,8 @@ class JualFragment : Fragment() {
         }
         viewModel2.deleteProductLive(token, idEdit)
     }
-    fun btnterbitkan(){
-        val viewModel2 = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
+    private fun btnterbitkan(){
+        val viewModel2 = ViewModelProvider(requireActivity())[UserViewModel::class.java]
 
         if (btnTerbitkan.text == "Edit"){
             btnTerbitkan.setOnClickListener {
@@ -133,7 +129,7 @@ class JualFragment : Fragment() {
 
                         }
                         viewModel2.userDetailLive(it)
-                        Handler().postDelayed({
+                        Handler(Looper.getMainLooper()).postDelayed({
                             editProduct(it,nama, description, basePrice, listDataID,lokasi)
 
 
@@ -163,7 +159,7 @@ class JualFragment : Fragment() {
 
                         }
                         viewModel2.userDetailLive(it)
-                        Handler().postDelayed({
+                        Handler(Looper.getMainLooper()).postDelayed({
                             postProduct(it,nama, description, basePrice, listDataID,lokasi)
 
                         }, 1000)
@@ -179,10 +175,11 @@ class JualFragment : Fragment() {
 
 
     }
+    @SuppressLint("NotifyDataSetChanged")
     fun kategori(listkat : List<Category>?){
         rv_kategori.visibility = View.VISIBLE
 
-        val viewModel = ViewModelProvider(requireActivity()).get(ProdukViewModel::class.java)
+        val viewModel = ViewModelProvider(requireActivity())[ProdukViewModel::class.java]
         val items = mutableListOf<String>()
         val itemsID = mutableListOf<Int>()
 
@@ -190,17 +187,17 @@ class JualFragment : Fragment() {
 
         val listData : MutableList<String> = mutableListOf()
         val adapter = ArrayAdapter(requireContext(), R.layout.list_kategori, items)
-        var adapterKategori = KategoriAdapter{
+        val adapterKategori = KategoriAdapter{
             listData.remove(it.nama)
             listDataID.remove(it.id)
             pilihan.remove(it.nama)
             pilihanID.remove(it.id)
-            gabungan?.remove(it)
+            gabungan.remove(it)
             viewModel.kategoriPilihanLiveData.value = gabungan
         }
         if (listkat != null){
             listkat.forEach {
-                gabungan?.add(KategoriPilihan(it.id, it.name))
+                gabungan.add(KategoriPilihan(it.id, it.name))
             }
             adapterKategori.setDataProduk(gabungan)
             rv_kategori.visibility = View.VISIBLE
@@ -224,8 +221,8 @@ class JualFragment : Fragment() {
         }
 
         (textFieldMenu.editText as? AutoCompleteTextView)?.setAdapter(adapter)
-        (textFieldMenu.getEditText() as AutoCompleteTextView).onItemClickListener =
-            OnItemClickListener { adapterView, view, position, id ->
+        (textFieldMenu.editText as AutoCompleteTextView).onItemClickListener =
+            OnItemClickListener { _, _, position, _ ->
                 val selectedValue: String? = adapter.getItem(position)
                 listData.clear()
                 listDataID.clear()
@@ -237,8 +234,8 @@ class JualFragment : Fragment() {
                 pilihanID.forEach { id ->
                     listDataID.add(id!!)
                 }
-                for ((index, element) in pilihan.withIndex()){
-                    gabungan?.add(KategoriPilihan(pilihanID.elementAt(index)!!, pilihan.elementAt(index)!!))
+                for ((index, _) in pilihan.withIndex()){
+                    gabungan.add(KategoriPilihan(pilihanID.elementAt(index)!!, pilihan.elementAt(index)!!))
                 }
 
                 viewModel.kategoriPilihanLiveData.postValue(gabungan)
@@ -258,18 +255,18 @@ class JualFragment : Fragment() {
 
 
     }
-    fun gambar(){
+    private fun gambar(){
         imageFotoProduk.setOnClickListener {
             setImage()
         }
     }
 
-    fun statusProduk(){
+    private fun statusProduk(){
         val items : MutableList<String> = mutableListOf("available", "sold")
         val adapter = ArrayAdapter(requireContext(), R.layout.list_kategori, items)
         (textFieldStatus.editText as? AutoCompleteTextView)?.setAdapter(adapter)
-        (textFieldStatus.getEditText() as AutoCompleteTextView).onItemClickListener =
-            OnItemClickListener { adapterView, view, position, id ->
+        (textFieldStatus.editText as AutoCompleteTextView).onItemClickListener =
+            OnItemClickListener { _, _, position, _ ->
                 val selectedValue: String? = adapter.getItem(position)
                 statusProduk = selectedValue
 
@@ -277,6 +274,7 @@ class JualFragment : Fragment() {
             }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -329,8 +327,8 @@ class JualFragment : Fragment() {
                             pilihanID.add(it.id)
                         }
                         idEdit = dataProduk.id
-                        btnTerbitkan.setText("Edit")
-                        btnPreview.setText("Hapus")
+                        btnTerbitkan.text = "Edit"
+                        btnPreview.text = "Hapus"
                         linearStatusProdukJual.visibility = View.VISIBLE
 
 
@@ -349,9 +347,9 @@ class JualFragment : Fragment() {
 
 
 
-                    var userManager = UserManager(requireContext())
+                    val userManager = UserManager(requireContext())
 
-                    val viewModel2 = ViewModelProvider(requireActivity()).get(UserViewModel::class.java)
+                    val viewModel2 = ViewModelProvider(requireActivity())[UserViewModel::class.java]
 
                     userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
                         viewModel2.userDetailLiveData.observe(viewLifecycleOwner){
@@ -372,8 +370,8 @@ class JualFragment : Fragment() {
         })
     }
 
-    fun postProduct(token: String, name : String, description : String, basePrice : Int, categoryIDs : List<Int>, location : String){
-        val viewModel = ViewModelProvider(requireActivity()).get(SellerViewModel::class.java)
+    private fun postProduct(token: String, name : String, description : String, basePrice : Int, categoryIDs : List<Int>, location : String){
+        val viewModel = ViewModelProvider(requireActivity())[SellerViewModel::class.java]
 
         viewModel.sellerPostProductLive.observe(viewLifecycleOwner){
             if (it != null){
@@ -386,10 +384,9 @@ class JualFragment : Fragment() {
 
 
     }
-    fun editProduct(token: String, name : String, description : String, basePrice : Int, categoryIDs : List<Int>, location : String){
-        val viewModel = ViewModelProvider(requireActivity()).get(SellerViewModel::class.java)
+    private fun editProduct(token: String, name : String, description : String, basePrice : Int, categoryIDs : List<Int>, location : String){
+        val viewModel = ViewModelProvider(requireActivity())[SellerViewModel::class.java]
         showPageLoading(requireView(),true)
-
 
         viewModel.sellerEditProductLive.observe(viewLifecycleOwner){
             if (it != null){
@@ -414,6 +411,7 @@ class JualFragment : Fragment() {
 
 
     }
+    @SuppressLint("QueryPermissionsNeeded")
     private fun setImage() {
         val cameraIntent = Intent(Intent.ACTION_GET_CONTENT)
         cameraIntent.type = "image/*"
@@ -425,19 +423,18 @@ class JualFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == 2000 && data != null){
-            val uri = data?.data
+            val uri = data.data
             uriGambar = uri
             imageFotoProduk.setImageURI(uri)
             Log.d("kenapauri", "dsasd")
-            uri.let {
-                setDataImagee(it!!)
-            }
+            setDataImagee(uri!!)
 
 
-        }else {
         }
+//        else {
+//        }
     }
-    fun setDataImagee(it : Uri){
+    private fun setDataImagee(it : Uri){
         val contentResolver = requireActivity().contentResolver
         imageFotoProduk.setImageURI(it)
 
@@ -474,54 +471,52 @@ class JualFragment : Fragment() {
     }
 
 
-    fun isPermissionsAllowed(): Boolean {
-        return if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            false
-        } else true
-    }
+//    private fun isPermissionsAllowed(): Boolean {
+//        return ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+//    }
 
-    fun askForPermissions(): Boolean {
-        if (!isPermissionsAllowed()) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                showPermissionDeniedDialog()
-            } else {
-                ActivityCompat.requestPermissions(requireActivity(),arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),2000)
-            }
-            return false
-        }
-        return true
-    }
+//    fun askForPermissions(): Boolean {
+//        if (!isPermissionsAllowed()) {
+//            if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
+//                showPermissionDeniedDialog()
+//            } else {
+//                ActivityCompat.requestPermissions(requireActivity(),arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),2000)
+//            }
+//            return false
+//        }
+//        return true
+//    }
 
     override fun onRequestPermissionsResult(requestCode: Int,permissions: Array<String>,grantResults: IntArray) {
-        when (requestCode) {
-            2000 -> {
-                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission is granted, you can perform your operation here
-                } else {
-                    // permission is denied, you can ask for permission again, if you want
-                    //  askForPermissions()
-                }
-                return
-            }
-        }
+//        when (requestCode) {
+//            2000 -> {
+//                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    // permission is granted, you can perform your operation here
+//                }
+////                else {
+////                    // permission is denied, you can ask for permission again, if you want
+////                    //  askForPermissions()
+////                }
+//                return
+//            }
+//        }
     }
 
-    private fun showPermissionDeniedDialog() {
-        AlertDialog.Builder(requireContext())
-            .setTitle("Permission Denied")
-            .setMessage("Permission is denied, Please allow permissions from App Settings.")
-            .setPositiveButton("App Settings",
-                DialogInterface.OnClickListener { dialogInterface, i ->
-                    // send to app settings if permission is denied permanently
-                    val intent = Intent()
-                    intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                    val uri = Uri.fromParts("package", "andlima.group3.secondhand", null)
-                    intent.data = uri
-                    startActivity(intent)
-                })
-            .setNegativeButton("Cancel",null)
-            .show()
-    }
+//    private fun showPermissionDeniedDialog() {
+//        AlertDialog.Builder(requireContext())
+//            .setTitle("Permission Denied")
+//            .setMessage("Permission is denied, Please allow permissions from App Settings.")
+//            .setPositiveButton("App Settings") { _, _ ->
+//                // send to app settings if permission is denied permanently
+//                val intent = Intent()
+//                intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+//                val uri = Uri.fromParts("package", "andlima.group3.secondhand", null)
+//                intent.data = uri
+//                startActivity(intent)
+//            }
+//            .setNegativeButton("Cancel",null)
+//            .show()
+//    }
 
 
 

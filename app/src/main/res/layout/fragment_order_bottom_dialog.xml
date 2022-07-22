@@ -7,7 +7,8 @@
     android:layout_height="552dp"
     android:background="@color/second_hand_transparent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".view.bottomsheet.DetailBottomDialogFragment">
+    tools:context=".view.bottomsheet.DetailBottomDialogFragment"
+    tools:ignore="Overdraw">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -35,7 +36,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Yeay kamu berhasil mendapat harga yang sesuai"
-                style="@style/Heading3"/>
+                style="@style/Heading3"
+                tools:ignore="HardcodedText" />
 
             <View
                 android:layout_width="0dp"
@@ -45,7 +47,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Segera hubungi pembeli melalui whatsapp untuk transaksi selanjutnya"
-                style="@style/Body2"/>
+                style="@style/Body2"
+                tools:ignore="HardcodedText" />
 
             <View
                 android:layout_width="0dp"
@@ -81,8 +84,8 @@
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/ic_placeholder_user"/>
-
+                                android:src="@drawable/ic_placeholder_user"
+                                android:contentDescription="@string/buyer_picture" />
                         </com.google.android.material.card.MaterialCardView>
 
                         <LinearLayout
@@ -97,14 +100,16 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Nama Pembeli"
-                                style="@style/Heading3"/>
+                                style="@style/Heading3"
+                                tools:ignore="HardcodedText" />
 
                             <TextView
                                 android:id="@+id/tvKotaPembeliBottomSheet"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Kota"
-                                style="@style/Heading4"/>
+                                style="@style/Heading4"
+                                tools:ignore="HardcodedText" />
 
                         </LinearLayout>
 
@@ -127,7 +132,8 @@
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/ic_launcher_background"/>
+                                android:src="@drawable/ic_launcher_background"
+                                tools:ignore="ContentDescription" />
 
                         </com.google.android.material.card.MaterialCardView>
 
@@ -143,20 +149,23 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Nama Produk"
-                                style="@style/Heading3"/>
+                                style="@style/Heading3"
+                                tools:ignore="HardcodedText" />
 
                             <TextView
                                 android:id="@+id/tvBasePriceProdukBottomSheet"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Kota"
-                                style="@style/Heading4"/>
+                                style="@style/Heading4"
+                                tools:ignore="HardcodedText" />
                             <TextView
                                 android:id="@+id/tvDitawarProdukBottomSheet"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Ditawar Rp 200.000"
-                                style="@style/Heading4"/>
+                                style="@style/Heading4"
+                                tools:ignore="HardcodedText" />
 
                         </LinearLayout>
 
@@ -168,7 +177,8 @@
                     style="@style/Heading3"
                     android:layout_marginTop="10dp"
                     android:text="Product Match"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    tools:ignore="HardcodedText" />
 
 
 
@@ -181,7 +191,8 @@
                 android:layout_marginTop="15dp"
                 android:text="Hubungi via Whatsapp"
                 android:drawableEnd="@drawable/ic_fi_whatsapp"
-                style="@style/Button"/>
+                style="@style/Button"
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
 

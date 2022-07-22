@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package andlima.group3.secondhand.repository
 
 import andlima.group3.secondhand.api.buyer.BuyerApi
@@ -351,34 +353,34 @@ class BuyerRepository @Inject constructor(private val api: BuyerApi) {
     }
 
     // Check Wish Listed
-    fun checkProductWishListed(accessToken: String, productId: Int, getResponse: MutableLiveData<GetWishlistResponse>) {
-        api.getUserWishlist(accessToken).enqueue(object : retrofit2.Callback<List<GetWishlistResponse>>{
-            override fun onResponse(
-                call: Call<List<GetWishlistResponse>>,
-                response: Response<List<GetWishlistResponse>>
-            ) {
-                if (response.isSuccessful) {
-                    if (response.code() == 200) {
-                        val raw = response.body()
-                        raw?.forEach { product ->
-                            if (product.productId == productId) {
-                                getResponse.postValue(product)
-                                return@forEach
-                            }
-                        }
-                    } else {
-                        getResponse.postValue(null)
-                    }
-                } else {
-                    getResponse.postValue(null)
-                }
-            }
-
-            override fun onFailure(call: Call<List<GetWishlistResponse>>, t: Throwable) {
-                getResponse.postValue(null)
-            }
-        })
-    }
+//    fun checkProductWishListed(accessToken: String, productId: Int, getResponse: MutableLiveData<GetWishlistResponse>) {
+//        api.getUserWishlist(accessToken).enqueue(object : retrofit2.Callback<List<GetWishlistResponse>>{
+//            override fun onResponse(
+//                call: Call<List<GetWishlistResponse>>,
+//                response: Response<List<GetWishlistResponse>>
+//            ) {
+//                if (response.isSuccessful) {
+//                    if (response.code() == 200) {
+//                        val raw = response.body()
+//                        raw?.forEach { product ->
+//                            if (product.productId == productId) {
+//                                getResponse.postValue(product)
+//                                return@forEach
+//                            }
+//                        }
+//                    } else {
+//                        getResponse.postValue(null)
+//                    }
+//                } else {
+//                    getResponse.postValue(null)
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<List<GetWishlistResponse>>, t: Throwable) {
+//                getResponse.postValue(null)
+//            }
+//        })
+//    }
 
     fun checkBuyerWishlistQuantity(accessToken: String, quantity: MutableLiveData<Int>) {
         api.getUserWishlist(accessToken)

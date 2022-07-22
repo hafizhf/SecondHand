@@ -1,12 +1,8 @@
 package andlima.group3.secondhand.view
 
-import andlima.group3.secondhand.MainActivity
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.auth.helper.AuthenticationError
-import andlima.group3.secondhand.auth.helper.navigateTo
-import andlima.group3.secondhand.auth.helper.toast
 import andlima.group3.secondhand.func.alertDialog
-import andlima.group3.secondhand.func.observeOnce
 import andlima.group3.secondhand.func.snackbarLong
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
@@ -67,7 +63,7 @@ class SettingFragment : Fragment() {
             if (!isCheckedOnFirst) {
                 addBiometricAuth(switch)
             } else {
-                removeBiometricAuth(requireContext(), switch)
+                removeBiometricAuth(requireContext())
             }
         }
 
@@ -97,7 +93,7 @@ class SettingFragment : Fragment() {
         }
     }
 
-    private fun removeBiometricAuth(context: Context, switch: SwitchCompat) {
+    private fun removeBiometricAuth(context: Context) {
         alertDialog(
             context,
             "Matikan otentikasi biometrik?",

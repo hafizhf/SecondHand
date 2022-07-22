@@ -1,10 +1,9 @@
 package andlima.group3.secondhand.view.adapter
 
 import andlima.group3.secondhand.R
-import andlima.group3.secondhand.model.daftarjual.SellerProductsItem
 import andlima.group3.secondhand.model.daftarjual.diminati.SellerOrdersItem
 import andlima.group3.secondhand.viewmodel.SellerViewModel
-import android.content.Context
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +11,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import kotlinx.android.synthetic.main.item_penawaran.view.*
-import kotlinx.android.synthetic.main.item_penawaran.view.card_itemPenawaran
-import kotlinx.android.synthetic.main.item_penawaran.view.tv_tanggalPenawaran
 import kotlinx.android.synthetic.main.item_terjual.view.*
 import java.text.SimpleDateFormat
 
@@ -25,15 +21,14 @@ class TerjualAdapter(private var onClick : (SellerOrdersItem)->Unit, var viewMod
     fun setDataProduk(produk : List<SellerOrdersItem>){
         this.dataProduk = produk
     }
-    class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
-
-    }
+    class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val viewItem = LayoutInflater.from(parent.context).inflate(R.layout.item_terjual, parent, false)
         return ViewHolder(viewItem)
     }
 
+    @SuppressLint("SimpleDateFormat", "SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 //        viewModel.getDetailOrderLive(token, dataProduk!![position].id)
 //        viewModel.sellerDetailOrdersLiveData.observe(owner){
@@ -50,7 +45,7 @@ class TerjualAdapter(private var onClick : (SellerOrdersItem)->Unit, var viewMod
         ).into(holder.itemView.imageTerjual)
         val parser =  SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
         val formatter = SimpleDateFormat("dd MMM, HH:mm")
-        val formattedDate = formatter.format(parser.parse(dataProduk!![position].updatedAt))
+        val formattedDate = formatter.format(parser.parse(dataProduk!![position].updatedAt)!!)
         holder.itemView.tv_tanggalTerjual.text = formattedDate
 
 
@@ -61,10 +56,10 @@ class TerjualAdapter(private var onClick : (SellerOrdersItem)->Unit, var viewMod
     }
 
     override fun getItemCount(): Int {
-        if (dataProduk == null){
-            return 0
+        return if (dataProduk == null){
+            0
         }else{
-            return dataProduk!!.size
+            dataProduk!!.size
 
         }
     }

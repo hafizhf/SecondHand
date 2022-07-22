@@ -23,14 +23,16 @@
                 android:layout_marginStart="5dp"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:src="@drawable/ic_fi_arrow_left" />
+                android:src="@drawable/ic_fi_arrow_left"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 style="@style/Heading3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="Lengkapi Info Akun" />
+                android:text="Lengkapi Info Akun"
+                tools:ignore="HardcodedText" />
 
         </RelativeLayout>
 
@@ -44,7 +46,7 @@
             android:backgroundTint="#E2D4F0"
             android:src="@drawable/ic_placeholder_image"
             android:scaleType="centerCrop"
-            tools:ignore="SpeakableTextPresentCheck" />
+            tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
         <LinearLayout
             android:orientation="vertical"
@@ -58,20 +60,25 @@
                 android:layout_height="wrap_content"
                 android:text="Nama*"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="4dp"/>
+                android:layout_marginBottom="4dp"
+                tools:ignore="HardcodedText" />
             <EditText
                 android:id="@+id/infoAkun_et_nama"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nama"
                 style="@style/InputField"
-                android:layout_marginBottom="16dp"/>
+                android:autofillHints="name"
+                android:inputType="textPersonName"
+                android:layout_marginBottom="16dp"
+                tools:ignore="HardcodedText" />
             <TextView
                 style="@style/Heading4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Provinsi*"
-                android:layout_marginBottom="4dp"/>
+                android:layout_marginBottom="4dp"
+                tools:ignore="HardcodedText" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -98,14 +105,15 @@
                     android:textSize="18sp"
                     android:paddingTop="20dp"
 
-                    />
+                    tools:ignore="HardcodedText" />
             </com.google.android.material.textfield.TextInputLayout>
             <TextView
                 style="@style/Heading4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Kota*"
-                android:layout_marginBottom="4dp"/>
+                android:layout_marginBottom="4dp"
+                tools:ignore="HardcodedText" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -134,7 +142,7 @@
                     android:textSize="18sp"
                     android:paddingTop="20dp"
 
-                    />
+                    tools:ignore="HardcodedText" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -143,27 +151,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Alamat*"
-                android:layout_marginBottom="4dp"/>
+                android:layout_marginBottom="4dp"
+                tools:ignore="HardcodedText" />
             <EditText
                 android:id="@+id/infoAkun_et_alamat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Contoh: Jalan Ikan Hiu 33"
                 style="@style/InputField"
-                android:layout_marginBottom="16dp"/>
+                android:inputType="textPostalAddress"
+                android:autofillHints="postalAddress"
+                android:layout_marginBottom="16dp"
+                tools:ignore="HardcodedText" />
             <TextView
                 style="@style/Heading4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="No Handphone*"
-                android:layout_marginBottom="4dp"/>
+                android:layout_marginBottom="4dp"
+                tools:ignore="HardcodedText" />
             <EditText
                 android:inputType="number"
                 android:id="@+id/infoAkun_et_nohp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Contoh: +6281234567890"
-                style="@style/InputField"/>
+                android:autofillHints="phone"
+                style="@style/InputField"
+                tools:ignore="HardcodedText" />
 
             <Button
                 android:id="@+id/infoAkun_btn_Simpan"
@@ -171,7 +186,8 @@
                 android:layout_height="60dp"
                 android:text="Simpan"
                 style="@style/Button"
-                android:layout_marginTop="24dp"/>
+                android:layout_marginTop="24dp"
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
 

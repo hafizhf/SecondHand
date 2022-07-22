@@ -4,7 +4,6 @@ import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.alertDialog
 import andlima.group3.secondhand.func.capitalize
 import andlima.group3.secondhand.func.colorList
-import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.model.buyer.order.GetBuyerOrderResponseItem
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -13,7 +12,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_cart.view.*
-import java.util.*
 
 class CartAdapter(private var action: (code: Int, orderData: GetBuyerOrderResponseItem) -> Unit)
     : RecyclerView.Adapter<CartAdapter.ViewHolder>() {

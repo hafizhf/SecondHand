@@ -2,7 +2,6 @@ package andlima.group3.secondhand.local.datastore
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.dataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
@@ -29,9 +28,9 @@ class UserManager(context: Context) {
         it[ACCESS_TOKEN] ?: ""
     }
 
-    val usernameFlow : Flow<String> = context.dataStore.data.map {
-        it[USERNAME] ?: ""
-    }
+//    val usernameFlow : Flow<String> = context.dataStore.data.map {
+//        it[USERNAME] ?: ""
+//    }
 
     val emailFlow : Flow<String> = context.dataStore.data.map {
         it[EMAIL] ?: ""

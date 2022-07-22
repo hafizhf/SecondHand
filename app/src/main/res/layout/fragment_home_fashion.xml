@@ -32,7 +32,8 @@
                     style="@style/Heading1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pakaian" />
+                    android:text="Pakaian"
+                    tools:ignore="HardcodedText" />
 
                 <View
                     android:layout_width="0dp"
@@ -45,7 +46,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Lainnya"
-                    android:textColor="@color/second_hand_primary" />
+                    android:textColor="@color/second_hand_primary"
+                    tools:ignore="HardcodedText" />
 
             </LinearLayout>
 
@@ -69,7 +71,8 @@
                     style="@style/Heading1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sepatu" />
+                    android:text="Sepatu"
+                    tools:ignore="HardcodedText" />
 
                 <View
                     android:layout_width="0dp"
@@ -82,7 +85,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Lainnya"
-                    android:textColor="@color/second_hand_primary" />
+                    android:textColor="@color/second_hand_primary"
+                    tools:ignore="HardcodedText" />
 
             </LinearLayout>
 
@@ -106,7 +110,8 @@
                     style="@style/Heading1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tas" />
+                    android:text="Tas"
+                    tools:ignore="HardcodedText" />
 
                 <View
                     android:layout_width="0dp"
@@ -119,7 +124,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Lainnya"
-                    android:textColor="@color/second_hand_primary" />
+                    android:textColor="@color/second_hand_primary"
+                    tools:ignore="HardcodedText" />
 
             </LinearLayout>
 
@@ -143,7 +149,8 @@
                     style="@style/Heading1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fashion Muslim" />
+                    android:text="Fashion Muslim"
+                    tools:ignore="HardcodedText" />
 
                 <View
                     android:layout_width="0dp"
@@ -156,7 +163,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Lainnya"
-                    android:textColor="@color/second_hand_primary" />
+                    android:textColor="@color/second_hand_primary"
+                    tools:ignore="HardcodedText" />
 
             </LinearLayout>
 
@@ -180,7 +188,8 @@
                     style="@style/Heading1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Untuk Anak" />
+                    android:text="Untuk Anak"
+                    tools:ignore="HardcodedText" />
 
                 <View
                     android:layout_width="0dp"
@@ -193,7 +202,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Lainnya"
-                    android:textColor="@color/second_hand_primary" />
+                    android:textColor="@color/second_hand_primary"
+                    tools:ignore="HardcodedText" />
 
             </LinearLayout>
 
@@ -218,7 +228,8 @@
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     app:lineHeight="30dp"
-                    android:text="Aksesoris Fashion" />
+                    android:text="Aksesoris Fashion"
+                    tools:ignore="HardcodedText" />
 
                 <View
                     android:layout_width="0dp"
@@ -231,7 +242,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Lainnya"
-                    android:textColor="@color/second_hand_primary" />
+                    android:textColor="@color/second_hand_primary"
+                    tools:ignore="HardcodedText" />
 
             </LinearLayout>
 

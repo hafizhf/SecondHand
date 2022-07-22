@@ -12,7 +12,8 @@
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/ic_fi_arrow_left" />
+        android:background="@drawable/ic_fi_arrow_left"
+        tools:ignore="ContentDescription" />
 
     <TextView
         style="@style/Heading3"
@@ -20,7 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:text="Riwayat Transaksi" />
+        android:text="Riwayat Transaksi"
+        tools:ignore="HardcodedText" />
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
@@ -79,7 +81,8 @@
         android:layout_below="@id/cardPenawar"
         android:layout_marginTop="20dp"
         android:id="@+id/txtDaftarProdukTawar"
-        android:text="Daftar Riwayat" />
+        android:text="Daftar Riwayat"
+        tools:ignore="HardcodedText" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="wrap_content"

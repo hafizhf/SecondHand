@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_dots"
         android:layout_marginTop="50dp"
-        android:layout_marginStart="10dp"/>
+        android:layout_marginStart="10dp"
+        tools:ignore="ContentDescription" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,19 +24,22 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:src="@drawable/ic_logo"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="SecondHand"
             android:textAlignment="center"
-            style="@style/Heading1"/>
+            style="@style/Heading1"
+            tools:ignore="HardcodedText" />
 
         <ImageView
             android:layout_width="300dp"
             android:layout_height="300dp"
-            android:src="@drawable/ic_intro_1"/>
+            android:src="@drawable/ic_intro_1"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -43,7 +47,8 @@
             android:text="Barang bagus, harga murah,\nbisa ditawar!"
             android:textAlignment="center"
             style="@style/Heading3"
-            android:layout_marginBottom="100dp"/>
+            android:layout_marginBottom="100dp"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 

@@ -46,7 +46,8 @@
                     android:id="@+id/imageAkunSaya"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/ic_placeholder_user"/>
+                    android:src="@drawable/ic_placeholder_user"
+                    tools:ignore="ContentDescription" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -62,7 +63,8 @@
         android:layout_below="@+id/container_profile_image"
         android:layout_centerHorizontal="true"
         android:text="Name"
-        android:textSize="20dp" />
+        android:textSize="20sp"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/tv_user_phone_profile"
@@ -71,7 +73,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_user_name_profile"
         android:layout_centerHorizontal="true"
-        android:text="+62 123456" />
+        android:text="+62 123456"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/tv_user_address_profile"
@@ -81,7 +84,8 @@
         android:layout_below="@+id/tv_user_phone_profile"
         android:layout_centerHorizontal="true"
         android:maxWidth="300dp"
-        android:text="Address" />
+        android:text="Address"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/tv_user_city_profile"
@@ -91,7 +95,8 @@
         android:layout_below="@+id/tv_user_address_profile"
         android:layout_centerHorizontal="true"
         android:maxWidth="300dp"
-        android:text="City" />
+        android:text="City"
+        tools:ignore="HardcodedText" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -110,12 +115,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="15dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/ic_fi_edit_3"/>
+                android:background="@drawable/ic_fi_edit_3"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -137,12 +144,14 @@
             android:layout_height="wrap_content"
             android:paddingVertical="15dp"
             android:id="@+id/btn_history"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/ic_baseline_history_24"/>
+                android:background="@drawable/ic_baseline_history_24"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -150,7 +159,8 @@
                 android:layout_marginStart="18dp"
                 android:layout_marginTop="3dp"
                 android:text="Riwayat Transaksi"
-                style="@style/Heading3"/>
+                style="@style/Heading3"
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
 
@@ -164,12 +174,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="15dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/ic_fi_settings"/>
+                android:background="@drawable/ic_fi_settings"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -191,12 +203,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingVertical="15dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/ic_fi_log_out" />
+                android:background="@drawable/ic_fi_log_out"
+                tools:ignore="ContentDescription" />
 
             <TextView
                 android:layout_width="wrap_content"

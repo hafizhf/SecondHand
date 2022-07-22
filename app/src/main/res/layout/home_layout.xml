@@ -44,7 +44,8 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginBottom="5dp"
-                        android:src="@drawable/ic_computer" />
+                        android:src="@drawable/ic_computer"
+                        tools:ignore="ContentDescription" />
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/Body1"
@@ -54,7 +55,7 @@
                         android:textAlignment="center"
                         android:textSize="12sp"
                         app:lineHeight="15dp"
-                        tools:ignore="SmallSp" />
+                        tools:ignore="HardcodedText,SmallSp" />
 
                 </LinearLayout>
 
@@ -70,7 +71,8 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginBottom="5dp"
-                        android:src="@drawable/ic_phone" />
+                        android:src="@drawable/ic_phone"
+                        tools:ignore="ContentDescription" />
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/Body1"
@@ -80,7 +82,7 @@
                         android:textAlignment="center"
                         android:textSize="12sp"
                         app:lineHeight="15dp"
-                        tools:ignore="SmallSp" />
+                        tools:ignore="HardcodedText,SmallSp" />
 
                 </LinearLayout>
 
@@ -96,7 +98,8 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginBottom="5dp"
-                        android:src="@drawable/ic_voucher" />
+                        android:src="@drawable/ic_voucher"
+                        tools:ignore="ContentDescription" />
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/Body1"
@@ -106,7 +109,7 @@
                         android:textAlignment="center"
                         android:textSize="12sp"
                         app:lineHeight="15dp"
-                        tools:ignore="SmallSp" />
+                        tools:ignore="HardcodedText,SmallSp" />
 
                 </LinearLayout>
 
@@ -122,7 +125,8 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginBottom="5dp"
-                        android:src="@drawable/ic_health" />
+                        android:src="@drawable/ic_health"
+                        tools:ignore="ContentDescription" />
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/Body1"
@@ -132,7 +136,7 @@
                         android:textAlignment="center"
                         android:textSize="12sp"
                         app:lineHeight="15dp"
-                        tools:ignore="SmallSp" />
+                        tools:ignore="HardcodedText,SmallSp" />
 
                 </LinearLayout>
 
@@ -148,7 +152,8 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginBottom="5dp"
-                        android:src="@drawable/ic_hobby" />
+                        android:src="@drawable/ic_hobby"
+                        tools:ignore="ContentDescription" />
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/Body1"
@@ -158,7 +163,7 @@
                         android:textAlignment="center"
                         android:textSize="12sp"
                         app:lineHeight="15dp"
-                        tools:ignore="SmallSp" />
+                        tools:ignore="HardcodedText,SmallSp" />
 
                 </LinearLayout>
 
@@ -209,7 +214,8 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginBottom="5dp"
-                        android:src="@drawable/ic_fashion_kids" />
+                        android:src="@drawable/ic_fashion_kids"
+                        tools:ignore="ContentDescription" />
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/Body1"
@@ -219,7 +225,7 @@
                         android:textAlignment="center"
                         android:textSize="12sp"
                         app:lineHeight="15dp"
-                        tools:ignore="SmallSp" />
+                        tools:ignore="HardcodedText,SmallSp" />
 
                 </LinearLayout>
 
@@ -235,7 +241,8 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginBottom="5dp"
-                        android:src="@drawable/ic_mother_and_child" />
+                        android:src="@drawable/ic_mother_and_child"
+                        tools:ignore="ContentDescription" />
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/Body1"
@@ -245,7 +252,7 @@
                         android:textAlignment="center"
                         android:textSize="12sp"
                         app:lineHeight="15dp"
-                        tools:ignore="SmallSp" />
+                        tools:ignore="HardcodedText,SmallSp" />
 
                 </LinearLayout>
 
@@ -261,7 +268,8 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginBottom="5dp"
-                        android:src="@drawable/ic_automotive" />
+                        android:src="@drawable/ic_automotive"
+                        tools:ignore="ContentDescription" />
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/Body1"
@@ -271,7 +279,7 @@
                         android:textAlignment="center"
                         android:textSize="12sp"
                         app:lineHeight="15dp"
-                        tools:ignore="SmallSp" />
+                        tools:ignore="HardcodedText,SmallSp" />
 
                 </LinearLayout>
 
@@ -287,7 +295,8 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginBottom="5dp"
-                        android:src="@drawable/ic_sports" />
+                        android:src="@drawable/ic_sports"
+                        tools:ignore="ContentDescription" />
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/Body1"
@@ -297,7 +306,7 @@
                         android:textAlignment="center"
                         android:textSize="12sp"
                         app:lineHeight="15dp"
-                        tools:ignore="SmallSp" />
+                        tools:ignore="HardcodedText,SmallSp" />
 
                 </LinearLayout>
 
@@ -313,7 +322,8 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_marginBottom="5dp"
-                        android:src="@drawable/ic_more" />
+                        android:src="@drawable/ic_more"
+                        tools:ignore="ContentDescription" />
 
                     <com.google.android.material.textview.MaterialTextView
                         style="@style/Body1"
@@ -323,7 +333,7 @@
                         android:textAlignment="center"
                         android:textSize="12sp"
                         app:lineHeight="15dp"
-                        tools:ignore="SmallSp" />
+                        tools:ignore="HardcodedText,SmallSp" />
 
                 </LinearLayout>
 
@@ -341,7 +351,8 @@
                     android:layout_height="140dp"
                     android:layout_weight="1"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/banner_computer" />
+                    android:src="@drawable/banner_computer"
+                    tools:ignore="ContentDescription" />
 
                 <ImageView
                     android:id="@+id/btn_banner_to_category_handphone"
@@ -349,7 +360,8 @@
                     android:layout_height="140dp"
                     android:layout_weight="1"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/banner_phone" />
+                    android:src="@drawable/banner_phone"
+                    tools:ignore="ContentDescription" />
 
             </LinearLayout>
 
@@ -366,7 +378,8 @@
                     style="@style/Heading1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Elektronik" />
+                    android:text="Elektronik"
+                    tools:ignore="HardcodedText" />
 
                 <View
                     android:layout_width="0dp"
@@ -379,7 +392,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Lainnya"
-                    android:textColor="@color/second_hand_primary" />
+                    android:textColor="@color/second_hand_primary"
+                    tools:ignore="HardcodedText" />
 
             </LinearLayout>
 
@@ -403,7 +417,8 @@
                     style="@style/Heading1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Fashion" />
+                    android:text="Fashion"
+                    tools:ignore="HardcodedText" />
 
                 <View
                     android:layout_width="0dp"
@@ -416,7 +431,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Lainnya"
-                    android:textColor="@color/second_hand_primary" />
+                    android:textColor="@color/second_hand_primary"
+                    tools:ignore="HardcodedText" />
 
             </LinearLayout>
 
@@ -441,7 +457,8 @@
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     app:lineHeight="30dp"
-                    android:text="Makanan   &amp; Minuman" />
+                    android:text="Makanan   &amp; Minuman"
+                    tools:ignore="HardcodedText" />
 
                 <View
                     android:layout_width="0dp"
@@ -454,7 +471,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Lainnya"
-                    android:textColor="@color/second_hand_primary" />
+                    android:textColor="@color/second_hand_primary"
+                    tools:ignore="HardcodedText" />
 
             </LinearLayout>
 
@@ -479,7 +497,8 @@
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     app:lineHeight="30dp"
-                    android:text="Perlengkapan Rumah" />
+                    android:text="Perlengkapan Rumah"
+                    tools:ignore="HardcodedText" />
 
                 <View
                     android:layout_width="0dp"
@@ -492,7 +511,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Lainnya"
-                    android:textColor="@color/second_hand_primary" />
+                    android:textColor="@color/second_hand_primary"
+                    tools:ignore="HardcodedText" />
 
             </LinearLayout>
 
@@ -512,7 +532,8 @@
                 android:layout_marginTop="25dp"
                 android:layout_marginEnd="25dp"
                 android:layout_marginBottom="70dp"
-                android:text="Lihat semua produk" />
+                android:text="Lihat semua produk"
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
 

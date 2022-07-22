@@ -1,3 +1,5 @@
+@file:Suppress("RemoveToStringInStringTemplate")
+
 package andlima.group3.secondhand.view.adapter
 
 import andlima.group3.secondhand.R
@@ -18,9 +20,7 @@ class DaftarJualAdapter(private var onClick : (SellerProductsItem)->Unit) : Recy
     fun setDataProduk(produk : List<SellerProductsItem>){
         this.dataProduk = produk
     }
-    class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
-
-    }
+    class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val viewItem = LayoutInflater.from(parent.context).inflate(R.layout.item_daftar_jual, parent, false)
@@ -48,10 +48,10 @@ class DaftarJualAdapter(private var onClick : (SellerProductsItem)->Unit) : Recy
     }
 
     override fun getItemCount(): Int {
-        if (dataProduk == null){
-            return 0
+        return if (dataProduk == null){
+            0
         }else{
-            return dataProduk!!.size
+            dataProduk!!.size
 
         }
     }

@@ -1,24 +1,24 @@
 package andlima.group3.secondhand.view.home
 
 import andlima.group3.secondhand.MarketApplication
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.*
 import andlima.group3.secondhand.local.datastore.UserManager
-import andlima.group3.secondhand.view.adapter.ProductPreviewAdapter
 import andlima.group3.secondhand.view.adapter.ProductResultAdapter
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
 import android.annotation.SuppressLint
-import android.util.Log
-import android.widget.*
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -75,7 +75,7 @@ class HomeResultListFragment : Fragment() {
                 val requestCode = arguments?.getInt("REQUEST_CODE")
                 val searchKeyword = arguments?.getString("SEARCH_KEYWORD")
 
-                val searchResultTitle: TextView = requireView().findViewById(R.id.tv_search_result)
+//                val searchResultTitle: TextView = requireView().findViewById(R.id.tv_search_result)
                 val resultTitle: TextView = requireView().findViewById(R.id.tv_result_title)
 
                 if (searchKeyword != null) {
@@ -161,12 +161,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Elektronik
@@ -177,12 +179,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Komputer dan Aksesoris
@@ -193,12 +197,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Handphone dan Aksesoris
@@ -209,12 +215,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Pakaian Pria
@@ -225,12 +233,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Sepatu Pria
@@ -241,12 +251,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Tas Pria
@@ -257,12 +269,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Aksesoris Fashion
@@ -273,12 +287,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Kesehatan
@@ -289,12 +305,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Hobi dan Koleksi
@@ -305,12 +323,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Makanan dan Minuman
@@ -321,12 +341,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Perawatan dan Kecantikan
@@ -337,12 +359,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Perlengkapan Rumah
@@ -353,12 +377,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Pakaian Wanita
@@ -369,12 +395,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Pakaian Muslim
@@ -385,12 +413,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Fashion Bayi dan Anak
@@ -401,12 +431,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Ibu dan Bayi
@@ -417,12 +449,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Sepatu Wanita
@@ -433,12 +467,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Tas Wanita
@@ -449,12 +485,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Otomotif
@@ -465,12 +503,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Olahraga dan Outdoor
@@ -481,12 +521,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Buku dan Alat Tulis
@@ -497,12 +539,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Voucher
@@ -513,12 +557,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Souvenir dan Pesta
@@ -529,12 +575,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Fotografi
@@ -545,12 +593,14 @@ class HomeResultListFragment : Fragment() {
                         if (it.isNotEmpty()) {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
-                        } else {
-
                         }
-                    } else {
-
+//                        else {
+//
+//                        }
                     }
+//                    else {
+//
+//                    }
                 })
             }
             // Search result

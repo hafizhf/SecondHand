@@ -8,11 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.item_product.view.*
-import kotlinx.android.synthetic.main.item_product.view.item_product_data
 import kotlinx.android.synthetic.main.item_product.view.item_product_image
 import kotlinx.android.synthetic.main.item_product.view.item_product_location
-import kotlinx.android.synthetic.main.item_product.view.item_product_more
 import kotlinx.android.synthetic.main.item_product.view.item_product_name
 import kotlinx.android.synthetic.main.item_product.view.item_product_price
 import kotlinx.android.synthetic.main.item_product_result.view.*

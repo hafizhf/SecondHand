@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dialog_empty_list"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -7,7 +7,8 @@
     android:orientation="vertical"
     android:background="@color/white"
     android:gravity="center"
-    android:visibility="gone">
+    android:visibility="gone"
+    tools:ignore="Overdraw">
 
     <TextView
         android:id="@+id/tv_empty_title"
@@ -17,13 +18,15 @@
         android:textAlignment="center"
         android:layout_marginBottom="20dp"
         android:textSize="20sp"
-        style="@style/Heading1"/>
+        style="@style/Heading1"
+        tools:ignore="HardcodedText" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="220dp"
         android:layout_marginBottom="10dp"
-        android:src="@drawable/ic_empty"/>
+        android:src="@drawable/ic_empty"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/tv_empty_message"
@@ -33,6 +36,7 @@
         android:textAlignment="center"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="10dp"
-        style="@style/Heading3"/>
+        style="@style/Heading3"
+        tools:ignore="HardcodedText" />
 
 </LinearLayout>

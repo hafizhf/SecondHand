@@ -17,7 +17,7 @@ class ProfileRepository @Inject constructor(private val apiService: ApiService) 
         liveData: MutableLiveData<String>
     ) {
         val call: Call<UpdateProfileResponse> = apiService.profileUser(accesstoken, nama, nohp, alamat, kota, image )
-        call?.enqueue(object : Callback<UpdateProfileResponse> {
+        call.enqueue(object : Callback<UpdateProfileResponse> {
             override fun onResponse(
                 call: Call<UpdateProfileResponse>,
                 response: Response<UpdateProfileResponse>

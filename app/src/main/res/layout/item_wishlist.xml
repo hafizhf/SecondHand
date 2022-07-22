@@ -40,7 +40,8 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/placeholder"/>
+                android:src="@drawable/placeholder"
+                tools:ignore="ContentDescription" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -71,7 +72,7 @@
                     android:paddingTop="1dp"
                     android:paddingStart="4dp"
                     android:paddingEnd="4dp"
-                    tools:ignore="SmallSp" />
+                    tools:ignore="HardcodedText,SmallSp" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -81,7 +82,8 @@
                 android:layout_height="wrap_content"
                 android:text="Nama Barang"
                 android:textSize="14sp"
-                style="@style/Heading3"/>
+                style="@style/Heading3"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/tv_item_wishlist_price"
@@ -89,7 +91,8 @@
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
                 android:text="Rp 000.000"
-                style="@style/Body2"/>
+                style="@style/Body2"
+                tools:ignore="HardcodedText" />
 
             <TextView
                 android:id="@+id/tv_item_wishlist_location"
@@ -98,7 +101,8 @@
                 android:layout_marginTop="3dp"
                 android:textSize="11sp"
                 android:text="Location"
-                style="@style/Body1"/>
+                style="@style/Body1"
+                tools:ignore="HardcodedText" />
 
         </LinearLayout>
 
@@ -114,7 +118,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_close"
             android:layout_marginStart="10dp"
-            app:tint="@color/second_hand_danger" />
+            app:tint="@color/second_hand_danger"
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 

@@ -1,30 +1,23 @@
 package andlima.group3.secondhand.repository
 
-import andlima.group3.secondhand.SingleLiveEvent.SingleLiveMutableData
-import andlima.group3.secondhand.model.history.HistoryResponse
 import andlima.group3.secondhand.model.history.HistoryResponseItem
-import andlima.group3.secondhand.model.notification.NotifData
 import andlima.group3.secondhand.model.notification.NotificationResponseItem
-import andlima.group3.secondhand.model.produk.ProductResponse
 import andlima.group3.secondhand.model.register.RegisterResponse
 import andlima.group3.secondhand.model.user.UserDetailResponse
 import andlima.group3.secondhand.network.ApiService
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.logging.Handler
 import javax.inject.Inject
 
 class UserRepository @Inject constructor(private val apiService: ApiService) {
-    val listProduk : MutableList<ProductResponse> = mutableListOf()
+//    val listProduk : MutableList<ProductResponse> = mutableListOf()
     fun registerRepo(fullName : RequestBody, email : RequestBody, password : RequestBody, phoneNumber : RequestBody,
                      address : RequestBody,city : RequestBody,liveData: MutableLiveData<String>){
         val call : Call<RegisterResponse> = apiService.registerUser(fullName, email, password, phoneNumber, address, city)
-        call?.enqueue(object : Callback<RegisterResponse>{
+        call.enqueue(object : Callback<RegisterResponse>{
             override fun onResponse(
                 call: Call<RegisterResponse>,
                 response: Response<RegisterResponse>
@@ -77,10 +70,11 @@ class UserRepository @Inject constructor(private val apiService: ApiService) {
                         }
                     }
 
-                }else{
-
-
                 }
+//                else{
+//
+//
+//                }
             }
 
             override fun onFailure(call: Call<List<NotificationResponseItem>>, t: Throwable) {

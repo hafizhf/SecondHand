@@ -11,6 +11,7 @@ import andlima.group3.secondhand.func.*
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.view.adapter.ProductPreviewAdapter
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
+import android.annotation.SuppressLint
 import android.widget.*
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
@@ -122,6 +123,7 @@ class HomeFashionFragment : Fragment() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun getClothesProduct() {
         val recyclerView: RecyclerView = requireView().findViewById(R.id.rv_preview_clothes)
 
@@ -146,14 +148,13 @@ class HomeFashionFragment : Fragment() {
 //                    }
                     adapter.setProductData(it)
                     adapter.notifyDataSetChanged()
-                } else {
-
                 }
             }
         })
         viewModel.getManClothesProducts()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun getShoesProduct() {
         val recyclerView: RecyclerView = requireView().findViewById(R.id.rv_preview_shoes)
 
@@ -178,14 +179,13 @@ class HomeFashionFragment : Fragment() {
 //                    }
                     adapter.setProductData(it)
                     adapter.notifyDataSetChanged()
-                } else {
-
                 }
             }
         })
         viewModel.getManShoesProducts()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun getBagProduct() {
         val recyclerView: RecyclerView = requireView().findViewById(R.id.rv_preview_bag)
 
@@ -210,14 +210,13 @@ class HomeFashionFragment : Fragment() {
 //                    }
                     adapter.setProductData(it)
                     adapter.notifyDataSetChanged()
-                } else {
-
                 }
             }
         })
         viewModel.getManBagProducts()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun getMuslimFashionProduct() {
         val recyclerView: RecyclerView = requireView().findViewById(R.id.rv_preview_fashion_muslim)
 
@@ -242,14 +241,13 @@ class HomeFashionFragment : Fragment() {
 //                    }
                     adapter.setProductData(it)
                     adapter.notifyDataSetChanged()
-                } else {
-
                 }
             }
         })
         viewModel.getMuslimFashionProducts()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun getKidFashionProduct() {
         val recyclerView: RecyclerView = requireView().findViewById(R.id.rv_preview_for_kids)
 
@@ -274,14 +272,13 @@ class HomeFashionFragment : Fragment() {
 //                    }
                     adapter.setProductData(it)
                     adapter.notifyDataSetChanged()
-                } else {
-
                 }
             }
         })
         viewModel.getKidFashionProducts()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun getAccessoriesFashionProduct() {
         val recyclerView: RecyclerView = requireView().findViewById(R.id.rv_preview_accessories_fashion)
 
@@ -306,8 +303,6 @@ class HomeFashionFragment : Fragment() {
 //                    }
                     adapter.setProductData(it)
                     adapter.notifyDataSetChanged()
-                } else {
-
                 }
             }
         })

@@ -112,7 +112,7 @@
 
     <!--  ShapeableImageView  -->
 
-    <style name="ShapeAppearanceOverlay.SecondHand.CornerSize10Percent" parent="">
+    <style name="ShapeAppearanceOverlay.SecondHand.CornerSize10Percent" parent="" tools:keep="@style/ShapeAppearanceOverlay_SecondHand_CornerSize10Percent">
         <item name="cornerSize">10%</item>
     </style>
 

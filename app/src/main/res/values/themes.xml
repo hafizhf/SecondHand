@@ -111,7 +111,7 @@
         <item name="android:minHeight">56dp</item>
     </style>
 
-    <style name="MaterialInputField" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+    <style name="MaterialInputField" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox" tools:keep="@style/MaterialInputField">
         <item name="android:fontFamily">@font/poppins_regular</item>
         <item name="fontFamily">@font/poppins_regular</item>
         <item name="hintTextAppearance">@style/MainTypography</item>
@@ -119,19 +119,19 @@
         <item name="shapeAppearance">@style/MakeItRounded</item>
     </style>
 
-    <style name="MakeItRounded" parent="ShapeAppearance.Material3.SmallComponent">
+    <style name="MakeItRounded" parent="ShapeAppearance.Material3.SmallComponent" tools:keep="@style/MakeItRounded">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">15dp</item>
     </style>
     
-    <style name="MainTypography" parent="">
+    <style name="MainTypography" parent="" tools:keep="@style/MainTypography">
         <item name="fontFamily">@font/poppins_regular</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
     </style>
 
     <!--  ShapeableImageView  -->
 
-    <style name="ShapeAppearanceOverlay.SecondHand.CornerSize10Percent" parent="">
+    <style name="ShapeAppearanceOverlay.SecondHand.CornerSize10Percent" parent="" tools:keep="@style/ShapeAppearanceOverlay_SecondHand_CornerSize10Percent">
         <item name="cornerSize">10%</item>
     </style>
 

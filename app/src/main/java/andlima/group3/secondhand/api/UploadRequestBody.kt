@@ -1,8 +1,9 @@
+@file:Suppress("unused", "unused")
+
 package andlima.group3.secondhand.api
 
 import android.os.Handler
 import android.os.Looper
-import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
 import okio.BufferedSink

@@ -1,17 +1,15 @@
 package andlima.group3.secondhand.view.bottomsheet
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.showPageLoading2
 import andlima.group3.secondhand.func.toast
-import andlima.group3.secondhand.model.daftarjual.diminati.SellerOrdersItem
 import andlima.group3.secondhand.viewmodel.SellerViewModel
+import android.os.Bundle
 import android.os.Handler
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.RadioButton
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -46,7 +44,7 @@ class StatusBottomDialogFragment : BottomSheetDialogFragment() {
 
         btnKirimBottomSheet.setOnClickListener {
             Log.d("radiobutton", checkedRadioButtonId.toString())
-            val viewModel = ViewModelProvider(requireActivity()).get(SellerViewModel::class.java)
+            val viewModel = ViewModelProvider(requireActivity())[SellerViewModel::class.java]
             val checked : RadioButton = view.findViewById(checkedRadioButtonId)
 
 

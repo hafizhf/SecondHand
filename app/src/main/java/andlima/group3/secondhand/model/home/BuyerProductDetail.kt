@@ -2,7 +2,6 @@ package andlima.group3.secondhand.model.home
 
 
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.RawValue
 
 data class BuyerProductDetail(
     @SerializedName("base_price")

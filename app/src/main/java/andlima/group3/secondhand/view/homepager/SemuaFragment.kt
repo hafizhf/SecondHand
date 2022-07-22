@@ -27,11 +27,11 @@ class SemuaFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_semua, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-    }
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//
+//
+//    }
 
     override fun onResume() {
         super.onResume()
@@ -42,7 +42,7 @@ class SemuaFragment : Fragment() {
     private fun getProductData() {
         val recyclerView : RecyclerView = requireView().findViewById(R.id.rv_home_semua)
 
-        val homeAdapter = HomeAdapter() {
+        val homeAdapter = HomeAdapter {
             // On item click
             val selectedID = bundleOf("SELECTED_ID" to it.id)
             Navigation.findNavController(view!!)
@@ -60,9 +60,10 @@ class SemuaFragment : Fragment() {
             if (it != null) {
                 homeAdapter.setProductData(it)
                 homeAdapter.notifyDataSetChanged()
-            } else {
-                // Something to show when there is no product
             }
+//            else {
+//                // Something to show when there is no product
+//            }
         })
     }
 }

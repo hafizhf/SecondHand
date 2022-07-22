@@ -19,7 +19,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/placeholder"/>
+                android:src="@drawable/placeholder"
+                tools:ignore="ContentDescription" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -69,23 +70,9 @@
                                 android:paddingTop="2dp"
                                 android:paddingStart="4dp"
                                 android:paddingEnd="4dp"
-                                tools:ignore="SmallSp" />
+                                tools:ignore="HardcodedText,SmallSp" />
 
                         </com.google.android.material.card.MaterialCardView>
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-<!--                            <ImageView-->
-<!--                                android:id="@+id/btn_add_to_wishlist"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_alignParentEnd="true"-->
-<!--                                android:visibility="gone"-->
-<!--                                android:src="@drawable/ic_wishlist" />-->
-
-                        </RelativeLayout>
 
                         <TextView
                             android:id="@+id/tv_detail_product_name"
@@ -138,14 +125,13 @@
                             app:cardElevation="0dp"
                             app:strokeWidth="0dp"
                             app:cardCornerRadius="12dp">
-
                             <ImageView
                                 android:id="@+id/iv_detail_product_seller_image"
                                 android:layout_width="60dp"
                                 android:layout_height="60dp"
                                 android:scaleType="centerCrop"
-                                android:src="@drawable/ic_placeholder_user"/>
-
+                                android:src="@drawable/ic_placeholder_user"
+                                android:contentDescription="@string/sellerpicture" />
                         </com.google.android.material.card.MaterialCardView>
 
                         <LinearLayout
@@ -160,14 +146,16 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Nama Penjual"
-                                style="@style/Heading3"/>
+                                style="@style/Heading3"
+                                tools:ignore="HardcodedText" />
 
                             <TextView
                                 android:id="@+id/tv_detail_product_seller_address"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Kota"
-                                style="@style/Body2"/>
+                                style="@style/Body2"
+                                tools:ignore="HardcodedText" />
 
                         </LinearLayout>
 
@@ -199,7 +187,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Deskripsi"
-                            style="@style/Heading3"/>
+                            style="@style/Heading3"
+                            tools:ignore="HardcodedText" />
 
                         <View
                             android:layout_width="0dp"
@@ -242,7 +231,8 @@
             android:text="Tambah Wishlist"
             android:backgroundTint="@color/white"
             android:layout_marginEnd="5dp"
-            style="@style/ButtonOutlined" />
+            style="@style/ButtonOutlined"
+            tools:ignore="HardcodedText" />
 
         <Button
             android:id="@+id/btn_saya_tertarik_ingin_nego"
@@ -251,7 +241,8 @@
             android:layout_height="wrap_content"
             android:text="Tawar Produk"
             android:layout_marginStart="5dp"
-            style="@style/Button" />
+            style="@style/Button"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 
@@ -266,7 +257,8 @@
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="20dp"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        tools:ignore="HardcodedText" />
 
     <include
         layout="@layout/dialog_quick_notification"/>

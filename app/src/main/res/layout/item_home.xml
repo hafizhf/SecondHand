@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/item_home_product"
     android:layout_margin="10dp"
     app:cardElevation="5dp"
@@ -26,7 +27,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher_background"/>
+                android:src="@drawable/ic_launcher_background"
+                tools:ignore="ContentDescription" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -39,14 +41,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Product_Name"
-            style="@style/Heading3"/>
+            style="@style/Heading3"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/tv_home_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Category"
-            style="@style/Body2"/>
+            style="@style/Body2"
+            tools:ignore="HardcodedText" />
 
         <View
             android:layout_width="0dp"
@@ -57,7 +61,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Rp xxx.xxx"
-            style="@style/Heading3"/>
+            style="@style/Heading3"
+            tools:ignore="HardcodedText" />
 
     </LinearLayout>
 

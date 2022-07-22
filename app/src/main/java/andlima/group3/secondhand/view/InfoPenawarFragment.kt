@@ -1,30 +1,26 @@
 package andlima.group3.secondhand.view
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import andlima.group3.secondhand.R
-import andlima.group3.secondhand.func.showPageLoading
 import andlima.group3.secondhand.func.showPageLoading2
 import andlima.group3.secondhand.local.datastore.UserManager
-import andlima.group3.secondhand.view.adapter.PenawaranAdapter
 import andlima.group3.secondhand.view.adapter.TawaranBuyerAdapter
 import andlima.group3.secondhand.viewmodel.SellerViewModel
 import android.os.Handler
+import android.annotation.SuppressLint
+import android.os.Bundle
+import android.os.Looper
 import android.util.Log
-import androidx.core.os.bundleOf
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import kotlinx.android.synthetic.main.fragment_diminati.*
-import kotlinx.android.synthetic.main.fragment_info_akun.*
 import kotlinx.android.synthetic.main.fragment_info_penawar.*
-import kotlinx.android.synthetic.main.item_notifikasi_penawaranproduk.view.*
 
 class InfoPenawarFragment : Fragment() {
     lateinit var userManager: UserManager
@@ -53,8 +49,9 @@ class InfoPenawarFragment : Fragment() {
         }
 
     }
+    @SuppressLint("NotifyDataSetChanged")
     fun getPenawarOrders(token: String, id: Int){
-        val viewModel = ViewModelProvider(requireActivity()).get(SellerViewModel::class.java)
+        val viewModel = ViewModelProvider(requireActivity())[SellerViewModel::class.java]
 
 
         showPageLoading2(requireView(), true,"Loading")
@@ -72,8 +69,8 @@ class InfoPenawarFragment : Fragment() {
         viewModel.getBuyerOrdersLive(token, id)
 
     }
-    fun getDataPenawar(token : String, id : Int){
-        val viewModel = ViewModelProvider(requireActivity()).get(SellerViewModel::class.java)
+    private fun getDataPenawar(token : String, id : Int){
+        val viewModel = ViewModelProvider(requireActivity())[SellerViewModel::class.java]
         viewModel.sellerDetailOrdersLiveData.observe(viewLifecycleOwner){
             if (it != null){
                 tv_namaPenawar.text = it.user.fullName
@@ -84,7 +81,7 @@ class InfoPenawarFragment : Fragment() {
                         RequestOptions()
                     ).into(imagePembeliPenawar)
                 }
-                Handler().postDelayed({
+                Handler(Looper.getMainLooper()).postDelayed({
                     getPenawarOrders(token, it.buyerId)
                 }, 900)
             }

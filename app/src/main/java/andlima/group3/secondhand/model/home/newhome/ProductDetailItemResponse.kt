@@ -4,7 +4,6 @@ package andlima.group3.secondhand.model.home.newhome
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.RawValue
 
 @Parcelize
 data class ProductDetailItemResponse(
