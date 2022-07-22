@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.SecondHand" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.SecondHand" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/second_hand_primary</item>
         <item name="colorPrimaryVariant">@color/second_hand_primary</item>
@@ -29,7 +29,7 @@
 
     <style name="Heading1" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="fontFamily">@font/poppins_bold</item>
-        <item name="android:textSize">28sp</item>
+        <item name="android:textSize">22sp</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
@@ -72,7 +72,7 @@
         <item name="textAllCaps">false</item>
         <item name="android:paddingTop">10dp</item>
         <item name="android:paddingBottom">7dp</item>
-        <item name="android:height">68dp</item>
+        <item name="android:height">64dp</item>
         <item name="android:fontFamily">@font/poppins_medium</item>
     </style>
 
@@ -85,7 +85,7 @@
         <item name="textAllCaps">false</item>
         <item name="android:paddingTop">10dp</item>
         <item name="android:paddingBottom">7dp</item>
-        <item name="android:height">68dp</item>
+        <item name="android:height">64dp</item>
         <item name="android:fontFamily">@font/poppins_medium</item>
     </style>
 
@@ -106,8 +106,27 @@
         <item name="android:background">@drawable/component_border</item>
         <item name="android:paddingStart">20dp</item>
         <item name="android:paddingEnd">20dp</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
         <item name="android:paddingTop">4dp</item>
         <item name="android:minHeight">56dp</item>
+    </style>
+
+    <style name="MaterialInputField" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox" tools:keep="@style/MaterialInputField">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="hintTextAppearance">@style/MainTypography</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="shapeAppearance">@style/MakeItRounded</item>
+    </style>
+
+    <style name="MakeItRounded" parent="ShapeAppearance.Material3.SmallComponent" tools:keep="@style/MakeItRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">15dp</item>
+    </style>
+
+    <style name="MainTypography" parent="" tools:keep="@style/MainTypography">
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
     </style>
 
     <!--  ShapeableImageView  -->

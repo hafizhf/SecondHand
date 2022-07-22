@@ -13,6 +13,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -52,29 +53,21 @@ class SplashScreenActivity : AppCompatActivity() {
                 Log.d("DISINI", "2")
 
                 MarketApplication.isConnected.observe(this, { isConnected ->
-
                     if (isConnected) {
-
                         Log.d("DISINI", "3")
-//                        GlobalScope.launch {
-//                            userManager.setNotFirstTimeRun()
-//                        }
-//                        continueToMainActivity()
                         splashHandler(IntroductionActivity::class.java)
-
                     } else {
-
-                        Log.d("DISINI", "4")
-                        alertDialog(
-                            this,
-                            "You're not connected",
-                            "Please connect to internet on your first run"
-                        ) {
-                            finish()
-                        }
-
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            Log.d("DISINI", "4")
+                            alertDialog(
+                                this,
+                                "You're not connected",
+                                "Please connect to internet on your first run"
+                            ) {
+                                finish()
+                            }
+                        }, 1000)
                     }
-
                 })
 
             } else {
