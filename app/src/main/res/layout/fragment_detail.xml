@@ -25,6 +25,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/layoututama"
                 android:orientation="vertical">
 
                 <View
@@ -218,6 +219,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:id="@+id/layout_button"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
@@ -252,6 +254,36 @@
         android:layout_height="wrap_content"
         android:text="Edit produk ini"
         style="@style/Button"
+        android:layout_alignParentBottom="true"
+
+        android:backgroundTint="#FF5722"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="65dp"
+        android:visibility="gone"
+        tools:ignore="HardcodedText" />
+    <Button
+        android:id="@+id/btn_goto_hapus_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hapus produk"
+        style="@style/Button"
+        android:backgroundTint="#FF2256"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="2dp"
+        android:drawableTint="@color/white"
+        android:drawableEnd="@drawable/ic_baseline_delete_forever_24"
+        android:visibility="gone"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/btn_goto_terbit_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Terbitkan Produk"
+        style="@style/Button"
         android:backgroundTint="#FF5722"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="15dp"
@@ -264,5 +296,6 @@
         layout="@layout/dialog_quick_notification"/>
 
     <include layout="@layout/dialog_require_internet"/>
+    <include layout="@layout/dialog_loading"/>
         
 </RelativeLayout>

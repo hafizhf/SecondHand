@@ -50,14 +50,14 @@ class NotifikasiAdapter(private var onClick : (NotificationResponseItem)->Unit) 
                 onClick(dataNotif!![position])
             }
         }else{
-            holder.itemView.itemnotifikasi_tv_namaprodukpenawaran.text = dataNotif!![position].product.name
-            holder.itemView.itemnotifikasi_tv_hargaproduk.text = "Rp " + dataNotif!![position].product.basePrice.toString()
+            holder.itemView.itemnotifikasi_tv_namaprodukpenawaran.text = dataNotif!![position].product!!.name
+            holder.itemView.itemnotifikasi_tv_hargaproduk.text = "Rp " + dataNotif!![position].product!!.basePrice.toString()
             Glide.with(holder.itemView.context).load(dataNotif!![position].imageUrl).apply(
                 RequestOptions()
             ).into(holder.itemView.itemnotifikasi_image)
             if (dataNotif!![position].status == "bid"){
                 if (dataNotif!![position].productName != null && dataNotif!![position].product != null && dataNotif!![position].transactionDate != null){
-                    if (dataNotif!![position].receiverId == dataNotif!![position].product.userId){
+                    if (dataNotif!![position].receiverId == dataNotif!![position].product!!.userId){
                         holder.itemView.itemnotifikasi_tv_penawaranproduk.text = "Penawaran Produk"
                         holder.itemView.itemnotifikasi_tv_hargaditawar.text = "Ditawar Rp " + dataNotif!![position].bidPrice.toString()
                     }else{
@@ -75,7 +75,7 @@ class NotifikasiAdapter(private var onClick : (NotificationResponseItem)->Unit) 
                 val formattedDate = formatter.format(parser.parse(dataNotif!![position].createdAt))
                 holder.itemView.itemnotifikasi_tv_tanggalpenawaran.text = formattedDate
             }else if (dataNotif!![position].status == "terima"){
-                if (dataNotif!![position].receiverId == dataNotif!![position].product.userId){
+                if (dataNotif!![position].receiverId == dataNotif!![position].product!!.userId){
                     holder.itemView.itemnotifikasi_tv_penawaranproduk.text = "Terima Order"
                     holder.itemView.itemnotifikasi_tv_hargaditawar.text = "Ditawar Rp " + dataNotif!![position].bidPrice.toString()
                 }else{
@@ -86,7 +86,7 @@ class NotifikasiAdapter(private var onClick : (NotificationResponseItem)->Unit) 
                 holder.itemView.itemnotifikasi_tv_tanggalpenawaran.text = formattedDate
 
             }else if(dataNotif!![position].status == "declined"){
-                if (dataNotif!![position].receiverId == dataNotif!![position].product.userId){
+                if (dataNotif!![position].receiverId == dataNotif!![position].product!!.userId){
                     holder.itemView.itemnotifikasi_tv_penawaranproduk.text = "Transaksi Batal"
                     holder.itemView.itemnotifikasi_tv_hargaditawar.text = "Ditawar Rp " + dataNotif!![position].bidPrice.toString()
                 }else{
@@ -99,7 +99,7 @@ class NotifikasiAdapter(private var onClick : (NotificationResponseItem)->Unit) 
                     holder.itemView.itemnotifikasi_tv_hargaditawar.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
 
             }else if (dataNotif!![position].status == "accepted"){
-                if (dataNotif!![position].receiverId == dataNotif!![position].product.userId){
+                if (dataNotif!![position].receiverId == dataNotif!![position].product!!.userId){
                     holder.itemView.itemnotifikasi_tv_penawaranproduk.text = "Transaksi Sukses"
                     holder.itemView.itemnotifikasi_tv_hargaditawar.text = "Ditawar Rp " + dataNotif!![position].bidPrice.toString()
                 }else{

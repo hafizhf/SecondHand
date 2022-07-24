@@ -79,24 +79,30 @@ class NotifikasiFragment : Fragment() {
             showPageLoading(requireView(), false)
             if (it.isNotEmpty()){
                 val notifAdapter = NotifikasiAdapter{
-                    if (it.read.equals(false)){
-                        viewModel.notifUserReadLive(token, it.id)
-                        getNotifs(token)
-                    }
-                    if (it.status == "create"){
-                        val selectedID = bundleOf("SELECTED_ID" to it.productId)
-                        view?.findNavController()
-                            ?.navigate(R.id.action_notifikasiFragment_to_detailFragment, selectedID)
-                    }else {
-                        if (it.notificationType == "seller"){
-                            val orderID = bundleOf("ORDER" to it.orderId)
-                            view?.findNavController()?.navigate(R.id.action_notifikasiFragment_to_infoPenawarFragment2, orderID)
-                        }else{
+                    if (it.product != null){
+                        if (it.read.equals(false)){
+                            viewModel.notifUserReadLive(token, it.id)
+                            getNotifs(token)
+                        }
+                        if (it.status == "create"){
                             val selectedID = bundleOf("SELECTED_ID" to it.productId)
                             view?.findNavController()
                                 ?.navigate(R.id.action_notifikasiFragment_to_detailFragment, selectedID)
+                        }else {
+                            if (it.notificationType == "seller"){
+
+                                val orderID = bundleOf("ORDER" to it.orderId)
+                                view?.findNavController()?.navigate(R.id.action_notifikasiFragment_to_infoPenawarFragment2, orderID)
+                            }else{
+                                val selectedID = bundleOf("SELECTED_ID" to it.productId)
+                                view?.findNavController()
+                                    ?.navigate(R.id.action_notifikasiFragment_to_detailFragment, selectedID)
+                            }
+
+
                         }
                     }
+
                 }
                 notifAdapter.setDataNotif(it)
                 notifAdapter.notifyDataSetChanged()

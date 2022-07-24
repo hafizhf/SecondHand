@@ -111,6 +111,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
+                    android:id="@+id/txtpilihkategori"
                     android:text="@string/pilih_kategori"
                     android:textColor="@color/second_hand_neutral3"
                     android:fontFamily="@font/poppins_regular"

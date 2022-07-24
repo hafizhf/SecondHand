@@ -20,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import kotlinx.android.synthetic.main.fragment_diminati.*
 import kotlinx.android.synthetic.main.fragment_produk.*
 
 class ProdukFragment : Fragment() {
@@ -37,6 +38,10 @@ class ProdukFragment : Fragment() {
         userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
             getAllProducts(it)
             Log.d("AKSES TOKEN", it)
+            produkSwipe.setOnRefreshListener {
+                getAllProducts(it)
+                produkSwipe.isRefreshing = false
+            }
         }
     }
 
@@ -48,7 +53,7 @@ class ProdukFragment : Fragment() {
         viewModel.sellerProductsLiveData.observe(viewLifecycleOwner){
             if (it != null){
                 if (it.isNotEmpty()){
-                    showEmptyListSign(requireView(),false, "Kosong", "Belum Post Produk")
+                    gambarProduk.visibility = View.GONE
 
                     val produkAdapter = DaftarJualAdapter {
                         val selectedID = bundleOf("SELECTED_ID" to it.id)
@@ -62,7 +67,8 @@ class ProdukFragment : Fragment() {
                     showPageLoading2(requireView(), false)
                 }else{
                     showPageLoading2(requireView(), false)
-                    showEmptyListSign(requireView(),true, "", "Belum Post Produk")
+                    gambarProduk.visibility = View.VISIBLE
+
                 }
 
 
