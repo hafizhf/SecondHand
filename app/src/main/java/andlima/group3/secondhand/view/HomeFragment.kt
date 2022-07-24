@@ -324,11 +324,11 @@ class HomeFragment : Fragment() {
                 viewModel.electronicProducts.observe(this, {
                     if (it != null) {
                         if (it.isNotEmpty()) {
-//                            val a : MutableList<ProductItemResponse> = mutableListOf()
-//                            for (i in 0..7) {
-//                                a.add(it[i])
-//                            }
-                            adapter.setProductData(it)
+                            val a : MutableList<ProductItemResponse> = mutableListOf()
+                            for (i in 0..7) {
+                                a.add(it[i])
+                            }
+                            adapter.setProductData(a)
                             adapter.notifyDataSetChanged()
 //                    })
                         }
@@ -401,12 +401,12 @@ class HomeFragment : Fragment() {
                 viewModel.fashionProducts.observe(this, {
                     if (it != null) {
                         if (it.isNotEmpty()) {
-//                            val a : MutableList<ProductItemResponse> = mutableListOf()
-//                            for (i in 0..7) {
-//                                a.add(it[i])
-//                            }
+                            val a : MutableList<ProductItemResponse> = mutableListOf()
+                            for (i in 0..7) {
+                                a.add(it[i])
+                            }
 
-                            adapter.setProductData(it)
+                            adapter.setProductData(a)
                             adapter.notifyDataSetChanged()
 //                    })
                         }
@@ -478,12 +478,12 @@ class HomeFragment : Fragment() {
                 viewModel.foodProducts.observe(this, {
                     if (it != null) {
                         if (it.isNotEmpty()) {
-//                            val a : MutableList<ProductItemResponse> = mutableListOf()
-//                            for (i in 0..7) {
-//                                a.add(it[i])
-//                            }
+                            val a : MutableList<ProductItemResponse> = mutableListOf()
+                            for (i in 0..7) {
+                                a.add(it[i])
+                            }
 
-                            adapter.setProductData(it)
+                            adapter.setProductData(a)
                             adapter.notifyDataSetChanged()
 //                    })
                         }
@@ -555,12 +555,12 @@ class HomeFragment : Fragment() {
                 viewModel.homeSuppliesProducts.observe(this, {
                     if (it != null) {
                         if (it.isNotEmpty()) {
-//                            val a : MutableList<ProductItemResponse> = mutableListOf()
-//                            for (i in 0..7) {
-//                                a.add(it[i])
-//                            }
+                            val a : MutableList<ProductItemResponse> = mutableListOf()
+                            for (i in 0..7) {
+                                a.add(it[i])
+                            }
 
-                            adapter.setProductData(it)
+                            adapter.setProductData(a)
                             adapter.notifyDataSetChanged()
 //                    })
                         }

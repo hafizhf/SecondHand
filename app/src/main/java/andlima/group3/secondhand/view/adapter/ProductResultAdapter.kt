@@ -1,6 +1,7 @@
 package andlima.group3.secondhand.view.adapter
 
 import andlima.group3.secondhand.R
+import andlima.group3.secondhand.func.priceFormat
 import andlima.group3.secondhand.model.home.newhome.ProductItemResponse
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -41,7 +42,7 @@ class ProductResultAdapter (private var onClick: (ProductItemResponse) -> Unit)
             item_product_name.text = productList!![position].name
 
             item_product_location.text = productList!![position].location
-            item_product_price.text = "Rp " + productList!![position].basePrice.toString()
+            item_product_price.text = "Rp " + priceFormat(productList!![position].basePrice.toString())
 
             if (productList!![position].status != "available" && productList!![position].status != "seller") {
                 cv_item_product_result_is_sold.visibility = View.VISIBLE

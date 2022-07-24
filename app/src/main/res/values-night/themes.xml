@@ -14,6 +14,7 @@
         <!-- Customize your theme here. -->
         <item name="android:textViewStyle">@style/TextViewStyle</item>
         <item name="buttonStyle">@style/ButtonStyle</item>
+        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>
     </style>
 
     <style name="TextViewStyle" parent="android:Widget.TextView">

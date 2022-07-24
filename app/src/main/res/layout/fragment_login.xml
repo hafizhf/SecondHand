@@ -69,8 +69,8 @@
                 style="@style/InputField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Masukkan Password"
                 android:autofillHints="password"
+                android:hint="Masukkan Password"
                 android:inputType="textPassword"
                 android:windowSoftInputMode="adjustResize|stateHidden"
                 tools:ignore="HardcodedText,SpeakableTextPresentCheck" />

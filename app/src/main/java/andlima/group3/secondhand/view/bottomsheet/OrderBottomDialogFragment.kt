@@ -1,6 +1,7 @@
 package andlima.group3.secondhand.view.bottomsheet
 
 import andlima.group3.secondhand.R
+import andlima.group3.secondhand.func.priceFormat
 import andlima.group3.secondhand.model.daftarjual.diminati.SellerOrdersItem
 import andlima.group3.secondhand.viewmodel.SellerViewModel
 import android.annotation.SuppressLint
@@ -52,11 +53,14 @@ class OrderBottomDialogFragment : BottomSheetDialogFragment() {
         val viewModel = ViewModelProvider(requireActivity())[SellerViewModel::class.java]
         viewModel.getBuyerOrdersLive(token, buyerID)
 
-
-
         btnHubungiBottomSheet.setOnClickListener {
             val url = "https://api.whatsapp.com/send?phone=${dataOrder.user.phoneNumber}"+"&text=" +
-                    URLEncoder.encode("Hai kak, saya penjual dari produk ${dataOrder.productName}.", "UTF-8")
+                    URLEncoder.encode(
+                        "Hai kak, saya penjual produk ${dataOrder.productName} dari aplikasi SecondHand. " +
+                                "Saya mendapat tawaran sebesar Rp ${priceFormat(dataOrder.price.toString())} " +
+                                "dari kakak, apakah benar?",
+                        "UTF-8"
+                    )
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(url)
             startActivity(intent)

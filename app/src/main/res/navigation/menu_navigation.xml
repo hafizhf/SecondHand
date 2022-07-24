@@ -240,5 +240,14 @@
         android:id="@+id/settingFragment"
         android:name="andlima.group3.secondhand.view.SettingFragment"
         android:label="fragment_setting"
-        tools:layout="@layout/fragment_setting" />
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_settingFragment_to_tentangFragment"
+            app:destination="@id/tentangFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tentangFragment"
+        android:name="andlima.group3.secondhand.view.TentangFragment"
+        android:label="fragment_tentang"
+        tools:layout="@layout/fragment_tentang" />
 </navigation>

@@ -69,10 +69,10 @@ class LoginFragment : Fragment() {
             val password = login_et_password.text.toString()
 
             if (email != "" && password != "") {
-                showPageLoading(requireView(), true, "Logging In")
+                showPageLoading(requireView(), true, "Masuk...")
                 login(email, password)
             } else {
-                Toast.makeText(requireContext(), "Please input all field", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Mohon isi semua data", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -84,13 +84,13 @@ class LoginFragment : Fragment() {
             when (code) {
                 201 -> {
                     saveLoginResponse(response, password)
-                    toast(requireContext(), "Login success")
+                    toast(requireContext(), "Login berhasil")
                     startActivity(Intent(requireContext(), MainActivity::class.java))
                     requireActivity().finish()
                 }
                 401 -> toast(requireContext(), message)
-                500 -> alertDialog(requireContext(), "Internal Service Error", message) {}
-                else -> alertDialog(requireContext(), "Login failed", "No connection") {}
+                500 -> alertDialog(requireContext(), "Masalah pada server", message) {}
+                else -> alertDialog(requireContext(), "Login gagal", "Tidak ada koneksi") {}
             }
         }
     }

@@ -69,6 +69,7 @@
                 android:hint="Nama"
                 style="@style/InputField"
                 android:autofillHints="name"
+                android:windowSoftInputMode="adjustResize|stateHidden"
                 android:inputType="textPersonName"
                 android:layout_marginBottom="16dp"
                 tools:ignore="HardcodedText" />
@@ -160,6 +161,7 @@
                 android:hint="Contoh: Jalan Ikan Hiu 33"
                 style="@style/InputField"
                 android:inputType="textPostalAddress"
+                android:windowSoftInputMode="adjustResize|stateHidden"
                 android:autofillHints="postalAddress"
                 android:layout_marginBottom="16dp"
                 tools:ignore="HardcodedText" />
@@ -175,7 +177,8 @@
                 android:id="@+id/infoAkun_et_nohp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Contoh: +6281234567890"
+                android:hint="Contoh: 6281234567890"
+                android:windowSoftInputMode="adjustResize|stateHidden"
                 android:autofillHints="phone"
                 style="@style/InputField"
                 tools:ignore="HardcodedText" />

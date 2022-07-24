@@ -34,9 +34,11 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import kotlinx.android.synthetic.main.fragment_akun.*
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
+@DelicateCoroutinesApi
 class AkunFragment : Fragment() {
 
     // Get data store
@@ -165,6 +167,7 @@ class AkunFragment : Fragment() {
                         alertDialog(requireContext(), "Logout", "Are you sure want to log out?") {
                             GlobalScope.launch {
                                 userManager.clearDataPreferences()
+                                userManager.disableBiometricAuth()
                             }
                             toast(requireContext(), "You are logged out")
                             requireActivity().startActivity(Intent(requireContext(), MainActivity::class.java))

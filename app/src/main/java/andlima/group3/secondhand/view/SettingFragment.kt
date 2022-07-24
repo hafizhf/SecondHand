@@ -11,12 +11,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.appcompat.widget.SwitchCompat
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.asLiveData
+import androidx.navigation.Navigation
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -53,6 +55,11 @@ class SettingFragment : Fragment() {
 
         GlobalScope.launch {
             biometricAuthSwitch()
+        }
+
+        val btnGotoAbout : LinearLayout = requireView().findViewById(R.id.btn_goto_tentang)
+        btnGotoAbout.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_settingFragment_to_tentangFragment)
         }
     }
 

@@ -11,6 +11,7 @@ import andlima.group3.secondhand.repository.AuthRepository
 import andlima.group3.secondhand.services.ConnectionStatus
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -169,5 +170,15 @@ class SplashScreenActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
+        transparentNavigationBar()
+    }
+
+    private fun transparentNavigationBar() {
+        val transparent = Color.parseColor("#7126B5")
+        val winParams = window.attributes
+        winParams.flags = winParams.flags and (WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS or
+                WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION).inv()
+        window.navigationBarColor = transparent
+        window.attributes = winParams
     }
 }

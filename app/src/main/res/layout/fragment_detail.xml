@@ -292,8 +292,7 @@
         android:visibility="gone"
         tools:ignore="HardcodedText" />
 
-    <include
-        layout="@layout/dialog_quick_notification"/>
+    <include layout="@layout/dialog_quick_notification"/>
 
     <include layout="@layout/dialog_require_internet"/>
     <include layout="@layout/dialog_loading"/>

@@ -137,7 +137,6 @@ class HomeResultListFragment : Fragment() {
         when (requestCode) {
             // Search result
             -1 -> {
-//                toast(requireContext(), searchKeyword!!)
                 viewModel.getSearchResult(searchKeyword!!)
                 viewModel.searchResult.observe(this, {
                     if (it != null) {
@@ -145,10 +144,22 @@ class HomeResultListFragment : Fragment() {
                             adapter.setProductData(it)
                             adapter.notifyDataSetChanged()
                         } else {
-                            toast(requireContext(), "No result found")
+                            showEmptyListSign(
+                                requireView(),
+                                true,
+                                "Produk tidak ditemukan",
+                                "Kehabisan? Cari produk lainnya!"
+                            )
+                            toast(requireContext(), "Produk tidak ditemukan")
                         }
                     } else {
-                        toast(requireContext(), "No result found")
+                        showEmptyListSign(
+                            requireView(),
+                            true,
+                            "Produk tidak ditemukan",
+                            "Kehabisan? Cari produk lainnya!"
+                        )
+                        toast(requireContext(), "Produk tidak ditemukan")
                     }
                 })
 

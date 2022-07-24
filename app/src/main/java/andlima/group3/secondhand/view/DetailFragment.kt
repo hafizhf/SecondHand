@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.*
 import andlima.group3.secondhand.local.datastore.UserManager
+import andlima.group3.secondhand.model.detail.EditBid
 import andlima.group3.secondhand.model.detail.ProductDataForBid
 import andlima.group3.secondhand.model.home.newhome.ProductDetailItemResponse
 import andlima.group3.secondhand.model.produk.ProdukPreview
@@ -18,6 +19,7 @@ import andlima.group3.secondhand.viewmodel.SellerViewModel
 import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
@@ -32,12 +34,10 @@ import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_detail.*
-import kotlinx.android.synthetic.main.fragment_jual.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
-import retrofit2.http.Multipart
 import java.io.File
 
 @AndroidEntryPoint
@@ -112,16 +112,13 @@ class DetailFragment : Fragment() {
 
         }
 
-
-
-
         val requestBody: RequestBody = tempFile.asRequestBody(type?.toMediaType())
 
          body2 =
 
             MultipartBody.Part.createFormData("image", tempFile.name, requestBody)
-
     }
+
     private fun postProduct(token: String, name : String, description : String, basePrice : Int, categoryIDs : List<Int>, location : String, body2: MultipartBody.Part){
         val viewModel = ViewModelProvider(requireActivity())[SellerViewModel::class.java]
         showPageLoading(requireView(),true)
@@ -131,7 +128,7 @@ class DetailFragment : Fragment() {
                 toast(requireContext(), "Berhasil menambah produk")
                 btn_goto_terbit_product.visibility = View.GONE
                 layout_button.visibility = View.VISIBLE
-                Handler().postDelayed({
+                Handler(Looper.getMainLooper()).postDelayed({
                     getData(it.id)
 
                 },1200)
@@ -141,8 +138,6 @@ class DetailFragment : Fragment() {
             showPageLoading(requireView(), false)
         }
         viewModel.postProductLive(token, name, description, basePrice, categoryIDs, location, body2)
-
-
     }
 
     @SuppressLint("SetTextI18n")
@@ -164,9 +159,9 @@ class DetailFragment : Fragment() {
         if (produkPreview.categories.isNotEmpty()) {
             productCategory.text = produkPreview.categories.elementAt(0).nama
         } else {
-            productCategory.text = "Uncategorized"
+            productCategory.text = "Tanpa kategori"
         }
-        productPrice.text = "Rp " + produkPreview.basePrice
+        productPrice.text = "Rp " + priceFormat(produkPreview.basePrice)
         productDesc.text = produkPreview.description
         if (produkPreview.sellerImage != null){
             Glide.with(this).load(produkPreview.sellerImage).into(productSellerImage)
@@ -213,9 +208,9 @@ class DetailFragment : Fragment() {
         if (data.categories.isNotEmpty()) {
             productCategory.text = data.categories[0].name
         } else {
-            productCategory.text = "Uncategorized"
+            productCategory.text = "Tanpa kategori"
         }
-        productPrice.text = "Rp " + data.basePrice.toString()
+        productPrice.text = "Rp " + priceFormat(data.basePrice.toString())
         productDesc.text = data.description
 
         Glide.with(this).load(data.user.imageUrl).into(productSellerImage)
@@ -230,6 +225,7 @@ class DetailFragment : Fragment() {
         val btnWishlist: Button = requireView().findViewById(R.id.btn_add_to_wishlist)
 
         val viewModel = ViewModelProvider(this)[BuyerViewModel::class.java]
+        viewModel.checkIsProductHasBeenOrdered(token, id)
         viewModel.getDetailProduct(id)
         viewModel.detailProduct.observe(this, { data ->
             if (data != null) {
@@ -250,17 +246,40 @@ class DetailFragment : Fragment() {
                 showProductData(data)
 
                 if (isUserLoggedIn(userManager)) {
-                    if (data.status == "available" || data.status == "seller") {
-                        btnImInterested.setOnClickListener {
-                            showBottomSheetDialogFragment(
-                                ProductDataForBid(data.id, data.name, data.basePrice, data.imageUrl)
-                            )
+                    viewModel.orderId.observe(this, { orderId ->
+                        if (orderId != null) {
+                            if (data.status == "available" || data.status == "seller") {
+                                btnImInterested.text = "Ubah tawaran"
+                                btnImInterested.setOnClickListener {
+                                    gotoEditBottomSheetDialogFragment(
+                                        EditBid(
+                                            orderId,
+                                            data.name,
+                                            data.basePrice,
+                                            0,
+                                            data.imageUrl
+                                        )
+                                    )
+                                }
+                            } else {
+                                btnImInterested.text = "Stok habis"
+                                btnImInterested.isEnabled = false
+                                btnImInterested.isClickable = false
+                            }
+                        } else {
+                            if (data.status == "available" || data.status == "seller") {
+                                btnImInterested.setOnClickListener {
+                                    showBottomSheetDialogFragment(
+                                        ProductDataForBid(data.id, data.name, data.basePrice, data.imageUrl)
+                                    )
+                                }
+                            } else {
+                                btnImInterested.text = "Stok habis"
+                                btnImInterested.isEnabled = false
+                                btnImInterested.isClickable = false
+                            }
                         }
-                    } else {
-                        btnImInterested.text = "Stok barang habis"
-                        btnImInterested.isEnabled = false
-                        btnImInterested.isClickable = false
-                    }
+                    })
                     btnWishlist.setOnClickListener {
                         viewModel.postWishlist(token, data.id)
                         viewModel.wishlistPost.observe(this, {
@@ -276,12 +295,13 @@ class DetailFragment : Fragment() {
                     }
 
                 } else {
-                    btnImInterested.text = "Login untuk bisa melakukan penawaran"
                     btnImInterested.isEnabled = false
                     btnImInterested.isClickable = false
+                    btnWishlist.isEnabled = false
+                    btnWishlist.isClickable = false
                 }
             } else {
-                alertDialog(requireContext(), "Get product data failed", "null") {}
+                alertDialog(requireContext(), "Gagal mendapat data produk", "null") {}
             }
         })
 
@@ -315,12 +335,24 @@ class DetailFragment : Fragment() {
             }
         }
         viewModel2.deleteProductLive(token, id)
-
     }
 
     private fun showBottomSheetDialogFragment(data: ProductDataForBid) {
         val bottomSheet = DetailBottomDialogFragment()
         val dataForBid = bundleOf("BID_PRODUCT" to data)
+        bottomSheet.arguments = dataForBid
+        bottomSheet.show(parentFragmentManager, DetailBottomDialogFragment.TAG)
+
+        DetailBottomDialogFragment.bidSuccess.observe(this, {
+            if (it) {
+                quickNotifyDialog(requireView(), "Harga tawaranmu berhasil dikirim ke penjual")
+            }
+        })
+    }
+
+    private fun gotoEditBottomSheetDialogFragment(data: EditBid) {
+        val bottomSheet = DetailBottomDialogFragment()
+        val dataForBid = bundleOf("EDIT_BID" to data)
         bottomSheet.arguments = dataForBid
         bottomSheet.show(parentFragmentManager, DetailBottomDialogFragment.TAG)
 

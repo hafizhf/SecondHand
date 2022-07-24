@@ -41,6 +41,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import java.io.ByteArrayOutputStream
+import java.text.NumberFormat
 import java.util.*
 
 // Function to easy making Toast -------------------------------------------------------------------
@@ -341,8 +342,6 @@ fun homeSearchView(
         if (focused) {
             a.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(p0: String?): Boolean {
-                    toast(context, "Belum bisa submit ges")
-
                     val keyword = bundleOf("SEARCH_KEYWORD" to p0)
                     if (newSearch != null) {
                         if (newSearch) {
@@ -625,4 +624,13 @@ fun showPassword(editText: EditText, imageView: ImageView) {
         editText.transformationMethod = hidden
         imageView.setImageResource(R.drawable.ic_eye)
     }
+}
+
+/**
+ * Fix price format in string
+ */
+fun priceFormat(price: String): String {
+    return NumberFormat.getNumberInstance(Locale.US)
+        .format(price.toInt())
+        .replace(",", ".")
 }

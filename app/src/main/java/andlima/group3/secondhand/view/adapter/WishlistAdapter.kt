@@ -3,6 +3,7 @@ package andlima.group3.secondhand.view.adapter
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.capitalize
 import andlima.group3.secondhand.func.colorList
+import andlima.group3.secondhand.func.priceFormat
 import andlima.group3.secondhand.model.home.newhome.wishlist.GetWishlistResponse
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -39,7 +40,7 @@ class WishlistAdapter(private var action: (id: Int, actionCode: Int) -> Unit)
             tv_item_wishlist_name.text = capitalize(productList!![position].product.name)
             tv_item_wishlist_price.text = productList!![position].product.location
             tv_item_wishlist_status.text = capitalize(productList!![position].product.status)
-            tv_item_wishlist_location.text = "Rp " + productList!![position].product.basePrice
+            tv_item_wishlist_location.text = "Rp " + priceFormat(productList!![position].product.basePrice.toString())
 
             when (productList!![position].product.status) {
                 "available" -> {
@@ -47,12 +48,14 @@ class WishlistAdapter(private var action: (id: Int, actionCode: Int) -> Unit)
                         .setCardBackgroundColor(
                             context.colorList(context, R.color.second_hand_success)
                         )
+                    tv_item_wishlist_status.text = capitalize("Tersedia")
                 }
                 "sold" -> {
                     cv_item_wishlist_status_container
                         .setCardBackgroundColor(
                             context.colorList(context, R.color.second_hand_danger)
                         )
+                    tv_item_wishlist_status.text = capitalize("Habis")
                 }
                 else -> {
                     cv_item_wishlist_status_container

@@ -4,6 +4,7 @@ import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.alertDialog
 import andlima.group3.secondhand.func.capitalize
 import andlima.group3.secondhand.func.colorList
+import andlima.group3.secondhand.func.priceFormat
 import andlima.group3.secondhand.model.buyer.order.GetBuyerOrderResponseItem
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -38,22 +39,31 @@ class CartAdapter(private var action: (code: Int, orderData: GetBuyerOrderRespon
                 .load(productList!![position].product.imageUrl)
                 .into(iv_item_cart_image)
             tv_item_cart_name.text = productList!![position].productName
-            tv_item_cart_price.text = "Rp " + productList!![position].basePrice
+            tv_item_cart_price.text = "Rp " + priceFormat(productList!![position].basePrice)
             tv_item_cart_status.text = capitalize(productList!![position].status)
-            tv_item_cart_my_bid.text = "Tawaranmu: Rp " + productList!![position].price
+            tv_item_cart_my_bid.text = "Tawaranmu: Rp " + priceFormat(productList!![position].price.toString())
 
             when (productList!![position].status) {
+                "terima" -> {
+                    cv_item_cart_status_container
+                        .setCardBackgroundColor(
+                            context.colorList(context, R.color.second_hand_pending)
+                        )
+                    tv_item_cart_status.text = capitalize("Diterima, menunggu konfirmasi")
+                }
                 "pending" -> {
                     cv_item_cart_status_container
                         .setCardBackgroundColor(
                             context.colorList(context, R.color.second_hand_pending)
                         )
+                    tv_item_cart_status.text = capitalize("Menunggu respon penjual")
                 }
                 "accepted" -> {
                     cv_item_cart_status_container
                         .setCardBackgroundColor(
                             context.colorList(context, R.color.second_hand_success)
                         )
+                    tv_item_cart_status.text = capitalize("Tawaran disetujui")
                     btn_edit_bid.visibility = View.GONE
                 }
                 "declined" -> {
@@ -61,6 +71,7 @@ class CartAdapter(private var action: (code: Int, orderData: GetBuyerOrderRespon
                         .setCardBackgroundColor(
                             context.colorList(context, R.color.second_hand_danger)
                         )
+                    tv_item_cart_status.text = capitalize("Tawaran ditolak")
                     btn_edit_bid.visibility = View.GONE
                 }
                 else -> {

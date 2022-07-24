@@ -218,6 +218,12 @@ class BuyerViewModel @Inject constructor(api: BuyerRepository): ViewModel() {
         apiHelper.checkBuyerWishlistQuantity(accessToken, wishlistQuantity)
     }
 
+    // DETAIL
+    val orderId: MutableLiveData<Int> = MutableLiveData()
+    fun checkIsProductHasBeenOrdered(accessToken: String, productId: Int) {
+        apiHelper.checkIsProductHasOrdered(accessToken, productId, orderId)
+    }
+
 //    private val isProductWishListed: MutableLiveData<GetWishlistResponse> = MutableLiveData()
 
     // BANNER --------------------------------------------------------------------------------------

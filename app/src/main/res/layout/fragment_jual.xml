@@ -46,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/nama_produk"
                 android:id="@+id/editNamaProduk"
+                android:windowSoftInputMode="adjustResize|stateHidden"
                 android:inputType="text"
                 android:importantForAutofill="no"
                 style="@style/InputField"/>
@@ -72,6 +73,7 @@
                 style="@style/InputField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:windowSoftInputMode="adjustResize|stateHidden"
                 android:hint="@string/rp_0_00"
                 android:importantForAutofill="no"
                 android:inputType="number" />
@@ -196,6 +198,7 @@
                 android:paddingTop="10dp"
                 android:textAlignment="gravity"
                 android:hint="Contoh : Produk ini adalah salah satu best seller kami"
+                android:windowSoftInputMode="adjustResize|stateHidden"
                 android:inputType="textMultiLine"
                 android:importantForAutofill="no"
                 android:id="@+id/editDeskripsiProduk"

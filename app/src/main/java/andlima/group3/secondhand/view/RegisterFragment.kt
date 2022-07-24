@@ -64,10 +64,10 @@ class RegisterFragment : Fragment() {
 
             if (nohp.startsWith("62")){
                 if (namaLengkap.isNotBlank() && email.isNotBlank() && password.isNotBlank() && alamat.isNotBlank()    && pilihan.isNotBlank()){
-                    showPageLoading(requireView(), true, "Registering")
+                    showPageLoading(requireView(), true, "Memuat registrasi")
                     register(namaLengkap, email, password,alamat,pilihan,nohp)
                 }else{
-                    toast(requireContext(), "Isi semua data!")
+                    toast(requireContext(), "Mohon isi semua data")
                 }
             }else{
                 toast(requireContext(), "Nomor HP harus diawali dengan 62")
@@ -109,7 +109,7 @@ class RegisterFragment : Fragment() {
         (provinsiFinal.editText as? AutoCompleteTextView)?.setAdapter(adapter)
 
         (provinsiFinal.editText as AutoCompleteTextView).onItemClickListener =
-            AdapterView.OnItemClickListener { adapterView, view, position, id ->
+            AdapterView.OnItemClickListener { _, _, position, _ ->
                 pilihanID = itemsID[position]
                 kotaFinal.isEnabled = true
                 Log.d("idprovinsi", pilihanID.toString())
@@ -122,7 +122,7 @@ class RegisterFragment : Fragment() {
 
             }
         (kotaFinal.editText as AutoCompleteTextView).onItemClickListener =
-            AdapterView.OnItemClickListener { adapterView, view, position, id ->
+            AdapterView.OnItemClickListener { _, _, _, _ ->
                 pilihan = txtKotaFinal.text.toString()
                 Log.d("idprovinsi", pilihan.toString())
             }
@@ -134,20 +134,16 @@ class RegisterFragment : Fragment() {
             showPageLoading(requireView(), false)
             when (it) {
                 "201" -> {
-                    toast(requireContext(), "Register success")
+                    toast(requireContext(), "Registrasi berhasil")
                     view?.findNavController()?.navigate(R.id.action_registerFragment_to_loginFragment)
 
                 }
-                "400" -> toast(requireContext(), "Email already exist")
-                "500" -> toast(requireContext(), "Internal Service Error")
-                else -> alertDialog(requireContext(), "Login failed", "No connection") {}
+                "400" -> toast(requireContext(), "Email telah digunakan")
+                "500" -> toast(requireContext(), "Masalah pada server")
+                else -> alertDialog(requireContext(), "Registrasi gagal", "Tidak ada koneksi internet") {}
             }
         }
 
         viewModel.registerLiveData(namaLengkap, email, password, nohp, alamat, kota)
-
     }
-
-
-
 }

@@ -79,11 +79,6 @@ class CartFragment : Fragment() {
             when (code) {
                 // Edit
                 1 -> {
-//                    alertDialog(
-//                        requireContext(),
-//                        "Product Data",
-//                        orderData.toString()
-//                    ) {}
                     val data = EditBid(
                         orderData.id,
                         orderData.productName,

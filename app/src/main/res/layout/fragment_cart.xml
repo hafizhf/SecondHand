@@ -35,6 +35,8 @@
 
         </LinearLayout>
 
+        <include layout="@layout/dialog_quick_notification"/>
+
         <include layout="@layout/dialog_empty_list"/>
 
         <include layout="@layout/dialog_require_login"/>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.TentangFragment"
+    android:layout_margin="30dp">
+
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/ic_logo"
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="30dp"
+        android:contentDescription="logo"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/secondhand_name"
+        style="@style/Heading1"
+        android:textSize="25sp"/>
+
+    <TextView
+        style="@style/Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:text="© 2022 Group 3 And-5"
+        tools:ignore="HardcodedText,TextContrastCheck" />
+
+    <TextView
+        style="@style/Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:text="SecondHand merupakan aplikasi yang dibuat berdasarkan studi kasus pada Final Project program Android Developer di Binar Academy pada MBKM Batch 2."
+        tools:ignore="HardcodedText,TextContrastCheck" />
+
+    <TextView
+        style="@style/Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aplikasi ini dibuat oleh Kelompok 3 kelas AND-5:"
+        tools:ignore="HardcodedText,TextContrastCheck" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="- Grace Dita Maria Naibaho\n- Hafizh Firdaus Yuspriana\n- Muhammad Dimas Arya Muhajir\n- Zulfa"
+        android:layout_marginBottom="15dp"
+        tools:ignore="HardcodedText"/>
+
+    <TextView
+        style="@style/Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Atas bimbingan fasilitator:"
+        tools:ignore="HardcodedText,TextContrastCheck" />
+
+    <TextView
+        style="@style/Body2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Zelvia Olga Maharani"
+        tools:ignore="HardcodedText,TextContrastCheck" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="All right reserved"
+        tools:ignore="HardcodedText"/>
+
+</LinearLayout>

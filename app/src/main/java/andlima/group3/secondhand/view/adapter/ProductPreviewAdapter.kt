@@ -5,6 +5,7 @@ import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.decodeBase64ImageString
 import andlima.group3.secondhand.func.encodeDrawableToByteArray
 import andlima.group3.secondhand.func.isURLValid
+import andlima.group3.secondhand.func.priceFormat
 import andlima.group3.secondhand.local.room.LocalDatabase
 import andlima.group3.secondhand.local.room.electronictable.ElectronicLocal
 import andlima.group3.secondhand.local.room.fashiontable.FashionLocal
@@ -131,7 +132,7 @@ class ProductPreviewAdapter(
 
             item_product_name.text = productList!![position].name
             item_product_location.text = productList!![position].location
-            item_product_price.text = "Rp " + productList!![position].basePrice.toString()
+            item_product_price.text = "Rp " + priceFormat(productList!![position].basePrice.toString())
 
             if (position == productList!!.size-1) {
                 item_product_data.visibility = View.GONE

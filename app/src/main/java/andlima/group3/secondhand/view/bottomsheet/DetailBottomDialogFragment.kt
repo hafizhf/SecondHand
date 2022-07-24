@@ -4,6 +4,7 @@ package andlima.group3.secondhand.view.bottomsheet
 
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.observeOnce
+import andlima.group3.secondhand.func.priceFormat
 import andlima.group3.secondhand.func.toast
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.model.buyer.order.BuyerOrderRequest
@@ -43,6 +44,11 @@ class DetailBottomDialogFragment : BottomSheetDialogFragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_detail_bottom_dialog, container, false)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        bidSuccess.postValue(false)
     }
 
     @SuppressLint("SetTextI18n")
@@ -129,14 +135,16 @@ class DetailBottomDialogFragment : BottomSheetDialogFragment() {
         if (dataToBid != null) {
             Glide.with(this).load(dataToBid.imageUrl).into(productImage)
             productName.text = dataToBid.name
-            productPrice.text = "Rp " + dataToBid.price
+            productPrice.text = "Rp " + priceFormat(dataToBid.price.toString())
         }
 
         if (bidToEdit != null) {
             Glide.with(this).load(bidToEdit.imageUrl).into(productImage)
             productName.text = bidToEdit.name
-            productPrice.text = "Rp " + bidToEdit.basePrice
-            productBid.setText(bidToEdit.bidPrice.toString())
+            productPrice.text = "Rp " + priceFormat(bidToEdit.basePrice.toString())
+            if (bidToEdit.bidPrice != 0) {
+                productBid.setText(bidToEdit.bidPrice.toString())
+            }
         }
     }
 
@@ -152,15 +160,21 @@ class DetailBottomDialogFragment : BottomSheetDialogFragment() {
         })
         userManager.accessTokenFlow.asLiveData().observeOnce(this, { token ->
             viewModel.postRequestOrder(token, BuyerOrderRequest(bidPrice, productId)) { code, message ->
-                if (code == 201) {
-                    this.dialog!!.dismiss()
-//                    quickNotifyDialog(requireContext(), "Harga tawaranmu berhasil dikirim ke penjual")
-//                    toast(requireContext(), message)
-                    bidSuccess.postValue(true)
-                    this.dialog!!.dismiss()
-                } else {
-//                    quickNotifyDialog(requireContext(), "Harga tawaranmu berhasil dikirim ke penjual")
-                    toast(requireContext(), message)
+                when (code) {
+                    201 -> {
+                        this.dialog!!.dismiss()
+                        bidSuccess.postValue(true)
+                        this.dialog!!.dismiss()
+                    }
+                    400 -> {
+                        toast(requireContext(), "Produk telah mencapai batas order")
+                    }
+                    500 -> {
+                        toast(requireContext(), "Terjadi masalah pada server.\nCoba lagi nanti.")
+                    }
+                    else -> {
+                        toast(requireContext(), "Terjadi masalah.\nCoba lagi nanti.")
+                    }
                 }
             }
         })

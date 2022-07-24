@@ -422,4 +422,40 @@ class BuyerRepository @Inject constructor(private val api: BuyerApi) {
             }
         })
     }
+
+    fun checkIsProductHasOrdered(accessToken: String, productId: Int, orderId: MutableLiveData<Int>) {
+        api.getOrderList(accessToken).enqueue(object : retrofit2.Callback<List<GetBuyerOrderResponseItem>>{
+            override fun onResponse(
+                call: Call<List<GetBuyerOrderResponseItem>>,
+                response: Response<List<GetBuyerOrderResponseItem>>
+            ) {
+                if (response.isSuccessful) {
+                    if (response.body()!!.isNotEmpty()) {
+                        val raw = response.body()
+                        var productIdOnly = 0
+                        raw!!.forEach { order ->
+                            if (order.productId == productId) {
+                                productIdOnly = order.id
+                            }
+                        }
+                        if (productIdOnly != 0) {
+                            orderId.postValue(productIdOnly)
+                        } else {
+                            orderId.postValue(null)
+                        }
+
+                    } else {
+                        orderId.postValue(null)
+                    }
+                } else {
+                    orderId.postValue(null)
+                }
+            }
+
+            override fun onFailure(call: Call<List<GetBuyerOrderResponseItem>>, t: Throwable) {
+                orderId.postValue(null)
+            }
+
+        })
+    }
 }

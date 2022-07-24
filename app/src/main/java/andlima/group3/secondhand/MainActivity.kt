@@ -92,6 +92,10 @@ class MainActivity : AppCompatActivity() {
         } else {
             bottomNavigationView.visibility = View.VISIBLE
         }
+
+        if ("InfoAkunFragment" in showedFragment) {
+            bottomNavigationView.visibility = View.GONE
+        }
     }
 
     private fun transparentStatusBar() {

@@ -52,6 +52,8 @@
                 android:layout_marginBottom="10dp"
                 android:nestedScrollingEnabled="false" />
 
+            <include layout="@layout/dialog_empty_list"/>
+
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

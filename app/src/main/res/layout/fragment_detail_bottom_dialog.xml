@@ -129,7 +129,7 @@
                 android:id="@+id/et_detail_popup_bid"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:hint="Rp 0,00"
+                android:hint="Contoh: 123000"
                 android:inputType="number"
                 android:importantForAutofill="no"
                 style="@style/InputField"

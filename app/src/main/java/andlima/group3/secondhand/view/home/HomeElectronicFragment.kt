@@ -4,6 +4,7 @@ import andlima.group3.secondhand.MarketApplication
 import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.*
 import andlima.group3.secondhand.local.datastore.UserManager
+import andlima.group3.secondhand.model.home.newhome.ProductItemResponse
 import andlima.group3.secondhand.view.adapter.ProductPreviewAdapter
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
 import android.annotation.SuppressLint
@@ -22,7 +23,9 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.DelicateCoroutinesApi
 
+@DelicateCoroutinesApi
 @AndroidEntryPoint
 class HomeElectronicFragment : Fragment() {
 
@@ -127,11 +130,11 @@ class HomeElectronicFragment : Fragment() {
         viewModel.phoneProducts.observe(this, {
             if (it != null) {
                 if (it.isNotEmpty()) {
-//                    val a : MutableList<ProductItemResponse> = mutableListOf()
-//                    for (i in 0..7) {
-//                        a.add(it[i])
-//                    }
-                    adapter.setProductData(it)
+                    val a : MutableList<ProductItemResponse> = mutableListOf()
+                    for (i in 0..7) {
+                        a.add(it[i])
+                    }
+                    adapter.setProductData(a)
                     adapter.notifyDataSetChanged()
                 }
 //                else {
@@ -161,11 +164,11 @@ class HomeElectronicFragment : Fragment() {
         viewModel.computerProducts.observe(this, {
             if (it != null) {
                 if (it.isNotEmpty()) {
-//                    val a : MutableList<ProductItemResponse> = mutableListOf()
-//                    for (i in 0..7) {
-//                        a.add(it[i])
-//                    }
-                    adapter.setProductData(it)
+                    val a : MutableList<ProductItemResponse> = mutableListOf()
+                    for (i in 0..7) {
+                        a.add(it[i])
+                    }
+                    adapter.setProductData(a)
                     adapter.notifyDataSetChanged()
                 }
 //                else {
@@ -195,11 +198,11 @@ class HomeElectronicFragment : Fragment() {
         viewModel.electronicProducts.observe(this, {
             if (it != null) {
                 if (it.isNotEmpty()) {
-//                    val a : MutableList<ProductItemResponse> = mutableListOf()
-//                    for (i in 0..7) {
-//                        a.add(it[i])
-//                    }
-                    adapter.setProductData(it)
+                    val a : MutableList<ProductItemResponse> = mutableListOf()
+                    for (i in 0..7) {
+                        a.add(it[i])
+                    }
+                    adapter.setProductData(a)
                     adapter.notifyDataSetChanged()
                 }
 //                else {

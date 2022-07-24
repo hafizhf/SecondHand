@@ -190,11 +190,11 @@ class InfoAkunFragment : Fragment() {
         viewModel.profileLiveData.observe(requireActivity()){
             when (it) {
                 "200" -> {
-                    toast(requireContext(), "Update Profille success")
+                    toast(requireContext(), "Berhasil ubah profile")
                 }
-                "400" -> toast(requireContext(), "Email already used")
-                "500" -> alertDialog(requireContext(), "Internal server error", "Try again later") {}
-                else -> alertDialog(requireContext(), "Update failed", "No connection") {}
+                "400" -> toast(requireContext(), "Email telah digunakan")
+                "500" -> alertDialog(requireContext(), "Masalah pada server", "Mohon coba lagi nanti") {}
+                else -> alertDialog(requireContext(), "Update gagal", "Tidak ada koneksi internet") {}
             }
         }
         if (cek == 1){
