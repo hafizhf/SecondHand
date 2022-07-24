@@ -21,7 +21,7 @@ data class NotificationResponseItem(
     @SerializedName("order_id")
     val orderId: Int,
     @SerializedName("Product")
-    val product: Product,
+    val product: Product?,
     @SerializedName("product_id")
     val productId: Int,
     @SerializedName("product_name")

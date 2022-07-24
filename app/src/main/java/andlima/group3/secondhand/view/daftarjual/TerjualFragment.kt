@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.fragment_produk.*
 import kotlinx.android.synthetic.main.fragment_terjual.*
 
 class TerjualFragment : Fragment() {
@@ -33,6 +34,10 @@ class TerjualFragment : Fragment() {
         userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
             getAllSold(it)
             Log.d("AKSES TOKEN", it)
+            terjualSwipe.setOnRefreshListener {
+                getAllSold(it)
+                terjualSwipe.isRefreshing = false
+            }
         }
     }
     @SuppressLint("NotifyDataSetChanged")
@@ -51,8 +56,10 @@ class TerjualFragment : Fragment() {
                     soldAdapter.notifyDataSetChanged()
                     rv_terjual_daftarjual.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
                     rv_terjual_daftarjual.adapter = soldAdapter
+                    gambarTerjual.visibility = View.GONE
+
                 }else{
-                    showEmptyListSign(requireView(),true, "", "Belum Ada Yang Terjual")
+                    gambarTerjual.visibility = View.VISIBLE
 
                 }
 

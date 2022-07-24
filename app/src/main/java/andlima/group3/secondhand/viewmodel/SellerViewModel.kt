@@ -28,6 +28,7 @@ class SellerViewModel@Inject constructor(private val repository : SellerReposito
     var sellerEditProductLive : MutableLiveData<EditResponse> = MutableLiveData()
     var sellerDeleteProductLive : MutableLiveData<DeleteResponse> = MutableLiveData()
     var sellerOrdersLiveData : MutableLiveData<List<SellerOrdersItem>> = MutableLiveData()
+    var clearLiveData : MutableLiveData<String> = MutableLiveData()
     var sellerBuyerOrdersLiveData : MutableLiveData<List<SellerOrdersItem>> = MutableLiveData()
     private var patchOrderLiveData : MutableLiveData<PatchOrderResponse> = MutableLiveData()
     private var patchProductLiveData : MutableLiveData<PatchResponse> = MutableLiveData()
@@ -67,7 +68,7 @@ class SellerViewModel@Inject constructor(private val repository : SellerReposito
             val lokasi = location.toRequestBody("multipart/form-data".toMediaTypeOrNull())
 
 
-            repository.postProduct(token,sellerPostProductLive,nama, deskripsi, harga, kategori, lokasi, image)
+            repository.postProduct(clearLiveData,token,sellerPostProductLive,nama, deskripsi, harga, kategori, lokasi, image)
         }
     }
     fun editProductLive(token: String, id: Int,name : String, description : String, basePrice : Int, categoryIDs : List<Int>, location : String, image : MultipartBody.Part?){

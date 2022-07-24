@@ -14,7 +14,10 @@ import andlima.group3.secondhand.model.home.newhome.ProductDetailItemResponse
 import andlima.group3.secondhand.model.produk.ProdukPreview
 import andlima.group3.secondhand.view.bottomsheet.DetailBottomDialogFragment
 import andlima.group3.secondhand.viewmodel.BuyerViewModel
+import andlima.group3.secondhand.viewmodel.SellerViewModel
 import android.annotation.SuppressLint
+import android.net.Uri
+import android.os.Handler
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
@@ -29,12 +32,21 @@ import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_detail.*
+import kotlinx.android.synthetic.main.fragment_jual.*
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import retrofit2.http.Multipart
+import java.io.File
 
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
 
     lateinit var userManager: UserManager
     private var token = ""
+    lateinit var body2: MultipartBody.Part
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,6 +88,63 @@ class DetailFragment : Fragment() {
         })
     }
 
+    private fun setDataImagee(it : Uri){
+        val contentResolver = requireActivity().contentResolver
+
+        // image/png or jpeg or gif
+
+        val type = contentResolver.getType(it)
+
+        // temp-712793019827391820739.tmp < nano time, directory
+
+        // akan terbuat secara otomatis kalau value nya null,> akan di simpan dalam dir cache
+
+        val tempFile = File.createTempFile("temp-", ".jpg", null)
+
+        val inputstream = contentResolver.openInputStream(it)
+
+
+
+
+        tempFile.outputStream().use {
+
+            inputstream?.copyTo(it)
+
+        }
+
+
+
+
+        val requestBody: RequestBody = tempFile.asRequestBody(type?.toMediaType())
+
+         body2 =
+
+            MultipartBody.Part.createFormData("image", tempFile.name, requestBody)
+
+    }
+    private fun postProduct(token: String, name : String, description : String, basePrice : Int, categoryIDs : List<Int>, location : String, body2: MultipartBody.Part){
+        val viewModel = ViewModelProvider(requireActivity())[SellerViewModel::class.java]
+        showPageLoading(requireView(),true)
+
+        viewModel.sellerPostProductLive.observe(viewLifecycleOwner){
+            if (it != null){
+                toast(requireContext(), "Berhasil menambah produk")
+                btn_goto_terbit_product.visibility = View.GONE
+                layout_button.visibility = View.VISIBLE
+                Handler().postDelayed({
+                    getData(it.id)
+
+                },1200)
+            }else{
+                toast(requireContext(), "Gagal menambah produk")
+            }
+            showPageLoading(requireView(), false)
+        }
+        viewModel.postProductLive(token, name, description, basePrice, categoryIDs, location, body2)
+
+
+    }
+
     @SuppressLint("SetTextI18n")
     private fun setDataPreview(produkPreview: ProdukPreview){
         // Get view id -----------------------------------------------------------------------------
@@ -105,9 +174,18 @@ class DetailFragment : Fragment() {
 
         productSellerName.text = produkPreview.sellerName
         productSellerAddress.text = produkPreview.location
-        btn_saya_tertarik_ingin_nego.text = "Preview"
-        btn_saya_tertarik_ingin_nego.isEnabled = false
-        btn_add_to_wishlist.isEnabled = false
+        layout_button.visibility = View.GONE
+        btn_goto_terbit_product.visibility = View.VISIBLE
+
+        btn_goto_terbit_product.setOnClickListener {
+            val listKategori : MutableList<Int> = mutableListOf()
+            produkPreview.categories.forEach {
+                listKategori.add(it.id)
+            }
+            setDataImagee(produkPreview.imageUrl!!)
+            postProduct(token, produkPreview.name,produkPreview.description, produkPreview.basePrice.toInt(), listKategori, produkPreview.location, body2)
+        }
+
 
     }
 
@@ -160,6 +238,15 @@ class DetailFragment : Fragment() {
                     val dataP = bundleOf("DATAPRODUK" to data)
                     view?.findNavController()?.navigate(R.id.action_detailFragment_to_jualFragment, dataP)
                 }
+                btn_goto_hapus_product.setOnClickListener {
+                    alertDialog(
+                        requireContext(),
+                        "Hapus Produk",
+                        "Anda yakin ingin menghapus produk?"
+                    ) {
+                        deleteProduct(token, id)
+                    }
+                }
                 showProductData(data)
 
                 if (isUserLoggedIn(userManager)) {
@@ -205,6 +292,7 @@ class DetailFragment : Fragment() {
                     btnImInterested.visibility = View.GONE
                     btnWishlist.visibility = View.GONE
                     btnEditProduct.visibility = View.VISIBLE
+                    btn_goto_hapus_product.visibility = View.VISIBLE
 
 
 
@@ -215,6 +303,19 @@ class DetailFragment : Fragment() {
                 }
             })
         })
+    }
+
+    private fun deleteProduct(token: String, id: Int) {
+        val viewModel2 = ViewModelProvider(requireActivity())[SellerViewModel::class.java]
+        viewModel2.sellerDeleteProductLive.observe(viewLifecycleOwner){
+            if (it != null){
+                toast(requireContext(), "Produk telah dihapus")
+                Log.d("PESANDARIDELETE", it.toString())
+                view?.findNavController()?.navigate(R.id.action_detailFragment_to_homeFragment)
+            }
+        }
+        viewModel2.deleteProductLive(token, id)
+
     }
 
     private fun showBottomSheetDialogFragment(data: ProductDataForBid) {

@@ -24,6 +24,7 @@ import andlima.group3.secondhand.R
 import andlima.group3.secondhand.func.showEmptyListSign
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.model.daftarjual.diminati.SellerOrdersItem
+import andlima.group3.secondhand.view.adapter.EmptyAdapter
 import andlima.group3.secondhand.view.adapter.PenawaranAdapter
 import andlima.group3.secondhand.viewmodel.SellerViewModel
 import android.annotation.SuppressLint
@@ -50,7 +51,13 @@ class DiminatiFragment : Fragment() {
         userManager.accessTokenFlow.asLiveData().observe(viewLifecycleOwner){
             getAllOrders(it)
             Log.d("AKSES TOKEN", it)
+            diminatiSwipe.setOnRefreshListener {
+                getAllOrders(it)
+                diminatiSwipe.isRefreshing = false
+            }
         }
+
+
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -77,7 +84,14 @@ class DiminatiFragment : Fragment() {
 
                     }
                     if (listFiltered.isEmpty()){
-                        showEmptyListSign(requireView(),true, "", "Belum Ada Orderan")
+                        val emptyAdapter = EmptyAdapter()
+                        emptyAdapter.setDataProduk(listOf("asdasd"))
+                        rv_order_daftarjual.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                        rv_order_daftarjual.adapter = emptyAdapter
+                        gambarDiminati.visibility = View.VISIBLE
+
+                    }else{
+                        gambarDiminati.visibility = View.GONE
 
                     }
 
@@ -86,7 +100,8 @@ class DiminatiFragment : Fragment() {
                     rv_order_daftarjual.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
                     rv_order_daftarjual.adapter = orderAdapter
                 }else{
-                    showEmptyListSign(requireView(),true, "", "Belum Ada Orderan")
+                    gambarDiminati.visibility = View.VISIBLE
+
 
 
 

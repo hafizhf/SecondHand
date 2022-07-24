@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_empty_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Belum ada barang"
+            android:textAlignment="center"
+            android:layout_marginBottom="20dp"
+            android:textSize="20sp"
+            style="@style/Heading1"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_empty"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_empty_message"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="Isi dengan produk yang kamu suka!"
+            android:textAlignment="center"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            style="@style/Heading3"
+            tools:ignore="HardcodedText" />
+
+    </LinearLayout>
+
+
+
+</androidx.cardview.widget.CardView>

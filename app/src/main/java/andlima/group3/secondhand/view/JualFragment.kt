@@ -49,6 +49,11 @@ import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
 
+import android.widget.ImageButton
+
+
+
+
 
 class JualFragment : Fragment() {
     private var cek = 0
@@ -328,8 +333,10 @@ class JualFragment : Fragment() {
                         }
                         idEdit = dataProduk.id
                         btnTerbitkan.text = "Edit"
-                        btnPreview.text = "Hapus"
+                        btnPreview.visibility = View.GONE
                         linearStatusProdukJual.visibility = View.VISIBLE
+
+
 
 
 
@@ -342,6 +349,13 @@ class JualFragment : Fragment() {
                     gambar()
                     btnterbitkan()
                     btnpreview()
+                    val viewModel = ViewModelProvider(requireActivity())[SellerViewModel::class.java]
+                    viewModel.clearLiveData.observe(viewLifecycleOwner){
+                        if (it == "yes"){
+                            clearData()
+                            viewModel.clearLiveData.value = "no"
+                        }
+                    }
 
 
 
@@ -369,9 +383,22 @@ class JualFragment : Fragment() {
             }
         })
     }
+    fun clearData(){
+        editHargaProduk.setText("")
+        editDeskripsiProduk.setText("")
+        editNamaProduk.setText("")
+        listDataID.clear()
+        pilihanID.clear()
+        gabungan.clear()
+        imageFotoProduk.setBackgroundResource(andlima.group3.secondhand.R.drawable.component_border_dotted)
+        (imageFotoProduk as ImageButton).setImageResource(andlima.group3.secondhand.R.drawable.ic_fi_plus)
+        rv_kategori.visibility = View.GONE
+        txtpilihkategori.setText("Pilih Kategori")
+    }
 
     private fun postProduct(token: String, name : String, description : String, basePrice : Int, categoryIDs : List<Int>, location : String){
         val viewModel = ViewModelProvider(requireActivity())[SellerViewModel::class.java]
+        showPageLoading(requireView(),true)
 
         viewModel.sellerPostProductLive.observe(viewLifecycleOwner){
             if (it != null){
@@ -379,6 +406,8 @@ class JualFragment : Fragment() {
             }else{
                 toast(requireContext(), "Gagal menambah produk")
             }
+            showPageLoading(requireView(), false)
+
         }
         viewModel.postProductLive(token, name, description, basePrice, categoryIDs, location, body2)
 

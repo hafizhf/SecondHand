@@ -42,7 +42,7 @@ class SellerRepository @Inject constructor(private val apiService: ApiService) {
         })
     }
 
-    fun postProduct(token: String, liveData : MutableLiveData<PostProductResponse>,name : RequestBody, description : RequestBody, basePrice : RequestBody, categoryIDs : RequestBody, location : RequestBody, image : MultipartBody.Part){
+    fun postProduct(clear : MutableLiveData<String>,token: String, liveData : MutableLiveData<PostProductResponse>,name : RequestBody, description : RequestBody, basePrice : RequestBody, categoryIDs : RequestBody, location : RequestBody, image : MultipartBody.Part){
         val call : Call<PostProductResponse> = apiService.postProduct(token,image,name,description,basePrice,categoryIDs,location)
         call.enqueue(object  : Callback<PostProductResponse>{
             override fun onResponse(
@@ -51,6 +51,7 @@ class SellerRepository @Inject constructor(private val apiService: ApiService) {
             ) {
                 if (response.code() == 201){
                     liveData.postValue(response.body())
+                    clear.postValue("yes")
                     Log.d("PESAN", response.message())
 
                 }else{
