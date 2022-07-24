@@ -15,21 +15,20 @@
 
 package andlima.group3.secondhand.view.daftarjual
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import andlima.group3.secondhand.R
-import andlima.group3.secondhand.func.showEmptyListSign
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.model.daftarjual.diminati.SellerOrdersItem
 import andlima.group3.secondhand.view.adapter.EmptyAdapter
 import andlima.group3.secondhand.view.adapter.PenawaranAdapter
 import andlima.group3.secondhand.viewmodel.SellerViewModel
 import android.annotation.SuppressLint
+import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.navigation.findNavController

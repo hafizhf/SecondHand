@@ -1,7 +1,8 @@
 @file:Suppress("NestedLambdaShadowedImplicitParameter", "NestedLambdaShadowedImplicitParameter",
     "NestedLambdaShadowedImplicitParameter", "NestedLambdaShadowedImplicitParameter",
     "NestedLambdaShadowedImplicitParameter", "NestedLambdaShadowedImplicitParameter",
-    "NestedLambdaShadowedImplicitParameter"
+    "NestedLambdaShadowedImplicitParameter", "RemoveRedundantQualifierName",
+    "RemoveRedundantQualifierName"
 )
 
 package andlima.group3.secondhand.view
@@ -383,7 +384,8 @@ class JualFragment : Fragment() {
             }
         })
     }
-    fun clearData(){
+    @SuppressLint("SetTextI18n")
+    private fun clearData(){
         editHargaProduk.setText("")
         editDeskripsiProduk.setText("")
         editNamaProduk.setText("")

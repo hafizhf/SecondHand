@@ -1,7 +1,6 @@
 package andlima.group3.secondhand.view.daftarjual
 
 import andlima.group3.secondhand.R
-import andlima.group3.secondhand.func.showEmptyListSign
 import andlima.group3.secondhand.local.datastore.UserManager
 import andlima.group3.secondhand.view.adapter.TerjualAdapter
 import andlima.group3.secondhand.viewmodel.SellerViewModel
@@ -17,7 +16,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.fragment_produk.*
 import kotlinx.android.synthetic.main.fragment_terjual.*
 
 class TerjualFragment : Fragment() {

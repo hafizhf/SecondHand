@@ -276,7 +276,8 @@
         android:drawableTint="@color/white"
         android:drawableEnd="@drawable/ic_baseline_delete_forever_24"
         android:visibility="gone"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText"
+        tools:targetApi="m" />
 
     <Button
         android:id="@+id/btn_goto_terbit_product"
