@@ -164,12 +164,12 @@ class AkunFragment : Fragment() {
                     }
 
                     btn_logout.setOnClickListener {
-                        alertDialog(requireContext(), "Logout", "Are you sure want to log out?") {
+                        alertDialog(requireContext(), "Logout", "Anda yakin ingin keluar?") {
                             GlobalScope.launch {
                                 userManager.clearDataPreferences()
                                 userManager.disableBiometricAuth()
                             }
-                            toast(requireContext(), "You are logged out")
+                            toast(requireContext(), "Anda telah logout")
                             requireActivity().startActivity(Intent(requireContext(), MainActivity::class.java))
                             requireActivity().finish()
                         }

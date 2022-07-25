@@ -88,7 +88,7 @@ class LoginFragment : Fragment() {
                     startActivity(Intent(requireContext(), MainActivity::class.java))
                     requireActivity().finish()
                 }
-                401 -> toast(requireContext(), message)
+                401 -> toast(requireContext(), "Email atau Password Salah")
                 500 -> alertDialog(requireContext(), "Masalah pada server", message) {}
                 else -> alertDialog(requireContext(), "Login gagal", "Tidak ada koneksi") {}
             }
