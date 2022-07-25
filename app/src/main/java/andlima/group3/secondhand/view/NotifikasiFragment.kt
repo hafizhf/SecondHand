@@ -79,11 +79,12 @@ class NotifikasiFragment : Fragment() {
             showPageLoading(requireView(), false)
             if (it.isNotEmpty()){
                 val notifAdapter = NotifikasiAdapter{
-                    if (it.product != null){
+
                         if (it.read.equals(false)){
                             viewModel.notifUserReadLive(token, it.id)
                             getNotifs(token)
                         }
+                    if (it.product != null){
                         if (it.status == "create"){
                             val selectedID = bundleOf("SELECTED_ID" to it.productId)
                             view?.findNavController()
@@ -102,6 +103,8 @@ class NotifikasiFragment : Fragment() {
 
                         }
                     }
+
+
 
                 }
                 notifAdapter.setDataNotif(it)
